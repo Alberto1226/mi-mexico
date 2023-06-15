@@ -120,7 +120,10 @@ export function Login({ setRefreshCheckLogin }) {
                   />
                 </div>
                 <label>
-                  ¿Olvidaste la contraseña? <a class="a">Haz click aquí</a>
+                  ¿Olvidaste la contraseña? 
+                  <Link to="/recuperarPass">
+                  <a class="a">Haz click aquí</a>
+                  </Link>
                 </label>
                 <input class="submit" value="Entrar" type="submit" />
                 <label>
