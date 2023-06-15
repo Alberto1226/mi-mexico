@@ -1,7 +1,6 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import "../../css/login.css";
+
 export function Login() {
   return (
     <>
@@ -20,9 +19,14 @@ export function Login() {
               <br />
               <input placeholder="Contraseña" type="password" />
               <label>
-                ¿Olvidaste la contraseña? <a class="a">Haz click aquí</a>
+                ¿Olvidaste la contraseña? 
+                <Link to="/recuperarPass">
+                <a class="a">Haz click aquí</a>
+                </Link>
               </label>
+              <Link to="/dashboard">
               <input class="submit" value="Entrar" type="submit" />
+              </Link>
               <label>
                 Al pulsar ''Entrar'' usted confirma que es mayor de 18 años y
                 que acepta los

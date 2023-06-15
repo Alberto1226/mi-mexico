@@ -12,7 +12,7 @@ const file = path.join(__dirname, "favicon.ico");
 
 const notFound = require("./src/middleware/notFound");
 const handleErrors = require("./src/middleware/handleErrors");
-const { verifyToken } = require("./src/middleware/verifyToken");
+//const { verifyToken } = require("./src/middleware/verifyToken");
 
 // Configuración del servidor
 const app = express();
@@ -71,10 +71,10 @@ app.use(cors());
 
 // Routes
 app.use(require("./src/routes/login.routes"));
-app.use("/usuarios/", verifyToken, require("./src/routes/usuarios.routes"));
+app.use("/usuarios/",  require("./src/routes/usuarios.routes"));
 app.use("/listasReproduccion/", require("./src/routes/listasReproduccion.routes"));
-app.use("/peliculas/", verifyToken, require("./src/routes/peliculas.routes"));
-app.use("/series/", verifyToken, require("./src/routes/series.routes"));
+app.use("/peliculas/",  require("./src/routes/peliculas.routes"));
+app.use("/series/",  require("./src/routes/series.routes"));
 
 app.use(notFound);
 app.use(Sentry.Handlers.errorHandler());
