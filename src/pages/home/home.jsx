@@ -4,7 +4,8 @@ import { SwiperHeader } from "../../componentes/swiperHeader/swiper";
 import { SwiperPeliculas } from "../../componentes/swiperPeliculas/swiperPeliculas";
 import { FooterApp } from "../../componentes/footer/footer";
 //assets
-import imgSwiper from '../../assets/img/203513.jpg'
+
+import imgSwiper from '../../assets/img/1.png'
 //css
 import '../../css/header.css'
 import '../../css/cards.css'
@@ -16,6 +17,7 @@ export function Home() {
         <NavPrincipal />
         <SwiperHeader img={imgSwiper}/>
         <SwiperPeliculas />
+     
         <FooterApp img={imgSwiper}/>
 
       </div>

@@ -228,4 +228,7 @@
   .a{
       color: #fa00d9;
   }
-  
+  .lblRecPass{
+    text-align: center;
+    padding-bottom: 10px;
+  }

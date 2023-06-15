@@ -7,6 +7,7 @@ import { CardPatrocinadores } from "../cardsPatrocinadores/cardPatrocinador";
 import "swiper/swiper.min.css";
 import "swiper/css";
 import "swiper/css/pagination";
+import imgPatro from '../../assets/img/PMnegro.png';
 
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
@@ -55,28 +56,28 @@ export function SwiperPatrocinadores() {
             className="mySwiperPatrocinadores"
           >
             <SwiperSlide className="swiper-slide1">
-              <CardPatrocinadores />
+              <CardPatrocinadores imgpa={imgPatro}/>
             </SwiperSlide>
             <SwiperSlide className="swiper-slide1">
-              <CardPatrocinadores />
+              <CardPatrocinadores imgpa={imgPatro}/>
             </SwiperSlide>
             <SwiperSlide className="swiper-slide1">
-              <CardPatrocinadores />
+              <CardPatrocinadores imgpa={imgPatro}/>
             </SwiperSlide>
             <SwiperSlide className="swiper-slide1">
-              <CardPatrocinadores />
+              <CardPatrocinadores imgpa={imgPatro}/>
             </SwiperSlide>
             <SwiperSlide className="swiper-slide1">
-              <CardPatrocinadores />
+              <CardPatrocinadores imgpa={imgPatro}/>
             </SwiperSlide>
             <SwiperSlide className="swiper-slide1">
-              <CardPatrocinadores />
+              <CardPatrocinadores imgpa={imgPatro}/>
             </SwiperSlide>
             <SwiperSlide className="swiper-slide1">
-              <CardPatrocinadores />
+              <CardPatrocinadores imgpa={imgPatro}/>
             </SwiperSlide>
             <SwiperSlide className="swiper-slide1">
-              <CardPatrocinadores />
+              <CardPatrocinadores imgpa={imgPatro}/>
             </SwiperSlide>
           </Swiper>
         </div>

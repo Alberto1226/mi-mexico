@@ -21,6 +21,7 @@ export function CardsUser(props) {
       
         <div class="card">
           <div class="card__image">
+            <img src={props.img1} alt="" />
             <h3>In the Mouth of Madness</h3>
             <div class="card__heading-sub">
               <span class="age">18+</span>
@@ -31,7 +32,7 @@ export function CardsUser(props) {
             <div class="panel__row panel__buttons">
               <div class="panel__icons">
                 <a
-                  href="https://www.youtube.com/watch_popup?v=HWV5EsOVlpo&autoplay=1"
+                  href="https://www.youtube.com/watch?v=bIGt-ueYHik"
                   target="_blank"
                 >
                   <i class="">
@@ -69,15 +70,7 @@ export function CardsUser(props) {
           <div class="card__modal-content">
             <div class="video-background">
               <div class="video-foreground">
-                <video
-                  id="video"
-                  width="320"
-                  height="240"
-                  controls
-                  loop
-                  muted
-                  autoplay
-                ></video>
+              <iframe id="video" width="500" height="240" src="https://www.youtube.com/embed/bIGt-ueYHik" frameborder="0" allowfullscreen></iframe>
               </div>
             </div>
             <div class="video-description">
