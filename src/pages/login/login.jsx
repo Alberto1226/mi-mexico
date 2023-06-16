@@ -82,7 +82,6 @@ export function Login({ setRefreshCheckLogin }) {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
-
   return (
     <>
       <div class="content">
