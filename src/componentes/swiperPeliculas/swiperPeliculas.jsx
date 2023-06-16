@@ -91,7 +91,7 @@ export function SwiperPeliculas(props) {
     <>
       <section className="main-container">
         <div className="location" id="home">
-          <h4 id="home">Peliculas</h4>
+          <h4 id="home">{props.titulo}</h4>
 
           <Swiper
             spaceBetween={10}

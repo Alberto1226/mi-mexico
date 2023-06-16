@@ -5,7 +5,7 @@ export function FooterApp(props) {
       <>
         <section class="link">
           <div class="patrocinadores">
-            <SwiperPatrocinadores img={props.img}/>
+            {/*<SwiperPatrocinadores img={props.img}/>*/}
           </div>
         </section>
   

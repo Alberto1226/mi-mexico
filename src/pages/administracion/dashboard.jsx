@@ -2,12 +2,16 @@ import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import "../../css/dashboard.css";
 import Dropdown from "react-bootstrap/Dropdown";
+import Button from "react-bootstrap/Button";
+import { Nav, NavDropdown } from "react-bootstrap";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { TablaUsuarios } from "../../componentes/usuarios/tablaUsuarios";
 import { Documentales } from "../../componentes/contenidos/documentales";
 import { Series } from "../../componentes/contenidos/series";
 import { Peliculas } from "../../componentes/contenidos/peliculas";
 
 export function Dashboard() {
+  const [activeMenu, setActiveMenu] = useState("home");
   const [showComponent, setShowComponent] = useState(false);
   const [showComponent1, setShowComponent1] = useState(false);
   const [showComponent2, setShowComponent2] = useState(false);
@@ -38,6 +42,11 @@ export function Dashboard() {
     setShowComponent3(true);
   };
 
+  //menu
+
+  const handleMenuSelect = (menu) => {
+    setActiveMenu(menu);
+  };
   return (
     <>
       <div class="contenedor">
@@ -54,77 +63,72 @@ export function Dashboard() {
             />
             <span class="user-nombre">Administrador</span>
           </div>
-
-          <nav class="menu-nav">
-            <ul>
-              <li class="menu-titles">principal</li>
-              <Dropdown className="d-inline mx-2">
-                <Dropdown.Toggle
-                  id="dropdown-button-dark-example1"
-                  variant="secondary"
-                >
-                  Administracion
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                  <Link to="/usuariotb">
-                    <Dropdown.Item onClick={handleClick}>
-                      Usuarios
-                    </Dropdown.Item>
-                  </Link>
-                  <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-                  <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-
-              <li class="menu-titles">Contenidos</li>
-              <Dropdown className="d-inline mx-2">
-                <Dropdown.Toggle
-                  id="dropdown-button-dark-example1"
-                  variant="secondary"
-                >
-                  Contenidos
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                  <Dropdown.Item onClick={handleClick3}>
-                    Peliculas
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={handleClick2}>Series</Dropdown.Item>
-                  <Dropdown.Item onClick={handleClick1}>
-                    Documentales
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </ul>
-          </nav>
+          <hr />
+          <Nav className="flex-column">
+            <Nav.Item className="listNav">
+              <Nav.Link eventKey="home" active={activeMenu === "home"}>
+              <Link to="/">
+                Inicio
+                </Link>
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item className="listNav">
+              <Nav.Link eventKey="news" active={activeMenu === "news"}>
+                <Link to="/usuariotb">
+                  <Dropdown.Item onClick={handleClick}>Usuarios</Dropdown.Item>
+                </Link>
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item className="listNav">
+              <Nav.Link eventKey="news" active={activeMenu === "news"}>
+                <Dropdown.Item onClick={handleClick3}>Peliculas</Dropdown.Item>
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item className="listNav">
+              <Nav.Link eventKey="news" active={activeMenu === "news"}>
+                <Dropdown.Item onClick={handleClick1}>
+                  Documentales
+                </Dropdown.Item>
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item className="listNav">
+              <Nav.Link eventKey="news" active={activeMenu === "news"}>
+                <Dropdown.Item onClick={handleClick2}>
+                  Insertar Nueva Serie
+                </Dropdown.Item>
+              </Nav.Link>
+            </Nav.Item>
+            <NavDropdown
+              title="Series Existentes"
+              id="series-dropdown"
+              active={activeMenu.startsWith("series")}
+              onSelect={handleMenuSelect}
+              className="listNav"
+            >
+              <NavDropdown.Item eventKey="serie1">Hidalgo</NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
         </div>
         <div class="main bg-light">
-          <div class="barra">
-            
-          </div>
+          <div class="barra"></div>
 
           {showComponent && (
             <div>
-              <h2>Componente Cargado</h2>
               <TablaUsuarios />
             </div>
           )}
           {showComponent1 && (
             <div>
-              <h2>Componente Cargado</h2>
               <Documentales />
             </div>
           )}
           {showComponent2 && (
             <div>
-              <h2>Componente Cargado</h2>
               <Series />
             </div>
           )}
           {showComponent3 && (
             <div>
-              <h2>Componente Cargado</h2>
               <Peliculas />
             </div>
           )}
