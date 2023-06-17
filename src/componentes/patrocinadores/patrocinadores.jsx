@@ -3,9 +3,12 @@ import Modal from "react-bootstrap/Modal";
 import { Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import React, { useState, useEffect } from "react";
 import {Load} from '../load/load';
-export function TablaUsuarios() {
+
+export function Patorcinadores() {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -19,14 +22,21 @@ useEffect(() => {
     setLoading(false);
   }, 2000);
 }, []);
+
+    //notification
+    const notify = () => toast("Wow so easy!");
   return (
     <>
       {loading && <Load />}
         <div class="bg-white">
-        <Button variant="primary" onClick={handleShow} className="btnadd">
+          <Button variant="primary" onClick={handleShow} className="btnadd">
           <FontAwesomeIcon icon={faPlus} />
           </Button>
-          <h1 class="text-center">Listado de Usuarios</h1>
+          <div>
+        <button onClick={notify}>Notify!</button>
+        <ToastContainer />
+      </div>
+          <h1 class="text-center">Listado de Patrocinador</h1>
           <table class="table text-nowrap">
             <thead class="thead-dark">
               <tr>
@@ -56,7 +66,7 @@ useEffect(() => {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Insertar usuario</Modal.Title>
+          <Modal.Title>Insertar Patrocinador</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="contact-form">
@@ -65,44 +75,50 @@ useEffect(() => {
               <Form.Control
                 placeholder="Nombre"
                 type="text"
-                name="nombreUser"
+                name="nombrePatrocinador"
+                // defaultValue={formData.nombre}
+              />
+              <br/>
+              <h6>Imagen</h6>
+              <Form.Control
+                placeholder="Imagen"
+                type="file"
+                name="imgPatrocinador"
                 // defaultValue={formData.nombre}
               />
               <br />
               <Form.Control
-                placeholder="Apellido"
-                type="email"
-                name="apUser"
-                //defaultValue={formData.correo}
-              />
-              <br />
-              <Form.Control
-                placeholder="Rol"
+                placeholder="URL sitio web"
                 type="text"
-                name="rolUser"
-                //defaultValue={formData.correo}
+                name="swPatrocinador"
+                // defaultValue={formData.nombre}
               />
               <br />
+
               <Form.Control
-                placeholder="Email"
-                type="email"
-                name="correoUser"
-                //defaultValue={formData.correo}
+                placeholder="URL sitio Facebook"
+                type="text"
+                name="fbPatrocinador"
+                // defaultValue={formData.nombre}
               />
               <br />
+
               <Form.Control
-                placeholder="Contraseña"
-                type="password"
-                name="contraseñaUser"
-                //defaultValue={formData.contraseña}
+                placeholder="URL sitio Instagram"
+                type="text"
+                name="inPatrocinador"
+                // defaultValue={formData.nombre}
               />
               <br />
+
               <Form.Control
-                placeholder="Confirmar contraseña"
-                type="password"
-                name="confirmarContraseña"
-                //defaultValue={formData.confirmarContraseña}
+                placeholder="URL sitio Twitter"
+                type="text"
+                name="twPatrocinador"
+                // defaultValue={formData.nombre}
               />
+     
+             
 
               <label></label>
               <input className="submit" value="Enviar" type="submit" />

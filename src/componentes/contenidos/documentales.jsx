@@ -1,19 +1,30 @@
-import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Form, Col, Row } from "react-bootstrap";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import React, { useState, useEffect } from "react";
+import {Load} from '../load/load';
 export function Documentales() {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  //load
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simula una carga de datos
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }, []);
   return (
     <>
-      
+      {loading && <Load />}
         <div class="bg-white">
-          <Button variant="primary" onClick={handleShow}>
-            Agregar
+        <Button variant="primary" onClick={handleShow} className="btnadd">
+          <FontAwesomeIcon icon={faPlus} />
           </Button>
           <h1 class="text-center">Listado de Documentales</h1>
           <table class="table text-nowrap">

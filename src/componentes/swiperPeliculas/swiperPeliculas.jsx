@@ -8,61 +8,39 @@ import "swiper/css/pagination";
 import "../../css/swiperCards.css";
 import { listarPeliculas } from "../../api/peliculasListar";
 import imgPel from "../../assets/img/2.jpg";
-import imgPel1 from "../../assets/img/3.jpg";
-import imgPel2 from "../../assets/img/4.png";
+
 SwiperCore.use([Navigation, Pagination]);
 
 export function SwiperPeliculas(props) {
   const { location } = props;
   const [listarPel, setListPeliculas] = useState(null);
 
-  
-    const obtenerPeliculas = ()=>{
-      try {
-        listarPeliculas()
-          .then((response) => {
-            const { data } = response;
-            
-            if (!listarPel && data) {
-              setListPeliculas(formatModelPeliculas(data));
-              console.log(data);
-            } else {
-              const datosPel = formatModelPeliculas(data);
-              setListPeliculas(datosPel);
-              console.log(datosPel);
-            }
-          })
-          .catch((e) => {
-            console.log(e);
-          });
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    
-    useEffect(() => {
-      obtenerPeliculas();
-  }, [location]);
-
-  /*useEffect(() => {
+  const obtenerPeliculas = () => {
     try {
-      listarPeliculas().then(response=>{
-        const { data } = response;
-  
-        if (!listarPel && data) {
-          setListPeliculas(formatModelPeliculas(data));
-          console.log(data);
-        } else {
-          const datosLog = formatModelPeliculas(data);
-         
-          setListPeliculas(datosLog);
-          console.log(datosLog);
-        }
-      })
-    }catch(e){
-      console.log(e)
-    } 
-  });*/
+      listarPeliculas()
+        .then((response) => {
+          const { data } = response;
+
+          if (!listarPel && data) {
+            setListPeliculas(formatModelPeliculas(data));
+            console.log(data);
+          } else {
+            const datosPel = formatModelPeliculas(data);
+            setListPeliculas(datosPel);
+            console.log(datosPel);
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    obtenerPeliculas();
+  }, [location]);
 
   const [slides, setSlides] = useState(4); // Número inicial de slides a mostrar
 
@@ -100,21 +78,24 @@ export function SwiperPeliculas(props) {
             pagination={{ clickable: true }}
             className="mySwiper"
           >
-            <SwiperSlide className="swiper-slide">
-              <CardsUser img1={imgPel} />
-            </SwiperSlide>
-            <SwiperSlide className="swiper-slide">
-              <CardsUser img1={imgPel1} />
-            </SwiperSlide>
-            <SwiperSlide className="swiper-slide">
-              <CardsUser img1={imgPel2} />
-            </SwiperSlide>
-            <SwiperSlide className="swiper-slide">
-              <CardsUser img1={imgPel} />
-            </SwiperSlide>
-            <SwiperSlide className="swiper-slide">
-              <CardsUser img1={imgPel2} />
-            </SwiperSlide>
+            {listarPel &&
+              listarPel.map((pelicula) => (
+                <SwiperSlide className="swiper-slide" key={pelicula.id}>
+                  <CardsUser
+                    img1={imgPel}
+                    actores={pelicula.actores}
+                    anio={pelicula.año}
+                    calificacion={pelicula.calificacion}
+                    director={pelicula.director}
+                    disponibilidad={pelicula.disponibilidad}
+                    duracion={pelicula.duracion}
+                    estado={pelicula.estado}
+                    genero={pelicula.genero}
+                    sinopsis={pelicula.sinopsis}
+                    titulo={pelicula.titulo}
+                  />
+                </SwiperSlide>
+              ))}
           </Swiper>
         </div>
       </section>
@@ -123,10 +104,8 @@ export function SwiperPeliculas(props) {
 }
 
 function formatModelPeliculas(data) {
-  
   const dataTemp = [];
   data.forEach((data) => {
-    
     dataTemp.push({
       id: data._id,
       titulo: data.titulo,
@@ -140,8 +119,6 @@ function formatModelPeliculas(data) {
       disponibilidad: data.disponibilidad,
       estado: data.estado,
     });
-    
   });
   return dataTemp;
-  
 }

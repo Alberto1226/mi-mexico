@@ -1,7 +1,10 @@
-import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Form, Col, Row } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import React, { useState, useEffect } from "react";
+import {Load} from '../load/load';
 export function Series() {
   //modal
   const [show, setShow] = useState(false);
@@ -26,14 +29,6 @@ export function Series() {
     setCapitulos(nuevosCapitulos);
   };
 
-  /*const handleCapituloChange = (event, index) => {
-    const nuevosCapitulos = [...capitulos];
-    nuevosCapitulos[index] = event.target.value;
-    setCapitulos(nuevosCapitulos);
-  };
-*/
-  
-
   const handleSubmit = (event) => {
     event.preventDefault();
     // Aquí puedes hacer algo con los datos ingresados, como enviarlos a un servidor
@@ -41,12 +36,22 @@ export function Series() {
     console.log("Capítulos:", capitulos);
   };
 
+  //load
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simula una carga de datos
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }, []);
+
   return (
     <>
-      
+      {loading && <Load />}
         <div class="bg-white">
-          <Button variant="primary" onClick={handleShow}>
-            Agregar
+        <Button variant="primary" onClick={handleShow} className="btnadd">
+          <FontAwesomeIcon icon={faPlus} />
           </Button>
           <h1 class="text-center">Listado de Series</h1>
           <table class="table text-nowrap">

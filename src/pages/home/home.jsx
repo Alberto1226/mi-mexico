@@ -4,6 +4,7 @@ import { SwiperHeader } from "../../componentes/swiperHeader/swiper";
 import { SwiperPeliculas } from "../../componentes/swiperPeliculas/swiperPeliculas";
 import { FooterApp } from "../../componentes/footer/footer";
 import {SwiperPatrocinadores} from "../../componentes/swiperPatrocinadores/swPatrocinadores"
+import {Load} from "../../componentes/load/load";
 //assets
 
 import imgSwiper from '../../assets/img/1.png'
@@ -11,9 +12,24 @@ import imgSwiper from '../../assets/img/1.png'
 import '../../css/header.css'
 import '../../css/cards.css'
 import '../../css/cardPatconiadores.css'
+//squeleton
+import React, { useState, useEffect } from "react";
+
+
 export function Home() {
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simula una carga de datos
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }, []);
+
   return (
     <>
+    {loading && <Load />}
       <div>
         <NavPrincipal />
         <SwiperHeader img={imgSwiper}/>
@@ -42,6 +58,7 @@ export function Home() {
         <FooterApp />
 
       </div>
+      
     </>
   );
 }

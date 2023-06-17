@@ -1,10 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCirclePlay,
-  faCircleInfo,
-  faPlus,
-  faThumbsDown,
-  faThumbsUp,
+  faCircleInfo
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
@@ -22,10 +19,10 @@ export function CardsUser(props) {
         <div class="card">
           <div class="card__image">
             <img src={props.img1} alt="" />
-            <h3>In the Mouth of Madness</h3>
+            <h3>{props.titulo}</h3>
             <div class="card__heading-sub">
               <span class="age">18+</span>
-              <span class="actor">Sam Neill</span>
+              <span class="actor">{props.director}</span>
             </div>
           </div>
           <div class="panel">
@@ -55,11 +52,11 @@ export function CardsUser(props) {
             </div>
             <div class="panel__row info">
               <span class="rating">99% Match</span>
-              <span class="year">1995</span>
-              <b>1h 35m</b>
+              <span class="year">{props.anio}</span>
+              <b>{props.duracion}</b>
             </div>
             <div class="panel__row genres">
-              Horror&nbsp • &nbspMystery&nbsp • &nbspThriller
+            {props.genero}
             </div>
           </div>
         </div>
@@ -75,29 +72,25 @@ export function CardsUser(props) {
             </div>
             <div class="video-description">
               <div class="video-description__header">
-                <h3>In the Mouth of Madness</h3>
+                <h3>{props.titulo}</h3>
               </div>
             </div>
             <div class="card__modal-container">
               <div class="video-description__headline-sub">
                 <span class="rating">99% Match</span>
-                <span class="year">1995</span>
+                <span class="year">{props.anio}</span>
                 <span class="age">18+</span>
-                <b>1h 35m</b>
+                <b>{props.duracion}</b>
                 <span class="quality">HD</span>
               </div>
               <p>
-                With the disappearance of hack horror writer Sutter Cane, all
-                Hell is breaking loose...literally! Author Cane, it seems, has a
-                knack for description that really brings his evil
-                creepy-crawlies to life.
+              {props.sinopsis}
               </p>
               <span class="actor">
                 {" "}
-                Sam Neill, Jürgen Prochnow, Julie Carmen, David Warner, John
-                Glover, Frances Bay
+                {props.actores}
               </span>
-              <span class="director"> John Carpenter</span>
+              <span class="director"> {props.director}</span>
             </div>
           </div>
         </Modal.Body>
