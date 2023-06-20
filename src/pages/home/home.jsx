@@ -14,6 +14,9 @@ import '../../css/cards.css'
 import '../../css/cardPatconiadores.css'
 //squeleton
 import React, { useState, useEffect } from "react";
+//toast
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export function Home() {
@@ -31,6 +34,7 @@ export function Home() {
     <>
     {loading && <Load />}
       <div>
+        <ToastContainer/>
         <NavPrincipal />
         <SwiperHeader img={imgSwiper}/>
         <SwiperPeliculas titulo={"Recomendaciones"}/>

@@ -10,6 +10,8 @@ import { Categorias } from "../../componentes/categoriasVideos/categproas";
 import { Patorcinadores } from "../../componentes/patrocinadores/patrocinadores";
 import React, { useState, useEffect } from "react";
 import {Load} from '../../componentes/load/load';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export function Dashboard() {
   const [activeMenu, setActiveMenu] = useState("home");
@@ -92,6 +94,7 @@ export function Dashboard() {
   }, []);
   return (
     <>
+    <ToastContainer />
     {loading && <Load />}
       <div class="contenedor">
         <div class="sidebar ancho">

@@ -4,7 +4,8 @@ import { Form, Col, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from "react";
-import {Load} from '../load/load';
+import { Load } from "../load/load";
+import { TblDocumentales } from "../tables/tablaDocumentales";
 export function Documentales() {
   const [show, setShow] = useState(false);
 
@@ -17,38 +18,19 @@ export function Documentales() {
     // Simula una carga de datos
     setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 500);
   }, []);
   return (
     <>
       {loading && <Load />}
-        <div class="bg-white">
+      <div class="bg-white">
         <Button variant="primary" onClick={handleShow} className="btnadd">
           <FontAwesomeIcon icon={faPlus} />
-          </Button>
-          <h1 class="text-center">Listado de Documentales</h1>
-          <table class="table text-nowrap">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-                <th scope="col">Comentario</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto Hernandez</td>
-                <td>@mdo</td>
-                <td>Esto es un comentario</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      
+        </Button>
+        <h1 class="text-center">Listado de Documentales</h1>
+        <TblDocumentales />
+      </div>
+
       <Modal
         size="lg"
         aria-labelledby="example-modal-sizes-title-lg"

@@ -5,21 +5,66 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from "react";
 import { Load } from "../load/load";
+import { useNavigate } from "react-router-dom";
+import { registraCategoria, listarCategorias } from "../../api/categorias";
+import { TblCategorias } from "../tables/tableCategorias";
 
-export function Categorias() {
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+export function Categorias(props) {
+  const [formData, setFormData] = useState(initialFormValue());
+
+  //modal
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   //load
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     // Simula una carga de datos
     setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 500);
   }, []);
+
+  //definimos enrutamiento
+
+  //insert
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    if (!formData.nombreCategoria || !formData.descripcionCategoria) {
+      toast.warning("Completa el formulario");
+    } else {
+      try {
+        setLoading(true);
+        // Sube a cloudinary la imagen principal del producto
+
+        const dataTemp = {
+          nombre: formData.nombreCategoria,
+          descripcion: formData.descripcionCategoria,
+          estado: "true",
+        };
+        registraCategoria(dataTemp).then((response) => {
+          const { data } = response;
+          //notificacion
+
+          toast.success(data.mensaje);
+
+          //window.location.reload();
+          //cancelarRegistro()
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  };
+
+  const onChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   return (
     <>
       {loading && <Load />}
@@ -28,26 +73,8 @@ export function Categorias() {
           <FontAwesomeIcon icon={faPlus} />
         </Button>
         <h1 class="text-center">Listado de Categorias</h1>
-        <table class="table text-nowrap">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">First</th>
-              <th scope="col">Last</th>
-              <th scope="col">Handle</th>
-              <th scope="col">Comentario</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto Hernandez</td>
-              <td>@mdo</td>
-              <td>Esto es un comentario</td>
-            </tr>
-          </tbody>
-        </table>
+        <hr />
+        <TblCategorias />
       </div>
 
       <Modal
@@ -61,20 +88,20 @@ export function Categorias() {
         </Modal.Header>
         <Modal.Body>
           <div className="contact-form">
-            <Form>
+            <Form onSubmit={onSubmit} onChange={onChange}>
               <br />
               <Form.Control
                 placeholder="Nombre"
                 type="text"
                 name="nombreCategoria"
-                // defaultValue={formData.nombre}
+                defaultValue={formData.nombreCategoria}
               />
               <br />
               <Form.Control
                 placeholder="Descripción"
                 as="textarea"
                 name="descripcionCategoria"
-                //defaultValue={formData.correo}
+                defaultValue={formData.descripcionCategoria}
               />
 
               <label></label>
@@ -85,4 +112,11 @@ export function Categorias() {
       </Modal>
     </>
   );
+}
+
+function initialFormValue() {
+  return {
+    nombreCategoria: "",
+    descripcionCategoria: "",
+  };
 }

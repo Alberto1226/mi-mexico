@@ -1,11 +1,11 @@
-
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Form, Col, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from "react";
-import {Load} from '../load/load';
+import { Load } from "../load/load";
+import { TblPeliculas } from "../tables/tablePeliculas";
 
 export function Peliculas() {
   const [show, setShow] = useState(false);
@@ -20,38 +20,19 @@ export function Peliculas() {
     // Simula una carga de datos
     setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 500);
   }, []);
   return (
     <>
       {loading && <Load />}
-        <div class="bg-white">
+      <div class="bg-white">
         <Button variant="primary" onClick={handleShow} className="btnadd">
           <FontAwesomeIcon icon={faPlus} />
-          </Button>
-          <h1 class="text-center">Listado de Peliculas</h1>
-          <table class="table text-nowrap">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-                <th scope="col">Comentario</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto Hernandez</td>
-                <td>@mdo</td>
-                <td>Esto es un comentario</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      
+        </Button>
+        <h1 class="text-center">Listado de Peliculas</h1>
+        <TblPeliculas />
+      </div>
+
       <Modal
         size="lg"
         aria-labelledby="example-modal-sizes-title-lg"
@@ -59,12 +40,11 @@ export function Peliculas() {
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
-        
       >
         <Modal.Header className="modalback" closeButton>
           <Modal.Title>Insertar Pelicula</Modal.Title>
         </Modal.Header>
-        <Modal.Body >
+        <Modal.Body>
           <div className="contact-form">
             <Form>
               <Row>

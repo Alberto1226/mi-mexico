@@ -3,9 +3,22 @@ import {
     ENDPOINTRegistrarUsuario,
     ENDPOINTObtenerUsuarios,
     ENDPOINTObtenerUsuariosPorCorreo,
-    ENDPOINTActualizarContraseña
+    ENDPOINTActualizarContraseña,
+    ENDPOINTListarUsuario
 } from "./endpoints";
 import axios from 'axios';
+
+
+export async function listarUsuarios(){
+    const config = {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+           
+        }
+    };
+    return await axios.get(API_HOST + ENDPOINTListarUsuario, config);
+}
 
 export async function registraUsuarios(data) {
     //console.log(data)

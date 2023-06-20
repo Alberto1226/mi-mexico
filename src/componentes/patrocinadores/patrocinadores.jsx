@@ -3,62 +3,44 @@ import Modal from "react-bootstrap/Modal";
 import { Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import React, { useState, useEffect } from "react";
-import {Load} from '../load/load';
+import { Load } from "../load/load";
+import { TblPatrocinadores } from "../tables/tablaPatrocinadores";
 
 export function Patorcinadores() {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-//load
-const [loading, setLoading] = useState(true);
+  //load
+  const [loading, setLoading] = useState(true);
 
-useEffect(() => {
-  // Simula una carga de datos
-  setTimeout(() => {
-    setLoading(false);
-  }, 2000);
-}, []);
+  useEffect(() => {
+    // Simula una carga de datos
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  }, []);
 
-    //notification
-    const notify = () => toast("Wow so easy!");
+  //notification
+  const notify = () => toast("Wow so easy!");
   return (
     <>
       {loading && <Load />}
-        <div class="bg-white">
-          <Button variant="primary" onClick={handleShow} className="btnadd">
+      <div class="bg-white">
+        <Button variant="primary" onClick={handleShow} className="btnadd">
           <FontAwesomeIcon icon={faPlus} />
-          </Button>
-          <div>
-        <button onClick={notify}>Notify!</button>
-        <ToastContainer />
-      </div>
-          <h1 class="text-center">Listado de Patrocinador</h1>
-          <table class="table text-nowrap">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-                <th scope="col">Comentario</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto Hernandez</td>
-                <td>@mdo</td>
-                <td>Esto es un comentario</td>
-              </tr>
-            </tbody>
-          </table>
+        </Button>
+        <div>
+          <button onClick={notify}>Notify!</button>
+          <ToastContainer />
         </div>
-      
+        <h1 class="text-center">Listado de Patrocinador</h1>
+        <TblPatrocinadores />
+      </div>
+
       <Modal
         show={show}
         onHide={handleClose}
@@ -78,7 +60,7 @@ useEffect(() => {
                 name="nombrePatrocinador"
                 // defaultValue={formData.nombre}
               />
-              <br/>
+              <br />
               <h6>Imagen</h6>
               <Form.Control
                 placeholder="Imagen"
@@ -117,8 +99,6 @@ useEffect(() => {
                 name="twPatrocinador"
                 // defaultValue={formData.nombre}
               />
-     
-             
 
               <label></label>
               <input className="submit" value="Enviar" type="submit" />
