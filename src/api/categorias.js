@@ -20,7 +20,6 @@ export async function registraCategoria(data) {
     return await axios.post(API_HOST + ENDPOINTRegistrarCategoria, data, config);
 }
 
-
 export async function listarCategorias(){
     const config = {
         headers: {

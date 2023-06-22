@@ -8,8 +8,10 @@ import "react-toastify/dist/ReactToastify.css";
 import React, { useState, useEffect } from "react";
 import { Load } from "../load/load";
 import { TblPatrocinadores } from "../tables/tablaPatrocinadores";
+import { registraPatrocinadores } from "../../api/patrocinadores";
 
 export function Patorcinadores() {
+  const [formData, setFormData] = useState(initialFormValue());
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -26,6 +28,46 @@ export function Patorcinadores() {
 
   //notification
   const notify = () => toast("Wow so easy!");
+
+  //insert
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    if (!formData.nombrePatrocinador || !formData.imgPatrocinador || !formData.swPatrocinador || !formData.fbPatrocinador || !formData.inPatrocinador || !formData.twPatrocinador) {
+      toast.warning("Completa el formulario");
+    } else {
+      try {
+        setLoading(true);
+        // Sube a cloudinary la imagen principal del producto
+
+        const dataTemp = {
+          nombre: formData.nombrePatrocinador,
+          urlImagen: formData.imgPatrocinador,
+          urlWeb: formData.swPatrocinador,
+          urlFacebook: formData.fbPatrocinador,
+          urlInstagram: formData.inPatrocinador,
+          urlTwitter: formData.twPatrocinador,
+          estado: "true",
+        };
+        registraPatrocinadores(dataTemp).then((response) => {
+          const { data } = response;
+          //notificacion
+
+          toast.success(data.mensaje);
+
+          window.location.reload();
+          //cancelarRegistro()
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  };
+
+  const onChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   return (
     <>
       {loading && <Load />}
@@ -52,13 +94,13 @@ export function Patorcinadores() {
         </Modal.Header>
         <Modal.Body>
           <div className="contact-form">
-            <Form>
+            <Form onSubmit={onSubmit} onChange={onChange}>
               <br />
               <Form.Control
                 placeholder="Nombre"
                 type="text"
                 name="nombrePatrocinador"
-                // defaultValue={formData.nombre}
+                defaultValue={formData.nombrePatrocinador}
               />
               <br />
               <h6>Imagen</h6>
@@ -66,14 +108,14 @@ export function Patorcinadores() {
                 placeholder="Imagen"
                 type="file"
                 name="imgPatrocinador"
-                // defaultValue={formData.nombre}
+                defaultValue={formData.imgPatrocinador}
               />
               <br />
               <Form.Control
                 placeholder="URL sitio web"
                 type="text"
                 name="swPatrocinador"
-                // defaultValue={formData.nombre}
+                defaultValue={formData.swPatrocinador}
               />
               <br />
 
@@ -81,7 +123,7 @@ export function Patorcinadores() {
                 placeholder="URL sitio Facebook"
                 type="text"
                 name="fbPatrocinador"
-                // defaultValue={formData.nombre}
+                defaultValue={formData.fbPatrocinador}
               />
               <br />
 
@@ -89,7 +131,7 @@ export function Patorcinadores() {
                 placeholder="URL sitio Instagram"
                 type="text"
                 name="inPatrocinador"
-                // defaultValue={formData.nombre}
+                defaultValue={formData.inPatrocinador}
               />
               <br />
 
@@ -97,7 +139,7 @@ export function Patorcinadores() {
                 placeholder="URL sitio Twitter"
                 type="text"
                 name="twPatrocinador"
-                // defaultValue={formData.nombre}
+                defaultValue={formData.twPatrocinador}
               />
 
               <label></label>
@@ -108,4 +150,15 @@ export function Patorcinadores() {
       </Modal>
     </>
   );
+}
+
+function initialFormValue() {
+  return {
+    nombrePatrocinador: "",
+    imgPatrocinador: "",
+    swPatrocinador: "",
+    fbPatrocinador: "",
+    inPatrocinador: "",
+    twPatrocinador: "",
+  };
 }

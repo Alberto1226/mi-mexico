@@ -22,3 +22,6 @@ export const ENDPOINTListarSeries = "/series/listar";
 
 // Patrocinadores
 export const ENDPOINTListarPatrocinadores = "/patrocinadores/listar";
+export const ENDPOINTRegistrarPatrocinadores = "/patrocinadores/registro";
+export const ENDPOINTModificarPatrocinadores = "/patrocinadores/actualizar";
+export const ENDPOINTEliminarPatrocinadores = "/patrocinadores/eliminar";

@@ -1,4 +1,6 @@
-import {ENDPOINTListarPeliculas} from './endpoints';
+import {
+    ENDPOINTListarPeliculas,
+} from './endpoints';
 import axios from 'axios';
 import {API_HOST} from '../utils/constants';
 //import {getTokenApi} from ".auth"

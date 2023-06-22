@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
-
 import { listarPatrocinadores } from "../../api/patrocinadores";
-
+import Modal from "react-bootstrap/Modal";
+import ModificarPatorcinadores from "../patrocinadores/modificarPatrocinadores";
+import EliminarPatorcinadores from "../patrocinadores/eliminarPatrocinadores";
 //listar categorias
 //listar categorias
 
 export function TblPatrocinadores(props) {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const { location } = props;
   const [listarPatro, setListPatro] = useState([]);
 
@@ -99,12 +102,35 @@ export function TblPatrocinadores(props) {
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <>
-              <button className="btnup">
-                <FontAwesomeIcon icon={faPen} />
-              </button>
-              <button className="btndel">
-                <FontAwesomeIcon icon={faTrash} />
-              </button>
+              <div>
+                <button className="btnup">
+                  <FontAwesomeIcon icon={faPen} onClick={handleShow} />
+                </button>
+
+                <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Modificar Patrocinador</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <ModificarPatorcinadores data={tableMeta.rowData} />
+                  </Modal.Body>
+                </Modal>
+              </div>
+
+              <div>
+                <button className="btndel">
+                  <FontAwesomeIcon icon={faTrash} onClick={handleShow} />
+                </button>
+
+                <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Eliminar Patrocinador</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <EliminarPatorcinadores data={tableMeta.rowData} />
+                  </Modal.Body>
+                </Modal>
+              </div>
             </>
           );
         },

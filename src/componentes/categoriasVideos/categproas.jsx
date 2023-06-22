@@ -52,7 +52,7 @@ export function Categorias(props) {
 
           toast.success(data.mensaje);
 
-          //window.location.reload();
+          window.location.reload();
           //cancelarRegistro()
         });
       } catch (e) {
