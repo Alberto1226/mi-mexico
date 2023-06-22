@@ -12,9 +12,20 @@ import EliminarPatorcinadores from "../patrocinadores/eliminarPatrocinadores";
 export function TblPatrocinadores(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = (rowData) => {
+    setShow(true);
+    setSelectedRowData(rowData);
+  };
+
+  const [show2, setShow2] = useState(false);
+  const handleClose2 = () => setShow2(false);
+  const handleShow2 = (rowData) => {
+    setShow2(true);
+    setSelectedRowData(rowData);
+  };
   const { location } = props;
   const [listarPatro, setListPatro] = useState([]);
+  const [selectedRowData, setSelectedRowData] = useState(null);
 
   const obtenerPatrocinadores = () => {
     try {
@@ -102,35 +113,29 @@ export function TblPatrocinadores(props) {
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <>
-              <div>
-                <button className="btnup">
-                  <FontAwesomeIcon icon={faPen} onClick={handleShow} />
-                </button>
-
+              <button className="btnup">
+                <FontAwesomeIcon icon={faPen} onClick={() => handleShow(tableMeta.rowData)} />
                 <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
                   <Modal.Header closeButton>
-                    <Modal.Title>Modificar Patrocinador</Modal.Title>
+                    <Modal.Title>Modificar Pelicula</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <ModificarPatorcinadores data={tableMeta.rowData} />
+                    <ModificarPatorcinadores data={selectedRowData} />
                   </Modal.Body>
                 </Modal>
-              </div>
+              </button>
 
-              <div>
-                <button className="btndel">
-                  <FontAwesomeIcon icon={faTrash} onClick={handleShow} />
-                </button>
-
-                <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+              <button className="btndel">
+                <FontAwesomeIcon icon={faTrash} onClick={() => handleShow2(tableMeta.rowData)} />
+                <Modal show={show2} onHide={handleClose2} backdrop="static" keyboard={false}>
                   <Modal.Header closeButton>
-                    <Modal.Title>Eliminar Patrocinador</Modal.Title>
+                    <Modal.Title>Eliminar Pelicula</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <EliminarPatorcinadores data={tableMeta.rowData} />
+                    <EliminarPatorcinadores data={selectedRowData} />
                   </Modal.Body>
                 </Modal>
-              </div>
+              </button>
             </>
           );
         },

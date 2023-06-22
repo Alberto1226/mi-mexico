@@ -10,6 +10,9 @@ export const ENDPOINTActualizarContraseña = "/usuarios/actualizarContrasena";
 
 // Peliculas
 export const ENDPOINTListarPeliculas = "/peliculas/listar";
+export const ENDPOINTRegistrarPeliculas = "/peliculas/registro";
+export const ENDPOINTModificarPeliculas = "/peliculas/actualizar";
+export const ENDPOINTEliminarPeliculas = "/peliculas/eliminar";
 
 
 // Categorias
@@ -25,3 +28,5 @@ export const ENDPOINTListarPatrocinadores = "/patrocinadores/listar";
 export const ENDPOINTRegistrarPatrocinadores = "/patrocinadores/registro";
 export const ENDPOINTModificarPatrocinadores = "/patrocinadores/actualizar";
 export const ENDPOINTEliminarPatrocinadores = "/patrocinadores/eliminar";
+
+

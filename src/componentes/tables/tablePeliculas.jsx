@@ -1,17 +1,30 @@
 import React, { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
-
 import { listarPeliculas } from "../../api/peliculasListar";
-
-//listar categorias
-//listar categorias
+import ModificarPeliculas from "../contenidos/ModificarPeliculas";
+import EliminarPeliculas from "../contenidos/EliminarPeliculas";
+import Modal from "react-bootstrap/Modal";
 
 export function TblPeliculas(props) {
   const { location } = props;
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = (rowData) => {
+    setShow(true);
+    setSelectedRowData(rowData);
+  };
+
+  const [show2, setShow2] = useState(false);
+  const handleClose2 = () => setShow2(false);
+  const handleShow2 = (rowData) => {
+    setShow2(true);
+    setSelectedRowData(rowData);
+  };
+
   const [listarPel, setListPeliculas] = useState([]);
+  const [selectedRowData, setSelectedRowData] = useState(null);
 
   const obtenerPeliculas = () => {
     try {
@@ -39,9 +52,7 @@ export function TblPeliculas(props) {
   useEffect(() => {
     obtenerPeliculas();
   }, [location]);
-  // recargar
 
-  // Configurando animacion de carga
   const [pending, setPending] = useState(true);
   const [rows, setRows] = useState([]);
 
@@ -73,6 +84,10 @@ export function TblPeliculas(props) {
     {
       name: "actores",
       label: "ACTORES",
+    },
+    {
+      name: "director",
+      label: "DIRECTOR",
     },
     {
       name: "duracion",
@@ -125,10 +140,27 @@ export function TblPeliculas(props) {
           return (
             <>
               <button className="btnup">
-                <FontAwesomeIcon icon={faPen} />
+                <FontAwesomeIcon icon={faPen} onClick={() => handleShow(tableMeta.rowData)} />
+                <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Modificar Pelicula</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <ModificarPeliculas data={selectedRowData} />
+                  </Modal.Body>
+                </Modal>
               </button>
+
               <button className="btndel">
-                <FontAwesomeIcon icon={faTrash} />
+                <FontAwesomeIcon icon={faTrash} onClick={() => handleShow2(tableMeta.rowData)} />
+                <Modal show={show2} onHide={handleClose2} backdrop="static" keyboard={false}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Eliminar Pelicula</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <EliminarPeliculas data={selectedRowData} />
+                  </Modal.Body>
+                </Modal>
               </button>
             </>
           );
@@ -138,19 +170,12 @@ export function TblPeliculas(props) {
   ];
 
   const options = {
-    //scroll: true, // Activar el desplazamiento
-    //scrollX: 600,
-    //scrollY: 500,
     filterType: "checkbox",
   };
+
   return (
     <>
-      <MUIDataTable
-        title={"Lista Peliculas"}
-        data={listarPel}
-        columns={columns}
-        options={options}
-      />
+      <MUIDataTable title={"Lista Peliculas"} data={listarPel} columns={columns} options={options} />
     </>
   );
 }

@@ -77,15 +77,6 @@ console.log(dataTemp)
                 disabled
               />
               <br />
-              <h6>Imagen</h6>
-              <Form.Control
-                placeholder="Imagen"
-                type="file"
-                name="imgPatrocinador"
-                defaultValue={formData.imgPatrocinador}
-                disabled
-              />
-              <br />
               <Form.Control
                 placeholder="URL sitio web"
                 type="text"
