@@ -9,9 +9,12 @@ import React, { useState, useEffect } from "react";
 import { Load } from "../load/load";
 import { TblPatrocinadores } from "../tables/tablaPatrocinadores";
 import { actualizarPatrocinadores } from "../../api/patrocinadores";
+import { subeArchivosCloudinary } from "../../api/cloudinary";
+import Dropzone from "../Dropzone/Dropzone";
+import "./patrocinadores.css";
 
 export default function ModificarPatorcinadores({data}) {
-
+  
   const dataTemp = {
     nombre: data[1],
     urlWeb: data[3],
@@ -19,13 +22,12 @@ export default function ModificarPatorcinadores({data}) {
     urlInstagram: data[5],
     urlTwitter: data[6],
   };
-console.log(dataTemp)
 
   const [formData, setFormData] = useState(initialFormValue(dataTemp));
 
-  console.log(formData)
+  //Para almacenar la imagen del producto que se guardara a la bd
+  const [imagenProducto, setImagenProducto] = useState(data[2]);
 
-  console.log(data)
   //load
   const [loading, setLoading] = useState(true);
 
@@ -82,20 +84,21 @@ console.log(dataTemp)
     <>
           <div className="contact-form">
             <Form onSubmit={onSubmit} onChange={onChange}>
+            <div className="imagenPrincipal">
+                <h4 className="textoImagenPrincipal">Sube tu imagen</h4>
+                <div title="Seleccionar imagen de la categoría" className="imagenProducto">
+                  <Dropzone
+                    setImagenFile={setImagenProducto}
+                    imagenProductoBD={data[2]}
+                  />
+                </div>
+              </div>
               <br />
               <Form.Control
                 placeholder="Nombre"
                 type="text"
                 name="nombrePatrocinador"
                 defaultValue={formData.nombrePatrocinador}
-              />
-              <br />
-              <h6>Imagen</h6>
-              <Form.Control
-                placeholder="Imagen"
-                type="file"
-                name="imgPatrocinador"
-                defaultValue={formData.imgPatrocinador}
               />
               <br />
               <Form.Control
