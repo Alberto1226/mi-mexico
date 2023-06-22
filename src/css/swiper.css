@@ -64,6 +64,11 @@ body {
   z-index: 1;
   width: 100%;
   height: 600px;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+  opacity: 1; /* Inicialmente oculta el video */
+  transition: opacity 0.5s ease; /* Agrega una transición de opacidad suave */
 }
 
 .areaswiper {
@@ -74,13 +79,16 @@ body {
   height: 100px;
   z-index: 1;
   transform: translate3d(0, 0, 0);
+  color: #fff;
 }
 
 .swiper-slide-header {
-  height: 200px;
+  height: 165px;
   width: 100px;
   transform: translate3d(0, 0, 0);
   will-change: transform;
+  opacity: 0.8;
+ 
 }
 
 /* Efecto de parallax */
@@ -109,7 +117,6 @@ body {
   background-color: rgba(0, 0, 0, 0.3);
   z-index: -1;
 }
-
 
 
 

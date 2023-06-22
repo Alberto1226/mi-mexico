@@ -1,4 +1,4 @@
-import imgPatrocinador from "../../assets/img/203513.jpg";
+
 
 export function CardPatrocinadores(props) {
   return (
@@ -6,6 +6,7 @@ export function CardPatrocinadores(props) {
       <div class="liders">
           <div class="capos">
             <img class="imgPatrocinador" src={props.imgpa} alt="" />
+            
           </div>
       </div>
     </>

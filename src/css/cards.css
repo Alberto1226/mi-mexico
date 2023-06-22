@@ -271,10 +271,11 @@ b {
 .video-background {
   width: 100%;
   height: 100%;
+ 
 }
 
 .video-foreground,
-.video-background video {
+.video-background iframe {
   position: relative;
   left: 0;
   top: 0;
@@ -283,6 +284,7 @@ b {
   width: 100%;
   height: 100%;
   margin-bottom: -4px;
+ 
 }
 
 .gradient {
@@ -380,4 +382,17 @@ b {
 
 .modalBackgound {
   background-color: #0f2027;
+  
+}
+
+#video{
+  width:100%;
+  left: 0;
+  right: 0;
+  margin: 0;
+  height: 400px;
+}
+
+.footerCard{
+  margin-top: 10px;
 }

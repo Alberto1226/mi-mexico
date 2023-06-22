@@ -6,6 +6,7 @@ import {
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import {SwiperFooterCards} from "../swiperFooterCards/sfc"
 
 
 export function CardsUser(props) {
@@ -62,12 +63,12 @@ export function CardsUser(props) {
         </div>
       
       {/**Modal */}
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} size="lg">
         <Modal.Body class="modalBackgound">
           <div class="card__modal-content">
             <div class="video-background">
               <div class="video-foreground">
-              <iframe id="video" width="500" height="240" src="https://www.youtube.com/embed/bIGt-ueYHik" frameborder="0" allowfullscreen></iframe>
+              <iframe id="video"  src="https://www.youtube.com/embed/bIGt-ueYHik" frameborder="0" allowfullscreen></iframe>
               </div>
             </div>
             <div class="video-description">
@@ -91,6 +92,10 @@ export function CardsUser(props) {
                 {props.actores}
               </span>
               <span class="director"> {props.director}</span>
+              <div className="footerCard">
+                
+                <SwiperFooterCards/>
+              </div>
             </div>
           </div>
         </Modal.Body>

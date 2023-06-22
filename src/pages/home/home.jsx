@@ -37,7 +37,6 @@ export function Home() {
         <ToastContainer/>
         <NavPrincipal />
         <SwiperHeader img={imgSwiper}/>
-        <SwiperPeliculas titulo={"Recomendaciones"}/>
         <section class="link">
           <div class="patrocinadores">
         <SwiperPatrocinadores />
