@@ -66,7 +66,7 @@ export function SwiperPeliculas(props) {
           <h4 id="home">{props.titulo}</h4>
 
           <Swiper
-            spaceBetween={10}
+            spaceBetween={20}
             slidesPerView={slides}
             navigation
             pagination={{ clickable: true }}

@@ -105,7 +105,21 @@
   
   
   
+  #videoheader.show-poster {
+    opacity: 0.5; /* Ajusta el valor de la opacidad según tus necesidades */
+  }
+
+  .video-element {
+    transition: opacity 0.5s;
+  }
   
+  .video-element.show-poster {
+    opacity: 0.5; /* Opacidad inicial del poster */
+  }
+  
+  .video-element:not(.show-poster) {
+    opacity: 0; /* Opacidad del video sin poster */
+  }
   
   /* LINKS */
   .link {

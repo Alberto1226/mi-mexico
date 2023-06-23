@@ -17,6 +17,32 @@ import de5 from "../../assets/img/que.jpeg";
 SwiperCore.use([Pagination, Autoplay]);
 
 export function SwiperHeader(props) {
+  //imagen aleatoria
+  // Array de imágenes aleatorias
+  const [showPoster, setShowPoster] = useState(true);
+  const randomImages = [
+    de1,
+    de2,
+    de3,
+    de4,
+    de5,
+    // Agrega aquí más nombres de imágenes
+  ];
+  const randomIndex = Math.floor(Math.random() * randomImages.length);
+  useEffect(() => {
+    
+
+    
+
+    const videoElement = document.getElementById('videoheader');
+
+    if (videoElement) {
+      videoElement.poster = randomImages[randomIndex];
+      setTimeout(() => {
+        setShowPoster(false);
+      }, 1000);
+    }
+  }, []);
   /**listar peliculas */
   const { location } = props;
   const [listarPel, setListPeliculas] = useState(null);
@@ -70,7 +96,7 @@ export function SwiperHeader(props) {
   return (
     <>
       <div className="headerVideo">
-        <video id="videoheader" src={video} autoPlay loop></video>
+        <video id="videoheader" src={video} className={`video-element ${showPoster ? 'show-poster' : ''}`}  poster={showPoster ? randomImages[randomIndex] : ''} autoPlay loop></video>
         
         <div className="areaswiper">
           
