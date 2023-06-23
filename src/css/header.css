@@ -41,6 +41,11 @@
     padding: 1vw;
     color: #ffffff;
     margin: 8px;
+    
+  }
+
+  .botonesnav{
+    margin-left: 100px;
   }
 
  
@@ -49,13 +54,14 @@
     object-fit: cover;
     width: 100px;
     max-height: 100%;
-    
-    padding-left: 30px;
+    margin-left: 200px;
+    padding-left: 70px;
     padding-top: 0px;  
   }
   
   .mexicoLogo img {  
-    height: 35px;     
+    height: 35px;
+    margin-left: 100px;     
   }
   
   #logo {

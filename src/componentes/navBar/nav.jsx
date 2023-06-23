@@ -56,6 +56,7 @@ export function NavPrincipal() {
               
               <Nav.Link href="#home"></Nav.Link>
             </Nav>
+            <div className="botonesnav">
               <Link>
               <a className="icon" onClick={handleButtonClick}>
               {!isInputOpen && <FontAwesomeIcon icon={faMagnifyingGlass} />}
@@ -74,6 +75,7 @@ export function NavPrincipal() {
                 <FontAwesomeIcon icon={faUser} className="userIcon" />
               </a>
             </Link>
+            </div>
           </Navbar.Collapse>
 
           
