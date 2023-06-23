@@ -7,6 +7,12 @@ import "../../css/swiper.css";
 import video from "../../assets/videos/intro.mp4";
 import { CardsUser } from "../cardsPeliculas/cardsPeliculas";
 import { listarPeliculas } from "../../api/peliculasListar";
+//imagenes
+import de1 from "../../assets/img/ber.jpeg";
+import de2 from "../../assets/img/chi.jpeg";
+import de3 from "../../assets/img/oax.jpeg";
+import de4 from "../../assets/img/teq.jpeg";
+import de5 from "../../assets/img/que.jpeg";
 
 SwiperCore.use([Pagination, Autoplay]);
 
@@ -64,12 +70,10 @@ export function SwiperHeader(props) {
   return (
     <>
       <div className="headerVideo">
-        <video id="videoheader" src={video} autoPlay loop>
-          {" "}
-        </video>
-        <div class="overlay"></div>
+        <video id="videoheader" src={video} autoPlay loop></video>
+        
         <div className="areaswiper">
-          <h4 id="home">Recomendados</h4>
+          
           <Swiper
             spaceBetween={10}
             slidesPerView={slides}
@@ -77,12 +81,24 @@ export function SwiperHeader(props) {
             pagination={{ clickable: true }}
             className="mySwiper"
           >
-            {listarPel &&
-              listarPel.map((pelicula) => (
-                <SwiperSlide className="swiper-slide-header" key={pelicula.id}>
-                  <CardsUser />
-                </SwiperSlide>
-              ))}
+            {/** {listarPel &&
+              listarPel.map((pelicula) => (*/}
+            <SwiperSlide className="swiper-slide-header">
+              <CardsUser img1={de1} />
+            </SwiperSlide>
+            <SwiperSlide className="swiper-slide-header">
+              <CardsUser img1={de2} />
+            </SwiperSlide>
+            <SwiperSlide className="swiper-slide-header">
+              <CardsUser img1={de3} />
+            </SwiperSlide>
+            <SwiperSlide className="swiper-slide-header">
+              <CardsUser img1={de4} />
+            </SwiperSlide>
+            <SwiperSlide className="swiper-slide-header">
+              <CardsUser img1={de5} />
+            </SwiperSlide>
+            {/** ))}*/}
           </Swiper>
         </div>
       </div>

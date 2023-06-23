@@ -42,6 +42,7 @@ export function Home() {
         <SwiperPatrocinadores />
         </div>
         </section>
+        <SwiperPeliculas titulo={"Recomendados"}/>
         <SwiperPeliculas titulo={"Lo mas visto"}/>
         <section class="link">
           <div class="patrocinadores">

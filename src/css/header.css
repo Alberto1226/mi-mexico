@@ -34,12 +34,12 @@
   }
   .icon{
     
-    background-color: #01adc1;
+    background-color: #f9b401;
     border-radius: 2vw;
     height: 2vw;
     width: 2vw;
     padding: 1vw;
-    color: #F3F3F3;
+    color: #ffffff;
     margin: 8px;
   }
 
@@ -97,9 +97,9 @@
   }
   
   .main-container {
-    padding: 50px;
-    background-color: #01adc1;
-    color: white;
+    padding: 10px 20px 10px;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
     
   }
   
@@ -110,8 +110,8 @@
   /* LINKS */
   .link {
     padding: 50px;
-    color: white;
-    background-color: #f9b401;
+    color: rgb(0, 0, 0);
+    background-color: #ffffff;
   }
   
   .sub-links ul {
@@ -355,4 +355,10 @@
 .logomx{
   padding: 1px;
   margin: 10px;
+}
+
+/*footer*/
+.imgfooter{
+  width: 50px;
+  height: 50px;
 }

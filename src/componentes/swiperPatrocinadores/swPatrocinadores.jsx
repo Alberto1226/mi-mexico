@@ -48,7 +48,7 @@ export function SwiperPatrocinadores(props) {
   }, [location]);
   /**fin de consulta */
 
-  const [slides, setSlides] = useState(4); // Número inicial de slides a mostrar
+  const [slides, setSlides] = useState(8); // Número inicial de slides a mostrar
 
   useEffect(() => {
     calculateSlidesPerView();
@@ -60,12 +60,12 @@ export function SwiperPatrocinadores(props) {
 
   const calculateSlidesPerView = () => {
     const screenWidth = window.innerWidth;
-    let slidesToShow = 7; // Número predeterminado de slides a mostrar
+    let slidesToShow = 8; // Número predeterminado de slides a mostrar
 
     if (screenWidth < 768) {
-      slidesToShow = 3; // Si el ancho de la pantalla es menor a 768px, muestra solo 1 slide
+      slidesToShow = 4; // Si el ancho de la pantalla es menor a 768px, muestra solo 1 slide
     } else if (screenWidth < 1024) {
-      slidesToShow = 5; // Si el ancho de la pantalla es menor a 1024px, muestra 2 slides
+      slidesToShow = 6; // Si el ancho de la pantalla es menor a 1024px, muestra 2 slides
     }
 
     setSlides(slidesToShow);
@@ -75,8 +75,6 @@ export function SwiperPatrocinadores(props) {
     <>
       
       <div className="location" id="home">
-        <h4 id="home">Patrocinadores</h4>
-
         <Swiper
           spaceBetween={10}
           slidesPerView={slides}

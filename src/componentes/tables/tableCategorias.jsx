@@ -7,6 +7,7 @@ import Modal from "react-bootstrap/Modal";
 import { listarCategorias } from "../../api/categorias";
 
 import ModificarCategorias from "../categoriasVideos/ModificarCategoria";
+import EliminarCategorias from "../categoriasVideos/eliminarCategoria";
 
 //listar categorias
 //listar categorias
@@ -46,6 +47,14 @@ export function TblCategorias(props) {
     setSelectedRowData(rowData);
   };
   //fin modal show
+  //modal delete
+  const [show2, setShow2] = useState(false);
+  const handleClose2 = () => setShow2(false);
+  const handleShow2 = (rowData) => {
+    setShow2(true);
+    setSelectedRowData(rowData);
+  };
+  //fin modal 
   // Configurando animacion de carga
   const [pending, setPending] = useState(true);
   const [rows, setRows] = useState([]);
@@ -132,7 +141,23 @@ export function TblCategorias(props) {
                 </Modal>
               </button>
               <button className="btndel">
-                <FontAwesomeIcon icon={faTrash} />
+              <FontAwesomeIcon
+                  icon={faTrash}
+                  onClick={() => handleShow2(tableMeta.rowData)}
+                />
+                <Modal
+                  show={show2}
+                  onHide={handleClose2}
+                  backdrop="static"
+                  keyboard={false}
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title>Eliminar Pelicula</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <EliminarCategorias data={selectedRowData} />
+                  </Modal.Body>
+                </Modal>
               </button>
             </>
           );

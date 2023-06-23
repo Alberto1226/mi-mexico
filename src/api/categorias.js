@@ -2,7 +2,8 @@ import { API_HOST } from "../utils/constants";
 import {
     ENDPOINTRegistrarCategoria,
     ENDPOINTObtenerCategorias,
-    ENDPOINTActualizarCategoria
+    ENDPOINTActualizarCategoria,
+    ENDPOINTEliminarCategoria
 } from "./endpoints";
 import axios from 'axios';
 
@@ -42,4 +43,17 @@ export async function actualizarCategoria(id, data) {
     };
 
     return await axios.put(API_HOST + ENDPOINTActualizarCategoria + `/${id}`, data, config);
+}
+
+export async function eliminarCategorias(id, data) {
+
+    const config = {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            //Authorization: `Bearer ${getTokenApi()}`
+        }
+    };
+
+    return await axios.delete(API_HOST + ENDPOINTEliminarCategoria + `/${id}`, data, config);
 }

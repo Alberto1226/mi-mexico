@@ -19,6 +19,7 @@ export const ENDPOINTEliminarPeliculas = "/peliculas/eliminar";
 export const ENDPOINTRegistrarCategoria = "/categorias/registro/";
 export const ENDPOINTObtenerCategorias = "/categorias/listar";
 export const ENDPOINTActualizarCategoria = "/categorias/actualizar";
+export const ENDPOINTEliminarCategoria = "/categorias/eliminar";
 
 // Series 
 export const ENDPOINTListarSeries = "/series/listar";

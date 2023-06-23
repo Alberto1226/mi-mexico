@@ -36,7 +36,7 @@ export function SwiperPeliculas(props) {
     obtenerPeliculas();
   }, [location]);
 
-  const [slides, setSlides] = useState(4); // Número inicial de slides a mostrar
+  const [slides, setSlides] = useState(5); // Número inicial de slides a mostrar
 
   useEffect(() => {
     calculateSlidesPerView();
@@ -48,12 +48,12 @@ export function SwiperPeliculas(props) {
 
   const calculateSlidesPerView = () => {
     const screenWidth = window.innerWidth;
-    let slidesToShow = 4; // Número predeterminado de slides a mostrar
+    let slidesToShow = 5; // Número predeterminado de slides a mostrar
 
     if (screenWidth < 768) {
-      slidesToShow = 1; // Si el ancho de la pantalla es menor a 768px, muestra solo 1 slide
+      slidesToShow = 2; // Si el ancho de la pantalla es menor a 768px, muestra solo 1 slide
     } else if (screenWidth < 1024) {
-      slidesToShow = 2; // Si el ancho de la pantalla es menor a 1024px, muestra 2 slides
+      slidesToShow = 3; // Si el ancho de la pantalla es menor a 1024px, muestra 2 slides
     }
 
     setSlides(slidesToShow);
