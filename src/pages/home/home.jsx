@@ -37,12 +37,13 @@ export function Home() {
         <ToastContainer/>
         <NavPrincipal />
         <SwiperHeader img={imgSwiper}/>
+        
+        <SwiperPeliculas titulo={"Recomendados"}/>
         <section class="link">
           <div class="patrocinadores">
         <SwiperPatrocinadores />
         </div>
         </section>
-        <SwiperPeliculas titulo={"Recomendados"}/>
         <SwiperPeliculas titulo={"Lo mas visto"}/>
         <section class="link">
           <div class="patrocinadores">
@@ -50,7 +51,13 @@ export function Home() {
         </div>
         </section>
         <SwiperPeliculas titulo={"Favoritos"}/>
+        <SwiperHeader img={imgSwiper}/>
+        <hr/>
         <SwiperPeliculas titulo={"Mas"}/>
+        <SwiperPeliculas titulo={""}/>
+        <SwiperPeliculas titulo={""}/>
+        <SwiperPeliculas titulo={""}/>
+        <SwiperPeliculas titulo={""}/>
         <section class="link">
           <div class="patrocinadores">
         <SwiperPatrocinadores />

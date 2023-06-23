@@ -42,7 +42,7 @@ body {
 .swiper-pagination-bullet {
   width: 10px;
   height: 10px;
-  background-color: #ff0eb7;
+  background-color: #ffb30e;
   opacity: 0.5;
   transition: opacity 0.3s ease;
   margin-left: 5px;

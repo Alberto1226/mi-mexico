@@ -33,7 +33,7 @@ export function NavPrincipal() {
       <div>
         <div className="barraRosa"></div>
 
-        <Navbar bg="black" expand="xl" className="navboostrap">
+        <Navbar bg="link" expand="xl" className="navboostrap">
           <Navbar.Brand href="#home" className="mexicoLogo" id="logo">
             <img src={logo} alt="" className="logomx"/>
           </Navbar.Brand>
