@@ -6,12 +6,11 @@ import "swiper/css/pagination";
 import "../../css/swiper.css";
 import video from "../../assets/videos/intro.mp4";
 import { CardsUser } from "../cardsPeliculas/cardsPeliculas";
-import {listarPeliculas} from "../../api/peliculasListar";
+import { listarPeliculas } from "../../api/peliculasListar";
 
 SwiperCore.use([Pagination, Autoplay]);
 
 export function SwiperHeader(props) {
-
   /**listar peliculas */
   const { location } = props;
   const [listarPel, setListPeliculas] = useState(null);
@@ -24,20 +23,16 @@ export function SwiperHeader(props) {
 
           if (!listarPel && data) {
             setListPeliculas(formatModelPeliculas(data));
-            console.log(data);
           } else {
             const datosPel = formatModelPeliculas(data);
-            const filteredPel = datosPel.filter(data => data.recomendado === '1');
+            const filteredPel = datosPel.filter(
+              (data) => data.recomendado === "1"
+            );
             setListPeliculas(filteredPel);
-            console.log(filteredPel);
           }
         })
-        .catch((e) => {
-          console.log(e);
-        });
-    } catch (e) {
-      console.log(e);
-    }
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -84,10 +79,10 @@ export function SwiperHeader(props) {
           >
             {listarPel &&
               listarPel.map((pelicula) => (
-            <SwiperSlide className="swiper-slide-header" key={pelicula.id}>
-              <CardsUser />
-            </SwiperSlide>
-            ))}
+                <SwiperSlide className="swiper-slide-header" key={pelicula.id}>
+                  <CardsUser />
+                </SwiperSlide>
+              ))}
           </Swiper>
         </div>
       </div>
@@ -95,11 +90,10 @@ export function SwiperHeader(props) {
   );
 }
 
-
 function formatModelPeliculas(data) {
   const dataTemp = [];
   data.forEach((data) => {
-    if (data.recomendado === '1') {
+    if (data.recomendado === "1") {
       dataTemp.push({
         id: data._id,
         titulo: data.titulo,

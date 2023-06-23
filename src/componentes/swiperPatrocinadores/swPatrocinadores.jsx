@@ -34,19 +34,13 @@ export function SwiperPatrocinadores(props) {
 
           if (!listarPatro && data) {
             setListPatro(formatModelPatrocinadores(data));
-            console.log(data);
           } else {
             const datosPatro = formatModelPatrocinadores(data);
             setListPatro(datosPatro);
-            console.log(datosPatro);
           }
         })
-        .catch((e) => {
-          console.log(e);
-        });
-    } catch (e) {
-      console.log(e);
-    }
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -79,7 +73,7 @@ export function SwiperPatrocinadores(props) {
 
   return (
     <>
-      <hr />
+      
       <div className="location" id="home">
         <h4 id="home">Patrocinadores</h4>
 
@@ -98,29 +92,29 @@ export function SwiperPatrocinadores(props) {
             listarPatro.map((patrocinadores) => (
               <SwiperSlide className="swiper-slide1" key={patrocinadores.id}>
                 <CardPatrocinadores
-                  imgpa={imgPatro}
+                  imgpa={patrocinadores.urlImagen}
                   className="cardPatrocinadores"
                 />
                 <Container fluid className="footerCardPatro">
                   <Row className="gx-0">
                     <Col>
-                      <a href="https://www.google.com/">
+                      <a href={patrocinadores.urlWeb}>
                         <img src={www} alt="" />
                       </a>
                     </Col>
                     <Col>
-                      <a>
+                      <a href={patrocinadores.urlFacebook}>
                         <img src={facebook} alt="" />
                       </a>
                     </Col>
                     <Col>
-                      <a>
+                      <a href={patrocinadores.urlTwitter}>
                         <img src={twitter} alt="" />
                       </a>
                     </Col>
                     <Col>
                       {" "}
-                      <a>
+                      <a href={patrocinadores.urlInstagram}>
                         <img src={instagram} alt="" />
                       </a>
                     </Col>

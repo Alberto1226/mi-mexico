@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
+import logo from "../../assets/img/MXtvMas.png";
 
 export function NavPrincipal() {
   const [isInputOpen, setIsInputOpen] = useState(false);
@@ -34,17 +35,12 @@ export function NavPrincipal() {
 
         <Navbar bg="black" expand="xl" className="navboostrap">
           <Navbar.Brand href="#home" className="mexicoLogo" id="logo">
-            Mi mexico
+            <img src={logo} alt="" className="logomx"/>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link href="#home"></Nav.Link>
-              <Nav.Link href="#link"> <a className="icon" onClick={handleButtonClick}>
-              {!isInputOpen && <FontAwesomeIcon icon={faMagnifyingGlass} />}
-            </a></Nav.Link>
-            {isInputOpen && (
+          {isInputOpen && (
             <div className="buscar">
               <input
                 type="text"
@@ -55,8 +51,18 @@ export function NavPrincipal() {
               />
             </div>
           )}
+            <Nav className="me-auto">
+              <Nav.Link href="#home"></Nav.Link>
+              
               <Nav.Link href="#home"></Nav.Link>
             </Nav>
+              <Link>
+              <a className="icon" onClick={handleButtonClick}>
+              {!isInputOpen && <FontAwesomeIcon icon={faMagnifyingGlass} />}
+            
+          
+            </a>
+            </Link>
             <Link to={"/"}>
               <a className="icon">
                 <FontAwesomeIcon icon={faHouse} />
@@ -72,6 +78,8 @@ export function NavPrincipal() {
 
           
         </Navbar>
+       
+
        
       </div>
       {/**  <section className="header">

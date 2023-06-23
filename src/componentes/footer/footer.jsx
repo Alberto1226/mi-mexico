@@ -11,7 +11,7 @@ export function FooterApp(props) {
   
         <footer>
          
-          <p>© 2022-2023 Todos los Derechos Reservados por mimexico® mimexicotv®</p>
+          <p>© 2022-2023 Todos los Derechos Reservados por mxtvmas®</p>
         </footer>
       </>
     );

@@ -1,7 +1,7 @@
 :root {
-    --primary: #141414;
+    --primary: #eeecec;
     --light: #F3F3F3;
-    --dark: 	#686868;
+    --dark: 	#b6b4b4;
   }
   
  
@@ -34,7 +34,7 @@
   }
   .icon{
     
-    background-color: #a3036e;
+    background-color: #01adc1;
     border-radius: 2vw;
     height: 2vw;
     width: 2vw;
@@ -98,7 +98,7 @@
   
   .main-container {
     padding: 50px;
-    background-color: black;
+    background-color: #01adc1;
     color: white;
     
   }
@@ -111,7 +111,7 @@
   .link {
     padding: 50px;
     color: white;
-    background-color: black;
+    background-color: #f9b401;
   }
   
   .sub-links ul {
@@ -147,7 +147,7 @@
     text-align: center;
     
     
-    background-color: black;
+    background-color: #6ec819;
     color: white;
   }
   
@@ -275,7 +275,7 @@
 
   .buscar{
     width: 100%;
-    
+    margin-left: 50px;
   }
 
 
@@ -333,7 +333,7 @@
 
   .navboostrap{
     width: 100%;
-    background-color: var(--primary);
+    background-color: #6ec819;
   }
 .me-auto{
   float: left;
@@ -349,4 +349,10 @@
 .nav-link{
   float: left;
   text-align: center;
+}
+
+
+.logomx{
+  padding: 1px;
+  margin: 10px;
 }

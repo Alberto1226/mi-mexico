@@ -23,19 +23,13 @@ export function SwiperPeliculas(props) {
 
           if (!listarPel && data) {
             setListPeliculas(formatModelPeliculas(data));
-            console.log(data);
           } else {
             const datosPel = formatModelPeliculas(data);
             setListPeliculas(datosPel);
-            console.log(datosPel);
           }
         })
-        .catch((e) => {
-          console.log(e);
-        });
-    } catch (e) {
-      console.log(e);
-    }
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {
