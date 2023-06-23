@@ -21,19 +21,13 @@ export function TblUsers(props) {
 
           if (!listarUser && data) {
             setListUser(formatModelUsers(data));
-            console.log(data);
           } else {
             const datosUser = formatModelUsers(data);
             setListUser(datosUser);
-            console.log(datosUser);
           }
         })
-        .catch((e) => {
-          console.log(e);
-        });
-    } catch (e) {
-      console.log(e);
-    }
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {

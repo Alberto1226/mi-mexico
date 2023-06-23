@@ -21,19 +21,13 @@ export function TblCategorias(props) {
 
           if (!listarCat && data) {
             setListCategorias(formatModelCategorias(data));
-            console.log(data);
           } else {
             const datosCat = formatModelCategorias(data);
             setListCategorias(datosCat);
-            console.log(datosCat);
           }
         })
-        .catch((e) => {
-          console.log(e);
-        });
-    } catch (e) {
-      console.log(e);
-    }
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {

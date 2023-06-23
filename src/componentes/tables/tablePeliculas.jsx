@@ -34,19 +34,13 @@ export function TblPeliculas(props) {
 
           if (!listarPel && data) {
             setListPeliculas(formatModelPeliculas(data));
-            console.log(data);
           } else {
             const datosPel = formatModelPeliculas(data);
             setListPeliculas(datosPel);
-            console.log(datosPel);
           }
         })
-        .catch((e) => {
-          console.log(e);
-        });
-    } catch (e) {
-      console.log(e);
-    }
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -140,8 +134,16 @@ export function TblPeliculas(props) {
           return (
             <>
               <button className="btnup">
-                <FontAwesomeIcon icon={faPen} onClick={() => handleShow(tableMeta.rowData)} />
-                <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+                <FontAwesomeIcon
+                  icon={faPen}
+                  onClick={() => handleShow(tableMeta.rowData)}
+                />
+                <Modal
+                  show={show}
+                  onHide={handleClose}
+                  backdrop="static"
+                  keyboard={false}
+                >
                   <Modal.Header closeButton>
                     <Modal.Title>Modificar Pelicula</Modal.Title>
                   </Modal.Header>
@@ -152,8 +154,16 @@ export function TblPeliculas(props) {
               </button>
 
               <button className="btndel">
-                <FontAwesomeIcon icon={faTrash} onClick={() => handleShow2(tableMeta.rowData)} />
-                <Modal show={show2} onHide={handleClose2} backdrop="static" keyboard={false}>
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  onClick={() => handleShow2(tableMeta.rowData)}
+                />
+                <Modal
+                  show={show2}
+                  onHide={handleClose2}
+                  backdrop="static"
+                  keyboard={false}
+                >
                   <Modal.Header closeButton>
                     <Modal.Title>Eliminar Pelicula</Modal.Title>
                   </Modal.Header>
@@ -175,7 +185,12 @@ export function TblPeliculas(props) {
 
   return (
     <>
-      <MUIDataTable title={"Lista Peliculas"} data={listarPel} columns={columns} options={options} />
+      <MUIDataTable
+        title={"Lista Peliculas"}
+        data={listarPel}
+        columns={columns}
+        options={options}
+      />
     </>
   );
 }

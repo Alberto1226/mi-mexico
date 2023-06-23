@@ -35,19 +35,13 @@ export function TblPatrocinadores(props) {
 
           if (!listarPatro && data) {
             setListPatro(formatModelPatrocinadores(data));
-            console.log(data);
           } else {
             const datosPatro = formatModelPatrocinadores(data);
             setListPatro(datosPatro);
-            console.log(datosPatro);
           }
         })
-        .catch((e) => {
-          console.log(e);
-        });
-    } catch (e) {
-      console.log(e);
-    }
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -114,8 +108,16 @@ export function TblPatrocinadores(props) {
           return (
             <>
               <button className="btnup">
-                <FontAwesomeIcon icon={faPen} onClick={() => handleShow(tableMeta.rowData)} />
-                <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+                <FontAwesomeIcon
+                  icon={faPen}
+                  onClick={() => handleShow(tableMeta.rowData)}
+                />
+                <Modal
+                  show={show}
+                  onHide={handleClose}
+                  backdrop="static"
+                  keyboard={false}
+                >
                   <Modal.Header closeButton>
                     <Modal.Title>Modificar Pelicula</Modal.Title>
                   </Modal.Header>
@@ -126,8 +128,16 @@ export function TblPatrocinadores(props) {
               </button>
 
               <button className="btndel">
-                <FontAwesomeIcon icon={faTrash} onClick={() => handleShow2(tableMeta.rowData)} />
-                <Modal show={show2} onHide={handleClose2} backdrop="static" keyboard={false}>
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  onClick={() => handleShow2(tableMeta.rowData)}
+                />
+                <Modal
+                  show={show2}
+                  onHide={handleClose2}
+                  backdrop="static"
+                  keyboard={false}
+                >
                   <Modal.Header closeButton>
                     <Modal.Title>Eliminar Pelicula</Modal.Title>
                   </Modal.Header>
