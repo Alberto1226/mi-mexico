@@ -97,6 +97,28 @@ export function TblPatrocinadores(props) {
     {
       name: "estado",
       label: "STATUS",
+      options: {
+        customBodyRender: (value) => {
+          const estado = value;
+    
+          let estiloTexto = "";
+          let estadoTexto = "";
+    
+          if (estado=="true") {
+            estiloTexto = "activo"; 
+            estadoTexto = "Activo";
+          } else {
+            estiloTexto = "inhabilitado"; 
+            estadoTexto = "Inhabilitado";
+          }
+    
+          return (
+            <div className={estiloTexto}>
+              {estadoTexto}
+            </div>
+          );
+        },
+      },
     },
     {
       name: "Acciones",

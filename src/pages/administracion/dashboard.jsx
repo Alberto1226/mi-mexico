@@ -9,9 +9,9 @@ import { Peliculas } from "../../componentes/contenidos/peliculas";
 import { Categorias } from "../../componentes/categoriasVideos/categproas";
 import { Patorcinadores } from "../../componentes/patrocinadores/patrocinadores";
 import React, { useState, useEffect } from "react";
-import {Load} from '../../componentes/load/load';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { Load } from "../../componentes/load/load";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export function Dashboard() {
   const [activeMenu, setActiveMenu] = useState("home");
@@ -29,7 +29,6 @@ export function Dashboard() {
     setShowComponent3(false);
     setShowComponent4(false);
     setShowComponent5(false);
-
   };
   const handleClick1 = () => {
     setShowComponent(false);
@@ -38,7 +37,6 @@ export function Dashboard() {
     setShowComponent3(false);
     setShowComponent4(false);
     setShowComponent5(false);
-
   };
   const handleClick2 = () => {
     setShowComponent(false);
@@ -47,7 +45,6 @@ export function Dashboard() {
     setShowComponent3(false);
     setShowComponent4(false);
     setShowComponent5(false);
-
   };
   const handleClick3 = () => {
     setShowComponent(false);
@@ -56,7 +53,6 @@ export function Dashboard() {
     setShowComponent3(true);
     setShowComponent4(false);
     setShowComponent5(false);
-
   };
   const handleClick4 = () => {
     setShowComponent(false);
@@ -65,7 +61,6 @@ export function Dashboard() {
     setShowComponent3(false);
     setShowComponent4(true);
     setShowComponent5(false);
-
   };
 
   const handleClick5 = () => {
@@ -75,7 +70,6 @@ export function Dashboard() {
     setShowComponent3(false);
     setShowComponent4(false);
     setShowComponent5(true);
-
   };
 
   //menu
@@ -94,8 +88,8 @@ export function Dashboard() {
   }, []);
   return (
     <>
-    <ToastContainer />
-    {loading && <Load />}
+      <ToastContainer />
+      {loading && <Load />}
       <div class="contenedor">
         <div class="sidebar ancho">
           <div class="logo text-warning">
@@ -114,49 +108,37 @@ export function Dashboard() {
           <Nav className="flex-column">
             <Nav.Item className="listNav">
               <Nav.Link eventKey="home" active={activeMenu === "home"}>
-              <Link to="/">
-                Inicio
-                </Link>
+                <Link to="/">Inicio</Link>
               </Nav.Link>
             </Nav.Item>
-            <Nav.Item className="listNav">
-              <Nav.Link eventKey="news" active={activeMenu === "news"}>
-                <Link to="/usuariotb">
-                  <Dropdown.Item onClick={handleClick}>Usuarios</Dropdown.Item>
-                </Link>
+            <Nav.Item className="listNav" onClick={handleClick}>
+              <Nav.Link eventKey="user" active={activeMenu === "user"}>
+                Usuarios
               </Nav.Link>
             </Nav.Item>
-            <Nav.Item className="listNav">
-              <Nav.Link eventKey="news" active={activeMenu === "news"}>
-                <Dropdown.Item onClick={handleClick4}>
-                  Categorias
-                </Dropdown.Item>
+            <Nav.Item className="listNav" onClick={handleClick4}>
+              <Nav.Link eventKey="cat" active={activeMenu === "cat"}>
+                Categorias
               </Nav.Link>
             </Nav.Item>
-            <Nav.Item className="listNav">
+            <Nav.Item className="listNav" onClick={handleClick5}>
               <Nav.Link eventKey="news" active={activeMenu === "news"}>
-                <Dropdown.Item onClick={handleClick5}>
-                  Patrocinadores
-                </Dropdown.Item>
+                Patrocinadores
               </Nav.Link>
             </Nav.Item>
-            <Nav.Item className="listNav">
+            <Nav.Item className="listNav" onClick={handleClick3}>
               <Nav.Link eventKey="news" active={activeMenu === "news"}>
-                <Dropdown.Item onClick={handleClick3}>Peliculas</Dropdown.Item>
+                Peliculas
               </Nav.Link>
             </Nav.Item>
-            <Nav.Item className="listNav">
+            <Nav.Item className="listNav" onClick={handleClick1}>
               <Nav.Link eventKey="news" active={activeMenu === "news"}>
-                <Dropdown.Item onClick={handleClick1}>
-                  Documentales
-                </Dropdown.Item>
+                Documentales
               </Nav.Link>
             </Nav.Item>
-            <Nav.Item className="listNav">
+            <Nav.Item className="listNav" onClick={handleClick2}>
               <Nav.Link eventKey="news" active={activeMenu === "news"}>
-                <Dropdown.Item onClick={handleClick2}>
-                  Insertar Nueva Serie
-                </Dropdown.Item>
+                Insertar Nueva Serie
               </Nav.Link>
             </Nav.Item>
             <NavDropdown

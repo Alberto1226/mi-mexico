@@ -113,7 +113,7 @@ console.log(dataTemp)
               />
 
               <label></label>
-              <input className="submit" value="Enviar" type="submit" />
+              <input className="submit" value="Eliminar" type="submit" />
             </Form>
           </div>
     </>

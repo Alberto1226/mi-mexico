@@ -3,8 +3,10 @@ import MUIDataTable from "mui-datatables";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
-
+import Modal from "react-bootstrap/Modal";
 import { listarCategorias } from "../../api/categorias";
+
+import ModificarCategorias from "../categoriasVideos/ModificarCategoria";
 
 //listar categorias
 //listar categorias
@@ -12,6 +14,7 @@ import { listarCategorias } from "../../api/categorias";
 export function TblCategorias(props) {
   const { location } = props;
   const [listarCat, setListCategorias] = useState([]);
+  const [selectedRowData, setSelectedRowData] = useState(null);
 
   const obtenerCategorias = () => {
     try {
@@ -35,6 +38,14 @@ export function TblCategorias(props) {
   }, [location]);
   // recargar
 
+  //modal show modificar
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = (rowData) => {
+    setShow(true);
+    setSelectedRowData(rowData);
+  };
+  //fin modal show
   // Configurando animacion de carga
   const [pending, setPending] = useState(true);
   const [rows, setRows] = useState([]);
@@ -67,7 +78,31 @@ export function TblCategorias(props) {
     {
       name: "estado",
       label: "STATUS",
+      options: {
+        customBodyRender: (value) => {
+          const estado = value;
+    
+          let estiloTexto = "";
+          let estadoTexto = "";
+    
+          if (estado=="true") {
+            estiloTexto = "activo"; 
+            estadoTexto = "Activo";
+          } else {
+            estiloTexto = "inhabilitado"; 
+            estadoTexto = "Inhabilitado";
+          }
+    
+          return (
+            <div className={estiloTexto}>
+              {estadoTexto}
+            </div>
+          );
+        },
+      },
     },
+    
+    
     {
       name: "Acciones",
       options: {
@@ -78,7 +113,23 @@ export function TblCategorias(props) {
           return (
             <>
               <button className="btnup">
-                <FontAwesomeIcon icon={faPen} />
+              <FontAwesomeIcon
+                  icon={faPen}
+                  onClick={() => handleShow(tableMeta.rowData)}
+                />
+                <Modal
+                  show={show}
+                  onHide={handleClose}
+                  backdrop="static"
+                  keyboard={false}
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title>Modificar Categoria</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <ModificarCategorias data={selectedRowData} />
+                  </Modal.Body>
+                </Modal>
               </button>
               <button className="btndel">
                 <FontAwesomeIcon icon={faTrash} />
