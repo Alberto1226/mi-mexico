@@ -1,21 +1,37 @@
 import React, { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
-
 import { listarPeliculas } from "../../api/peliculasListar";
+import ModificarDocumentales from "../contenidos/ModificarDocumentales";
+import EliminarDocumentales from "../contenidos/EliminarDocumentales";
+import Modal from "react-bootstrap/Modal";
 
 //listar categorias
 //listar categorias
 
 export function TblDocumentales(props) {
   const { location } = props;
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = (rowData) => {
+    setShow(true);
+    setSelectedRowData(rowData);
+  };
+
+  const [show2, setShow2] = useState(false);
+  const handleClose2 = () => setShow2(false);
+  const handleShow2 = (rowData) => {
+    setShow2(true);
+    setSelectedRowData(rowData);
+  };
+
   const [listarPel, setListPeliculas] = useState([]);
+  const [selectedRowData, setSelectedRowData] = useState(null);
 
   const obtenerPeliculas = () => {
     try {
-      listarPeliculas()
+      listarPeliculas("documentales")
         .then((response) => {
           const { data } = response;
 
@@ -26,8 +42,8 @@ export function TblDocumentales(props) {
             setListPeliculas(datosPel);
           }
         })
-        .catch((e) => {});
-    } catch (e) {}
+        .catch((e) => { });
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -67,6 +83,10 @@ export function TblDocumentales(props) {
     {
       name: "actores",
       label: "ACTORES",
+    },
+    {
+      name: "director",
+      label: "DIRECTOR",
     },
     {
       name: "duracion",
@@ -111,18 +131,18 @@ export function TblDocumentales(props) {
       options: {
         customBodyRender: (value) => {
           const estado = value;
-    
+
           let estiloTexto = "";
           let estadoTexto = "";
-    
-          if (estado=="true") {
-            estiloTexto = "activo"; 
+
+          if (estado == "true") {
+            estiloTexto = "activo";
             estadoTexto = "Activo";
           } else {
-            estiloTexto = "inhabilitado"; 
+            estiloTexto = "inhabilitado";
             estadoTexto = "Inhabilitado";
           }
-    
+
           return (
             <div className={estiloTexto}>
               {estadoTexto}
@@ -141,10 +161,43 @@ export function TblDocumentales(props) {
           return (
             <>
               <button className="btnup">
-                <FontAwesomeIcon icon={faPen} />
+                <FontAwesomeIcon
+                  icon={faPen}
+                  onClick={() => handleShow(tableMeta.rowData)}
+                />
+                <Modal
+                  show={show}
+                  onHide={handleClose}
+                  backdrop="static"
+                  keyboard={false}
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title>Modificar Documental</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <ModificarDocumentales data={selectedRowData} />
+                  </Modal.Body>
+                </Modal>
               </button>
+
               <button className="btndel">
-                <FontAwesomeIcon icon={faTrash} />
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  onClick={() => handleShow2(tableMeta.rowData)}
+                />
+                <Modal
+                  show={show2}
+                  onHide={handleClose2}
+                  backdrop="static"
+                  keyboard={false}
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title>Eliminar Documental</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <EliminarDocumentales data={selectedRowData} />
+                  </Modal.Body>
+                </Modal>
               </button>
             </>
           );

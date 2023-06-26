@@ -49,6 +49,7 @@ export function Peliculas() {
           año: formData.anio,
           disponibilidad: "",
           masVisto: "",
+          tipo: "peliculas",
           recomendado: "",
           urlVideo: formData.archPelicula,
           urlPortada: "",

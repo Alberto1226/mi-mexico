@@ -5,16 +5,28 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from "react";
 import { Load } from "../load/load";
-import { TblDocumentales } from "../tables/tablaDocumentales";
-import { registraPeliculas } from "../../api/peliculasListar";
+import { TblPeliculas } from "../tables/tablePeliculas";
+import { actualizarPeliculas } from "../../api/peliculasListar";
 import { ToastContainer, toast } from "react-toastify";
 
-export function Documentales() {
-  const [formData, setFormData] = useState(initialFormValue());
+export default function ModificarDocumentales({data}) {
+
+  const dataTemp = {
+    nombre: data[1],
+    actores: data[3],
+    director: data[4],
+    duracion: data[5],
+    sinopsis: data[7],
+    anio: data[9],
+    archPelicula: data[12]
+  };
+
+  const [formData, setFormData] = useState(initialFormValue(dataTemp));
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   //load
   const [loading, setLoading] = useState(true);
 
@@ -29,7 +41,7 @@ export function Documentales() {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (!formData.nombre || !formData.actores || !formData.director || !formData.duracion || !formData.sinopsis || !formData.anio || !formData.archPelicula) {
+    if (!formData.nombre || !formData.actores || !formData.director || !formData.duracion || !formData.sinopsis || !formData.anio) {
       toast.warning("Completa el formulario");
     } else {
       try {
@@ -48,14 +60,13 @@ export function Documentales() {
           año: formData.anio,
           disponibilidad: "",
           masVisto: "",
-          tipo: "documentales",
           recomendado: "",
           urlVideo: formData.archPelicula,
           urlPortada: "",
           seccion: "",
           estado: "true"
         };
-        registraPeliculas(dataTemp).then((response) => {
+        actualizarPeliculas(data[0], dataTemp).then((response) => {
           const { data } = response;
           //notificacion
 
@@ -74,30 +85,8 @@ export function Documentales() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-
   return (
     <>
-      {loading && <Load />}
-      <div class="bg-white">
-        <Button variant="primary" onClick={handleShow} className="btnadd">
-          <FontAwesomeIcon icon={faPlus} />
-        </Button>
-        <h1 class="text-center">Listado de Documentales</h1>
-        <TblDocumentales />
-      </div>
-
-      <Modal
-        size="lg"
-        aria-labelledby="example-modal-sizes-title-lg"
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header className="modalback" closeButton>
-          <Modal.Title>Insertar Documental</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
           <div className="contact-form">
             <Form onSubmit={onSubmit} onChange={onChange}>
               <Row>
@@ -106,7 +95,7 @@ export function Documentales() {
                     placeholder="Titulo"
                     type="text"
                     name="nombre"
-                    defaultValue={formData.nombre}
+                  defaultValue={formData.nombre}
                   />
                 </Col>
               </Row>
@@ -115,7 +104,7 @@ export function Documentales() {
                 placeholder="Actores"
                 as="textarea"
                 name="actores"
-                defaultValue={formData.actores}
+              defaultValue={formData.actores}
               />
               <br />
               <Row>
@@ -124,7 +113,7 @@ export function Documentales() {
                     placeholder="Director"
                     type="text"
                     name="director"
-                    defaultValue={formData.director}
+                  defaultValue={formData.director}
                   />
                 </Col>
                 <Col xs={6} md={4}>
@@ -132,7 +121,7 @@ export function Documentales() {
                     placeholder="Duración"
                     type="text"
                     name="duracion"
-                    defaultValue={formData.duracion}
+                  defaultValue={formData.duracion}
                   />
                 </Col>
               </Row>
@@ -141,42 +130,39 @@ export function Documentales() {
                 placeholder="Sinopsis"
                 as="textarea"
                 name="sinopsis"
-                defaultValue={formData.sinopsis}
+              defaultValue={formData.sinopsis}
               />
               <br />
               <Form.Control
                 placeholder="Año"
                 type="text"
                 name="anio"
-                defaultValue={formData.anio}
+              defaultValue={formData.anio}
               />
               <br />
               <Form.Control
                 placeholder="Archivo"
                 type="text"
                 name="archPelicula"
-                defaultValue={formData.archPelicula}
+              defaultValue={formData.archPelicula}
               />
 
               <label></label>
               <input className="submit" value="Enviar" type="submit" />
             </Form>
           </div>
-        </Modal.Body>
-      </Modal>
     </>
   );
 }
 
-function initialFormValue() {
+function initialFormValue(data) {
   return {
-    nombre: "",
-    genero: "",
-    actores: "",
-    director: "",
-    duracion: "",
-    sinopsis: "",
-    anio: "",
-    archPelicula: ""
+    nombre: data.nombre,
+    actores: data.actores,
+    director: data.director,
+    duracion: data.duracion,
+    sinopsis: data.sinopsis,
+    anio: data.anio,
+    archPelicula: data.archPelicula
   };
 }

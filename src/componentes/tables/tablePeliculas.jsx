@@ -28,7 +28,7 @@ export function TblPeliculas(props) {
 
   const obtenerPeliculas = () => {
     try {
-      listarPeliculas()
+      listarPeliculas("peliculas")
         .then((response) => {
           const { data } = response;
 

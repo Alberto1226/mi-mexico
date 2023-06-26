@@ -8,7 +8,7 @@ import axios from 'axios';
 import { API_HOST } from '../utils/constants';
 //import {getTokenApi} from ".auth"
 
-export async function listarPeliculas() {
+export async function listarPeliculas(tipo) {
     const config = {
         headers: {
             'Accept': 'application/json',
@@ -16,7 +16,7 @@ export async function listarPeliculas() {
 
         }
     };
-    return await axios.get(API_HOST + ENDPOINTListarPeliculas, config);
+    return await axios.get(API_HOST + ENDPOINTListarPeliculas +`/?tipo=${tipo}`, config);
 }
 
 export async function registraPeliculas(data) {
