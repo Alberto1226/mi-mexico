@@ -95,6 +95,10 @@ export function TblPatrocinadores(props) {
       label: "TWITTER",
     },
     {
+      name: "nivel",
+      label: "NIVEL",
+    },
+    {
       name: "estado",
       label: "STATUS",
       options: {
@@ -201,6 +205,7 @@ function formatModelPatrocinadores(data) {
       urlFacebook: data.urlFacebook,
       urlInstagram: data.urlInstagram,
       urlTwitter: data.urlTwitter,
+      nivel: data.nivel,
       estado: data.estado,
     });
   });

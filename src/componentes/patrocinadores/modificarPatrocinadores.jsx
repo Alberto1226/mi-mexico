@@ -13,14 +13,15 @@ import { subeArchivosCloudinary } from "../../api/cloudinary";
 import Dropzone from "../Dropzone/Dropzone";
 import "./patrocinadores.css";
 
-export default function ModificarPatorcinadores({data}) {
-  
+export default function ModificarPatorcinadores({ data }) {
+
   const dataTemp = {
     nombre: data[1],
     urlWeb: data[3],
     urlFacebook: data[4],
     urlInstagram: data[5],
     urlTwitter: data[6],
+    nivel: data[7]
   };
 
   const [formData, setFormData] = useState(initialFormValue(dataTemp));
@@ -45,7 +46,7 @@ export default function ModificarPatorcinadores({data}) {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (!formData.nombrePatrocinador || !formData.swPatrocinador || !formData.fbPatrocinador || !formData.inPatrocinador || !formData.twPatrocinador) {
+    if (!formData.nombrePatrocinador || !formData.swPatrocinador || !formData.nivel || !formData.fbPatrocinador || !formData.inPatrocinador || !formData.twPatrocinador) {
       toast.warning("Completa el formulario");
     } else {
       try {
@@ -59,6 +60,7 @@ export default function ModificarPatorcinadores({data}) {
           urlFacebook: formData.fbPatrocinador,
           urlInstagram: formData.inPatrocinador,
           urlTwitter: formData.twPatrocinador,
+          nivel: formData.nivel,
           estado: "true",
         };
         actualizarPatrocinadores(data[0], dataTemp).then((response) => {
@@ -82,60 +84,73 @@ export default function ModificarPatorcinadores({data}) {
 
   return (
     <>
-          <div className="contact-form">
-            <Form onSubmit={onSubmit} onChange={onChange}>
-            <div className="imagenPrincipal">
-                <h4 className="textoImagenPrincipal">Sube tu imagen</h4>
-                <div title="Seleccionar imagen de la categoría" className="imagenProducto">
-                  <Dropzone
-                    setImagenFile={setImagenProducto}
-                    imagenProductoBD={data[2]}
-                  />
-                </div>
-              </div>
-              <br />
-              <Form.Control
-                placeholder="Nombre"
-                type="text"
-                name="nombrePatrocinador"
-                defaultValue={formData.nombrePatrocinador}
+      <div className="contact-form">
+        <Form onSubmit={onSubmit} onChange={onChange}>
+          <div className="imagenPrincipal">
+            <h4 className="textoImagenPrincipal">Sube tu imagen</h4>
+            <div title="Seleccionar imagen de la categoría" className="imagenProducto">
+              <Dropzone
+                setImagenFile={setImagenProducto}
+                imagenProductoBD={data[2]}
               />
-              <br />
-              <Form.Control
-                placeholder="URL sitio web"
-                type="text"
-                name="swPatrocinador"
-                defaultValue={formData.swPatrocinador}
-              />
-              <br />
-
-              <Form.Control
-                placeholder="URL sitio Facebook"
-                type="text"
-                name="fbPatrocinador"
-                defaultValue={formData.fbPatrocinador}
-              />
-              <br />
-
-              <Form.Control
-                placeholder="URL sitio Instagram"
-                type="text"
-                name="inPatrocinador"
-                defaultValue={formData.inPatrocinador}
-              />
-              <br />
-
-              <Form.Control
-                placeholder="URL sitio Twitter"
-                type="text"
-                name="twPatrocinador"
-                defaultValue={formData.twPatrocinador}
-              />
-
-              <label></label>
-              <input className="submit" value="Enviar" type="submit" />
-            </Form>
+            </div>
           </div>
+          <br />
+          <Form.Control
+            placeholder="Nombre"
+            type="text"
+            name="nombrePatrocinador"
+            defaultValue={formData.nombrePatrocinador}
+          />
+          <br />
+          <Form.Control
+            placeholder="URL sitio web"
+            type="text"
+            name="swPatrocinador"
+            defaultValue={formData.swPatrocinador}
+          />
+          <br />
+
+          <Form.Control
+            placeholder="URL sitio Facebook"
+            type="text"
+            name="fbPatrocinador"
+            defaultValue={formData.fbPatrocinador}
+          />
+          <br />
+
+          <Form.Control
+            placeholder="URL sitio Instagram"
+            type="text"
+            name="inPatrocinador"
+            defaultValue={formData.inPatrocinador}
+          />
+          <br />
+
+          <Form.Control
+            placeholder="URL sitio Twitter"
+            type="text"
+            name="twPatrocinador"
+            defaultValue={formData.twPatrocinador}
+          />
+
+          <br/>
+
+          <Form.Control
+            as="select"
+            defaultValue={formData.nivel}
+            name="nivel"
+          >
+            <option>Elige un nivel</option>
+            <option value="1" selected={formData.nivel == "1"}>1</option>
+            <option value="2" selected={formData.nivel == "2"}>2</option>
+            <option value="3" selected={formData.nivel == "3"}>3</option>
+          </Form.Control>
+
+          <label></label>
+          <input className="submit" value="Enviar" type="submit" />
+        </Form>
+      </div>
     </>
   );
 }
@@ -148,5 +163,6 @@ function initialFormValue(data) {
     fbPatrocinador: data.urlFacebook,
     inPatrocinador: data.urlInstagram,
     twPatrocinador: data.urlTwitter,
+    nivel: data.nivel
   };
 }

@@ -10,7 +10,7 @@ import { Load } from "../load/load";
 import { TblPatrocinadores } from "../tables/tablaPatrocinadores";
 import { eliminarPatrocinadores } from "../../api/patrocinadores";
 
-export default function EliminarPatorcinadores({data}) {
+export default function EliminarPatorcinadores({ data }) {
 
   const dataTemp = {
     nombre: data[1],
@@ -18,8 +18,9 @@ export default function EliminarPatorcinadores({data}) {
     urlFacebook: data[4],
     urlInstagram: data[5],
     urlTwitter: data[6],
+    nivel: data[7]
   };
-console.log(dataTemp)
+  console.log(dataTemp)
 
   const [formData, setFormData] = useState(initialFormValue(dataTemp));
 
@@ -43,21 +44,21 @@ console.log(dataTemp)
   const onSubmit = (e) => {
     e.preventDefault();
 
-      try {
-        setLoading(true);
-        // Sube a cloudinary la imagen principal del producto
-        eliminarPatrocinadores(data[0]).then((response) => {
-          const { data } = response;
-          //notificacion
+    try {
+      setLoading(true);
+      // Sube a cloudinary la imagen principal del producto
+      eliminarPatrocinadores(data[0]).then((response) => {
+        const { data } = response;
+        //notificacion
 
-          toast.success(data.mensaje);
+        toast.success(data.mensaje);
 
-          window.location.reload();
-          //cancelarRegistro()
-        });
-      } catch (e) {
-        console.log(e);
-      }
+        window.location.reload();
+        //cancelarRegistro()
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const onChange = (e) => {
@@ -66,56 +67,70 @@ console.log(dataTemp)
 
   return (
     <>
-          <div className="contact-form">
-            <Form onSubmit={onSubmit} onChange={onChange}>
-              <br />
-              <Form.Control
-                placeholder="Nombre"
-                type="text"
-                name="nombrePatrocinador"
-                defaultValue={formData.nombrePatrocinador}
-                disabled
-              />
-              <br />
-              <Form.Control
-                placeholder="URL sitio web"
-                type="text"
-                name="swPatrocinador"
-                defaultValue={formData.swPatrocinador}
-                disabled
-              />
-              <br />
+      <div className="contact-form">
+        <Form onSubmit={onSubmit} onChange={onChange}>
+          <br />
+          <Form.Control
+            placeholder="Nombre"
+            type="text"
+            name="nombrePatrocinador"
+            defaultValue={formData.nombrePatrocinador}
+            disabled
+          />
+          <br />
+          <Form.Control
+            placeholder="URL sitio web"
+            type="text"
+            name="swPatrocinador"
+            defaultValue={formData.swPatrocinador}
+            disabled
+          />
+          <br />
 
-              <Form.Control
-                placeholder="URL sitio Facebook"
-                type="text"
-                name="fbPatrocinador"
-                defaultValue={formData.fbPatrocinador}
-                disabled
-              />
-              <br />
+          <Form.Control
+            placeholder="URL sitio Facebook"
+            type="text"
+            name="fbPatrocinador"
+            defaultValue={formData.fbPatrocinador}
+            disabled
+          />
+          <br />
 
-              <Form.Control
-                placeholder="URL sitio Instagram"
-                type="text"
-                name="inPatrocinador"
-                defaultValue={formData.inPatrocinador}
-                disabled
-              />
-              <br />
+          <Form.Control
+            placeholder="URL sitio Instagram"
+            type="text"
+            name="inPatrocinador"
+            defaultValue={formData.inPatrocinador}
+            disabled
+          />
+          <br />
 
-              <Form.Control
-                placeholder="URL sitio Twitter"
-                type="text"
-                name="twPatrocinador"
-                defaultValue={formData.twPatrocinador}
-                disabled
-              />
+          <Form.Control
+            placeholder="URL sitio Twitter"
+            type="text"
+            name="twPatrocinador"
+            defaultValue={formData.twPatrocinador}
+            disabled
+          />
 
-              <label></label>
-              <input className="submit" value="Eliminar" type="submit" />
-            </Form>
-          </div>
+          <br />
+
+          <Form.Control
+            as="select"
+            defaultValue={formData.nivel}
+            name="nivel"
+            disabled
+          >
+            <option>Elige un nivel</option>
+            <option value="1" selected={formData.nivel == "1"}>1</option>
+            <option value="2" selected={formData.nivel == "2"}>2</option>
+            <option value="3" selected={formData.nivel == "3"}>3</option>
+          </Form.Control>
+
+          <label></label>
+          <input className="submit" value="Eliminar" type="submit" />
+        </Form>
+      </div>
     </>
   );
 }
@@ -128,5 +143,6 @@ function initialFormValue(data) {
     fbPatrocinador: data.urlFacebook,
     inPatrocinador: data.urlInstagram,
     twPatrocinador: data.urlTwitter,
+    nivel: data.nivel
   };
 }
