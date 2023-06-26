@@ -39,7 +39,7 @@ export function Patorcinadores() {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (!formData.nombrePatrocinador || !formData.swPatrocinador || !formData.fbPatrocinador || !formData.inPatrocinador || !formData.twPatrocinador) {
+    if (!formData.nombrePatrocinador || !formData.swPatrocinador || !formData.fbPatrocinador || !formData.inPatrocinador || !formData.twPatrocinador || !formData.nivel) {
       toast.warning("Completa el formulario");
     } else {
       try {
@@ -55,6 +55,7 @@ export function Patorcinadores() {
             urlFacebook: formData.fbPatrocinador,
             urlInstagram: formData.inPatrocinador,
             urlTwitter: formData.twPatrocinador,
+            nivel: formData.nivel,
             estado: "true",
           };
           registraPatrocinadores(dataTemp).then((response) => {
@@ -153,6 +154,19 @@ export function Patorcinadores() {
                 defaultValue={formData.twPatrocinador}
               />
 
+              <br />
+
+              <Form.Control
+                as="select"
+                defaultValue={formData.nivel}
+                name="nivel"
+              >
+                <option>Elige un nivel</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </Form.Control>
+
               <label></label>
               <input className="submit" value="Enviar" type="submit" />
             </Form>
@@ -171,5 +185,6 @@ function initialFormValue() {
     fbPatrocinador: "",
     inPatrocinador: "",
     twPatrocinador: "",
+    nivel: ""
   };
 }
