@@ -18,9 +18,9 @@
     #0f2027,
     #171717
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  -webkit-box-shadow: 10px 5px 33px -9px rgba(0,0,0,0.75);
-  -moz-box-shadow: 10px 5px 33px -9px rgba(0,0,0,0.75);
-  box-shadow: 10px 5px 33px -9px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 10px 5px 20px -9px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 5px 20px -9px rgba(0,0,0,0.75);
+  box-shadow: 10px 5px 20px -9px rgba(0,0,0,0.75);
 }
 
 .card__image {
@@ -45,7 +45,7 @@
 }
 
 .card__image::before {
-  position: absolute;
+  position: relative;
   width: 100%;
   content: "";
   top: 0;

@@ -26,7 +26,6 @@ export function CardsUser(props) {
           <img src={props.img1} alt="" />
           <h3>{props.titulo}</h3>
           <div class="card__heading-sub">
-            <span class="age">18+</span>
             <span class="actor">{props.director}</span>
           </div>
         </div>

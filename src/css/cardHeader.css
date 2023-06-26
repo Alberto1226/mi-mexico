@@ -1,0 +1,54 @@
+.item-3 {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .item-3:hover .body-item {
+    display: block;
+  }
+  
+  .body-item {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: 1vw;
+    
+  }
+  
+  /* Estilos adicionales para el contenido */
+  .body-item-1,
+  .title,
+  .properties,
+  .description,
+  .icon-set {
+    margin-bottom: 10px;
+  }
+  
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .properties span {
+    margin-right: 10px;
+  }
+  
+  .icon-set i {
+    margin-right: 5px;
+    cursor: pointer;
+  }
+
+  .swiper-slide-header{
+    opacity: 0.7;
+  }
+
+  .description{
+    font-size: 10px;
+  }

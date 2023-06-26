@@ -12,7 +12,8 @@ import React, { useState, useEffect } from "react";
 import { Load } from "../../componentes/load/load";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import logo from "../../assets/img/MXtvMas.png"
+import logo2 from "../../assets/img/MX.png"
 export function Dashboard() {
   const [activeMenu, setActiveMenu] = useState("home");
   const [showComponent, setShowComponent] = useState(false);
@@ -94,50 +95,51 @@ export function Dashboard() {
         <div class="sidebar ancho">
           <div class="logo text-warning">
             <i class="fa fa-ravelry fa-2x logo-sym"></i>
-            <span class="logo-texto">Mi México</span>
+            <span class="logo-texto"><img src={logo} alt="" /></span>
           </div>
 
           <div class="user">
             <img
-              src="https://source.unsplash.com/VM42AzcEBdI/50x50/?faces"
+              src={logo2}
               alt=""
             />
             <span class="user-nombre">Administrador</span>
           </div>
+          
           <hr />
           <Nav className="flex-column">
             <Nav.Item className="listNav">
-              <Nav.Link eventKey="home" active={activeMenu === "home"}>
+              <Nav.Link className="aa" eventKey="home" active={activeMenu === "home"}>
                 <Link to="/">Inicio</Link>
               </Nav.Link>
             </Nav.Item>
             <Nav.Item className="listNav" onClick={handleClick}>
-              <Nav.Link eventKey="user" active={activeMenu === "user"}>
+              <Nav.Link className="aa" eventKey="user" active={activeMenu === "user"}>
                 Usuarios
               </Nav.Link>
             </Nav.Item>
             <Nav.Item className="listNav" onClick={handleClick4}>
-              <Nav.Link eventKey="cat" active={activeMenu === "cat"}>
+              <Nav.Link className="aa" eventKey="cat" active={activeMenu === "cat"}>
                 Categorias
               </Nav.Link>
             </Nav.Item>
             <Nav.Item className="listNav" onClick={handleClick5}>
-              <Nav.Link eventKey="news" active={activeMenu === "news"}>
+              <Nav.Link className="aa" eventKey="news" active={activeMenu === "news"}>
                 Patrocinadores
               </Nav.Link>
             </Nav.Item>
             <Nav.Item className="listNav" onClick={handleClick3}>
-              <Nav.Link eventKey="news" active={activeMenu === "news"}>
+              <Nav.Link className="aa" eventKey="news" active={activeMenu === "news"}>
                 Peliculas
               </Nav.Link>
             </Nav.Item>
             <Nav.Item className="listNav" onClick={handleClick1}>
-              <Nav.Link eventKey="news" active={activeMenu === "news"}>
+              <Nav.Link className="aa" eventKey="news" active={activeMenu === "news"}>
                 Documentales
               </Nav.Link>
             </Nav.Item>
             <Nav.Item className="listNav" onClick={handleClick2}>
-              <Nav.Link eventKey="news" active={activeMenu === "news"}>
+              <Nav.Link className="aa" eventKey="news" active={activeMenu === "news"}>
                 Insertar Nueva Serie
               </Nav.Link>
             </Nav.Item>

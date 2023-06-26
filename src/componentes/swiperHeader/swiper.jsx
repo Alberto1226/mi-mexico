@@ -4,8 +4,10 @@ import SwiperCore, { Pagination, Autoplay } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import "../../css/swiper.css";
+import "../../css/cardHeader.css"
 import video from "../../assets/videos/intro.mp4";
 import { CardsUser } from "../cardsPeliculas/cardsPeliculas";
+import {CardHeader} from "../cardsHeader/cardsHeader"
 import { listarPeliculas } from "../../api/peliculasListar";
 //imagenes
 import de1 from "../../assets/img/ber.jpeg";
@@ -110,19 +112,19 @@ export function SwiperHeader(props) {
             {/** {listarPel &&
               listarPel.map((pelicula) => (*/}
             <SwiperSlide className="swiper-slide-header">
-              <CardsUser img1={de1} />
+              <CardHeader img1={de1}/>
             </SwiperSlide>
             <SwiperSlide className="swiper-slide-header">
-              <CardsUser img1={de2} />
+              <CardHeader img1={de2} />
             </SwiperSlide>
             <SwiperSlide className="swiper-slide-header">
-              <CardsUser img1={de3} />
+              <CardHeader img1={de3} />
             </SwiperSlide>
             <SwiperSlide className="swiper-slide-header">
-              <CardsUser img1={de4} />
+              <CardHeader img1={de4} />
             </SwiperSlide>
             <SwiperSlide className="swiper-slide-header">
-              <CardsUser img1={de5} />
+              <CardHeader img1={de5} />
             </SwiperSlide>
             {/** ))}*/}
           </Swiper>

@@ -1,0 +1,35 @@
+.swiper-number {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 0.5rem;
+    z-index: 1;
+  }
+
+  .numero-slide{
+    position: fixed;
+    font-size: 30px;
+  }
+
+  .swiper-slide::before {
+    content: attr(data-slide-number);
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 5px 10px;
+    border-radius: 5px;
+    z-index: 1;
+  }
+  
+  
+  
+  

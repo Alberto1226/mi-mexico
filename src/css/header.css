@@ -382,3 +382,19 @@
   width: 50px;
   height: 50px;
 }
+
+
+
+.imgVermas{
+  border-radius: 1vw;
+  margin: 10px;
+  width: 18vw;
+}
+
+.imgVermas:hover{
+  transition: transform .3s;
+  -ms-transform: scale(1.4);
+  -webkit-transform: scale(1.4);  
+  transform: scale(1.4);
+}
+

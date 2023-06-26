@@ -6,25 +6,25 @@
   .main {
     flex-grow: 1;
     padding: 0 0 0 0;
-    max-width: 1300px;
+    width: 100vh;
     height: 100%;
     
     
   }
   .main-container1{
-    background-color: #6bb5ff;
+    background-color: #911576;
     
     
   }
   .barra{
-    background-color: #89004f;
+    background-color: #01adc1;
     height: 60px;
   }
   
   .sidebar {
     display: flex;
     flex-direction: column;
-    background: #89004f; 
+    background: #f9b401; 
     min-height: 100vh;
     z-index: 10;
     top: 0;
@@ -42,8 +42,10 @@
   .logo-sym {
     vertical-align: middle;
   }
-  .logo-texto {
+  .logo-texto img{
     margin-left: 10px;
+    width: 200px;
+    height: 80px;
   }
   
   .user {
@@ -52,10 +54,14 @@
   }
   .user img {
     border-radius: 50%;
+    width: 70px;
+    height: 70px;
   }
   .user-nombre {
-    color: white;
+    color: rgb(0, 0, 0);
     margin-left: 5px;
+    font-size: 20px;
+
   }
   
   .menu-nav {
@@ -82,23 +88,27 @@
   
 
   .listNav{
-    background-color: rgb(118, 252, 241);
+    background-color: #6ec819;
     color: black;
     border-radius: 5px;
     padding: 2px;
     margin: 2px;
+    margin-left: 10px;
+    margin-right: 10px;
     cursor: pointer;
   }
-
-  .modalback{
-    background-color: rgb(206, 5, 206);
-    color: aliceblue;
-    
+  .aa{
+    color: rgb(255, 255, 255);
   }
+  #series-dropdown{
+    color: beige;
+  }
+
+  
 
   .btnadd{
     border-radius: 50%;
-    background-color: #89004f;
+    background-color: #f9b401;
     margin: 10px;
     float: right;
   }
