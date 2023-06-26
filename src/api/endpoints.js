@@ -23,6 +23,9 @@ export const ENDPOINTEliminarCategoria = "/categorias/eliminar";
 
 // Series 
 export const ENDPOINTListarSeries = "/series/listar";
+export const ENDPOINTRegistrarSeries = "/series/registro";
+export const ENDPOINTModificarSeries = "/series/actualizar";
+export const ENDPOINTEliminarSeries = "/series/eliminar";
 
 // Patrocinadores
 export const ENDPOINTListarPatrocinadores = "/patrocinadores/listar";

@@ -1,17 +1,34 @@
 import React, { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
-
 import { listarSeries } from "../../api/series";
+import ModificarSeries from "../contenidos/modificarSeries";
+import EliminarSeries from "../contenidos/eliminarSeries";
+import Modal from "react-bootstrap/Modal";
 
 //listar categorias
 //listar categorias
 
 export function TblSeries(props) {
   const { location } = props;
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = (rowData) => {
+    setShow(true);
+    setSelectedRowData(rowData);
+  };
+
+  const [show2, setShow2] = useState(false);
+  const handleClose2 = () => setShow2(false);
+  const handleShow2 = (rowData) => {
+    setShow2(true);
+    setSelectedRowData(rowData);
+  };
+
   const [listarSer, setListSeries] = useState([]);
+  const [selectedRowData, setSelectedRowData] = useState(null);
 
   const obtenerSeries = () => {
     try {
@@ -163,10 +180,42 @@ export function TblSeries(props) {
           return (
             <>
               <button className="btnup">
-                <FontAwesomeIcon icon={faPen} />
+                <FontAwesomeIcon
+                  icon={faPen}
+                  onClick={() => handleShow(tableMeta.rowData)}
+                />
+                <Modal
+                  show={show}
+                  onHide={handleClose}
+                  backdrop="static"
+                  keyboard={false}
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title>Modificar Serie</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <ModificarSeries data={selectedRowData} />
+                  </Modal.Body>
+                </Modal>
               </button>
               <button className="btndel">
-                <FontAwesomeIcon icon={faTrash} />
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  onClick={() => handleShow2(tableMeta.rowData)}
+                />
+                <Modal
+                  show={show2}
+                  onHide={handleClose2}
+                  backdrop="static"
+                  keyboard={false}
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title>Eliminar Serie</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <EliminarSeries data={selectedRowData} />
+                  </Modal.Body>
+                </Modal>
               </button>
             </>
           );

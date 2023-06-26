@@ -9,7 +9,7 @@ import { TblPeliculas } from "../tables/tablePeliculas";
 import { actualizarPeliculas } from "../../api/peliculasListar";
 import { ToastContainer, toast } from "react-toastify";
 
-export default function ModificarPeliculas({data, data2}) {
+export default function ModificarPeliculas({data}) {
 
   const dataTemp = {
     nombre: data[1],
@@ -20,8 +20,6 @@ export default function ModificarPeliculas({data, data2}) {
     anio: data[9],
     archPelicula: data[12]
   };
-
-  console.log(data2)
 
   const [formData, setFormData] = useState(initialFormValue(dataTemp));
   const [show, setShow] = useState(false);

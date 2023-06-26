@@ -6,15 +6,27 @@ import { faPlus, faCirclePlus, faX } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from "react";
 import { Load } from "../load/load";
 import { TblSeries } from "../tables/tablaSeries";
-import { registraSeries } from "../../api/series";
+import { actualizarSeries } from "../../api/series";
 import { ToastContainer, toast } from "react-toastify";
 import { map } from "lodash";
 
-export function Series() {
-  //modal
-  const [formData, setFormData] = useState(initialFormValue());
+export default function ModificarSeries({data}) {
 
-  const [listSeriesCargados, setListSeriesCargados] = useState([]);
+  console.log(data)
+
+  const dataTemp = {
+    nombre: data[1],
+    actores: data[3],
+    director: data[4],
+    duracion: data[5],
+    sinopsis: data[6],
+    anio: data[9],
+  };
+
+  //modal
+  const [formData, setFormData] = useState(initialFormValue(dataTemp));
+
+  const [listSeriesCargados, setListSeriesCargados] = useState(data[8]);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -127,7 +139,7 @@ export function Series() {
           seccion: "",
           estado: "true"
         };
-        registraSeries(dataTemp).then((response) => {
+        actualizarSeries(data[0], dataTemp).then((response) => {
           const { data } = response;
           //notificacion
 
@@ -148,27 +160,6 @@ export function Series() {
 
   return (
     <>
-      {loading && <Load />}
-      <div class="bg-white">
-        <Button variant="primary" onClick={handleShow} className="btnadd">
-          <FontAwesomeIcon icon={faPlus} />
-        </Button>
-        <h1 class="text-center">Listado de Series</h1>
-        <TblSeries />
-      </div>
-
-      <Modal
-        size="lg"
-        aria-labelledby="example-modal-sizes-title-lg"
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header className="modalback" closeButton>
-          <Modal.Title>Insertar Serie</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
           <div className="contact-form">
             <Form onSubmit={onSubmit} onChange={onChange}>
               <Row>
@@ -346,21 +337,17 @@ export function Series() {
               <input className="submit" value="Enviar" type="submit" />
             </Form>
           </div>
-        </Modal.Body>
-      </Modal>
     </>
   );
 }
 
-function initialFormValue() {
+function initialFormValue(data) {
   return {
-    nombre: "",
-    genero: "",
-    actores: "",
-    director: "",
-    duracion: "",
-    sinopsis: "",
-    anio: "",
-    archPelicula: ""
+    nombre: data.nombre,
+    actores: data.actores,
+    director: data.director,
+    duracion: data.duracion,
+    sinopsis: data.sinopsis,
+    anio: data.anio,
   };
 }
