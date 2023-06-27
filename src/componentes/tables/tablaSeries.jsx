@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { listarSeries } from "../../api/series";
 import ModificarSeries from "../contenidos/modificarSeries";
 import EliminarSeries from "../contenidos/eliminarSeries";
+import ModificarCapitulosTemporadas from "../contenidos/modificarCapitulosSeries";
 import Modal from "react-bootstrap/Modal";
 
 //listar categorias
@@ -27,6 +28,13 @@ export function TblSeries(props) {
     setSelectedRowData(rowData);
   };
 
+  const [show3, setShow3] = useState(false);
+  const handleClose3 = () => setShow3(false);
+  const handleShow3 = (rowData) => {
+    setShow3(true);
+    setSelectedRowData(rowData);
+  };
+
   const [listarSer, setListSeries] = useState([]);
   const [selectedRowData, setSelectedRowData] = useState(null);
 
@@ -38,6 +46,7 @@ export function TblSeries(props) {
 
           if (!listarSer && data) {
             setListSeries(formatModelSeries(data));
+            console.log(data);
           } else {
             const datosSer = formatModelSeries(data);
             setListSeries(datosSer);
@@ -214,6 +223,26 @@ export function TblSeries(props) {
                   </Modal.Header>
                   <Modal.Body>
                     <EliminarSeries data={selectedRowData} />
+                  </Modal.Body>
+                </Modal>
+              </button>
+              <button className="btndel">
+                <FontAwesomeIcon
+                  icon={faPlus}
+                  onClick={() => handleShow3(tableMeta.rowData)}
+                />
+                <Modal
+                  show={show3}
+                  size="xl"
+                  onHide={handleClose3}
+                  backdrop="static"
+                  keyboard={false}
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title>Actualizar Capitulos</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <ModificarCapitulosTemporadas data={selectedRowData} />
                   </Modal.Body>
                 </Modal>
               </button>

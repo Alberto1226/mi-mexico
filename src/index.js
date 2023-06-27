@@ -12,7 +12,8 @@ import { RegistroPasodos } from "./pages/registro/registroPasodos";
 import { Dashboard } from "./pages/administracion/dashboard";
 import {TablaUsuarios} from "./componentes/usuarios/tablaUsuarios";
 import {Categorias} from "./componentes/categoriasVideos/categproas";
-import {RecuperarContraseña} from "./pages/recuperarContraseña/recuperarContraseña"
+import {RecuperarContraseña} from "./pages/recuperarContraseña/recuperarContraseña";
+import {FullScrean} from "./componentes/fullScreen/fullScreen"
 const router = createBrowserRouter([
   {
     path: "/",
@@ -50,6 +51,11 @@ const router = createBrowserRouter([
   },{
     path: "/recuperarPass",
     element: <RecuperarContraseña />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/full",
+    element: <FullScrean />,
     errorElement: <Error />,
   },
 ]);

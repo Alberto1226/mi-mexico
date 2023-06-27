@@ -19,12 +19,13 @@ import React, { useState, useEffect } from "react";
 //toast
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+//api
+import {listarSeries} from "../../api/series";
 
 
 export function Home() {
-
+  
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     // Simula una carga de datos
     setTimeout(() => {
@@ -68,7 +69,12 @@ export function Home() {
         <SwiperPeliculas titulo={""}/>
         <SwiperPeliculas titulo={""}/>
         <SwiperPeliculas titulo={""}/> */}
-        <VerMas/>
+        <h4 id="home">Ver mas</h4>
+  
+                
+        <VerMas />
+        
+        
         <section class="link">
           <div class="patrocinadores">
         <SwiperPatrocinadores />
