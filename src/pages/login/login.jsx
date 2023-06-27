@@ -1,7 +1,7 @@
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import "../../css/login.css";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { login, setTokenApi } from "../../api/auth";
 import { toast } from "react-toastify";
 import jwtDecode from "jwt-decode";
@@ -119,9 +119,9 @@ export function Login({ setRefreshCheckLogin }) {
                   />
                 </div>
                 <label>
-                  ¿Olvidaste la contraseña? 
+                  ¿Olvidaste la contraseña?
                   <Link to="/recuperarPass">
-                  <a class="a">Haz click aquí</a>
+                    <a class="a">Haz click aquí</a>
                   </Link>
                 </label>
                 <input class="submit" value="Entrar" type="submit" />

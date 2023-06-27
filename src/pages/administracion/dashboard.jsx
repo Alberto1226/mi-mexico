@@ -14,6 +14,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import logo from "../../assets/img/MXtvMas.png"
 import logo2 from "../../assets/img/MX.png"
+import {obtenidusuarioLogueado, getTokenApi} from "../../api/auth"
+
 export function Dashboard() {
   const [activeMenu, setActiveMenu] = useState("home");
   const [showComponent, setShowComponent] = useState(false);
@@ -22,6 +24,8 @@ export function Dashboard() {
   const [showComponent3, setShowComponent3] = useState(false);
   const [showComponent4, setShowComponent4] = useState(false);
   const [showComponent5, setShowComponent5] = useState(false);
+
+  console.log(getTokenApi());
 
   const handleClick = () => {
     setShowComponent(true);
