@@ -12,11 +12,24 @@ import React, { useState, useEffect } from "react";
 import { Load } from "../../componentes/load/load";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import logo from "../../assets/img/MXtvMas.png"
-import logo2 from "../../assets/img/MX.png"
-import {obtenidusuarioLogueado, getTokenApi} from "../../api/auth"
+import logo from "../../assets/img/MXtvMas.png";
+import logo2 from "../../assets/img/MX.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faMagnifyingGlass,
+  faHouse,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
+
+import {
+  getTokenApi,
+  obtenidusuarioLogueado,
+  logoutApi,
+} from "../../api/auth";
+import { NavPrincipal } from "../../componentes/navBar/nav";
 
 export function Dashboard() {
+
   const [activeMenu, setActiveMenu] = useState("home");
   const [showComponent, setShowComponent] = useState(false);
   const [showComponent1, setShowComponent1] = useState(false);
@@ -24,8 +37,6 @@ export function Dashboard() {
   const [showComponent3, setShowComponent3] = useState(false);
   const [showComponent4, setShowComponent4] = useState(false);
   const [showComponent5, setShowComponent5] = useState(false);
-
-  console.log(getTokenApi());
 
   const handleClick = () => {
     setShowComponent(true);
@@ -95,6 +106,7 @@ export function Dashboard() {
     <>
       <ToastContainer />
       {loading && <Load />}
+      <NavPrincipal/>
       <div class="contenedor">
         <div class="sidebar ancho">
           <div class="logo text-warning">
@@ -109,7 +121,7 @@ export function Dashboard() {
             />
             <span class="user-nombre">Administrador</span>
           </div>
-          
+
           <hr />
           <Nav className="flex-column">
             <Nav.Item className="listNav">

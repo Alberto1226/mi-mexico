@@ -12,7 +12,6 @@ import logo from "../../assets/img/MXtvMas.png";
 import {
   getTokenApi,
   obtenidusuarioLogueado,
-  isExpiredToken,
   logoutApi,
 } from "../../api/auth"
 import { obtenerUsuario } from "../../api/usuarios";
@@ -182,3 +181,4 @@ export function NavPrincipal() {
     </>
   );
 }
+
