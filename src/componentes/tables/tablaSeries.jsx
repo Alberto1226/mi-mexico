@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faTrash, faPlus, faEye } from "@fortawesome/free-solid-svg-icons";
 import { listarSeries } from "../../api/series";
 import ModificarSeries from "../contenidos/modificarSeries";
 import EliminarSeries from "../contenidos/eliminarSeries";
+import TblCapitulosSeries from "./tablaCapitulosSeries";
 import ModificarCapitulosTemporadas from "../contenidos/modificarCapitulosSeries";
+import InsertarCapitulosSerie from "../contenidos/insertarCapitulosSeries";
 import Modal from "react-bootstrap/Modal";
 
 //listar categorias
@@ -32,6 +34,13 @@ export function TblSeries(props) {
   const handleClose3 = () => setShow3(false);
   const handleShow3 = (rowData) => {
     setShow3(true);
+    setSelectedRowData(rowData);
+  };
+
+  const [show4, setShow4] = useState(false);
+  const handleClose4 = () => setShow4(false);
+  const handleShow4 = (rowData) => {
+    setShow4(true);
     setSelectedRowData(rowData);
   };
 
@@ -113,7 +122,7 @@ export function TblSeries(props) {
     },
     {
       name: "datosTemporada",
-      label: "DATOS DE TEMPORADAs",
+      label: "DATOS DE TEMPORADAS",
       options: {
         customBodyRender: (listarSer) => {
           // Aquí puedes acceder a las propiedades del objeto y mostrarlas como desees
@@ -242,7 +251,27 @@ export function TblSeries(props) {
                     <Modal.Title>Actualizar Capitulos</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <ModificarCapitulosTemporadas data={selectedRowData} />
+                    <InsertarCapitulosSerie data={selectedRowData} />
+                  </Modal.Body>
+                </Modal>
+              </button>
+              <button className="btnup">
+                <FontAwesomeIcon
+                  icon={faEye}
+                  onClick={() => handleShow4(tableMeta.rowData)}
+                />
+                <Modal
+                  show={show4}
+                  size="xl"
+                  onHide={handleClose4}
+                  backdrop="static"
+                  keyboard={false}
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title>Lista de los capitulos de la serie</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <TblCapitulosSeries data={selectedRowData} />
                   </Modal.Body>
                 </Modal>
               </button>

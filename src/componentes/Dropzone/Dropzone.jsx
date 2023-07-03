@@ -23,7 +23,7 @@ function Dropzone(props) {
     });
 
     const { getRootProps, getInputProps } = useDropzone({
-        accept: "image/*",
+        accept: "image/*, video/*",
         onDrop: onDropImagen,
     });
 
@@ -31,13 +31,6 @@ function Dropzone(props) {
         slide.map((file, key) => {
             const tempType = file.type.split("/");
             const type = tempType[0];
-            //console.log(Ext);
-            //console.log(type);
-            if (type !== "image") {
-                //const tempP = file.preview;
-                //slider1(tempP);
-                toast.error("Archivo no permitido");
-            }
             return "";
         });
     }

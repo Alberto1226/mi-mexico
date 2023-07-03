@@ -26,6 +26,12 @@ export const ENDPOINTRegistrarSeries = "/series/registro";
 export const ENDPOINTModificarSeries = "/series/actualizar";
 export const ENDPOINTEliminarSeries = "/series/eliminar";
 
+// Capitulos de series 
+export const ENDPOINTListarCapitulosSeries = "/capitulosSeries/listar";
+export const ENDPOINTRegistrarCapitulosSeries = "/capitulosSeries/registro";
+export const ENDPOINTModificarCapitulosSeries = "/capitulosSeries/actualizar";
+export const ENDPOINTEliminarCapitulosSeries = "/capitulosSeries/eliminar";
+
 // Patrocinadores
 export const ENDPOINTListarPatrocinadores = "/patrocinadores/listar";
 export const ENDPOINTRegistrarPatrocinadores = "/patrocinadores/registro";
