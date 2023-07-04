@@ -6,7 +6,8 @@ import { FooterApp } from "../../componentes/footer/footer";
 import {SwiperPatrocinadores} from "../../componentes/swiperPatrocinadores/swPatrocinadores"
 import {Load} from "../../componentes/load/load";
 import {SwiperMasVistos} from "../../componentes/swiperMasVistos/swMasvistos";
-import {VerMas} from "../../componentes/vermas/vermas"
+import {VerMas} from "../../componentes/vermas/vermas";
+import {LoadVideo} from "../../componentes/loadVideo/loadVideo";
 //assets
 
 import imgSwiper from '../../assets/img/1.png'
@@ -25,17 +26,11 @@ import {listarSeries} from "../../api/series";
 
 export function Home() {
   
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    // Simula una carga de datos
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  }, []);
+  
 
   return (
     <>
-    {loading && <Load />}
+    <LoadVideo/>
       <div>
         <ToastContainer/>
         <NavPrincipal />
