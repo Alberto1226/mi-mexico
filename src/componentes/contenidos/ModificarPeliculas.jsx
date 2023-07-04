@@ -10,6 +10,8 @@ import { actualizarPeliculas } from "../../api/peliculasListar";
 import { ToastContainer, toast } from "react-toastify";
 import { listarCategorias } from "../../api/categorias";
 import { map } from "lodash";
+import Dropzone from "../Dropzone/Dropzone";
+import { subeArchivosCloudinary } from "../../api/cloudinary";
 
 export default function ModificarPeliculas({ data }) {
 
@@ -25,6 +27,9 @@ export default function ModificarPeliculas({ data }) {
 
   const [formData, setFormData] = useState(initialFormValue(dataTemp));
   const [show, setShow] = useState(false);
+
+  //Para almacenar la imagen del producto que se guardara a la bd
+  const [imagenPortadaPelicula, setImagenPortadaPelicula] = useState(data[13]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -82,7 +87,6 @@ export default function ModificarPeliculas({ data }) {
           actores: formData.actores,
           director: formData.director,
           duracion: formData.duracion,
-          tipo: "",
           sinopsis: formData.sinopsis,
           calificacion: "",
           año: formData.anio,
@@ -90,7 +94,7 @@ export default function ModificarPeliculas({ data }) {
           masVisto: "",
           recomendado: "",
           urlVideo: formData.archPelicula,
-          urlPortada: "",
+          urlPortada: data.secure_url,
           seccion: "",
           estado: "true"
         };
@@ -152,6 +156,19 @@ export default function ModificarPeliculas({ data }) {
     <>
       <div className="contact-form">
         <Form onSubmit={onSubmit} onChange={onChange}>
+          <div className="imagenPrincipal">
+            <h4 className="textoImagenPrincipal">Sube tu imagen</h4>
+            <div
+              title="Seleccionar imagen de la categoría"
+              className="imagenPortadaPelicula"
+            >
+              <Dropzone
+                setImagenFile={setImagenPortadaPelicula}
+                imagenProductoBD={data[13]}
+              />
+            </div>
+          </div>
+          <br />
           <Row>
             <Col xs={12} md={8}>
               <Form.Control

@@ -10,6 +10,8 @@ import { actualizarPeliculas } from "../../api/peliculasListar";
 import { ToastContainer, toast } from "react-toastify";
 import { listarCategorias } from "../../api/categorias";
 import { map } from "lodash";
+import Dropzone from "../Dropzone/Dropzone";
+import { subeArchivosCloudinary } from "../../api/cloudinary";
 
 export default function ModificarDocumentales({ data }) {
 
@@ -25,6 +27,9 @@ export default function ModificarDocumentales({ data }) {
 
   const [formData, setFormData] = useState(initialFormValue(dataTemp));
   const [show, setShow] = useState(false);
+
+  //Para almacenar la imagen del producto que se guardara a la bd
+  const [imagenPortadaPelicula, setImagenPortadaPelicula] = useState(data[13]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -73,36 +78,42 @@ export default function ModificarDocumentales({ data }) {
       toast.warning("Completa el formulario");
     } else {
       try {
-        setLoading(true);
-        // Sube a cloudinary la imagen principal del producto
+        subeArchivosCloudinary(imagenPortadaPelicula, "portadasDocumentales")
+          .then((response) => {
+            const { data } = response;
+            setLoading(true);
+            // Sube a cloudinary la imagen principal del producto
 
-        const dataTemp = {
-          titulo: formData.nombre,
-          categorias: "",
-          actores: formData.actores,
-          director: formData.director,
-          duracion: formData.duracion,
-          tipo: "",
-          sinopsis: formData.sinopsis,
-          calificacion: "",
-          año: formData.anio,
-          disponibilidad: "",
-          masVisto: "",
-          recomendado: "",
-          urlVideo: formData.archPelicula,
-          urlPortada: "",
-          seccion: "",
-          estado: "true"
-        };
-        actualizarPeliculas(data[0], dataTemp).then((response) => {
-          const { data } = response;
-          //notificacion
+            const dataTemp = {
+              titulo: formData.nombre,
+              categorias: "",
+              actores: formData.actores,
+              director: formData.director,
+              duracion: formData.duracion,
+              sinopsis: formData.sinopsis,
+              calificacion: "",
+              año: formData.anio,
+              disponibilidad: "",
+              masVisto: "",
+              recomendado: "",
+              urlVideo: formData.archPelicula,
+              urlPortada: "",
+              seccion: "",
+              estado: "true"
+            };
+            actualizarPeliculas(data[0], dataTemp).then((response) => {
+              const { data } = response;
+              //notificacion
 
-          toast.success(data.mensaje);
+              toast.success(data.mensaje);
 
-          window.location.reload();
-          //cancelarRegistro()
-        });
+              window.location.reload();
+              //cancelarRegistro()
+            });
+          })
+          .then((e) => {
+            console.log(e);
+          });
       } catch (e) {
         console.log(e);
       }
@@ -152,6 +163,18 @@ export default function ModificarDocumentales({ data }) {
     <>
       <div className="contact-form">
         <Form onSubmit={onSubmit} onChange={onChange}>
+          <div className="imagenPrincipal">
+            <h4 className="textoImagenPrincipal">Sube tu imagen</h4>
+            <div
+              title="Seleccionar imagen de la categoría"
+              className="imagenPortadaPelicula"
+            >
+              <Dropzone
+                setImagenFile={setImagenPortadaPelicula}
+                imagenProductoBD={data[13]} />
+            </div>
+          </div>
+          <br />
           <Row>
             <Col xs={12} md={8}>
               <Form.Control
