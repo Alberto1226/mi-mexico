@@ -17,12 +17,13 @@ export function SwiperPeliculas(props) {
 
   const obtenerPeliculas = () => {
     try {
-      listarPeliculas()
+      listarPeliculas("peliculas")
         .then((response) => {
           const { data } = response;
-
+          console.log(data);
           if (!listarPel && data) {
             setListPeliculas(formatModelPeliculas(data));
+            console.log(data);
           } else {
             const datosPel = formatModelPeliculas(data);
             setListPeliculas(datosPel);
@@ -76,7 +77,7 @@ export function SwiperPeliculas(props) {
               listarPel.map((pelicula) => (
                 <SwiperSlide className="swiper-slide" key={pelicula.id}>
                   <CardsUser
-                    img1={imgPel}
+                    img1={pelicula.urlPortada}
                     actores={pelicula.actores}
                     anio={pelicula.año}
                     calificacion={pelicula.calificacion}
@@ -103,14 +104,20 @@ function formatModelPeliculas(data) {
     dataTemp.push({
       id: data._id,
       titulo: data.titulo,
-      genero: data.genero,
+      categorias: data.categorias,
       actores: data.actores,
       director: data.director,
       duracion: data.duracion,
+      tipo: data.tipo,
       sinopsis: data.sinopsis,
       calificacion: data.calificacion,
       año: data.año,
       disponibilidad: data.disponibilidad,
+      masVisto: data.masVisto,
+      recomendado: data.recomendado,
+      urlVideo: data.urlVideo,
+      urlPortada: data.urlPortada,
+      seccion: data.seccion,
       estado: data.estado,
     });
   });

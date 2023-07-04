@@ -8,6 +8,8 @@ import { Load } from "../load/load";
 import { TblDocumentales } from "../tables/tablaDocumentales";
 import { registraPeliculas } from "../../api/peliculasListar";
 import { ToastContainer, toast } from "react-toastify";
+import { subeArchivosCloudinary } from "../../api/cloudinary";
+import Dropzone from "../Dropzone/Dropzone";
 
 export function Documentales() {
   const [formData, setFormData] = useState(initialFormValue());
@@ -17,6 +19,9 @@ export function Documentales() {
   const handleShow = () => setShow(true);
   //load
   const [loading, setLoading] = useState(true);
+  //Para almacenar la imagen del producto que se guardara a la bd
+  const [imagenPortadaDocumental, setImagenPortadaDocumental] = useState(null);
+
 
   useEffect(() => {
     // Simula una carga de datos
@@ -35,7 +40,8 @@ export function Documentales() {
       try {
         setLoading(true);
         // Sube a cloudinary la imagen principal del producto
-
+        subeArchivosCloudinary(imagenPortadaDocumental, "portadasDocumentales").then((response) => {
+          const { data } = response;
         const dataTemp = {
           titulo: formData.nombre,
           categorias: "",
@@ -46,12 +52,12 @@ export function Documentales() {
           sinopsis: formData.sinopsis,
           calificacion: "",
           año: formData.anio,
-          disponibilidad: "",
+          disponibilidad: "1",
           masVisto: "",
           tipo: "documentales",
-          recomendado: "",
+          recomendado: formData.recomendado,
           urlVideo: formData.archPelicula,
-          urlPortada: "",
+          urlPortada: data.secure_url,
           seccion: "",
           estado: "true"
         };
@@ -64,6 +70,10 @@ export function Documentales() {
           window.location.reload();
           //cancelarRegistro()
         });
+      })
+      .then((e) => {
+        console.log(e);
+      });
       } catch (e) {
         console.log(e);
       }
@@ -100,6 +110,16 @@ export function Documentales() {
         <Modal.Body>
           <div className="contact-form">
             <Form onSubmit={onSubmit} onChange={onChange}>
+            <div className="imagenPrincipal">
+                <h4 className="textoImagenPrincipal">Sube tu imagen</h4>
+                <div
+                  title="Seleccionar imagen de la categoría"
+                  className="imagenPortadaDocumental"
+                >
+                  <Dropzone setImagenFile={setImagenPortadaDocumental} />
+                </div>
+              </div>
+              <br />
               <Row>
                 <Col xs={12} md={8}>
                   <Form.Control
@@ -108,6 +128,17 @@ export function Documentales() {
                     name="nombre"
                     defaultValue={formData.nombre}
                   />
+                </Col>
+                <Col xs={12} md={4}>
+                  <Form.Select
+                    aria-label="¿Recomendado?"
+                    name="recomendado"
+                    defaultValue={formData.recomendado}
+                  >
+                    <option>¿Recomendado?</option>
+                    <option value="1">SI</option>
+                    <option value="0">NO</option>
+                  </Form.Select>
                 </Col>
               </Row>
               <br />

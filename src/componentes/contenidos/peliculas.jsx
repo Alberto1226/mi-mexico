@@ -7,7 +7,9 @@ import React, { useState, useEffect } from "react";
 import { Load } from "../load/load";
 import { TblPeliculas } from "../tables/tablePeliculas";
 import { registraPeliculas } from "../../api/peliculasListar";
+import { subeArchivosCloudinary } from "../../api/cloudinary";
 import { ToastContainer, toast } from "react-toastify";
+import Dropzone from "../Dropzone/Dropzone";
 
 export function Peliculas() {
   const [formData, setFormData] = useState(initialFormValue());
@@ -18,6 +20,9 @@ export function Peliculas() {
 
   //load
   const [loading, setLoading] = useState(true);
+
+  //Para almacenar la imagen del producto que se guardara a la bd
+  const [imagenPortadaPelicula, setImagenPortadaPelicula] = useState(null);
 
   useEffect(() => {
     // Simula una carga de datos
@@ -30,41 +35,56 @@ export function Peliculas() {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (!formData.nombre || !formData.actores || !formData.director || !formData.duracion || !formData.sinopsis || !formData.anio || !formData.archPelicula) {
+    if (
+      !formData.nombre ||
+      !formData.actores ||
+      !formData.director ||
+      !formData.duracion ||
+      !formData.sinopsis ||
+      !formData.anio ||
+      !formData.archPelicula
+    ) {
       toast.warning("Completa el formulario");
     } else {
       try {
         setLoading(true);
         // Sube a cloudinary la imagen principal del producto
 
-        const dataTemp = {
-          titulo: formData.nombre,
-          categorias: "",
-          actores: formData.actores,
-          director: formData.director,
-          duracion: formData.duracion,
-          tipo: "",
-          sinopsis: formData.sinopsis,
-          calificacion: "",
-          año: formData.anio,
-          disponibilidad: "",
-          masVisto: "",
-          tipo: "peliculas",
-          recomendado: "",
-          urlVideo: formData.archPelicula,
-          urlPortada: "",
-          seccion: "",
-          estado: "true"
-        };
-        registraPeliculas(dataTemp).then((response) => {
-          const { data } = response;
-          //notificacion
+        subeArchivosCloudinary(imagenPortadaPelicula, "portadasPeliculas")
+          .then((response) => {
+            const { data } = response;
 
-          toast.success(data.mensaje);
+            const dataTemp = {
+              titulo: formData.nombre,
+              categorias: "",
+              actores: formData.actores,
+              director: formData.director,
+              duracion: formData.duracion,
+              sinopsis: formData.sinopsis,
+              calificacion: "",
+              año: formData.anio,
+              disponibilidad: "1",
+              masVisto: "",
+              tipo: "peliculas",
+              recomendado: formData.recomendado,
+              urlVideo: formData.archPelicula,
+              urlPortada: data.secure_url,
+              seccion: "",
+              estado: "true",
+            };
+            registraPeliculas(dataTemp).then((response) => {
+              const { data } = response;
+              //notificacion
 
-          window.location.reload();
-          //cancelarRegistro()
-        });
+              toast.success(data.mensaje);
+
+              window.location.reload();
+              //cancelarRegistro()
+            });
+          })
+          .then((e) => {
+            console.log(e);
+          });
       } catch (e) {
         console.log(e);
       }
@@ -100,6 +120,16 @@ export function Peliculas() {
         <Modal.Body>
           <div className="contact-form">
             <Form onSubmit={onSubmit} onChange={onChange}>
+              <div className="imagenPrincipal">
+                <h4 className="textoImagenPrincipal">Sube tu imagen</h4>
+                <div
+                  title="Seleccionar imagen de la categoría"
+                  className="imagenPortadaPelicula"
+                >
+                  <Dropzone setImagenFile={setImagenPortadaPelicula} />
+                </div>
+              </div>
+              <br />
               <Row>
                 <Col xs={12} md={8}>
                   <Form.Control
@@ -108,6 +138,17 @@ export function Peliculas() {
                     name="nombre"
                     defaultValue={formData.nombre}
                   />
+                </Col>
+                <Col xs={12} md={4}>
+                  <Form.Select
+                    aria-label="¿Recomendado?"
+                    name="recomendado"
+                    defaultValue={formData.recomendado}
+                  >
+                    <option>¿Recomendado?</option>
+                    <option value="1">SI</option>
+                    <option value="0">NO</option>
+                  </Form.Select>
                 </Col>
               </Row>
               <br />
@@ -177,6 +218,6 @@ function initialFormValue() {
     duracion: "",
     sinopsis: "",
     anio: "",
-    archPelicula: ""
+    archPelicula: "",
   };
 }

@@ -66,7 +66,7 @@ export function CardsUser(props) {
             {/** Fin Button card */}
           </div>
           <div class="panel__row info">
-            <span class="rating">99% Match</span>
+            
             <span class="year">{props.anio}</span>
             <b>{props.duracion}</b>
           </div>
