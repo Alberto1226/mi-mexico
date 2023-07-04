@@ -79,6 +79,22 @@ export function TblDocumentales(props) {
     {
       name: "categorias",
       label: "CATEGORIAS",
+      options: {
+        customBodyRender: (listarPel) => {
+          // Aquí puedes acceder a las propiedades del objeto y mostrarlas como desees
+          return (
+            <div>
+              {listarPel &&
+                listarPel.map((categorias) => (
+                  <div key={categorias.id}>
+                    <h6>Nombre: {categorias.categoria}</h6>
+                    <h6>-------------------</h6>
+                  </div>
+                ))}
+            </div>
+          );
+        },
+      },
     },
     {
       name: "actores",

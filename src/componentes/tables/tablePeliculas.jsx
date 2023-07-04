@@ -39,8 +39,8 @@ export function TblPeliculas(props) {
             setListPeliculas(datosPel);
           }
         })
-        .catch((e) => {});
-    } catch (e) {}
+        .catch((e) => { });
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -74,6 +74,22 @@ export function TblPeliculas(props) {
     {
       name: "categorias",
       label: "CATEGORIAS",
+      options: {
+        customBodyRender: (listarPel) => {
+          // Aquí puedes acceder a las propiedades del objeto y mostrarlas como desees
+          return (
+            <div>
+              {listarPel &&
+                listarPel.map((categorias) => (
+                  <div key={categorias.id}>
+                    <h6>Nombre: {categorias.categoria}</h6>
+                    <h6>-------------------</h6>
+                  </div>
+                ))}
+            </div>
+          );
+        },
+      },
     },
     {
       name: "actores",
@@ -126,18 +142,18 @@ export function TblPeliculas(props) {
       options: {
         customBodyRender: (value) => {
           const estado = value;
-    
+
           let estiloTexto = "";
           let estadoTexto = "";
-    
-          if (estado=="true") {
-            estiloTexto = "activo"; 
+
+          if (estado == "true") {
+            estiloTexto = "activo";
             estadoTexto = "Activo";
           } else {
-            estiloTexto = "inhabilitado"; 
+            estiloTexto = "inhabilitado";
             estadoTexto = "Inhabilitado";
           }
-    
+
           return (
             <div className={estiloTexto}>
               {estadoTexto}

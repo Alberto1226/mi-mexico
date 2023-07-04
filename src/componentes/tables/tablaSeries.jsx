@@ -98,6 +98,22 @@ export function TblSeries(props) {
     {
       name: "categorias",
       label: "CATEGORIAS",
+      options: {
+        customBodyRender: (listarSer) => {
+          // Aquí puedes acceder a las propiedades del objeto y mostrarlas como desees
+          return (
+            <div>
+              {listarSer &&
+                listarSer.map((categorias) => (
+                  <div key={categorias.id}>
+                    <h6>Nombre: {categorias.categoria}</h6>
+                    <h6>-------------------</h6>
+                  </div>
+                ))}
+            </div>
+          );
+        },
+      },
     },
     {
       name: "actores",

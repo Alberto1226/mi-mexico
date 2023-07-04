@@ -114,10 +114,6 @@ export default function EliminarSeries({data}) {
   //insert
   const onSubmit = (e) => {
     e.preventDefault();
-
-    if (!formData.nombre || !formData.actores || !formData.director || !formData.sinopsis || !formData.anio) {
-      toast.warning("Completa el formulario");
-    } else {
       try {
         setLoading(true);
         // Sube a cloudinary la imagen principal del producto
@@ -151,7 +147,6 @@ export default function EliminarSeries({data}) {
       } catch (e) {
         console.log(e);
       }
-    }
   };
 
   const onChange = (e) => {
