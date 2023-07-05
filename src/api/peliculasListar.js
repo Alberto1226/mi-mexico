@@ -2,7 +2,8 @@ import {
     ENDPOINTListarPeliculas,
     ENDPOINTRegistrarPeliculas,
     ENDPOINTModificarPeliculas,
-    ENDPOINTEliminarPeliculas
+    ENDPOINTEliminarPeliculas,
+    ENDPOINTSubirVideo
 } from './endpoints';
 import axios from 'axios';
 import { API_HOST } from '../utils/constants';
@@ -16,7 +17,7 @@ export async function listarPeliculas(tipo) {
 
         }
     };
-    return await axios.get(API_HOST + ENDPOINTListarPeliculas +`/?tipo=${tipo}`, config);
+    return await axios.get(API_HOST + ENDPOINTListarPeliculas + `/?tipo=${tipo}`, config);
 }
 
 export async function registraPeliculas(data) {
@@ -57,4 +58,21 @@ export async function eliminarPeliculas(id, data) {
     };
 
     return await axios.delete(API_HOST + ENDPOINTEliminarPeliculas + `/${id}`, data, config);
+}
+
+// Guardar archivos en cloudinary
+export async function guardarVideo(video) {
+
+    // Crear una instancia de FormData para enviar el archivo
+    const data = new FormData();
+    data.append("video", video);
+    // Enviar el video al servidor
+
+    const config = {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    };
+
+    return await axios.post(API_HOST, ENDPOINTSubirVideo, data, config);
 }

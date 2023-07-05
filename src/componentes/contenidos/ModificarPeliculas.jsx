@@ -12,6 +12,8 @@ import { listarCategorias } from "../../api/categorias";
 import { map } from "lodash";
 import Dropzone from "../Dropzone/Dropzone";
 import { subeArchivosCloudinary } from "../../api/cloudinary";
+import axios from "axios";
+import { API_HOST } from "../../utils/constants";
 
 export default function ModificarPeliculas({ data }) {
 
@@ -27,12 +29,31 @@ export default function ModificarPeliculas({ data }) {
 
   const [formData, setFormData] = useState(initialFormValue(dataTemp));
   const [show, setShow] = useState(false);
+  const [videoPath, setVideoPath] = useState(data[13]);
 
   //Para almacenar la imagen del producto que se guardara a la bd
   const [imagenPortadaPelicula, setImagenPortadaPelicula] = useState(data[13]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    uploadVideo(file);
+  };
+
+  const uploadVideo = (file) => {
+    const formData = new FormData();
+    formData.append('video', file);
+
+    axios.post(API_HOST + '/peliculas/upload', formData)
+      .then((response) => {
+        setVideoPath(response.data.videoPath);
+      })
+      .catch((error) => {
+        console.error('Error uploading video:', error);
+      });
+  };
 
   const [listarCat, setListCategorias] = useState(data[2]);
   const [listarCategoria, setListarCategoria] = useState([]);
@@ -93,7 +114,7 @@ export default function ModificarPeliculas({ data }) {
           disponibilidad: "",
           masVisto: "",
           recomendado: "",
-          urlVideo: formData.archPelicula,
+          urlVideo: videoPath,
           urlPortada: data.secure_url,
           seccion: "",
           estado: "true"
@@ -168,7 +189,11 @@ export default function ModificarPeliculas({ data }) {
               />
             </div>
           </div>
+
+          <input type="file" name="video" accept=".mp4" onChange={handleFileChange} />
+          {videoPath && <video src={videoPath} controls />}
           <br />
+
           <Row>
             <Col xs={12} md={8}>
               <Form.Control

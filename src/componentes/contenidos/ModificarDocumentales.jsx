@@ -12,6 +12,8 @@ import { listarCategorias } from "../../api/categorias";
 import { map } from "lodash";
 import Dropzone from "../Dropzone/Dropzone";
 import { subeArchivosCloudinary } from "../../api/cloudinary";
+import axios from "axios";
+import { API_HOST } from "../../utils/constants";
 
 export default function ModificarDocumentales({ data }) {
 
@@ -27,6 +29,7 @@ export default function ModificarDocumentales({ data }) {
 
   const [formData, setFormData] = useState(initialFormValue(dataTemp));
   const [show, setShow] = useState(false);
+  const [videoPath, setVideoPath] = useState('');
 
   //Para almacenar la imagen del producto que se guardara a la bd
   const [imagenPortadaPelicula, setImagenPortadaPelicula] = useState(data[13]);
@@ -70,6 +73,25 @@ export default function ModificarDocumentales({ data }) {
     }, 500);
   }, []);
 
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    uploadVideo(file);
+  };
+
+  const uploadVideo = (file) => {
+    const formData = new FormData();
+    formData.append('video', file);
+
+    axios.post(API_HOST + '/peliculas/upload', formData)
+      .then((response) => {
+        setVideoPath(response.data.videoPath);
+      })
+      .catch((error) => {
+        console.error('Error uploading video:', error);
+      });
+  };
+
+
   //insert
   const onSubmit = (e) => {
     e.preventDefault();
@@ -97,7 +119,7 @@ export default function ModificarDocumentales({ data }) {
               masVisto: "",
               recomendado: "",
               urlVideo: formData.archPelicula,
-              urlPortada: "",
+              urlPortada: videoPath,
               seccion: "",
               estado: "true"
             };
@@ -175,6 +197,9 @@ export default function ModificarDocumentales({ data }) {
             </div>
           </div>
           <br />
+          <input type="file" name="video" accept=".mp4" onChange={handleFileChange} />
+          {videoPath && <video src={videoPath} controls />}
+          <br />
           <Row>
             <Col xs={12} md={8}>
               <Form.Control
@@ -226,13 +251,6 @@ export default function ModificarDocumentales({ data }) {
             defaultValue={formData.anio}
           />
           <br />
-          <Form.Control
-            placeholder="Archivo"
-            type="text"
-            name="archPelicula"
-            defaultValue={formData.archPelicula}
-          />
-
           <hr />
           <Badge bg="secondary" className="tituloFormularioDetalles">
             <h4>A continuación, especifica los detalles del artículo y agregalo</h4>
