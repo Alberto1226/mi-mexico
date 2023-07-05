@@ -12,10 +12,13 @@ import { listarCategorias } from "../../api/categorias";
 import { map } from "lodash";
 import Dropzone from "../Dropzone/Dropzone";
 import { subeArchivosCloudinary } from "../../api/cloudinary";
+import axios from "axios";
+import { API_HOST } from "../../utils/constants";
 
 export function Documentales() {
   const [formData, setFormData] = useState(initialFormValue());
   const [show, setShow] = useState(false);
+  const [videoPath, setVideoPath] = useState('');
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -49,6 +52,24 @@ export function Documentales() {
 
   const renglon = listarCat.length + 1;
 
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    uploadVideo(file);
+  };
+
+  const uploadVideo = (file) => {
+    const formData = new FormData();
+    formData.append('video', file);
+
+    axios.post(API_HOST + '/peliculas/upload', formData)
+      .then((response) => {
+        setVideoPath(response.data.videoPath);
+      })
+      .catch((error) => {
+        console.error('Error uploading video:', error);
+      });
+  };
+
   //load
   const [loading, setLoading] = useState(true);
 
@@ -63,7 +84,7 @@ export function Documentales() {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (!formData.nombre || !formData.actores || !formData.director || !formData.duracion || !formData.sinopsis || !formData.anio || !formData.archPelicula) {
+    if (!formData.nombre || !formData.actores || !formData.director || !formData.duracion || !formData.sinopsis || !formData.anio) {
       toast.warning("Completa el formulario");
     } else {
       try {
@@ -87,7 +108,7 @@ export function Documentales() {
               masVisto: "",
               tipo: "documentales",
               recomendado: formData.recomendado,
-              urlVideo: formData.archPelicula,
+              urlVideo: videoPath,
               urlPortada: data.secure_url,
               seccion: "",
               estado: "true"
@@ -184,6 +205,12 @@ export function Documentales() {
                   <Dropzone setImagenFile={setImagenPortadaPelicula} />
                 </div>
               </div>
+              <br/>
+
+              <input type="file" name="video" accept=".mp4" onChange={handleFileChange} />
+              {videoPath && <video src={videoPath} controls />}
+              <br />
+
               <br />
               <Row>
                 <Col xs={12} md={8}>
@@ -247,13 +274,6 @@ export function Documentales() {
                 defaultValue={formData.anio}
               />
               <br />
-              <Form.Control
-                placeholder="Archivo"
-                type="text"
-                name="archPelicula"
-                defaultValue={formData.archPelicula}
-              />
-
               <hr />
               <Badge bg="secondary" className="tituloFormularioDetalles">
                 <h4>A continuación, especifica los detalles del artículo y agregalo</h4>

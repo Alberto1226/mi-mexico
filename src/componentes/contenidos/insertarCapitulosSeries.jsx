@@ -11,13 +11,16 @@ import { TblPatrocinadores } from "../tables/tablaPatrocinadores";
 import { registraCapitulosSeries } from "../../api/capitulosSeries";
 import { subeArchivosCloudinary } from "../../api/cloudinary";
 import Dropzone from "../Dropzone/Dropzone";
-import {map} from "lodash";
+import { map } from "lodash";
+import axios from "axios";
+import { API_HOST } from "../../utils/constants";
 
 export default function InsertarCapitulosSerie({ data }) {
     const serie = data[0];
     console.log(data)
     const [formData, setFormData] = useState(initialFormValue());
     const [show, setShow] = useState(false);
+    const [videoPath, setVideoPath] = useState('');
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -37,6 +40,24 @@ export default function InsertarCapitulosSerie({ data }) {
     //notification
     const notify = () => toast("Wow so easy!");
 
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        uploadVideo(file);
+    };
+
+    const uploadVideo = (file) => {
+        const formData = new FormData();
+        formData.append('video', file);
+
+        axios.post(API_HOST + '/series/upload', formData)
+            .then((response) => {
+                setVideoPath(response.data.videoPath);
+            })
+            .catch((error) => {
+                console.error('Error uploading video:', error);
+            });
+    };
+
     //insert
     const onSubmit = (e) => {
         e.preventDefault();
@@ -54,7 +75,7 @@ export default function InsertarCapitulosSerie({ data }) {
                         serie: serie,
                         temporada: formData.temporada,
                         nombre: formData.nombre,
-                        urlCapitulo: "",
+                        urlCapitulo: videoPath,
                         urlPortada: data.secure_url,
                         duracion: formData.duracion,
                         descripcion: formData.descripcion,
@@ -94,6 +115,12 @@ export default function InsertarCapitulosSerie({ data }) {
                             />
                         </div>
                     </div>
+
+                    <br />
+                    <input type="file" name="video" accept=".mp4" onChange={handleFileChange} />
+                    {videoPath && <video src={videoPath} controls />}
+                    <br />
+
                     <br />
                     <Row>
                         <Col xs={9} md={6}>

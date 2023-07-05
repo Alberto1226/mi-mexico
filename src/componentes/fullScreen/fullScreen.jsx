@@ -9,7 +9,9 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "../../css/swiper.css";
 import "../../css/cardHeader.css";
-import {CardHeader} from "../cardsHeader/cardsHeader"
+import { CardHeader } from "../cardsHeader/cardsHeader";
+import { listarCapitulosSeries } from "../../api/capitulosSeries";
+
 SwiperCore.use([Pagination, Autoplay]);
 export function FullScrean(props) {
   const locations = useLocation();
@@ -26,14 +28,15 @@ export function FullScrean(props) {
 
           if (!listarSer && data) {
             setListSeries(formatModelSeries(data));
-           // console.log(data);
+
+            // console.log(data);
           } else {
             const datosSer = formatModelSeries(data);
 
             //console.log(data);
             const filteredSer = datosSer.filter((data) => data.id === id);
             setListSeries(filteredSer);
-            console.log(filteredSer);
+            //console.log(filteredSer);
           }
         })
         .catch((e) => {});
@@ -43,7 +46,6 @@ export function FullScrean(props) {
   useEffect(() => {
     obtenerSeries();
   }, [location]);
-
 
   const [slides, setSlides] = useState(5); // Número inicial de slides a mostrar
 
@@ -67,68 +69,127 @@ export function FullScrean(props) {
 
     setSlides(slidesToShow);
   };
+  //listar capitulos
+  const [listarCap, setListCap] = useState([]);
 
+  const obtenerCapitulos = () => {
+    try {
+      listarCapitulosSeries(id)
+        .then((response) => {
+          const { data } = response;
+
+          if (!listarCap && data) {
+            setListCap(formatModelCapitulos(data));
+            console.log(data);
+          } else {
+            const datosCap = formatModelCapitulos(data);
+            setListCap(datosCap);
+            console.log(datosCap);
+          }
+        })
+        .catch((e) => {});
+    } catch (e) {}
+  };
+
+  useEffect(() => {
+    obtenerCapitulos();
+  }, [location]);
   return (
     <>
-     {listarSer &&
-              listarSer.map((series) => (
-      <div key={series.id}>          
-      <div className="headerVideo" >
-        <video id="videoheader" src={video} autoPlay loop controls></video>
-        <div className="areaswiper"> 
-         <h6>{series.titulo}</h6>
-         <h6>{series.sinopsis}</h6>
-        
+      {listarSer &&
+        listarSer.map((series) => (
+          <div key={series.id}>
+            <video id="videoheader" src={video} autoPlay loop controls></video>
+            <div className="informacionserie">
+            <h6 className="tituloSerie">{series.titulo}</h6>
+            <h6 className="sinopsis">{series.sinopsis}</h6>
 
-         <h6>{series.año}</h6>
-         <h6>{series.categorias}</h6>
-        
-
-        </div>
-       
-      </div>
-        <h6>{series.datosTemporada.temporada}</h6>
-        <Swiper
-            spaceBetween={10}
-            slidesPerView={slides}
-            navigation
-            pagination={{ clickable: true }}
-            className="mySwiper"
-          >
-            <SwiperSlide className="swiper-slide-header">
-              <CardHeader />
-            </SwiperSlide>      
-          </Swiper>
-      </div>
-      ))}
+            <h6 className="añoserie">{series.año}</h6>
+            <h6>{series.categorias}</h6>
+            </div>
+            <hr />
+            {Array.isArray(series.datosTemporada) &&
+              series.datosTemporada.map((temporada) => (
+                <div key={temporada.temporada} className="temporadasslide">
+                  <h6 className="añoserie">Temporada {temporada.temporada}</h6>
+                  {Array.isArray(listarCap) && listarCap.length > 0 ? (
+                    <Swiper
+                      spaceBetween={10}
+                      slidesPerView={slides}
+                      navigation
+                      pagination={{ clickable: true }}
+                      className="mySwiper"
+                    >
+                      {listarCap
+                        .filter(
+                          (capitulo) =>
+                            capitulo.temporada === temporada.temporada
+                        )
+                        .map((capitulo) => (
+                          <SwiperSlide
+                            key={capitulo.nombre}
+                            className="swiper-slide"
+                          >
+                            <CardHeader
+                              img1={capitulo.urlPortada}
+                              nombre={capitulo.nombre}
+                              duracion={capitulo.duracion}
+                              des={capitulo.descripcion}
+                            />
+                           
+                          </SwiperSlide>
+                        ))}
+                    </Swiper>
+                  ) : (
+                    <p>No hay capítulos disponibles</p>
+                  )}
+                </div>
+              ))}
+          </div>
+        ))}
     </>
-    
   );
 }
 
 function formatModelSeries(data) {
   const dataTemp = [];
   data.forEach((data) => {
-    
-      dataTemp.push({
-        id: data._id,
-        titulo: data.titulo,
-        categorias: data.categorias,
-        actores: data.actores,
-        director: data.director,
-        duracion: data.duracion,
-        sinopsis: data.sinopsis,
-        calificacion: data.calificacion,
-        datosTemporada: data.datosTemporada,
-        año: data.año,
-        disponibilidad: data.disponibilidad,
-        masVisto: data.masVisto,
-        recomendado: data.recomendado,
-        urlPortada: data.urlPortada,
-        seccion: data.seccion,
-        estado: data.estado,
-      });
-    
+    dataTemp.push({
+      id: data._id,
+      titulo: data.titulo,
+      categorias: data.categorias,
+      actores: data.actores,
+      director: data.director,
+      duracion: data.duracion,
+      sinopsis: data.sinopsis,
+      calificacion: data.calificacion,
+      datosTemporada: data.datosTemporada,
+      año: data.año,
+      disponibilidad: data.disponibilidad,
+      masVisto: data.masVisto,
+      recomendado: data.recomendado,
+      urlPortada: data.urlPortada,
+      seccion: data.seccion,
+      estado: data.estado,
+    });
+  });
+  return dataTemp;
+}
+
+function formatModelCapitulos(data) {
+  const dataTemp = [];
+  data.forEach((data) => {
+    dataTemp.push({
+      id: data._id,
+      serie: data.serie,
+      temporada: data.temporada,
+      nombre: data.nombre,
+      urlCapitulo: data.urlCapitulo,
+      urlPortada: data.urlPortada,
+      duracion: data.duracion,
+      descripcion: data.descripcion,
+      estado: data.estado,
+    });
   });
   return dataTemp;
 }

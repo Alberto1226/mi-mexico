@@ -120,4 +120,28 @@ body {
 }
 
 
+.temporadasslide{
+  padding: 15px;
+}
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Titillium+Web&display=swap');
+.tituloSerie{
+  font-family: 'Bebas Neue', sans-serif;
+  color: #ffb30e;
+  font-size: 30px;
+  
+
+}
+.sinopsis{
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+}
+.añoserie{
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 25px;
+}
+.informacionserie{
+  padding: 10px;
+  
+}
+
 

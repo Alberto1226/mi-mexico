@@ -9,13 +9,18 @@ import { TblPeliculas } from "../tables/tablePeliculas";
 import { registraPeliculas } from "../../api/peliculasListar";
 import { ToastContainer, toast } from "react-toastify";
 import { listarCategorias } from "../../api/categorias";
+import { guardarVideo } from "../../api/peliculasListar";
 import { map } from "lodash";
 import Dropzone from "../Dropzone/Dropzone";
 import { subeArchivosCloudinary } from "../../api/cloudinary";
+import { useDropzone } from "react-dropzone";
+import axios from "axios";
+import { API_HOST } from "../../utils/constants";
 
 export function Peliculas() {
   const [formData, setFormData] = useState(initialFormValue());
   const [show, setShow] = useState(false);
+  const [videoPath, setVideoPath] = useState('');
 
   //Para almacenar la imagen del producto que se guardara a la bd
   const [imagenPortadaPelicula, setImagenPortadaPelicula] = useState(null);
@@ -59,15 +64,32 @@ export function Peliculas() {
     }, 500);
   }, []);
 
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    uploadVideo(file);
+  };
+
+  const uploadVideo = (file) => {
+    const formData = new FormData();
+    formData.append('video', file);
+
+    axios.post(API_HOST + '/peliculas/upload', formData)
+      .then((response) => {
+        setVideoPath(response.data.videoPath);
+      })
+      .catch((error) => {
+        console.error('Error uploading video:', error);
+      });
+  };
+
   //insert
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (!formData.nombre || !formData.actores || !formData.director || !formData.duracion || !formData.sinopsis || !formData.anio || !formData.archPelicula) {
+    if (!formData.nombre || !formData.actores || !formData.director || !formData.duracion || !formData.sinopsis || !formData.anio) {
       toast.warning("Completa el formulario");
     } else {
       try {
-
         subeArchivosCloudinary(imagenPortadaPelicula, "portadasPeliculas")
           .then((response) => {
             const { data } = response;
@@ -89,7 +111,7 @@ export function Peliculas() {
               masVisto: "",
               tipo: "peliculas",
               recomendado: formData.recomendado,
-              urlVideo: formData.archPelicula,
+              urlVideo: videoPath,
               urlPortada: data.secure_url,
               seccion: "",
               estado: "true"
@@ -187,6 +209,11 @@ export function Peliculas() {
                 </div>
               </div>
               <br />
+
+              <input type="file" name="video" accept=".mp4" onChange={handleFileChange} />
+              {videoPath && <video src={videoPath} controls />}
+              <br />
+
               <Row>
                 <Col xs={12} md={8}>
                   <Form.Control
@@ -247,13 +274,6 @@ export function Peliculas() {
                 type="text"
                 name="anio"
                 defaultValue={formData.anio}
-              />
-              <br />
-              <Form.Control
-                placeholder="Archivo"
-                type="text"
-                name="archPelicula"
-                defaultValue={formData.archPelicula}
               />
 
               <hr />
