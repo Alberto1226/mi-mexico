@@ -107,7 +107,7 @@ export function Documentales() {
               disponibilidad: "",
               masVisto: "",
               tipo: "documentales",
-              recomendado: "",
+              recomendado: formData.recomendado,
               urlVideo: videoPath,
               urlPortada: data.secure_url,
               seccion: "",
@@ -220,6 +220,17 @@ export function Documentales() {
                     name="nombre"
                     defaultValue={formData.nombre}
                   />
+                </Col>
+                <Col xs={12} md={4}>
+                  <Form.Select
+                    aria-label="¿Recomendado?"
+                    name="recomendado"
+                    defaultValue={formData.recomendado}
+                  >
+                    <option>¿Recomendado?</option>
+                    <option value="1">SI</option>
+                    <option value="0">NO</option>
+                  </Form.Select>
                 </Col>
               </Row>
               <br />

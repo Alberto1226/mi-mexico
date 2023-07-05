@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faTrash, faPlus, faEye } from "@fortawesome/free-solid-svg-icons";
+
 import { listarCapitulosSeries } from "../../api/capitulosSeries";
-import ModificarSeries from "../contenidos/modificarSeries";
-import EliminarSeries from "../contenidos/eliminarSeries";
-import ModificarCapitulosTemporadas from "../contenidos/modificarCapitulosSeries";
-import InsertarCapitulosSerie from "../contenidos/insertarCapitulosSeries";
-import Modal from "react-bootstrap/Modal";
+
 
 //listar categorias
 //listar categorias

@@ -110,7 +110,7 @@ export function Peliculas() {
               disponibilidad: "",
               masVisto: "",
               tipo: "peliculas",
-              recomendado: "",
+              recomendado: formData.recomendado,
               urlVideo: videoPath,
               urlPortada: data.secure_url,
               seccion: "",
@@ -236,6 +236,17 @@ export function Peliculas() {
                     defaultValue={formData.nombre}
                   />
                 </Col>
+                <Col xs={12} md={4}>
+                  <Form.Select
+                    aria-label="¿Recomendado?"
+                    name="recomendado"
+                    defaultValue={formData.recomendado}
+                  >
+                    <option>¿Recomendado?</option>
+                    <option value="1">SI</option>
+                    <option value="0">NO</option>
+                  </Form.Select>
+                </Col>
               </Row>
               <br />
               <Form.Control
@@ -280,7 +291,7 @@ export function Peliculas() {
 
               <hr />
               <Badge bg="secondary" className="tituloFormularioDetalles">
-                <h4>A continuación, especifica los detalles del artículo y agregalo</h4>
+                <h4>A continuación, especifica las categorias</h4>
               </Badge>
               <br />
               <hr />

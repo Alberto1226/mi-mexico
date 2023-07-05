@@ -12,13 +12,12 @@ export function CardHeader(props) {
               <i class="icon-play"></i>
             </div>
           </div>
-          <div class="title body-item-3">Black Mirror</div>
+          <div class="title body-item-3">{props.nombre}</div>
           <div class="properties body-item-3">
-            <span class="time">2h 13m</span>
+            <span class="time">{props.duracion}</span>
           </div>
           <p class="description body-item-3">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius alias
-            libero..
+           {props.des}
           </p>
           <div class="body-item-3">
             <i class="details-icon icon-chevron-down"></i>
