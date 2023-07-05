@@ -78,6 +78,7 @@ export function SwiperPeliculas(props) {
                 <SwiperSlide className="swiper-slide" key={pelicula.id}>
                   <CardsUser
                     img1={pelicula.urlPortada}
+                    urlVideo={pelicula.urlVideo}
                     actores={pelicula.actores}
                     anio={pelicula.año}
                     calificacion={pelicula.calificacion}

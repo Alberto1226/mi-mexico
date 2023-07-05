@@ -4,7 +4,7 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { SwiperFooterCards } from "../swiperFooterCards/sfc";
-
+import ReactPlayer from "react-player";
 export function CardsUser(props) {
   //console.log(props);
   const [show, setShow] = useState(false);
@@ -80,12 +80,15 @@ export function CardsUser(props) {
           <div class="card__modal-content">
             <div class="video-background">
               <div class="video-foreground">
-                <iframe
-                  id="video"
-                  src="https://www.youtube.com/embed/bIGt-ueYHik"
-                  frameborder="0"
-                  allowfullscreen
-                ></iframe>
+                <ReactPlayer
+                id="video"
+                url={props.urlVideo}
+                controls
+                volume="0.3"
+                width="100%"
+                height="100%"
+                />
+                
               </div>
             </div>
             <div class="video-description">
