@@ -7,12 +7,14 @@ import React, { useState, useEffect } from "react";
 import { Load } from "../load/load";
 import { useNavigate } from "react-router-dom";
 import { registraCategoria, listarCategorias } from "../../api/categorias";
-import { TblCategorias } from "../tables/tableCategorias";
+import TblCategorias from "../tables/tableCategorias";
+import { withRouter } from "../../utils/withRouter";
+import queryString from "query-string";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export function Categorias(props) {
+function Categorias({ history }) {
   const [formData, setFormData] = useState(initialFormValue());
 
   //modal
@@ -52,7 +54,11 @@ export function Categorias(props) {
 
           toast.success(data.mensaje);
 
-          window.location.reload();
+          history({
+            search: queryString.stringify(""),
+          });
+          setLoading(false);
+          setShow(false);
           //cancelarRegistro()
         });
       } catch (e) {
@@ -120,3 +126,5 @@ function initialFormValue() {
     descripcionCategoria: "",
   };
 }
+
+export default withRouter(Categorias)

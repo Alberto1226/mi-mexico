@@ -10,10 +10,11 @@ import { actualizarSeries } from "../../api/series";
 import { ToastContainer, toast } from "react-toastify";
 import { map } from "lodash";
 import { listarCategorias } from "../../api/categorias";
+import queryString from "query-string";
 
-export default function ModificarSeries({ data }) {
+export default function ModificarSeries({ data, history, setShow }) {
 
-  console.log(data)
+  const idSerie = data[0];
 
   const dataTemp = {
     nombre: data[1],
@@ -29,7 +30,6 @@ export default function ModificarSeries({ data }) {
 
   const [listSeriesCargados, setListSeriesCargados] = useState(data[8]);
 
-  const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   //capitulos Dinamicos
@@ -164,15 +164,18 @@ export default function ModificarSeries({ data }) {
           recomendado: "",
           urlPortada: "",
           seccion: "",
-          estado: "true"
         };
-        actualizarSeries(data[0], dataTemp).then((response) => {
+        actualizarSeries(idSerie, dataTemp).then((response) => {
           const { data } = response;
           //notificacion
 
           toast.success(data.mensaje);
 
-          window.location.reload();
+          history({
+            search: queryString.stringify(""),
+          });
+          setLoading(false);
+          setShow(false);
           //cancelarRegistro()
         });
       } catch (e) {
@@ -222,6 +225,7 @@ export default function ModificarSeries({ data }) {
 
   return (
     <>
+      {loading && <Load />}
       <div className="contact-form">
         <Form onSubmit={onSubmit} onChange={onChange}>
           <Row>

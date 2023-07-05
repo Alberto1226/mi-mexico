@@ -12,8 +12,10 @@ import { actualizarPatrocinadores } from "../../api/patrocinadores";
 import { subeArchivosCloudinary } from "../../api/cloudinary";
 import Dropzone from "../Dropzone/Dropzone";
 import "./patrocinadores.css";
+import queryString from "query-string";
 
-export default function ModificarPatorcinadores({ data }) {
+export default function ModificarPatorcinadores({ data, history, setShow }) {
+  const idPatrocinador = data[0];
 
   const dataTemp = {
     nombre: data[1],
@@ -50,28 +52,37 @@ export default function ModificarPatorcinadores({ data }) {
       toast.warning("Completa el formulario");
     } else {
       try {
-        setLoading(true);
-        // Sube a cloudinary la imagen principal del producto
-
-        const dataTemp = {
-          nombre: formData.nombrePatrocinador,
-          urlImagen: formData.imgPatrocinador,
-          urlWeb: formData.swPatrocinador,
-          urlFacebook: formData.fbPatrocinador,
-          urlInstagram: formData.inPatrocinador,
-          urlTwitter: formData.twPatrocinador,
-          nivel: formData.nivel,
-          estado: "true",
-        };
-        actualizarPatrocinadores(data[0], dataTemp).then((response) => {
+        subeArchivosCloudinary(imagenProducto, "patrocionadores").then(response => {
           const { data } = response;
-          //notificacion
+          setLoading(true);
+          // Sube a cloudinary la imagen principal del producto
 
-          toast.success(data.mensaje);
+          const dataTemp = {
+            nombre: formData.nombrePatrocinador,
+            urlImagen: data.secure_url,
+            urlWeb: formData.swPatrocinador,
+            urlFacebook: formData.fbPatrocinador,
+            urlInstagram: formData.inPatrocinador,
+            urlTwitter: formData.twPatrocinador,
+            nivel: formData.nivel,
+            estado: "true",
+          };
+          actualizarPatrocinadores(idPatrocinador, dataTemp).then((response) => {
+            const { data } = response;
+            //notificacion
 
-          window.location.reload();
-          //cancelarRegistro()
-        });
+            toast.success(data.mensaje);
+
+            history({
+              search: queryString.stringify(""),
+            });
+            setLoading(false);
+            setShow(false);
+            //cancelarRegistro()
+          });
+        }).then(e => {
+          console.log(e)
+        })
       } catch (e) {
         console.log(e);
       }
@@ -84,6 +95,7 @@ export default function ModificarPatorcinadores({ data }) {
 
   return (
     <>
+      {loading && <Load />}
       <div className="contact-form">
         <Form onSubmit={onSubmit} onChange={onChange}>
           <div className="imagenPrincipal">
@@ -134,7 +146,7 @@ export default function ModificarPatorcinadores({ data }) {
             defaultValue={formData.twPatrocinador}
           />
 
-          <br/>
+          <br />
 
           <Form.Control
             as="select"

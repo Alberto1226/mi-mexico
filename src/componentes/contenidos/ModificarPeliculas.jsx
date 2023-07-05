@@ -14,8 +14,14 @@ import Dropzone from "../Dropzone/Dropzone";
 import { subeArchivosCloudinary } from "../../api/cloudinary";
 import axios from "axios";
 import { API_HOST } from "../../utils/constants";
+import queryString from "query-string";
 
-export default function ModificarPeliculas({ data }) {
+export default function ModificarPeliculas({ data, history, setShow }) {
+
+  // Para cancelar el registro
+  const cancelarRegistro = () => {
+    setShow(false)
+  }
 
   const dataTemp = {
     nombre: data[1],
@@ -28,7 +34,6 @@ export default function ModificarPeliculas({ data }) {
   };
 
   const [formData, setFormData] = useState(initialFormValue(dataTemp));
-  const [show, setShow] = useState(false);
   const [videoPath, setVideoPath] = useState(data[13]);
 
   //Para almacenar la imagen del producto que se guardara a la bd
@@ -124,8 +129,12 @@ export default function ModificarPeliculas({ data }) {
           //notificacion
 
           toast.success(data.mensaje);
-
-          window.location.reload();
+          history({
+            search: queryString.stringify(""),
+          });
+          setLoading(false);
+          cancelarRegistro();
+          //window.location.reload();
           //cancelarRegistro()
         });
       } catch (e) {
@@ -175,6 +184,7 @@ export default function ModificarPeliculas({ data }) {
 
   return (
     <>
+    {loading && <Load />}
       <div className="contact-form">
         <Form onSubmit={onSubmit} onChange={onChange}>
           <div className="imagenPrincipal">

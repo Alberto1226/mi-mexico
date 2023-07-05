@@ -4,10 +4,12 @@ import "react-toastify/dist/ReactToastify.css";
 import React, { useState, useEffect } from "react";
 import { actualizarCategoria } from "../../api/categorias";
 import Dropzone from "../Dropzone/Dropzone";
+import queryString from "query-string";
+import { Load } from "../load/load";
 
+export default function ModificarCategorias({ data, history, setShow }) {
+  const idCategoria = data[0];
 
-export default function ModificarCategorias({data}) {
-  
   const dataTemp = {
     nombre: data[1],
     descripcion: data[2],
@@ -36,7 +38,7 @@ export default function ModificarCategorias({data}) {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (!formData.nombreCategoria || !formData.descripcionCategoria || !formData.estadoCategoria ) {
+    if (!formData.nombreCategoria || !formData.descripcionCategoria || !formData.estadoCategoria) {
       toast.warning("Completa el formulario");
     } else {
       try {
@@ -47,15 +49,19 @@ export default function ModificarCategorias({data}) {
           nombre: formData.nombreCategoria,
           descripcion: formData.descripcionCategoria,
           estado: formData.estadoCategoria,
-         
+
         };
-        actualizarCategoria(data[0], dataTemp).then((response) => {
+        actualizarCategoria(idCategoria, dataTemp).then((response) => {
           const { data } = response;
           //notificacion
 
           toast.success(data.mensaje);
 
-          window.location.reload();
+          history({
+            search: queryString.stringify(""),
+          });
+          setLoading(false);
+          setShow(false);
           //cancelarRegistro()
         });
       } catch (e) {
@@ -70,43 +76,44 @@ export default function ModificarCategorias({data}) {
 
   return (
     <>
-          <div className="contact-form">
-            <Form onSubmit={onSubmit} onChange={onChange}>
-            
-              
-              <h6>Nombre</h6>
-              <Form.Control
-                placeholder="Nombre"
-                type="text"
-                name="nombreCategoria"
-                defaultValue={formData.nombreCategoria}
-              />
-              <br/>
-              <h6>Descripción</h6>
-              <Form.Control
-                placeholder="URL sitio web"
-                type="text"
-                name="descripcionCategoria"
-                defaultValue={formData.descripcionCategoria}
-              />
-              <br/>
-              <h6>Status</h6>
-              <Form.Select aria-label="Default select example"
-              name="estadoCategoria"
-              defaultValue={formData.estadoCategoria}
-              >
-                <option>Selecciona un status</option>
-                <option value="true">Activo</option>
-                <option value="false">Inhabilitado</option>  
-              </Form.Select>
-              
-              <br />
+      {loading && <Load />}
+      <div className="contact-form">
+        <Form onSubmit={onSubmit} onChange={onChange}>
 
 
-              <label></label>
-              <input className="submit" value="Enviar" type="submit" />
-            </Form>
-          </div>
+          <h6>Nombre</h6>
+          <Form.Control
+            placeholder="Nombre"
+            type="text"
+            name="nombreCategoria"
+            defaultValue={formData.nombreCategoria}
+          />
+          <br />
+          <h6>Descripción</h6>
+          <Form.Control
+            placeholder="URL sitio web"
+            type="text"
+            name="descripcionCategoria"
+            defaultValue={formData.descripcionCategoria}
+          />
+          <br />
+          <h6>Status</h6>
+          <Form.Select aria-label="Default select example"
+            name="estadoCategoria"
+            defaultValue={formData.estadoCategoria}
+          >
+            <option>Selecciona un status</option>
+            <option value="true">Activo</option>
+            <option value="false">Inhabilitado</option>
+          </Form.Select>
+
+          <br />
+
+
+          <label></label>
+          <input className="submit" value="Enviar" type="submit" />
+        </Form>
+      </div>
     </>
   );
 }
@@ -116,6 +123,6 @@ function initialFormValue(data) {
     nombreCategoria: data.nombre,
     descripcionCategoria: data.descripcion,
     estadoCategoria: data.estado,
-   
+
   };
 }

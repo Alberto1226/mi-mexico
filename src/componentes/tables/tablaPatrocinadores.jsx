@@ -6,10 +6,12 @@ import { listarPatrocinadores } from "../../api/patrocinadores";
 import Modal from "react-bootstrap/Modal";
 import ModificarPatorcinadores from "../patrocinadores/modificarPatrocinadores";
 import EliminarPatorcinadores from "../patrocinadores/eliminarPatrocinadores";
+import { withRouter } from "../../utils/withRouter";
 //listar categorias
 //listar categorias
 
-export function TblPatrocinadores(props) {
+function TblPatrocinadores(props) {
+  const { location, history } = props;
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = (rowData) => {
@@ -23,7 +25,6 @@ export function TblPatrocinadores(props) {
     setShow2(true);
     setSelectedRowData(rowData);
   };
-  const { location } = props;
   const [listarPatro, setListPatro] = useState([]);
   const [selectedRowData, setSelectedRowData] = useState(null);
 
@@ -148,7 +149,7 @@ export function TblPatrocinadores(props) {
                     <Modal.Title>Modificar Pelicula</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <ModificarPatorcinadores data={selectedRowData} />
+                    <ModificarPatorcinadores data={selectedRowData} history={history} setShow={setShow} />
                   </Modal.Body>
                 </Modal>
               </button>
@@ -168,7 +169,7 @@ export function TblPatrocinadores(props) {
                     <Modal.Title>Eliminar Pelicula</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <EliminarPatorcinadores data={selectedRowData} />
+                    <EliminarPatorcinadores data={selectedRowData} history={history} setShow={setShow2}/>
                   </Modal.Body>
                 </Modal>
               </button>
@@ -211,3 +212,5 @@ function formatModelPatrocinadores(data) {
   });
   return dataTemp;
 }
+
+export default withRouter(TblPatrocinadores);

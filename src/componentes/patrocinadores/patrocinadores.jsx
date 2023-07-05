@@ -7,13 +7,15 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React, { useState, useEffect } from "react";
 import { Load } from "../load/load";
-import { TblPatrocinadores } from "../tables/tablaPatrocinadores";
+import TblPatrocinadores from "../tables/tablaPatrocinadores";
 import { registraPatrocinadores } from "../../api/patrocinadores";
 import { subeArchivosCloudinary } from "../../api/cloudinary";
 import Dropzone from "../Dropzone/Dropzone";
 import "./patrocinadores.css";
+import { withRouter } from "../../utils/withRouter";
+import queryString from "query-string";
 
-export function Patorcinadores() {
+function Patorcinadores({history}) {
   const [formData, setFormData] = useState(initialFormValue());
   const [show, setShow] = useState(false);
 
@@ -43,10 +45,10 @@ export function Patorcinadores() {
       toast.warning("Completa el formulario");
     } else {
       try {
-        setLoading(true);
         // Sube a cloudinary la imagen principal del producto
         subeArchivosCloudinary(imagenProducto, "patrocionadores").then(response => {
           const { data } = response;
+          setLoading(true);
 
           const dataTemp = {
             nombre: formData.nombrePatrocinador,
@@ -64,7 +66,11 @@ export function Patorcinadores() {
 
             toast.success(data.mensaje);
 
-            window.location.reload();
+            history({
+              search: queryString.stringify(""),
+            });
+            setLoading(false);
+            setShow(false);
             //cancelarRegistro()
           });
         }).then(e => {
@@ -188,3 +194,5 @@ function initialFormValue() {
     nivel: ""
   };
 }
+
+export default withRouter(Patorcinadores);

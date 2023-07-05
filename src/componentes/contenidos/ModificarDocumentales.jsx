@@ -14,8 +14,11 @@ import Dropzone from "../Dropzone/Dropzone";
 import { subeArchivosCloudinary } from "../../api/cloudinary";
 import axios from "axios";
 import { API_HOST } from "../../utils/constants";
+import queryString from "query-string";
 
-export default function ModificarDocumentales({ data }) {
+export default function ModificarDocumentales({ data, setShow, history }) {
+
+  const idDocumental = data[0];
 
   const dataTemp = {
     nombre: data[1],
@@ -28,7 +31,6 @@ export default function ModificarDocumentales({ data }) {
   };
 
   const [formData, setFormData] = useState(initialFormValue(dataTemp));
-  const [show, setShow] = useState(false);
   const [videoPath, setVideoPath] = useState('');
 
   //Para almacenar la imagen del producto que se guardara a la bd
@@ -108,7 +110,7 @@ export default function ModificarDocumentales({ data }) {
 
             const dataTemp = {
               titulo: formData.nombre,
-              categorias: "",
+              categorias: listarCat,
               actores: formData.actores,
               director: formData.director,
               duracion: formData.duracion,
@@ -121,15 +123,18 @@ export default function ModificarDocumentales({ data }) {
               urlVideo: formData.archPelicula,
               urlPortada: videoPath,
               seccion: "",
-              estado: "true"
             };
-            actualizarPeliculas(data[0], dataTemp).then((response) => {
+            actualizarPeliculas(idDocumental, dataTemp).then((response) => {
               const { data } = response;
               //notificacion
 
               toast.success(data.mensaje);
 
-              window.location.reload();
+              history({
+                search: queryString.stringify(""),
+              });
+              setLoading(false);
+              setShow(false);
               //cancelarRegistro()
             });
           })
@@ -183,6 +188,7 @@ export default function ModificarDocumentales({ data }) {
 
   return (
     <>
+      {loading && <Load />}
       <div className="contact-form">
         <Form onSubmit={onSubmit} onChange={onChange}>
           <div className="imagenPrincipal">

@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-bootstrap/Modal";
 import { listarCategorias } from "../../api/categorias";
-
 import ModificarCategorias from "../categoriasVideos/ModificarCategoria";
 import EliminarCategorias from "../categoriasVideos/eliminarCategoria";
+import { withRouter } from "../../utils/withRouter";
 
 //listar categorias
 //listar categorias
 
-export function TblCategorias(props) {
-  const { location } = props;
+function TblCategorias(props) {
+  const { location, history } = props;
   const [listarCat, setListCategorias] = useState([]);
   const [selectedRowData, setSelectedRowData] = useState(null);
 
@@ -136,7 +135,7 @@ export function TblCategorias(props) {
                     <Modal.Title>Modificar Categoria</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <ModificarCategorias data={selectedRowData} />
+                    <ModificarCategorias data={selectedRowData} history={history} setShow={setShow}/>
                   </Modal.Body>
                 </Modal>
               </button>
@@ -155,7 +154,7 @@ export function TblCategorias(props) {
                     <Modal.Title>Eliminar Pelicula</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <EliminarCategorias data={selectedRowData} />
+                    <EliminarCategorias data={selectedRowData} history={history} setShow={setShow2}/>
                   </Modal.Body>
                 </Modal>
               </button>
@@ -193,3 +192,5 @@ function formatModelCategorias(data) {
   });
   return dataTemp;
 }
+
+export default withRouter(TblCategorias);

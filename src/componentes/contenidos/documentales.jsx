@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faX, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from "react";
 import { Load } from "../load/load";
-import { TblDocumentales } from "../tables/tablaDocumentales";
+import TblDocumentales from "../tables/tablaDocumentales";
 import { registraPeliculas } from "../../api/peliculasListar";
 import { ToastContainer, toast } from "react-toastify";
 import { listarCategorias } from "../../api/categorias";
@@ -14,8 +14,10 @@ import Dropzone from "../Dropzone/Dropzone";
 import { subeArchivosCloudinary } from "../../api/cloudinary";
 import axios from "axios";
 import { API_HOST } from "../../utils/constants";
+import { withRouter } from "../../utils/withRouter";
+import queryString from "query-string";
 
-export function Documentales() {
+function Documentales({ history }) {
   const [formData, setFormData] = useState(initialFormValue());
   const [show, setShow] = useState(false);
   const [videoPath, setVideoPath] = useState('');
@@ -118,8 +120,11 @@ export function Documentales() {
               //notificacion
 
               toast.success(data.mensaje);
-
-              window.location.reload();
+              history({
+                search: queryString.stringify(""),
+              });
+              setLoading(false);
+              setShow(false);
               //cancelarRegistro()
             });
           })
@@ -205,7 +210,7 @@ export function Documentales() {
                   <Dropzone setImagenFile={setImagenPortadaPelicula} />
                 </div>
               </div>
-              <br/>
+              <br />
 
               <input type="file" name="video" accept=".mp4" onChange={handleFileChange} />
               {videoPath && <video src={videoPath} controls />}
@@ -433,4 +438,6 @@ function formatModelCategorias(data) {
   });
   return dataTemp;
 }
+
+export default withRouter(Documentales);
 

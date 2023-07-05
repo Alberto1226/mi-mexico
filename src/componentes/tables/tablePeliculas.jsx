@@ -6,9 +6,10 @@ import { listarPeliculas } from "../../api/peliculasListar";
 import ModificarPeliculas from "../contenidos/ModificarPeliculas";
 import EliminarPeliculas from "../contenidos/EliminarPeliculas";
 import Modal from "react-bootstrap/Modal";
+import { withRouter } from "../../utils/withRouter";
 
-export function TblPeliculas(props) {
-  const { location } = props;
+function TblPeliculas(props) {
+  const { location, history } = props;
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = (rowData) => {
@@ -186,7 +187,7 @@ export function TblPeliculas(props) {
                     <Modal.Title>Modificar Pelicula</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <ModificarPeliculas data={selectedRowData} />
+                    <ModificarPeliculas data={selectedRowData} setShow={setShow} history={history}/>
                   </Modal.Body>
                 </Modal>
               </button>
@@ -206,7 +207,7 @@ export function TblPeliculas(props) {
                     <Modal.Title>Eliminar Pelicula</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <EliminarPeliculas data={selectedRowData} />
+                    <EliminarPeliculas data={selectedRowData} setShow={setShow2} history={history}/>
                   </Modal.Body>
                 </Modal>
               </button>
@@ -258,3 +259,5 @@ function formatModelPeliculas(data) {
   });
   return dataTemp;
 }
+
+export default withRouter(TblPeliculas);

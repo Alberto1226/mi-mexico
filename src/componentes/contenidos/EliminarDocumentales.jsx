@@ -8,8 +8,11 @@ import { Load } from "../load/load";
 import { TblPeliculas } from "../tables/tablePeliculas";
 import { eliminarPeliculas } from "../../api/peliculasListar";
 import { ToastContainer, toast } from "react-toastify";
+import queryString from "query-string";
 
-export default function EliminarDocumentales({ data }) {
+export default function EliminarDocumentales({ data, history, setShow }) {
+
+  const idDocumental = data[0];
 
   const dataTemp = {
     nombre: data[1],
@@ -24,7 +27,6 @@ export default function EliminarDocumentales({ data }) {
   console.log(data)
 
   const [formData, setFormData] = useState(initialFormValue(dataTemp));
-  const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -65,13 +67,17 @@ export default function EliminarDocumentales({ data }) {
           seccion: "",
           estado: "true"
         };
-        eliminarPeliculas(data[0]).then((response) => {
+        eliminarPeliculas(idDocumental).then((response) => {
           const { data } = response;
           //notificacion
 
           toast.success(data.mensaje);
 
-          window.location.reload();
+          history({
+            search: queryString.stringify(""),
+          });
+          setLoading(false);
+          setShow(false);
           //cancelarRegistro()
         });
       } catch (e) {
@@ -85,6 +91,7 @@ export default function EliminarDocumentales({ data }) {
 
   return (
     <>
+    {loading && <Load />}
       <div className="contact-form">
         <Form onSubmit={onSubmit} onChange={onChange}>
           <Row>

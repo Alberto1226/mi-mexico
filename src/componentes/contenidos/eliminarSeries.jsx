@@ -9,10 +9,11 @@ import { TblSeries } from "../tables/tablaSeries";
 import { eliminarSeries } from "../../api/series";
 import { ToastContainer, toast } from "react-toastify";
 import { map } from "lodash";
+import queryString from "query-string";
 
-export default function EliminarSeries({data}) {
+export default function EliminarSeries({ data, history, setShow }) {
 
-  console.log(data)
+  const idSerie = data[0];
 
   const dataTemp = {
     nombre: data[1],
@@ -28,7 +29,6 @@ export default function EliminarSeries({data}) {
 
   const [listSeriesCargados, setListSeriesCargados] = useState(data[8]);
 
-  const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   //capitulos Dinamicos
@@ -98,8 +98,8 @@ export default function EliminarSeries({data}) {
   const cancelarCargaProducto = () => {
     //document.getElementById("descripcion").value = ""
     document.getElementById("capitulos").value = ""
-      document.getElementById("nombre").value = ""
-      document.getElementById("temporada").value = ""
+    document.getElementById("nombre").value = ""
+    document.getElementById("temporada").value = ""
   }
 
   // Para eliminar productos del listado
@@ -114,39 +114,42 @@ export default function EliminarSeries({data}) {
   //insert
   const onSubmit = (e) => {
     e.preventDefault();
-      try {
-        setLoading(true);
-        // Sube a cloudinary la imagen principal del producto
+    try {
+      setLoading(true);
+      // Sube a cloudinary la imagen principal del producto
 
-        const dataTemp = {
-          titulo: formData.nombre,
-          categorias: "",
-          actores: formData.actores,
-          director: formData.director,
-          duracion: formData.duracion,
-          sinopsis: formData.sinopsis,
-          calificacion: "",
-          datosTemporada: listSeriesCargados,
-          año: formData.anio,
-          disponibilidad: "",
-          masVisto: "",
-          recomendado: "",
-          urlPortada: "",
-          seccion: "",
-          estado: "true"
-        };
-        eliminarSeries(data[0], dataTemp).then((response) => {
-          const { data } = response;
-          //notificacion
+      const dataTemp = {
+        titulo: formData.nombre,
+        categorias: "",
+        actores: formData.actores,
+        director: formData.director,
+        duracion: formData.duracion,
+        sinopsis: formData.sinopsis,
+        calificacion: "",
+        datosTemporada: listSeriesCargados,
+        año: formData.anio,
+        disponibilidad: "",
+        masVisto: "",
+        recomendado: "",
+        urlPortada: "",
+        seccion: "",
+        estado: "true"
+      };
+      eliminarSeries(idSerie, dataTemp).then((response) => {
+        const { data } = response;
+        //notificacion
 
-          toast.success(data.mensaje);
+        toast.success(data.mensaje);
 
-          window.location.reload();
-          //cancelarRegistro()
+        history({
+          search: queryString.stringify(""),
         });
-      } catch (e) {
-        console.log(e);
-      }
+        setLoading(false);
+        setShow(false);
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const onChange = (e) => {
@@ -155,96 +158,97 @@ export default function EliminarSeries({data}) {
 
   return (
     <>
-          <div className="contact-form">
-            <Form onSubmit={onSubmit} onChange={onChange}>
-              <Row>
-                <Col xs={12} md={8}>
-                  <Form.Control
-                    placeholder="Titulo"
-                    type="text"
-                    name="nombre"
-                    defaultValue={formData.nombre}
-                    disabled
-                  />
-                </Col>
-              </Row>
-              <br />
+      {loading && <Load />}
+      <div className="contact-form">
+        <Form onSubmit={onSubmit} onChange={onChange}>
+          <Row>
+            <Col xs={12} md={8}>
               <Form.Control
-                placeholder="Actores"
-                as="textarea"
-                name="actores"
-                defaultValue={formData.actores}
-                disabled
-              />
-              <br />
-              <Form.Control
-                placeholder="Director"
+                placeholder="Titulo"
                 type="text"
-                name="director"
-                defaultValue={formData.director}
+                name="nombre"
+                defaultValue={formData.nombre}
                 disabled
               />
-              <br />
-              <hr />
-              {/* Listado de productos  */}
-              <div className="tablaProductos">
+            </Col>
+          </Row>
+          <br />
+          <Form.Control
+            placeholder="Actores"
+            as="textarea"
+            name="actores"
+            defaultValue={formData.actores}
+            disabled
+          />
+          <br />
+          <Form.Control
+            placeholder="Director"
+            type="text"
+            name="director"
+            defaultValue={formData.director}
+            disabled
+          />
+          <br />
+          <hr />
+          {/* Listado de productos  */}
+          <div className="tablaProductos">
 
-                {/* ID, item, cantidad, um, descripcion, orden de compra, observaciones */}
-                {/* Inicia tabla informativa  */}
-                <Badge bg="secondary" className="tituloListadoProductosSeleccionados">
-                  <h4>Listado de temporadas</h4>
-                </Badge>
-                <br />
-                <hr />
-                <Table className="responsive-tableRegistroVentas"
-                >
-                  <thead>
-                    <tr>
-                      <th scope="col">Temporada</th>
-                      <th scope="col">Nombre</th>
-                      <th scope="col">Capitulos</th>
-                    </tr>
-                  </thead>
-                  <tfoot>
-                  </tfoot>
-                  <tbody>
-                    {map(listSeriesCargados, (producto, index) => (
-                      <tr key={index}>
-                        <td scope="row">
-                          {producto.temporada}
-                        </td>
-                        <td scope="row">
-                          {producto.nombre}
-                        </td>
-                        <td data-title="Descripcion">
-                          {producto.capitulos}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </Table>
-                {/* Termina tabla informativa */}
-              </div>
-              <br />
-              <Form.Control
-                placeholder="Sinopsis"
-                as="textarea"
-                name="sinopsis"
-                defaultValue={formData.sinopsis}
-                disabled
-              />
-              <br />
-              <Form.Control
-                placeholder="Año"
-                type="text"
-                name="anio"
-                defaultValue={formData.anio}
-                disabled
-              />
-              <label></label>
-              <input className="submit" value="Enviar" type="submit" />
-            </Form>
+            {/* ID, item, cantidad, um, descripcion, orden de compra, observaciones */}
+            {/* Inicia tabla informativa  */}
+            <Badge bg="secondary" className="tituloListadoProductosSeleccionados">
+              <h4>Listado de temporadas</h4>
+            </Badge>
+            <br />
+            <hr />
+            <Table className="responsive-tableRegistroVentas"
+            >
+              <thead>
+                <tr>
+                  <th scope="col">Temporada</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Capitulos</th>
+                </tr>
+              </thead>
+              <tfoot>
+              </tfoot>
+              <tbody>
+                {map(listSeriesCargados, (producto, index) => (
+                  <tr key={index}>
+                    <td scope="row">
+                      {producto.temporada}
+                    </td>
+                    <td scope="row">
+                      {producto.nombre}
+                    </td>
+                    <td data-title="Descripcion">
+                      {producto.capitulos}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+            {/* Termina tabla informativa */}
           </div>
+          <br />
+          <Form.Control
+            placeholder="Sinopsis"
+            as="textarea"
+            name="sinopsis"
+            defaultValue={formData.sinopsis}
+            disabled
+          />
+          <br />
+          <Form.Control
+            placeholder="Año"
+            type="text"
+            name="anio"
+            defaultValue={formData.anio}
+            disabled
+          />
+          <label></label>
+          <input className="submit" value="Enviar" type="submit" />
+        </Form>
+      </div>
     </>
   );
 }

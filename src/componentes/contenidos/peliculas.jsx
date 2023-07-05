@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faX, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from "react";
 import { Load } from "../load/load";
-import { TblPeliculas } from "../tables/tablePeliculas";
+import TblPeliculas from "../tables/tablePeliculas";
 import { registraPeliculas } from "../../api/peliculasListar";
 import { ToastContainer, toast } from "react-toastify";
 import { listarCategorias } from "../../api/categorias";
@@ -16,8 +16,10 @@ import { subeArchivosCloudinary } from "../../api/cloudinary";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import { API_HOST } from "../../utils/constants";
+import { withRouter } from "../../utils/withRouter";
+import queryString from "query-string";
 
-export function Peliculas() {
+function Peliculas({ history }) {
   const [formData, setFormData] = useState(initialFormValue());
   const [show, setShow] = useState(false);
   const [videoPath, setVideoPath] = useState('');
@@ -122,7 +124,13 @@ export function Peliculas() {
 
               toast.success(data.mensaje);
 
-              window.location.reload();
+              history({
+                search: queryString.stringify(""),
+              });
+              setLoading(false);
+              setShow(false);
+
+              //window.location.reload();
               //cancelarRegistro()
             }).catch(e => {
               console.log(e)
@@ -449,3 +457,5 @@ function formatModelCategorias(data) {
   });
   return dataTemp;
 }
+
+export default withRouter(Peliculas);

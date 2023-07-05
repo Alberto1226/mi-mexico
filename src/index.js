@@ -11,7 +11,7 @@ import { Registro } from "./pages/registro/registro";
 import { RegistroPasodos } from "./pages/registro/registroPasodos";
 import { Dashboard } from "./pages/administracion/dashboard";
 import {TablaUsuarios} from "./componentes/usuarios/tablaUsuarios";
-import {Categorias} from "./componentes/categoriasVideos/categproas";
+import Categorias from "./componentes/categoriasVideos/categproas";
 import {RecuperarContraseña} from "./pages/recuperarContraseña/recuperarContraseña";
 import {FullScrean} from "./componentes/fullScreen/fullScreen"
 const router = createBrowserRouter([

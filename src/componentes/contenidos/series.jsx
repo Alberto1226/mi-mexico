@@ -5,13 +5,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faCirclePlus, faX } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from "react";
 import { Load } from "../load/load";
-import { TblSeries } from "../tables/tablaSeries";
+import TblSeries from "../tables/tablaSeries";
 import { registraSeries } from "../../api/series";
 import { ToastContainer, toast } from "react-toastify";
 import { map } from "lodash";
 import { listarCategorias } from "../../api/categorias";
+import { withRouter } from "../../utils/withRouter";
+import queryString from "query-string";
 
-export function Series() {
+function Series({ history }) {
   //modal
   const [formData, setFormData] = useState(initialFormValue());
 
@@ -160,22 +162,26 @@ export function Series() {
 
           toast.success(data.mensaje);
 
-          window.location.reload();
+          history({
+            search: queryString.stringify(""),
+          });
+          setLoading(false);
+          setShow(false);
           //cancelarRegistro()
         }).catch(e => {
           console.log(e)
           if (e.message === 'Network Error') {
-              //console.log("No hay internet")
-              toast.error("Conexión al servidor no disponible");
-              setLoading(false);
+            //console.log("No hay internet")
+            toast.error("Conexión al servidor no disponible");
+            setLoading(false);
           } else {
-              if (e.response && e.response.status === 401) {
-                  const { mensaje } = e.response.data;
-                  toast.error(mensaje);
-                  setLoading(false);
-              }
+            if (e.response && e.response.status === 401) {
+              const { mensaje } = e.response.data;
+              toast.error(mensaje);
+              setLoading(false);
+            }
           }
-      });
+        });
       } catch (e) {
         console.log(e);
       }
@@ -577,3 +583,5 @@ function formatModelCategorias(data) {
   });
   return dataTemp;
 }
+
+export default withRouter(Series);

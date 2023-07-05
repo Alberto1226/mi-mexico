@@ -9,8 +9,9 @@ import React, { useState, useEffect } from "react";
 import { Load } from "../load/load";
 import { TblPatrocinadores } from "../tables/tablaPatrocinadores";
 import { eliminarPatrocinadores } from "../../api/patrocinadores";
+import queryString from "query-string";
 
-export default function EliminarPatorcinadores({ data }) {
+export default function EliminarPatorcinadores({ data, history, setShow }) {
 
   const dataTemp = {
     nombre: data[1],
@@ -20,13 +21,8 @@ export default function EliminarPatorcinadores({ data }) {
     urlTwitter: data[6],
     nivel: data[7]
   };
-  console.log(dataTemp)
 
   const [formData, setFormData] = useState(initialFormValue(dataTemp));
-
-  console.log(formData)
-
-  console.log(data)
   //load
   const [loading, setLoading] = useState(true);
 
@@ -53,7 +49,11 @@ export default function EliminarPatorcinadores({ data }) {
 
         toast.success(data.mensaje);
 
-        window.location.reload();
+        history({
+          search: queryString.stringify(""),
+        });
+        setLoading(false);
+        setShow(false);
         //cancelarRegistro()
       });
     } catch (e) {
@@ -67,6 +67,7 @@ export default function EliminarPatorcinadores({ data }) {
 
   return (
     <>
+      {loading && <Load />}
       <div className="contact-form">
         <Form onSubmit={onSubmit} onChange={onChange}>
           <br />

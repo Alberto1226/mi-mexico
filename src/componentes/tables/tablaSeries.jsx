@@ -9,12 +9,12 @@ import TblCapitulosSeries from "./tablaCapitulosSeries";
 import ModificarCapitulosTemporadas from "../contenidos/modificarCapitulosSeries";
 import InsertarCapitulosSerie from "../contenidos/insertarCapitulosSeries";
 import Modal from "react-bootstrap/Modal";
-
+import { withRouter } from "../../utils/withRouter";
 //listar categorias
 //listar categorias
 
-export function TblSeries(props) {
-  const { location } = props;
+function TblSeries(props) {
+  const { location, history } = props;
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -228,7 +228,7 @@ export function TblSeries(props) {
                     <Modal.Title>Modificar Serie</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <ModificarSeries data={selectedRowData} />
+                    <ModificarSeries data={selectedRowData} history={history} setShow={setShow} />
                   </Modal.Body>
                 </Modal>
               </button>
@@ -247,7 +247,7 @@ export function TblSeries(props) {
                     <Modal.Title>Eliminar Serie</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <EliminarSeries data={selectedRowData} />
+                    <EliminarSeries data={selectedRowData} history={history} setShow={setShow2}/>
                   </Modal.Body>
                 </Modal>
               </button>
@@ -274,8 +274,7 @@ export function TblSeries(props) {
               <button className="btnup">
                 <FontAwesomeIcon
                   icon={faEye}
-                  onClick={() => handleShow4(tableMeta.rowData)}
-                />
+                  onClick={() => handleShow4(tableMeta.rowData)} />
                 <Modal
                   show={show4}
                   size="xl"
@@ -287,7 +286,7 @@ export function TblSeries(props) {
                     <Modal.Title>Lista de los capitulos de la serie</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <TblCapitulosSeries data={selectedRowData} />
+                    <TblCapitulosSeries data={selectedRowData}/>
                   </Modal.Body>
                 </Modal>
               </button>
@@ -340,3 +339,5 @@ function formatModelSeries(data) {
   });
   return dataTemp;
 }
+
+export default withRouter(TblSeries);

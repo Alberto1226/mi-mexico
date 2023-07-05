@@ -3,11 +3,11 @@ import "../../css/dashboard.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import { Nav, NavDropdown } from "react-bootstrap";
 import { TablaUsuarios } from "../../componentes/usuarios/tablaUsuarios";
-import { Documentales } from "../../componentes/contenidos/documentales";
-import { Series } from "../../componentes/contenidos/series";
-import { Peliculas } from "../../componentes/contenidos/peliculas";
-import { Categorias } from "../../componentes/categoriasVideos/categproas";
-import { Patorcinadores } from "../../componentes/patrocinadores/patrocinadores";
+import Documentales from "../../componentes/contenidos/documentales";
+import Series from "../../componentes/contenidos/series";
+import Peliculas from "../../componentes/contenidos/peliculas";
+import Categorias from "../../componentes/categoriasVideos/categproas";
+import Patorcinadores from "../../componentes/patrocinadores/patrocinadores";
 import React, { useState, useEffect } from "react";
 import { Load } from "../../componentes/load/load";
 import { ToastContainer } from "react-toastify";
@@ -159,15 +159,6 @@ export function Dashboard() {
                 Insertar Nueva Serie
               </Nav.Link>
             </Nav.Item>
-            <NavDropdown
-              title="Series Existentes"
-              id="series-dropdown"
-              active={activeMenu.startsWith("series")}
-              onSelect={handleMenuSelect}
-              className="listNav"
-            >
-              <NavDropdown.Item eventKey="serie1">Hidalgo</NavDropdown.Item>
-            </NavDropdown>
           </Nav>
         </div>
         <div class="main bg-light">
