@@ -183,6 +183,7 @@ function TblDocumentales(props) {
                   onClick={() => handleShow(tableMeta.rowData)}
                 />
                 <Modal
+                  size="lg"
                   show={show}
                   onHide={handleClose}
                   backdrop="static"

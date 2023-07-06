@@ -105,7 +105,7 @@ export function FullScrean(props) {
             <h6 className="sinopsis">{series.sinopsis}</h6>
 
             <h6 className="añoserie">{series.año}</h6>
-            <h6>{series.categorias}</h6>
+            
             </div>
             <hr />
             {Array.isArray(series.datosTemporada) &&

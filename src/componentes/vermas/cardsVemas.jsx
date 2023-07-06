@@ -37,7 +37,7 @@ export function CardsVermas(props) {
             <Link to={`/full?id=${series.id}`} img={"datos"}>
               <img
                 className="imgVermas"
-                src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p1.PNG?raw=true"
+                src={series.urlPortada}
                 alt=""
 
               />

@@ -198,6 +198,7 @@ function TblPeliculas(props) {
                   onClick={() => handleShow2(tableMeta.rowData)}
                 />
                 <Modal
+                  size="lg"
                   show={show2}
                   onHide={handleClose2}
                   backdrop="static"

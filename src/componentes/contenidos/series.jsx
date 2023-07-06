@@ -12,11 +12,13 @@ import { map } from "lodash";
 import { listarCategorias } from "../../api/categorias";
 import { withRouter } from "../../utils/withRouter";
 import queryString from "query-string";
+import Dropzone from "../Dropzone/Dropzone";
+import { subeArchivosCloudinary } from "../../api/cloudinary";
 
 function Series({ history }) {
   //modal
   const [formData, setFormData] = useState(initialFormValue());
-
+  const [imagenPortadaPelicula, setImagenPortadaPelicula] = useState(null);
   const [listSeriesCargados, setListSeriesCargados] = useState([]);
 
   const [show, setShow] = useState(false);
@@ -136,6 +138,9 @@ function Series({ history }) {
       toast.warning("Completa el formulario");
     } else {
       try {
+        subeArchivosCloudinary(imagenPortadaPelicula, "portadasSeries")
+        .then((response) => {
+          const { data } = response;
         setLoading(true);
         // Sube a cloudinary la imagen principal del producto
 
@@ -152,7 +157,7 @@ function Series({ history }) {
           disponibilidad: "",
           masVisto: "",
           recomendado: "",
-          urlPortada: "",
+          urlPortada: data.secure_url,
           seccion: "",
           estado: "true"
         };
@@ -182,6 +187,10 @@ function Series({ history }) {
             }
           }
         });
+      })
+      .then((e) => {
+        console.log(e);
+      });
       } catch (e) {
         console.log(e);
       }
@@ -252,6 +261,16 @@ function Series({ history }) {
         <Modal.Body>
           <div className="contact-form">
             <Form onSubmit={onSubmit} onChange={onChange}>
+            <div className="imagenPrincipal">
+                <h4 className="textoImagenPrincipal">Sube tu imagen</h4>
+                <div
+                  title="Seleccionar imagen de la categoría"
+                  className="imagenPortadaPelicula"
+                >
+                  <Dropzone setImagenFile={setImagenPortadaPelicula} />
+                </div>
+              </div>
+              <br />
               <Row>
                 <Col xs={12} md={8}>
                   <Form.Control
@@ -426,7 +445,7 @@ function Series({ history }) {
 
               <hr />
               <Badge bg="secondary" className="tituloFormularioDetalles">
-                <h4>A continuación, especifica los detalles del artículo y agregalo</h4>
+                <h4>A continuación, especifica las categorias</h4>
               </Badge>
               <br />
               <hr />

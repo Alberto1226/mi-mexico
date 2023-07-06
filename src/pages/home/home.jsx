@@ -8,6 +8,9 @@ import {Load} from "../../componentes/load/load";
 import {SwiperMasVistos} from "../../componentes/swiperMasVistos/swMasvistos";
 import {VerMas} from "../../componentes/vermas/vermas";
 import {LoadVideo} from "../../componentes/loadVideo/loadVideo";
+import {SwiperPatrocinadoresN2} from "../../componentes/swiperPartocinadorNivel2/swiperNivel2";
+import {SwiperPatrocinadoresN3} from "../../componentes/swiperPatNivel3/swiperNivel3";
+import {SwiperPeliculasRecomendadas} from "../../componentes/swiperRecomendado/swiperRecomendados";
 //assets
 
 import imgSwiper from '../../assets/img/1.png'
@@ -36,7 +39,7 @@ export function Home() {
         <NavPrincipal />
         <SwiperHeader img={imgSwiper}/>
         <hr/>
-        <SwiperPeliculas titulo={"Recomendados"}/>
+        <SwiperPeliculasRecomendadas titulo={"Recomendados"}/>
         <hr/>
         <section class="link">
           <div class="patrocinadores">
@@ -50,7 +53,7 @@ export function Home() {
         <hr/>
         <section class="link">
           <div class="patrocinadores">
-        <SwiperPatrocinadores />
+        <SwiperPatrocinadoresN2 />
         </div>
         </section>
         <hr/>
@@ -72,7 +75,7 @@ export function Home() {
         
         <section class="link">
           <div class="patrocinadores">
-        <SwiperPatrocinadores />
+        <SwiperPatrocinadoresN3 />
         </div>
         </section>
         

@@ -402,7 +402,7 @@ export default function ModificarSeries({ data, history, setShow }) {
 
           <hr />
           <Badge bg="secondary" className="tituloFormularioDetalles">
-            <h4>A continuación, especifica los detalles del artículo y agregalo</h4>
+            <h4>A continuación, especifica las categorias</h4>
           </Badge>
           <br />
           <hr />

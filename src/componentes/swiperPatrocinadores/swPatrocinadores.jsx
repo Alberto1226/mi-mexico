@@ -10,7 +10,7 @@ import { CardPatrocinadores } from "../cardsPatrocinadores/cardPatrocinador";
 import "swiper/swiper.min.css";
 import "swiper/css";
 import "swiper/css/pagination";
-import imgPatro from "../../assets/img/PMnegro.png";
+//import imgPatro from "../../assets/img/PMnegro.png";
 
 import { listarPatrocinadores } from "../../api/patrocinadores";
 
@@ -36,7 +36,10 @@ export function SwiperPatrocinadores(props) {
             setListPatro(formatModelPatrocinadores(data));
           } else {
             const datosPatro = formatModelPatrocinadores(data);
-            setListPatro(datosPatro);
+            const filteredPel = datosPatro.filter(
+              (data) => data.nivel === "1"
+            );
+            setListPatro(filteredPel);
           }
         })
         .catch((e) => {});
@@ -137,6 +140,7 @@ function formatModelPatrocinadores(data) {
       urlFacebook: data.urlFacebook,
       urlInstagram: data.urlInstagram,
       urlTwitter: data.urlTwitter,
+      nivel: data.nivel,
       estado: data.estado,
     });
   });
