@@ -13,7 +13,10 @@ import { Dashboard } from "./pages/administracion/dashboard";
 import {TablaUsuarios} from "./componentes/usuarios/tablaUsuarios";
 import Categorias from "./componentes/categoriasVideos/categproas";
 import {RecuperarContraseña} from "./pages/recuperarContraseña/recuperarContraseña";
-import {FullScrean} from "./componentes/fullScreen/fullScreen"
+import {FullScrean} from "./componentes/fullScreen/fullScreen";
+import {FullCapitulos} from "./componentes/fullCapitulos/fullCapitulos";
+import {FullPeliculas} from "./componentes/fullScreenPeliculas/fullScreenPeliculas";
+import {FullDocumentales} from "./componentes/fullScreenDocumentales/FullScreenDocumentales";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -56,6 +59,21 @@ const router = createBrowserRouter([
   {
     path: "/full",
     element: <FullScrean />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/fullCap",
+    element: <FullCapitulos />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/fullPel",
+    element: <FullPeliculas />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/fullDoc",
+    element: <FullDocumentales />,
     errorElement: <Error />,
   },
 ]);

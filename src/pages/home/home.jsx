@@ -7,6 +7,8 @@ import {SwiperPatrocinadores} from "../../componentes/swiperPatrocinadores/swPat
 import {Load} from "../../componentes/load/load";
 import {SwiperMasVistos} from "../../componentes/swiperMasVistos/swMasvistos";
 import {VerMas} from "../../componentes/vermas/vermas";
+import {VerMasD} from "../../componentes/vermasDocumentales/verMasDocumentales";
+import {VerMasP} from "../../componentes/vermasPeliculas/vermasPeliculas";
 import {LoadVideo} from "../../componentes/loadVideo/loadVideo";
 import {SwiperPatrocinadoresN2} from "../../componentes/swiperPartocinadorNivel2/swiperNivel2";
 import {SwiperPatrocinadoresN3} from "../../componentes/swiperPatNivel3/swiperNivel3";
@@ -67,11 +69,14 @@ export function Home() {
         <SwiperPeliculas titulo={""}/>
         <SwiperPeliculas titulo={""}/>
         <SwiperPeliculas titulo={""}/> */}
-        <h4 id="home">Ver mas</h4>
-  
-                
+        <h4 id="home">Ver mas Series</h4>        
         <VerMas />
-        
+        <h4 id="home">Ver mas Peliculas</h4>        
+
+        <VerMasP />
+        <h4 id="home">Ver mas Documentales</h4>        
+
+        <VerMasD />
         
         <section class="link">
           <div class="patrocinadores">

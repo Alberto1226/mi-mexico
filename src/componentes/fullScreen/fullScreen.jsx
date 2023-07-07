@@ -11,6 +11,7 @@ import "../../css/swiper.css";
 import "../../css/cardHeader.css";
 import { CardHeader } from "../cardsHeader/cardsHeader";
 import { listarCapitulosSeries } from "../../api/capitulosSeries";
+import { Link } from "react-router-dom";
 
 SwiperCore.use([Pagination, Autoplay]);
 export function FullScrean(props) {
@@ -157,13 +158,14 @@ export function FullScrean(props) {
                             key={capitulo.nombre}
                             className="swiper-slide"
                           >
+                             <Link to={`/fullCap?id=${capitulo.serie}`} img={"datos"}>
                             <CardHeader
                               img1={capitulo.urlPortada}
                               nombre={capitulo.nombre}
                               duracion={capitulo.duracion}
                               des={capitulo.descripcion}
                             />
-
+                            </Link>
                           </SwiperSlide>
                         ))}
                     </Swiper>
