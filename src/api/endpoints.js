@@ -14,6 +14,8 @@ export const ENDPOINTRegistrarPeliculas = "/peliculas/registro";
 export const ENDPOINTModificarPeliculas = "/peliculas/actualizar";
 export const ENDPOINTEliminarPeliculas = "/peliculas/eliminar";
 export const ENDPOINTSubirVideo = "/peliculas/subirVideo";
+export const ENDPOINTActualizarContadorPeliculas = "/peliculas/actualizarContador";
+export const ENDPOINTObtenerPelicula = "/peliculas/obtenerPelicula";
 
 // Categorias
 export const ENDPOINTRegistrarCategoria = "/categorias/registro/";

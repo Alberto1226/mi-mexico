@@ -111,6 +111,7 @@ function Documentales({ history }) {
               tipo: "documentales",
               recomendado: formData.recomendado,
               urlVideo: videoPath,
+              contador: "0",
               urlPortada: data.secure_url,
               seccion: "",
               estado: "true"

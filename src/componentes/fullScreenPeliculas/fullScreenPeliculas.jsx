@@ -2,16 +2,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
-import { listarPeliculas } from "../../api/peliculasListar";
+import { listarPeliculas, obtenerPeliculas, actualizarContadorPeliculas } from "../../api/peliculasListar";
 import video from "../../assets/videos/intro.mp4";
 import SwiperCore, { Pagination, Autoplay } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import "../../css/swiper.css";
 import "../../css/cardHeader.css";
-import { CardHeader } from "../cardsHeader/cardsHeader";
-import { listarCapitulosSeries } from "../../api/capitulosSeries";
-import { Link } from "react-router-dom";
 
 SwiperCore.use([Pagination, Autoplay]);
 export function FullPeliculas(props) {
@@ -20,9 +17,35 @@ export function FullPeliculas(props) {
   const { id } = queryString.parse(locations.search);
 
   const { location } = props;
- 
-   //listar capitulos
-   const obtenerPeliculas = () => {
+
+  const aumentarContador = () => {
+    try {
+      // console.log(data)
+      obtenerPeliculas(id).then(response => {
+        const { data } = response;
+        console.log(data)
+        const dataTemp = {
+          contador: parseInt(data.contador) + 1
+        }
+        actualizarContadorPeliculas(id, dataTemp).then(response => {
+          // console.log(response)
+        }).catch(e => {
+          console.log(e)
+        })
+
+      }).catch(e => {
+        console.log(e)
+      })
+        .catch((e) => { });
+    } catch (e) { }
+  };
+
+  useEffect(() => {
+    aumentarContador();
+  }, []);
+
+  //listar capitulos
+  const obtenerPelicula = () => {
     try {
       listarPeliculas("peliculas")
         .then((response) => {
@@ -41,14 +64,14 @@ export function FullPeliculas(props) {
   };
 
   useEffect(() => {
-    obtenerPeliculas();
+    obtenerPelicula();
   }, [location]);
- 
-  
 
-   
 
-  
+
+
+
+
 
   const [slides, setSlides] = useState(5); // Número inicial de slides a mostrar
 
@@ -72,7 +95,7 @@ export function FullPeliculas(props) {
 
     setSlides(slidesToShow);
   };
- 
+
   return (
     <>
       {listarPel &&
@@ -80,11 +103,11 @@ export function FullPeliculas(props) {
           <div key={pel.id}>
             <video id="videoheader" src={video} autoPlay loop controls></video>
             <div className="informacionserie">
-            <h6 className="tituloSerie">{pel.titulo}</h6>
-            <h6 className="sinopsis">{pel.sinopsis}</h6>
-            <h6 className="añoserie">{pel.duracion}</h6>
+              <h6 className="tituloSerie">{pel.titulo}</h6>
+              <h6 className="sinopsis">{pel.sinopsis}</h6>
+              <h6 className="añoserie">{pel.duracion}</h6>
             </div>
-            
+
           </div>
         ))}
     </>
@@ -93,27 +116,27 @@ export function FullPeliculas(props) {
 
 
 function formatModelPeliculas(data) {
-    const dataTemp = [];
-    data.forEach((data) => {
-      dataTemp.push({
-        id: data._id,
-        titulo: data.titulo,
-        categorias: data.categorias,
-        actores: data.actores,
-        director: data.director,
-        duracion: data.duracion,
-        tipo: data.tipo,
-        sinopsis: data.sinopsis,
-        calificacion: data.calificacion,
-        año: data.año,
-        disponibilidad: data.disponibilidad,
-        masVisto: data.masVisto,
-        recomendado: data.recomendado,
-        urlVideo: data.urlVideo,
-        urlPortada: data.urlPortada,
-        seccion: data.seccion,
-        estado: data.estado,
-      });
+  const dataTemp = [];
+  data.forEach((data) => {
+    dataTemp.push({
+      id: data._id,
+      titulo: data.titulo,
+      categorias: data.categorias,
+      actores: data.actores,
+      director: data.director,
+      duracion: data.duracion,
+      tipo: data.tipo,
+      sinopsis: data.sinopsis,
+      calificacion: data.calificacion,
+      año: data.año,
+      disponibilidad: data.disponibilidad,
+      masVisto: data.masVisto,
+      recomendado: data.recomendado,
+      urlVideo: data.urlVideo,
+      urlPortada: data.urlPortada,
+      seccion: data.seccion,
+      estado: data.estado,
     });
-    return dataTemp;
-  }
+  });
+  return dataTemp;
+}

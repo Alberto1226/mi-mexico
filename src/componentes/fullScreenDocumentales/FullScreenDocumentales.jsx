@@ -2,7 +2,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
-import { listarPeliculas } from "../../api/peliculasListar";
+import { listarPeliculas, obtenerPeliculas, actualizarContadorPeliculas } from "../../api/peliculasListar";
 import video from "../../assets/videos/intro.mp4";
 import SwiperCore, { Pagination, Autoplay } from "swiper";
 import "swiper/css";
@@ -20,9 +20,35 @@ export function FullDocumentales(props) {
   const { id } = queryString.parse(locations.search);
 
   const { location } = props;
+
+  const aumentarContador = () => {
+    try {
+      // console.log(data)
+      obtenerPeliculas(id).then(response => {
+        const { data } = response;
+        console.log(data)
+        const dataTemp = {
+          contador: parseInt(data.contador) + 1
+        }
+        actualizarContadorPeliculas(id, dataTemp).then(response => {
+          // console.log(response)
+        }).catch(e => {
+          console.log(e)
+        })
+
+      }).catch(e => {
+        console.log(e)
+      })
+        .catch((e) => { });
+    } catch (e) { }
+  };
+
+  useEffect(() => {
+    aumentarContador();
+  }, []);
  
    //listar capitulos
-   const obtenerPeliculas = () => {
+   const obtenerPelicula = () => {
     try {
       listarPeliculas("documentales")
         .then((response) => {
@@ -41,7 +67,7 @@ export function FullDocumentales(props) {
   };
 
   useEffect(() => {
-    obtenerPeliculas();
+    obtenerPelicula();
   }, [location]);
  
  

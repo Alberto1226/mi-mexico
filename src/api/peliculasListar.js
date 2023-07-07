@@ -3,11 +3,40 @@ import {
     ENDPOINTRegistrarPeliculas,
     ENDPOINTModificarPeliculas,
     ENDPOINTEliminarPeliculas,
-    ENDPOINTSubirVideo
+    ENDPOINTSubirVideo,
+    ENDPOINTActualizarContadorPeliculas,
+    ENDPOINTObtenerPelicula
 } from './endpoints';
 import axios from 'axios';
 import { API_HOST } from '../utils/constants';
 //import {getTokenApi} from ".auth"
+
+// Para obtener todos los datos de un acuses de recibo
+export async function obtenerPeliculas(id) {
+    //console.log(params)
+    const config = {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            //Authorization: `Bearer ${getTokenApi()}`
+        }
+    };
+    return await axios.get(API_HOST + ENDPOINTObtenerPelicula + `/${id}`, config);
+}
+
+
+export async function actualizarContadorPeliculas(id, data) {
+
+    const config = {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            //Authorization: `Bearer ${getTokenApi()}`
+        }
+    };
+
+    return await axios.put(API_HOST + ENDPOINTActualizarContadorPeliculas + `/${id}`, data, config);
+}
 
 export async function listarPeliculas(tipo) {
     const config = {
