@@ -5,7 +5,8 @@ import {
     ENDPOINTEliminarPeliculas,
     ENDPOINTSubirVideo,
     ENDPOINTActualizarContadorPeliculas,
-    ENDPOINTObtenerPelicula
+    ENDPOINTObtenerPelicula,
+    ENDPOINTListarPeliculasMasVistas
 } from './endpoints';
 import axios from 'axios';
 import { API_HOST } from '../utils/constants';
@@ -39,6 +40,17 @@ export async function actualizarContadorPeliculas(id, data) {
 }
 
 export async function listarPeliculas(tipo) {
+    const config = {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+
+        }
+    };
+    return await axios.get(API_HOST + ENDPOINTListarPeliculas + `/?tipo=${tipo}`, config);
+}
+
+export async function listarPeliculasMasVista(tipo) {
     const config = {
         headers: {
             'Accept': 'application/json',

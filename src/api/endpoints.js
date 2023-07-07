@@ -16,6 +16,7 @@ export const ENDPOINTEliminarPeliculas = "/peliculas/eliminar";
 export const ENDPOINTSubirVideo = "/peliculas/subirVideo";
 export const ENDPOINTActualizarContadorPeliculas = "/peliculas/actualizarContador";
 export const ENDPOINTObtenerPelicula = "/peliculas/obtenerPelicula";
+export const ENDPOINTListarPeliculasMasVistas = "/peliculas/listarPeliculasMasVistas";
 
 // Categorias
 export const ENDPOINTRegistrarCategoria = "/categorias/registro/";
@@ -30,6 +31,7 @@ export const ENDPOINTModificarSeries = "/series/actualizar";
 export const ENDPOINTEliminarSeries = "/series/eliminar";
 export const ENDPOINTActualizarContador = "/series/actualizarContador";
 export const ENDPOINTObtenerSerie = "/series/obtenerSerie";
+export const ENDPOINTListarSeriesMasVistas = "/peliculas/listarSeriesMasVistas";
 
 // Capitulos de series 
 export const ENDPOINTListarCapitulosSeries = "/capitulosSeries/listar";
