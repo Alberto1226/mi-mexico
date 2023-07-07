@@ -158,7 +158,7 @@ export function FullScrean(props) {
                             key={capitulo.nombre}
                             className="swiper-slide"
                           >
-                             <Link to={`/fullCap?id=${capitulo.serie}`} img={"datos"}>
+                             <Link to={`/fullCap?id=${capitulo.id}&capitulo=${capitulo.serie}&temporada=${capitulo.temporada}`} img={"datos"}>
                             <CardHeader
                               img1={capitulo.urlPortada}
                               nombre={capitulo.nombre}
