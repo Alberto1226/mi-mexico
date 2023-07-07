@@ -26,6 +26,8 @@ export const ENDPOINTListarSeries = "/series/listar";
 export const ENDPOINTRegistrarSeries = "/series/registro";
 export const ENDPOINTModificarSeries = "/series/actualizar";
 export const ENDPOINTEliminarSeries = "/series/eliminar";
+export const ENDPOINTActualizarContador = "/series/actualizarContador";
+export const ENDPOINTObtenerSerie = "/series/obtenerSerie";
 
 // Capitulos de series 
 export const ENDPOINTListarCapitulosSeries = "/capitulosSeries/listar";

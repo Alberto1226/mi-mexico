@@ -2,11 +2,26 @@ import {
     ENDPOINTListarSeries,
     ENDPOINTRegistrarSeries,
     ENDPOINTModificarSeries,
-    ENDPOINTEliminarSeries
+    ENDPOINTEliminarSeries,
+    ENDPOINTActualizarContador,
+    ENDPOINTObtenerSerie
 } from './endpoints';
 import axios from 'axios';
 import { API_HOST } from '../utils/constants';
 //import {getTokenApi} from ".auth"
+
+// Para obtener todos los datos de un acuses de recibo
+export async function obtenerSeries(id) {
+    //console.log(params)
+    const config = {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            //Authorization: `Bearer ${getTokenApi()}`
+        }
+    };
+    return await axios.get(API_HOST + ENDPOINTObtenerSerie + `/${id}`, config);
+}
 
 export async function listarSeries() {
     const config = {
@@ -44,6 +59,19 @@ export async function actualizarSeries(id, data) {
     };
 
     return await axios.put(API_HOST + ENDPOINTModificarSeries + `/${id}`, data, config);
+}
+
+export async function actualizarContadorSeries(id, data) {
+
+    const config = {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            //Authorization: `Bearer ${getTokenApi()}`
+        }
+    };
+
+    return await axios.put(API_HOST + ENDPOINTActualizarContador + `/${id}`, data, config);
 }
 
 export async function eliminarSeries(id, data) {

@@ -2,7 +2,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
-import { listarSeries } from "../../api/series";
+import { listarSeries, obtenerSeries, actualizarContadorSeries } from "../../api/series";
 import video from "../../assets/videos/intro.mp4";
 import SwiperCore, { Pagination, Autoplay } from "swiper";
 import "swiper/css";
@@ -20,7 +20,34 @@ export function FullScrean(props) {
   const { location } = props;
   const [listarSer, setListSeries] = useState([]);
 
-  const obtenerSeries = () => {
+  const aumentarContador = () => {
+    try {
+      // console.log(data)
+      obtenerSeries(id).then(response => {
+        const { data } = response;
+        console.log(data)
+        const dataTemp = {
+          contador: parseInt(data.contador) + 1
+        }
+        actualizarContadorSeries(id, dataTemp).then(response => {
+          // console.log(response)
+        }).catch(e => {
+          console.log(e)
+        })
+
+      }).catch(e => {
+        console.log(e)
+      })
+        .catch((e) => { });
+    } catch (e) { }
+  };
+
+  useEffect(() => {
+    aumentarContador();
+  }, [location]);
+
+
+  const obtenerSerie = () => {
     try {
       listarSeries()
         .then((response) => {
@@ -39,12 +66,12 @@ export function FullScrean(props) {
             //console.log(filteredSer);
           }
         })
-        .catch((e) => {});
-    } catch (e) {}
+        .catch((e) => { });
+    } catch (e) { }
   };
 
   useEffect(() => {
-    obtenerSeries();
+    obtenerSerie();
   }, [location]);
 
   const [slides, setSlides] = useState(5); // Número inicial de slides a mostrar
@@ -87,8 +114,8 @@ export function FullScrean(props) {
             console.log(datosCap);
           }
         })
-        .catch((e) => {});
-    } catch (e) {}
+        .catch((e) => { });
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -101,11 +128,11 @@ export function FullScrean(props) {
           <div key={series.id}>
             <video id="videoheader" src={video} autoPlay loop controls></video>
             <div className="informacionserie">
-            <h6 className="tituloSerie">{series.titulo}</h6>
-            <h6 className="sinopsis">{series.sinopsis}</h6>
+              <h6 className="tituloSerie">{series.titulo}</h6>
+              <h6 className="sinopsis">{series.sinopsis}</h6>
 
-            <h6 className="añoserie">{series.año}</h6>
-            
+              <h6 className="añoserie">{series.año}</h6>
+
             </div>
             <hr />
             {Array.isArray(series.datosTemporada) &&
@@ -136,7 +163,7 @@ export function FullScrean(props) {
                               duracion={capitulo.duracion}
                               des={capitulo.descripcion}
                             />
-                           
+
                           </SwiperSlide>
                         ))}
                     </Swiper>

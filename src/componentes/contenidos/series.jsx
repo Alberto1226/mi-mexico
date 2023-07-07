@@ -157,6 +157,7 @@ function Series({ history }) {
           disponibilidad: "",
           masVisto: "",
           recomendado: "",
+          contador: "0",
           urlPortada: data.secure_url,
           seccion: "",
           estado: "true"
