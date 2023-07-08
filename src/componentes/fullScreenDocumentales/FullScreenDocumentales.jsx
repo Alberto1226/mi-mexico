@@ -9,9 +9,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "../../css/swiper.css";
 import "../../css/cardHeader.css";
-import { CardHeader } from "../cardsHeader/cardsHeader";
-import { listarCapitulosSeries } from "../../api/capitulosSeries";
-import { Link } from "react-router-dom";
+import { registraHistorialUsuario } from "../../api/historialUsuarios";
+import { getTokenApi, obtenidusuarioLogueado } from "../../api/auth";
 
 SwiperCore.use([Pagination, Autoplay]);
 export function FullDocumentales(props) {
@@ -46,9 +45,9 @@ export function FullDocumentales(props) {
   useEffect(() => {
     aumentarContador();
   }, []);
- 
-   //listar capitulos
-   const obtenerPelicula = () => {
+
+  //listar capitulos
+  const obtenerPelicula = () => {
     try {
       listarPeliculas("documentales")
         .then((response) => {
@@ -69,11 +68,36 @@ export function FullDocumentales(props) {
   useEffect(() => {
     obtenerPelicula();
   }, [location]);
- 
- 
-   
 
-  
+  const registrarHistorial = () => {
+    try {
+      // console.log(data)
+      obtenerPeliculas(id).then(response => {
+        const { data } = response;
+        console.log(data)
+        const dataTemp = {
+          id_usuario: obtenidusuarioLogueado(getTokenApi()),
+          id_reproduccion: data._id,
+          nombre_reproduccion: data.titulo,
+          tipo: "documental",
+          url_reproduccion: data.urlVideo
+        }
+        registraHistorialUsuario(dataTemp).then(response => {
+          // console.log(response)
+        }).catch(e => {
+          console.log(e)
+        })
+
+      }).catch(e => {
+        console.log(e)
+      })
+        .catch((e) => { });
+    } catch (e) { }
+  };
+
+  useEffect(() => {
+    registrarHistorial();
+  }, [location]);
 
   const [slides, setSlides] = useState(5); // Número inicial de slides a mostrar
 
@@ -97,7 +121,7 @@ export function FullDocumentales(props) {
 
     setSlides(slidesToShow);
   };
- 
+
   return (
     <>
       {listarPel &&
@@ -105,11 +129,11 @@ export function FullDocumentales(props) {
           <div key={pel.id}>
             <video id="videoheader" src={video} autoPlay loop controls></video>
             <div className="informacionserie">
-            <h6 className="tituloSerie">{pel.titulo}</h6>
-            <h6 className="sinopsis">{pel.sinopsis}</h6>
-            <h6 className="añoserie">{pel.duracion}</h6>
+              <h6 className="tituloSerie">{pel.titulo}</h6>
+              <h6 className="sinopsis">{pel.sinopsis}</h6>
+              <h6 className="añoserie">{pel.duracion}</h6>
             </div>
-            
+
           </div>
         ))}
     </>
@@ -118,27 +142,27 @@ export function FullDocumentales(props) {
 
 
 function formatModelPeliculas(data) {
-    const dataTemp = [];
-    data.forEach((data) => {
-      dataTemp.push({
-        id: data._id,
-        titulo: data.titulo,
-        categorias: data.categorias,
-        actores: data.actores,
-        director: data.director,
-        duracion: data.duracion,
-        tipo: data.tipo,
-        sinopsis: data.sinopsis,
-        calificacion: data.calificacion,
-        año: data.año,
-        disponibilidad: data.disponibilidad,
-        masVisto: data.masVisto,
-        recomendado: data.recomendado,
-        urlVideo: data.urlVideo,
-        urlPortada: data.urlPortada,
-        seccion: data.seccion,
-        estado: data.estado,
-      });
+  const dataTemp = [];
+  data.forEach((data) => {
+    dataTemp.push({
+      id: data._id,
+      titulo: data.titulo,
+      categorias: data.categorias,
+      actores: data.actores,
+      director: data.director,
+      duracion: data.duracion,
+      tipo: data.tipo,
+      sinopsis: data.sinopsis,
+      calificacion: data.calificacion,
+      año: data.año,
+      disponibilidad: data.disponibilidad,
+      masVisto: data.masVisto,
+      recomendado: data.recomendado,
+      urlVideo: data.urlVideo,
+      urlPortada: data.urlPortada,
+      seccion: data.seccion,
+      estado: data.estado,
     });
-    return dataTemp;
-  }
+  });
+  return dataTemp;
+}

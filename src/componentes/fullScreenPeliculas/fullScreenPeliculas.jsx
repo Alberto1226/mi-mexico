@@ -9,6 +9,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "../../css/swiper.css";
 import "../../css/cardHeader.css";
+import { registraHistorialUsuario } from "../../api/historialUsuarios";
+import { getTokenApi, obtenidusuarioLogueado } from "../../api/auth";
 
 SwiperCore.use([Pagination, Autoplay]);
 export function FullPeliculas(props) {
@@ -67,11 +69,35 @@ export function FullPeliculas(props) {
     obtenerPelicula();
   }, [location]);
 
+  const registrarHistorial = () => {
+    try {
+      // console.log(data)
+      obtenerPeliculas(id).then(response => {
+        const { data } = response;
+        console.log(data)
+        const dataTemp = {
+          id_usuario: obtenidusuarioLogueado(getTokenApi()),
+          id_reproduccion: data._id,
+          nombre_reproduccion: data.titulo,
+          tipo: "pelicula",
+          url_reproduccion: data.urlVideo
+        }
+        registraHistorialUsuario(dataTemp).then(response => {
+          // console.log(response)
+        }).catch(e => {
+          console.log(e)
+        })
 
+      }).catch(e => {
+        console.log(e)
+      })
+        .catch((e) => { });
+    } catch (e) { }
+  };
 
-
-
-
+  useEffect(() => {
+    registrarHistorial();
+  }, [location]);
 
   const [slides, setSlides] = useState(5); // Número inicial de slides a mostrar
 

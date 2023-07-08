@@ -11,6 +11,8 @@ import "../../css/swiper.css";
 import "../../css/cardHeader.css";
 import { CardHeader } from "../cardsHeader/cardsHeader";
 import { listarCapitulosSeries } from "../../api/capitulosSeries";
+import { registraHistorialUsuario } from "../../api/historialUsuarios";
+import { getTokenApi, obtenidusuarioLogueado } from "../../api/auth";
 import { Link } from "react-router-dom";
 
 SwiperCore.use([Pagination, Autoplay]);
@@ -45,6 +47,36 @@ export function FullScrean(props) {
 
   useEffect(() => {
     aumentarContador();
+  }, [location]);
+
+  const registrarHistorial = () => {
+    try {
+      // console.log(data)
+      obtenerSeries(id).then(response => {
+        const { data } = response;
+        console.log(data)
+        const dataTemp = {
+          id_usuario: obtenidusuarioLogueado(getTokenApi()),
+          id_reproduccion: data._id,
+          nombre_reproduccion: data.titulo,
+          tipo: "serie",
+          url_reproduccion: data.urlTrailer
+        }
+        registraHistorialUsuario(dataTemp).then(response => {
+          // console.log(response)
+        }).catch(e => {
+          console.log(e)
+        })
+
+      }).catch(e => {
+        console.log(e)
+      })
+        .catch((e) => { });
+    } catch (e) { }
+  };
+
+  useEffect(() => {
+    registrarHistorial();
   }, [location]);
 
 
@@ -158,13 +190,13 @@ export function FullScrean(props) {
                             key={capitulo.nombre}
                             className="swiper-slide"
                           >
-                             <Link to={`/fullCap?id=${capitulo.id}&capitulo=${capitulo.serie}&temporada=${capitulo.temporada}`} img={"datos"}>
-                            <CardHeader
-                              img1={capitulo.urlPortada}
-                              nombre={capitulo.nombre}
-                              duracion={capitulo.duracion}
-                              des={capitulo.descripcion}
-                            />
+                            <Link to={`/fullCap?id=${capitulo.id}&capitulo=${capitulo.serie}&temporada=${capitulo.temporada}`} img={"datos"}>
+                              <CardHeader
+                                img1={capitulo.urlPortada}
+                                nombre={capitulo.nombre}
+                                duracion={capitulo.duracion}
+                                des={capitulo.descripcion}
+                              />
                             </Link>
                           </SwiperSlide>
                         ))}

@@ -2,11 +2,14 @@
 export const ENDPOINTLoginAdministrador = "/login";
 
 // Usuarios
-export const ENDPOINTListarUsuario = "/usuarios/listar/";
-export const ENDPOINTRegistrarUsuario = "/usuarios/registro/";
+export const ENDPOINTListarUsuario = "/usuarios/listar";
+export const ENDPOINTRegistrarUsuario = "/usuarios/registro";
 export const ENDPOINTObtenerUsuarios = "/usuarios/obtenerUsuario";
 export const ENDPOINTObtenerUsuariosPorCorreo = "/usuarios/obtenerPorCorreo";
 export const ENDPOINTActualizarContraseña = "/usuarios/actualizarContrasena";
+
+// historialUsuarios
+export const ENDPOINTRegistrarHistorialUsuario = "/historialUsuarios/registro/";
 
 // Peliculas
 export const ENDPOINTListarPeliculas = "/peliculas/listar";
@@ -19,7 +22,7 @@ export const ENDPOINTObtenerPelicula = "/peliculas/obtenerPelicula";
 export const ENDPOINTListarPeliculasMasVistas = "/peliculas/listarPeliculasMasVistas";
 
 // Categorias
-export const ENDPOINTRegistrarCategoria = "/categorias/registro/";
+export const ENDPOINTRegistrarCategoria = "/categorias/registro";
 export const ENDPOINTObtenerCategorias = "/categorias/listar";
 export const ENDPOINTActualizarCategoria = "/categorias/actualizar";
 export const ENDPOINTEliminarCategoria = "/categorias/eliminar";
