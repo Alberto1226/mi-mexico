@@ -232,9 +232,18 @@ function Peliculas({ history }) {
               </div>
               <br />
 
-              <input type="file" name="video" accept=".mp4" onChange={handleFileChange} />
+              <Col xs={12} md={8}>
+                  <Form.Control
+                    placeholder="URL Video"
+                    type="text"
+                    name="archPelicula"
+                    defaultValue={formData.archPelicula}
+                  />
+                </Col>
+
+              {/*<input type="file" name="video" accept=".mp4" onChange={handleFileChange} />
               {videoPath && <video src={videoPath} controls />}
-              <br />
+  <br />*/}
 
               <Row>
                 <Col xs={12} md={8}>

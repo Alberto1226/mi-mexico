@@ -75,7 +75,7 @@ export default function InsertarCapitulosSerie({ data }) {
                         serie: serie,
                         temporada: formData.temporada,
                         nombre: formData.nombre,
-                        urlCapitulo: videoPath,
+                        urlCapitulo: formData.urlCapitulo,
                         urlPortada: data.secure_url,
                         duracion: formData.duracion,
                         descripcion: formData.descripcion,
@@ -116,10 +116,19 @@ export default function InsertarCapitulosSerie({ data }) {
                         </div>
                     </div>
 
-                    <br />
+                    <Col xs={9} md={6}>
+                        <Form.Control
+                            placeholder="URL Video"
+                            type="text"
+                            name="urlCapitulo"
+                            defaultValue={formData.urlCapitulo}
+                        />
+                    </Col>
+
+                    {/*<br />
                     <input type="file" name="video" accept=".mp4" onChange={handleFileChange} />
                     {videoPath && <video src={videoPath} controls />}
-                    <br />
+    <br />*/}
 
                     <br />
                     <Row>

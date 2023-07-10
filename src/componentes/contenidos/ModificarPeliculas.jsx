@@ -34,7 +34,7 @@ export default function ModificarPeliculas({ data, history, setShow }) {
   };
 
   const [formData, setFormData] = useState(initialFormValue(dataTemp));
-  const [videoPath, setVideoPath] = useState(data[13]);
+  const [videoPath, setVideoPath] = useState(data[12]);
 
   //Para almacenar la imagen del producto que se guardara a la bd
   const [imagenPortadaPelicula, setImagenPortadaPelicula] = useState(data[13]);
@@ -119,7 +119,7 @@ export default function ModificarPeliculas({ data, history, setShow }) {
           disponibilidad: "",
           masVisto: "",
           recomendado: "",
-          urlVideo: videoPath,
+          urlVideo: formData.archPelicula,
           urlPortada: data.secure_url,
           seccion: "",
           estado: "true"
@@ -184,7 +184,7 @@ export default function ModificarPeliculas({ data, history, setShow }) {
 
   return (
     <>
-    {loading && <Load />}
+      {loading && <Load />}
       <div className="contact-form">
         <Form onSubmit={onSubmit} onChange={onChange}>
           <div className="imagenPrincipal">
@@ -200,9 +200,18 @@ export default function ModificarPeliculas({ data, history, setShow }) {
             </div>
           </div>
 
-          <input type="file" name="video" accept=".mp4" onChange={handleFileChange} />
+          <Col xs={12} md={8}>
+            <Form.Control
+              placeholder="URL Video"
+              type="text"
+              name="archPelicula"
+              defaultValue={formData.archPelicula}
+            />
+          </Col>
+
+          {/*<input type="file" name="video" accept=".mp4" onChange={handleFileChange} />
           {videoPath && <video src={videoPath} controls />}
-          <br />
+          <br />*/}
 
           <Row>
             <Col xs={12} md={8}>

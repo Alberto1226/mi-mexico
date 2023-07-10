@@ -121,7 +121,7 @@ export default function ModificarDocumentales({ data, setShow, history }) {
               masVisto: "",
               recomendado: "",
               urlVideo: formData.archPelicula,
-              urlPortada: videoPath,
+              urlPortada: data.secure_url,
               seccion: "",
             };
             actualizarPeliculas(idDocumental, dataTemp).then((response) => {
@@ -203,9 +203,20 @@ export default function ModificarDocumentales({ data, setShow, history }) {
             </div>
           </div>
           <br />
-          <input type="file" name="video" accept=".mp4" onChange={handleFileChange} />
-          {videoPath && <video src={videoPath} controls />}
+
+          <Col xs={12} md={8}>
+            <Form.Control
+              placeholder="URL Video"
+              type="text"
+              name="archPelicula"
+              defaultValue={formData.archPelicula}
+            />
+          </Col>
+
+          {/*<input type="file" name="video" accept=".mp4" onChange={handleFileChange} />
+          {videoPath && <video src={videoPath} controls />}*/}
           <br />
+
           <Row>
             <Col xs={12} md={8}>
               <Form.Control

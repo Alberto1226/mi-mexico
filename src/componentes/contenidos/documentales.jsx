@@ -110,7 +110,7 @@ function Documentales({ history }) {
               masVisto: "",
               tipo: "documentales",
               recomendado: formData.recomendado,
-              urlVideo: videoPath,
+              urlVideo: formData.archPelicula,
               contador: "0",
               urlPortada: data.secure_url,
               seccion: "",
@@ -213,8 +213,17 @@ function Documentales({ history }) {
               </div>
               <br />
 
-              <input type="file" name="video" accept=".mp4" onChange={handleFileChange} />
-              {videoPath && <video src={videoPath} controls />}
+              <Col xs={12} md={8}>
+                <Form.Control
+                  placeholder="URL Video"
+                  type="text"
+                  name="archPelicula"
+                  defaultValue={formData.archPelicula}
+                />
+              </Col>
+
+              {/*<input type="file" name="video" accept=".mp4" onChange={handleFileChange} />
+              {videoPath && <video src={videoPath} controls />}*/}
               <br />
 
               <br />
