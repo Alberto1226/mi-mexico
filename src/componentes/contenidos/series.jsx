@@ -159,6 +159,7 @@ function Series({ history }) {
           recomendado: "",
           contador: "0",
           urlPortada: data.secure_url,
+          urlTrailer: formData.urlTrailer,
           seccion: "",
           estado: "true"
         };
@@ -443,6 +444,12 @@ function Series({ history }) {
                 name="anio"
                 defaultValue={formData.anio}
               />
+              <Form.Control
+                placeholder="URL del trailer"
+                type="text"
+                name="urlTrailer"
+                defaultValue={formData.urlTrailer}
+              />
 
               <hr />
               <Badge bg="secondary" className="tituloFormularioDetalles">
@@ -587,7 +594,8 @@ function initialFormValue() {
     duracion: "",
     sinopsis: "",
     anio: "",
-    archPelicula: ""
+    archPelicula: "",
+    urlTrailer: ""
   };
 }
 
