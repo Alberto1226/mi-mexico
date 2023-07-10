@@ -3,7 +3,9 @@ import {
   faMagnifyingGlass,
   faHouse,
   faUser,
+  faSearch
 } from "@fortawesome/free-solid-svg-icons";
+import { Form, Badge } from "react-bootstrap"
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import Nav from "react-bootstrap/Nav";
@@ -17,8 +19,12 @@ import {
 import { obtenerUsuario } from "../../api/usuarios";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import styled from 'styled-components';
+import { map } from "lodash"
 
-export function NavPrincipal() {
+export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales }) {
+  const listaMultimedia = listarSeries.concat(listarPeliculas, listarDocumentales);
+  console.log(listaMultimedia)
   const [isInputOpen, setIsInputOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
@@ -68,6 +74,36 @@ export function NavPrincipal() {
     setIsInputOpen(false);
   };
 
+  const filteredItems = listaMultimedia.filter(
+    item => item.titulo && item.titulo.toLowerCase() == searchValue
+  );
+
+  const [id, setId] = useState();
+  const [titulo, setTitulo] = useState();
+  const [sinopsis, setSinopsis] = useState();
+  const [portada, setPortada] = useState();
+
+  const obtenerTotales = () => {
+    map(filteredItems, (item, index) => {
+      const { id, titulo, sinopsis, urlPortada } = item
+      setId(id)
+      setTitulo(titulo)
+      setSinopsis(sinopsis)
+      setPortada(urlPortada)
+    })
+  }
+
+
+  useEffect(() => {
+    obtenerTotales();
+
+    <>
+      <Link to={`/busqueda?id=${id}&capitulo=${titulo}&temporada=${sinopsis}&img1=${portada}`}></Link>
+    </>
+  }, [searchValue]);
+
+  console.log(id, titulo)
+
   return (
     <>
       <div>
@@ -82,13 +118,16 @@ export function NavPrincipal() {
           <Navbar.Collapse id="basic-navbar-nav">
             {isInputOpen && (
               <div className="buscar">
-                <input
-                  type="text"
-                  value={searchValue}
-                  onChange={handleInputChange}
-                  onBlur={handleInputBlur}
-                  autoFocus
-                />
+                <div className="flex items-center mb-1">
+                  <Form.Control
+                    type="text"
+                    value={searchValue}
+                    onChange={handleInputChange}
+                    onBlur={handleInputBlur}
+                    autoFocus
+                  />
+                  <Link to={`/busqueda?id=${id}&capitulo=${titulo}&temporada=${sinopsis}&img1=${portada}`}><FontAwesomeIcon icon={faSearch}/></Link>
+                </div>
               </div>
             )}
             <Nav className="me-auto">
@@ -127,7 +166,7 @@ export function NavPrincipal() {
                       icon={faUser}
                       className="userIcon"
                       onClick={() => cerrarSesion()}
-                       />
+                    />
                   </a>
                 </>
               )}

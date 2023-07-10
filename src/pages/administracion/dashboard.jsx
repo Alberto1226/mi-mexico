@@ -30,6 +30,10 @@ import { NavPrincipal } from "../../componentes/navBar/nav";
 
 export function Dashboard() {
 
+  const [listarSer, setListSeries] = useState([]);
+  const [listarPelicula, setListPelicula] = useState([]);
+  const [listarDocumentales, setListDocumentales] = useState([]);
+
   const [activeMenu, setActiveMenu] = useState("home");
   const [showComponent, setShowComponent] = useState(false);
   const [showComponent1, setShowComponent1] = useState(false);
@@ -106,7 +110,11 @@ export function Dashboard() {
     <>
       <ToastContainer />
       {loading && <Load />}
-      <NavPrincipal/>
+      <NavPrincipal
+        listarDocumentales={listarDocumentales}
+        listarPeliculas={listarPelicula}
+        listarSeries={listarSer}
+      />
       <div class="contenedor">
         <div class="sidebar ancho">
           <div class="logo text-warning">
