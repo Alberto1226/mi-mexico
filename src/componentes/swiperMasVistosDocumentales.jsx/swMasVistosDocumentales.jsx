@@ -1,34 +1,34 @@
 import React, { useEffect, useState } from "react";
 import SwiperCore, { Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { CardsUser } from "../cardsPeliculas/cardsPeliculas";
+import { MasVistos } from "../cardsMasVistos/masVistos";
 import "swiper/swiper.min.css";
 import "swiper/css";
 import "swiper/css/pagination";
-import "../../css/swiperCards.css";
-import { listarPeliculas } from "../../api/peliculasListar";
-import imgPel from "../../assets/img/2.jpg";
+import "../../css/cardVermas.css";
+import { listarPeliculasMasVista } from "../../api/peliculasListar";
+
+//import { listarPeliculas } from "../../api/peliculasListar";
+//import imgPel from "../../assets/img/2.jpg";
+import de1 from "../../assets/img/ber.jpeg";
 
 SwiperCore.use([Navigation, Pagination]);
 
-export function SwiperPeliculasRecomendadas(props) {
+export function SwiperMasVistos(props) {
   const { location } = props;
   const [listarPel, setListPeliculas] = useState(null);
 
   const obtenerPeliculas = () => {
     try {
-      listarPeliculas("peliculas")
+      listarPeliculasMasVista("documentales")
         .then((response) => {
           const { data } = response;
-          //console.log(data);
+          console.log(data);
           if (!listarPel && data) {
-            setListPeliculas(formatModelPeliculas(data));
-            //console.log(data);
+            setListPeliculas(data);
+            console.log(data);
           } else {
             const datosPel = formatModelPeliculas(data);
-            const filteredPel = datosPel.filter(
-                (data) => data.recomendado === "1"
-              );
             setListPeliculas(datosPel);
           }
         })
@@ -69,33 +69,34 @@ export function SwiperPeliculasRecomendadas(props) {
         <div className="location" id="home">
           <h4 id="home">{props.titulo}</h4>
 
-          <Swiper
-            spaceBetween={20}
-            slidesPerView={slides}
-            navigation
-            pagination={{ clickable: true }}
-            className="mySwiper"
-          >
-            {listarPel &&
-              listarPel.map((pelicula) => (
-                <SwiperSlide className="swiper-slide" key={pelicula.id}>
-                  <CardsUser
-                    img1={pelicula.urlPortada}
-                    urlVideo={pelicula.urlVideo}
-                    actores={pelicula.actores}
-                    anio={pelicula.año}
-                    calificacion={pelicula.calificacion}
-                    director={pelicula.director}
-                    disponibilidad={pelicula.disponibilidad}
-                    duracion={pelicula.duracion}
-                    estado={pelicula.estado}
-                    genero={pelicula.genero}
-                    sinopsis={pelicula.sinopsis}
-                    titulo={pelicula.titulo}
-                  />
-                </SwiperSlide>
-              ))}
-          </Swiper>
+          <div className="swiper-container">
+            <Swiper
+              spaceBetween={20}
+              slidesPerView={slides}
+              navigation
+              pagination={{
+                clickable: true,
+              }}
+            >
+              {/* Agrega tus SwiperSlides aquí */}
+              {listarPel &&
+                listarPel.map((peli, index) => (
+                  <SwiperSlide
+                    className="swiper-slide"
+                    data-slide-number={index + 1}
+                    key={peli.id}
+                  >
+                    <MasVistos
+                      img1={peli.urlPortada}
+                      nombre={peli.titulo}
+                      duracion={peli.duracion}
+                      des={peli.sinopsis}
+                    />
+                  </SwiperSlide>
+                ))}
+              {/* ... Agrega el resto de los slides */}
+            </Swiper>
+          </div>
         </div>
       </section>
     </>

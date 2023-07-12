@@ -6,30 +6,27 @@ import "swiper/swiper.min.css";
 import "swiper/css";
 import "swiper/css/pagination";
 import "../../css/cardVermas.css";
-import { listarPeliculasMasVista } from "../../api/peliculasListar";
+import { listarSeriesMasVistas } from "../../api/series";
 
-//import { listarPeliculas } from "../../api/peliculasListar";
-//import imgPel from "../../assets/img/2.jpg";
-import de1 from "../../assets/img/ber.jpeg";
 
 SwiperCore.use([Navigation, Pagination]);
 
 export function SwiperMasVistos(props) {
   const { location } = props;
-  const [listarPel, setListPeliculas] = useState(null);
+  const [listarSer, setListSeries] = useState([]);
 
-  const obtenerPeliculas = () => {
+  const obtenerSeries = () => {
     try {
-      listarPeliculasMasVista("peliculas")
+        listarSeriesMasVistas()
         .then((response) => {
           const { data } = response;
-          console.log(data);
-          if (!listarPel && data) {
-            setListPeliculas(data);
+
+          if (!listarSer && data) {
+            setListSeries(formatModelSeries(data));
             console.log(data);
           } else {
-            const datosPel = formatModelPeliculas(data);
-            setListPeliculas(datosPel);
+            const datosSer = formatModelSeries(data);
+            setListSeries(datosSer);
           }
         })
         .catch((e) => {});
@@ -37,7 +34,7 @@ export function SwiperMasVistos(props) {
   };
 
   useEffect(() => {
-    obtenerPeliculas();
+    obtenerSeries();
   }, [location]);
 
   const [slides, setSlides] = useState(5); // Número inicial de slides a mostrar
@@ -79,18 +76,18 @@ export function SwiperMasVistos(props) {
               }}
             >
               {/* Agrega tus SwiperSlides aquí */}
-              {listarPel &&
-                listarPel.map((peli, index) => (
+              {listarSer &&
+                listarSer.map((serie, index) => (
                   <SwiperSlide
                     className="swiper-slide"
                     data-slide-number={index + 1}
-                    key={peli.id}
+                    key={serie.id}
                   >
                     <MasVistos
-                      img1={peli.urlPortada}
-                      nombre={peli.titulo}
-                      duracion={peli.duracion}
-                      des={peli.sinopsis}
+                      img1={serie.urlPortada}
+                      nombre={serie.titulo}
+                      duracion={serie.duracion}
+                      des={serie.sinopsis}
                     />
                   </SwiperSlide>
                 ))}
@@ -103,28 +100,27 @@ export function SwiperMasVistos(props) {
   );
 }
 
-function formatModelPeliculas(data) {
-  const dataTemp = [];
-  data.forEach((data) => {
-    dataTemp.push({
-      id: data._id,
-      titulo: data.titulo,
-      categorias: data.categorias,
-      actores: data.actores,
-      director: data.director,
-      duracion: data.duracion,
-      tipo: data.tipo,
-      sinopsis: data.sinopsis,
-      calificacion: data.calificacion,
-      año: data.año,
-      disponibilidad: data.disponibilidad,
-      masVisto: data.masVisto,
-      recomendado: data.recomendado,
-      urlVideo: data.urlVideo,
-      urlPortada: data.urlPortada,
-      seccion: data.seccion,
-      estado: data.estado,
+function formatModelSeries(data) {
+    const dataTemp = [];
+    data.forEach((data) => {
+      dataTemp.push({
+        id: data._id,
+        titulo: data.titulo,
+        categorias: data.categorias,
+        actores: data.actores,
+        director: data.director,
+        duracion: data.duracion,
+        sinopsis: data.sinopsis,
+        calificacion: data.calificacion,
+        datosTemporada: data.datosTemporada,
+        año: data.año,
+        disponibilidad: data.disponibilidad,
+        masVisto: data.masVisto,
+        recomendado: data.recomendado,
+        urlPortada: data.urlPortada,
+        seccion: data.seccion,
+        estado: data.estado,
+      });
     });
-  });
-  return dataTemp;
-}
+    return dataTemp;
+  }

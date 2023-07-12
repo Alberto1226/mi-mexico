@@ -6,9 +6,8 @@ import "swiper/css/pagination";
 import "../../css/swiper.css";
 import "../../css/cardHeader.css"
 import video from "../../assets/videos/intro.mp4";
-import { CardsUser } from "../cardsPeliculas/cardsPeliculas";
 import {CardHeader} from "../cardsHeader/cardsHeader"
-import { listarPeliculas } from "../../api/peliculasListar";
+import { listarSeries } from "../../api/series";
 //imagenes
 import de1 from "../../assets/img/ber.jpeg";
 import de2 from "../../assets/img/chi.jpeg";
@@ -47,22 +46,21 @@ export function SwiperHeader(props) {
   }, []);
   /**listar peliculas */
   const { location } = props;
-  const [listarPel, setListPeliculas] = useState(null);
+  const [listarSer, setListSeries] = useState([]);
 
-  const obtenerPeliculas = () => {
+  const obtenerSeries = () => {
     try {
-      listarPeliculas()
+      listarSeries()
         .then((response) => {
           const { data } = response;
 
-          if (!listarPel && data) {
-            setListPeliculas(formatModelPeliculas(data));
+          if (!listarSer && data) {
+            setListSeries(formatModelSeries(data));
+            console.log(data);
           } else {
-            const datosPel = formatModelPeliculas(data);
-            const filteredPel = datosPel.filter(
-              (data) => data.recomendado === "1"
-            );
-            setListPeliculas(filteredPel);
+            const datosSer = formatModelSeries(data);
+            const filteredSer = datosSer.filter((data) => data.header === "1");
+            setListSeries(filteredSer);
           }
         })
         .catch((e) => {});
@@ -70,8 +68,10 @@ export function SwiperHeader(props) {
   };
 
   useEffect(() => {
-    obtenerPeliculas();
+    obtenerSeries();
   }, [location]);
+
+  
   /**fin de listar */
   const [slides, setSlides] = useState(4); // Número inicial de slides a mostrar
 
@@ -109,24 +109,13 @@ export function SwiperHeader(props) {
             pagination={{ clickable: true }}
             className="mySwiper"
           >
-            {/** {listarPel &&
-              listarPel.map((pelicula) => (*/}
-            <SwiperSlide className="swiper-slide-header">
+             {listarSer &&
+              listarSer.map((serie) => (
+            <SwiperSlide className="swiper-slide-header" key={serie.id}>
               <CardHeader img1={de1}/>
             </SwiperSlide>
-            <SwiperSlide className="swiper-slide-header">
-              <CardHeader img1={de2} />
-            </SwiperSlide>
-            <SwiperSlide className="swiper-slide-header">
-              <CardHeader img1={de3} />
-            </SwiperSlide>
-            <SwiperSlide className="swiper-slide-header">
-              <CardHeader img1={de4} />
-            </SwiperSlide>
-            <SwiperSlide className="swiper-slide-header">
-              <CardHeader img1={de5} />
-            </SwiperSlide>
-            {/** ))}*/}
+           
+           ))}
           </Swiper>
         </div>
       </div>
@@ -134,30 +123,28 @@ export function SwiperHeader(props) {
   );
 }
 
-function formatModelPeliculas(data) {
+function formatModelSeries(data) {
   const dataTemp = [];
   data.forEach((data) => {
-    if (data.recomendado === "1") {
-      dataTemp.push({
-        id: data._id,
-        titulo: data.titulo,
-        categorias: data.categorias,
-        actores: data.actores,
-        director: data.director,
-        duracion: data.duracion,
-        tipo: data.tipo,
-        sinopsis: data.sinopsis,
-        calificacion: data.calificacion,
-        año: data.año,
-        disponibilidad: data.disponibilidad,
-        masVisto: data.masVisto,
-        recomendado: data.recomendado,
-        urlVideo: data.urlVideo,
-        urlPortada: data.urlPortada,
-        seccion: data.seccion,
-        estado: data.estado,
-      });
-    }
+    dataTemp.push({
+      id: data._id,
+      titulo: data.titulo,
+      categorias: data.categorias,
+      actores: data.actores,
+      director: data.director,
+      duracion: data.duracion,
+      sinopsis: data.sinopsis,
+      calificacion: data.calificacion,
+      datosTemporada: data.datosTemporada,
+      año: data.año,
+      disponibilidad: data.disponibilidad,
+      masVisto: data.masVisto,
+      header: data.header,
+      recomendado: data.recomendado,
+      urlPortada: data.urlPortada,
+      seccion: data.seccion,
+      estado: data.estado,
+    });
   });
   return dataTemp;
 }
