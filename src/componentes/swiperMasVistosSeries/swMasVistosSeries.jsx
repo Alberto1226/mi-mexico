@@ -7,11 +7,12 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "../../css/cardVermas.css";
 import { listarSeriesMasVistas } from "../../api/series";
+import { Link } from "react-router-dom";
 
 
 SwiperCore.use([Navigation, Pagination]);
 
-export function SwiperMasVistos(props) {
+export function SwiperMasVistosSer(props) {
   const { location } = props;
   const [listarSer, setListSeries] = useState([]);
 
@@ -83,12 +84,14 @@ export function SwiperMasVistos(props) {
                     data-slide-number={index + 1}
                     key={serie.id}
                   >
+                    <Link to={`/full?id=${serie.id}&titulo=${serie.titulo}`} >
                     <MasVistos
                       img1={serie.urlPortada}
                       nombre={serie.titulo}
                       duracion={serie.duracion}
                       des={serie.sinopsis}
                     />
+                    </Link>
                   </SwiperSlide>
                 ))}
               {/* ... Agrega el resto de los slides */}

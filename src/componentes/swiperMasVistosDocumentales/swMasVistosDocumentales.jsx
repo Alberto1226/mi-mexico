@@ -7,6 +7,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "../../css/cardVermas.css";
 import { listarPeliculasMasVista } from "../../api/peliculasListar";
+import { Link } from "react-router-dom";
 
 //import { listarPeliculas } from "../../api/peliculasListar";
 //import imgPel from "../../assets/img/2.jpg";
@@ -14,7 +15,7 @@ import de1 from "../../assets/img/ber.jpeg";
 
 SwiperCore.use([Navigation, Pagination]);
 
-export function SwiperMasVistos(props) {
+export function SwiperMasVistosDoc(props) {
   const { location } = props;
   const [listarPel, setListPeliculas] = useState(null);
 
@@ -82,16 +83,18 @@ export function SwiperMasVistos(props) {
               {listarPel &&
                 listarPel.map((peli, index) => (
                   <SwiperSlide
+                  key={peli.id}
                     className="swiper-slide"
                     data-slide-number={index + 1}
-                    key={peli.id}
                   >
-                    <MasVistos
-                      img1={peli.urlPortada}
-                      nombre={peli.titulo}
-                      duracion={peli.duracion}
-                      des={peli.sinopsis}
-                    />
+                    <Link to={`/fullDoc?id=${peli.id}&titulo=${peli.titulo}&id2=${peli.id}`} >
+                      <MasVistos
+                        img1={peli.urlPortada}
+                        nombre={peli.titulo}
+                        duracion={peli.duracion}
+                        des={peli.sinopsis}
+                      />
+                    </Link>
                   </SwiperSlide>
                 ))}
               {/* ... Agrega el resto de los slides */}

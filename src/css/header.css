@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Titillium+Web&display=swap');
+
 :root {
     --primary: #eeecec;
     --light: #F3F3F3;
@@ -304,8 +307,21 @@
 
 
   .buscar{
-    width: 100%;
-    margin-left: 50px;
+    width: 60%;
+    float: right;
+    border: 1px #6ec819;
+  }
+  .btnBuscar{
+    position: relative;
+    float: right;
+  }
+  .btnBuscar a{
+    position: relative;
+    
+  }
+  .inputbuscar{
+    background-color: #e74de0;
+    opacity: 0.5;
   }
 
 
@@ -397,5 +413,16 @@
 }
 
 
+.separadores{
+  background-color: #6ec819;
+  color: #ffffff;
+  padding: 10px;
+  text-align: center;
+}
 
+h4{
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 30px;
+  margin-top: 5px;
+}
 

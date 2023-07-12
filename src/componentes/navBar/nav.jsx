@@ -112,12 +112,20 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
         <Navbar bg="link" expand="xl" className="navboostrap">
           <Navbar.Brand href="#home" className="mexicoLogo" id="logo">
             <img src={logo} alt="" className="logomx" />
+
+            
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-
+         
           <Navbar.Collapse id="basic-navbar-nav">
-            {isInputOpen && (
-              <div className="buscar">
+            
+              
+           
+            <Nav className="me-auto">
+              <Nav.Link href="#home"></Nav.Link>
+              <Nav.Link href="#home"></Nav.Link>
+            </Nav>
+            <div className="buscar">
                 <div className="flex items-center mb-1">
                   <Form.Control
                     type="text"
@@ -125,24 +133,22 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
                     onChange={handleInputChange}
                     onBlur={handleInputBlur}
                     autoFocus
+                    className="inputbuscar"
+                    placeholder="Buscar..."
                   />
-                  <Link to={`/busqueda?id=${id}&capitulo=${titulo}&temporada=${sinopsis}&img1=${portada}`}><FontAwesomeIcon icon={faSearch}/></Link>
                 </div>
-              </div>
-            )}
-            <Nav className="me-auto">
-              <Nav.Link href="#home"></Nav.Link>
-
-              <Nav.Link href="#home"></Nav.Link>
-            </Nav>
+            </div>
             <div className="botonesnav">
+            
               <Link>
-                <a className="icon" onClick={handleButtonClick}>
-                  {!isInputOpen && <FontAwesomeIcon icon={faMagnifyingGlass} />}
-
+                <a className="icon" >
+                <Link to={`/busqueda?id=${id}&capitulo=${titulo}&temporada=${sinopsis}&img1=${portada}`}><a className="icon">
+                 <FontAwesomeIcon icon={faMagnifyingGlass} />
+                 </a></Link>
 
                 </a>
               </Link>
+              
               <Link to={"/"}>
                 <a className="icon">
                   <FontAwesomeIcon icon={faHouse} />
