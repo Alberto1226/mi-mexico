@@ -25,8 +25,8 @@ export function SwiperMasVistos(props) {
           const { data } = response;
           console.log(data);
           if (!listarPel && data) {
-            setListPeliculas(data);
-            console.log(data);
+            const datosPel = formatModelPeliculas(data);
+            setListPeliculas(datosPel);
           } else {
             const datosPel = formatModelPeliculas(data);
             setListPeliculas(datosPel);

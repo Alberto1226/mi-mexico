@@ -26,8 +26,8 @@ export function SwiperMasVistosDoc(props) {
           const { data } = response;
           console.log(data);
           if (!listarPel && data) {
-            setListPeliculas(data);
-            console.log(data);
+            const datosPel = formatModelPeliculas(data);
+            setListPeliculas(datosPel);
           } else {
             const datosPel = formatModelPeliculas(data);
             setListPeliculas(datosPel);
@@ -40,6 +40,8 @@ export function SwiperMasVistosDoc(props) {
   useEffect(() => {
     obtenerPeliculas();
   }, [location]);
+
+  console.log(listarPel)
 
   const [slides, setSlides] = useState(5); // Número inicial de slides a mostrar
 

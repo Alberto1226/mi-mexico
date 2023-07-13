@@ -58,7 +58,7 @@ export async function listarPeliculasMasVista(tipo) {
 
         }
     };
-    return await axios.get(API_HOST + ENDPOINTListarPeliculas + `/?tipo=${tipo}`, config);
+    return await axios.get(API_HOST + ENDPOINTListarPeliculasMasVistas + `/?tipo=${tipo}`, config);
 }
 
 export async function registraPeliculas(data) {
