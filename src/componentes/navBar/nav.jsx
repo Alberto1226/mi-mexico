@@ -75,18 +75,20 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
   };
 
   const filteredItems = listaMultimedia.filter(
-    item => item.titulo && item.titulo.toLowerCase() == searchValue
+    item => item.titulo && item.titulo.toLowerCase() === searchValue.toLowerCase()
   );
 
   const [id, setId] = useState();
   const [titulo, setTitulo] = useState();
   const [sinopsis, setSinopsis] = useState();
   const [portada, setPortada] = useState();
+  const [tipo, setTipo] = useState("");
 
   const obtenerTotales = () => {
     map(filteredItems, (item, index) => {
-      const { id, titulo, sinopsis, urlPortada } = item
+      const { id, tipo, titulo, sinopsis, urlPortada } = item
       setId(id)
+      setTipo(tipo)
       setTitulo(titulo)
       setSinopsis(sinopsis)
       setPortada(urlPortada)
@@ -96,13 +98,9 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
 
   useEffect(() => {
     obtenerTotales();
-
-    <>
-      <Link to={`/busqueda?id=${id}&capitulo=${titulo}&temporada=${sinopsis}&img1=${portada}`}></Link>
-    </>
   }, [searchValue]);
 
-  console.log(id, titulo)
+  console.log(filteredItems)
 
   return (
     <>
@@ -113,42 +111,97 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
           <Navbar.Brand href="#home" className="mexicoLogo" id="logo">
             <img src={logo} alt="" className="logomx" />
 
-            
+
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-         
+
           <Navbar.Collapse id="basic-navbar-nav">
-            
-              
-           
+
+
+
             <Nav className="me-auto">
               <Nav.Link href="#home"></Nav.Link>
               <Nav.Link href="#home"></Nav.Link>
             </Nav>
             <div className="buscar">
-                <div className="flex items-center mb-1">
-                  <Form.Control
-                    type="text"
-                    value={searchValue}
-                    onChange={handleInputChange}
-                    onBlur={handleInputBlur}
-                    autoFocus
-                    className="inputbuscar"
-                    placeholder="Buscar..."
-                  />
-                </div>
+              <div className="flex items-center mb-1">
+                <Form.Control
+                  type="text"
+                  value={searchValue}
+                  onChange={handleInputChange}
+                  onBlur={handleInputBlur}
+                  autoFocus
+                  className="inputbuscar"
+                  placeholder="Buscar..."
+                />
+              </div>
             </div>
             <div className="botonesnav">
-            
-              <Link>
-                <a className="icon" >
-                <Link to={`/busqueda?id=${id}&capitulo=${titulo}&temporada=${sinopsis}&img1=${portada}`}><a className="icon">
-                 <FontAwesomeIcon icon={faMagnifyingGlass} />
-                 </a></Link>
 
-                </a>
-              </Link>
-              
+              {
+                tipo == "" &&
+                (
+                  <>
+                    <Link>
+                      <a className="icon" >
+                        <Link to={`/`}><a className="icon">
+                          <FontAwesomeIcon icon={faMagnifyingGlass} />
+                        </a></Link>
+
+                      </a>
+                    </Link>
+                  </>
+                )
+              }
+
+              {
+                tipo == "series" &&
+                (
+                  <>
+                    <Link>
+                      <a className="icon" >
+                        <Link to={`/full?id=${id}&titulo=${titulo}`}><a className="icon">
+                          <FontAwesomeIcon icon={faMagnifyingGlass} />
+                        </a></Link>
+
+                      </a>
+                    </Link>
+                  </>
+                )
+              }
+
+              {
+                tipo == "peliculas" &&
+                (
+                  <>
+                    <Link>
+                      <a className="icon" >
+                        <Link to={`/fullPel?id=${id}&titulo=${titulo}`}><a className="icon">
+                          <FontAwesomeIcon icon={faMagnifyingGlass} />
+                        </a></Link>
+
+                      </a>
+                    </Link>
+                  </>
+                )
+              }
+
+              {
+                tipo == "documentales" &&
+                (
+                  <>
+                    <Link>
+                      <a className="icon" >
+                        <Link to={`/fullDoc?id=${id}&titulo=${titulo}&id2=${id}`}><a className="icon">
+                          <FontAwesomeIcon icon={faMagnifyingGlass} />
+                        </a></Link>
+
+                      </a>
+                    </Link>
+                  </>
+                )
+              }
+
               <Link to={"/"}>
                 <a className="icon">
                   <FontAwesomeIcon icon={faHouse} />

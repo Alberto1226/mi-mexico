@@ -38,6 +38,8 @@ export function SwiperMasVistosSer(props) {
     obtenerSeries();
   }, [location]);
 
+  console.log(listarSer)
+
   const [slides, setSlides] = useState(5); // Número inicial de slides a mostrar
 
   useEffect(() => {

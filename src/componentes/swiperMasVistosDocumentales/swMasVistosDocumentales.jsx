@@ -17,7 +17,8 @@ SwiperCore.use([Navigation, Pagination]);
 
 export function SwiperMasVistosDoc(props) {
   const { location } = props;
-  const [listarPel, setListPeliculas] = useState(null);
+  const [listarPel, setListPeliculas] = useState([]);
+  const [camposRepetidos, setCamposRepetidos] = useState([]);
 
   const obtenerPeliculas = () => {
     try {
@@ -28,20 +29,97 @@ export function SwiperMasVistosDoc(props) {
           if (!listarPel && data) {
             const datosPel = formatModelPeliculas(data);
             setListPeliculas(datosPel);
+            const propiedad = "categoria";
+
+            // Objeto para realizar el conteo de ocurrencias
+            const conteo = {};
+
+            // Recorrer el array principal
+            for (let i = 0; i < datosPel.length; i++) {
+              const objeto = datosPel[i];
+              console.log(objeto)
+
+              // Recorrer los campos JSON dentro de campoArray
+              for (let j = 0; j < objeto.categorias.length; j++) {
+                const campo = objeto.categorias[j];
+                console.log(campo)
+
+                // Verificar si la propiedad existe en el campo
+                if (propiedad in campo) {
+                  const valor = campo[propiedad];
+                  if (valor in conteo) {
+                    conteo[valor].push(objeto);
+                  } else {
+                    conteo[valor] = [objeto];
+                  }
+                }
+              }
+            }
+
+            const camposRepetidos = [];
+            for (const valor in conteo) {
+              if (conteo[valor].length > 1) {
+                camposRepetidos.push(...conteo[valor]);
+              }
+            }
+
+            // Imprimir la lista de campos repetidos
+            console.log("Lista de campos repetidos:");
+            console.log(camposRepetidos);
+            setCamposRepetidos(camposRepetidos)
+
           } else {
             const datosPel = formatModelPeliculas(data);
             setListPeliculas(datosPel);
+            const propiedad = "categoria";
+
+            // Objeto para realizar el conteo de ocurrencias
+            const conteo = {};
+
+            // Recorrer el array principal
+            for (let i = 0; i < datosPel.length; i++) {
+              const objeto = datosPel[i];
+              console.log(objeto)
+
+              // Recorrer los campos JSON dentro de campoArray
+              for (let j = 0; j < objeto.categorias.length; j++) {
+                const campo = objeto.categorias[j];
+                console.log(campo)
+
+                // Verificar si la propiedad existe en el campo
+                if (propiedad in campo) {
+                  const valor = campo[propiedad];
+                  if (valor in conteo) {
+                    conteo[valor].push(objeto);
+                  } else {
+                    conteo[valor] = [objeto];
+                  }
+                }
+              }
+            }
+
+            const camposRepetidos = [];
+            for (const valor in conteo) {
+              if (conteo[valor].length > 1) {
+                camposRepetidos.push(...conteo[valor]);
+              }
+            }
+
+            // Imprimir la lista de campos repetidos
+            console.log("Lista de campos repetidos:");
+            console.log(camposRepetidos);
+            setCamposRepetidos(camposRepetidos)
           }
         })
-        .catch((e) => {});
-    } catch (e) {}
+        .catch((e) => { });
+    } catch (e) { }
   };
 
   useEffect(() => {
     obtenerPeliculas();
-  }, [location]);
+  }, []);
 
-  console.log(listarPel)
+  console.log(camposRepetidos)
 
   const [slides, setSlides] = useState(5); // Número inicial de slides a mostrar
 
@@ -85,7 +163,7 @@ export function SwiperMasVistosDoc(props) {
               {listarPel &&
                 listarPel.map((peli, index) => (
                   <SwiperSlide
-                  key={peli.id}
+                    key={peli.id}
                     className="swiper-slide"
                     data-slide-number={index + 1}
                   >

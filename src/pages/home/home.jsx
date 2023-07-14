@@ -211,6 +211,7 @@ function formatModelSeries(data) {
       actores: data.actores,
       director: data.director,
       duracion: data.duracion,
+      tipo: "series",
       sinopsis: data.sinopsis,
       calificacion: data.calificacion,
       datosTemporada: data.datosTemporada,
