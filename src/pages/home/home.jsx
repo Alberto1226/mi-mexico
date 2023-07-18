@@ -136,33 +136,22 @@ export function Home() {
         <SwiperPeliculas titulo={"Favoritos"} />
         <hr />
         <SwiperHeader img={imgSwiper} />
-        
-        {/**
-        <SwiperPeliculas titulo={"Mas"}/>
-        <SwiperPeliculas titulo={""}/>
-        <SwiperPeliculas titulo={""}/>
-        <SwiperPeliculas titulo={""}/>
-        <SwiperPeliculas titulo={""}/> */}
-        <div class="separadores">
-          <h4 id="home">Ver mas Series</h4>
+       
+        <div className="margindiv">
+        <h4>Ver mas Series</h4>
         </div>
         <VerMas />
-
-        <div class="separadores">
-          <h4 id="home">Ver mas Peliculas</h4>
+        <hr />
+        <div className="margindiv">
+        <h4>Ver mas Peliculas</h4>
         </div>
-
         <VerMasP />
-
-        <div class="separadores">
-          <h4 id="home">Ver mas Documentales</h4>
+        <hr />
+        <div className="margindiv">
+        <h4>Ver mas Documentales</h4>
         </div>
         <VerMasD />
-
-        <div class="separadores">
-          <h4 id="home">Resultado de la busqueda</h4>
-        </div>
-        <ResultadoBusqueda />
+        <hr />
 
         <section class="link">
           <div class="patrocinadores">

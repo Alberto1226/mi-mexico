@@ -307,7 +307,7 @@
 
 
   .buscar{
-    width: 60%;
+    width: 56%;
     float: right;
     border: 1px #6ec819;
   }
@@ -320,8 +320,8 @@
     
   }
   .inputbuscar{
-    background-color: #e74de0;
-    opacity: 0.5;
+    background-color: #ffffff;
+    opacity: 1;
   }
 
 
@@ -426,3 +426,6 @@ h4{
   margin-top: 5px;
 }
 
+.margindiv{
+  margin-left: 20px;
+}
