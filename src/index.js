@@ -10,14 +10,15 @@ import { Login } from "./pages/login/login";
 import { Registro } from "./pages/registro/registro";
 import { RegistroPasodos } from "./pages/registro/registroPasodos";
 import { Dashboard } from "./pages/administracion/dashboard";
-import {TablaUsuarios} from "./componentes/usuarios/tablaUsuarios";
+import { TablaUsuarios } from "./componentes/usuarios/tablaUsuarios";
 import Categorias from "./componentes/categoriasVideos/categproas";
-import {RecuperarContraseña} from "./pages/recuperarContraseña/recuperarContraseña";
-import {FullScrean} from "./componentes/fullScreen/fullScreen";
-import {FullCapitulos} from "./componentes/fullCapitulos/fullCapitulos";
-import {FullPeliculas} from "./componentes/fullScreenPeliculas/fullScreenPeliculas";
-import {FullDocumentales} from "./componentes/fullScreenDocumentales/FullScreenDocumentales";
-import {ResultadoBusqueda} from "./componentes/resultadoBusqueda/resultadoBusqueda";
+import { RecuperarContraseña } from "./pages/recuperarContraseña/recuperarContraseña";
+import { FullScrean } from "./componentes/fullScreen/fullScreen";
+import { FullCapitulos } from "./componentes/fullCapitulos/fullCapitulos";
+import { FullPeliculas } from "./componentes/fullScreenPeliculas/fullScreenPeliculas";
+import { FullDocumentales } from "./componentes/fullScreenDocumentales/FullScreenDocumentales";
+import { ResultadoBusqueda } from "./componentes/resultadoBusqueda/resultadoBusqueda";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -48,11 +49,11 @@ const router = createBrowserRouter([
     path: "/registroPasodos",
     element: <RegistroPasodos />,
     errorElement: <Error />,
-  },{
+  }, {
     path: "/usuariotb",
     element: <TablaUsuarios />,
     errorElement: <Error />,
-  },{
+  }, {
     path: "/recuperarPass",
     element: <RecuperarContraseña />,
     errorElement: <Error />,

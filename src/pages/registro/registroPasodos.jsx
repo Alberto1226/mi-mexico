@@ -35,6 +35,7 @@ export function RegistroPasodos() {
             email: formData.correo,
             contraseña: formData.contraseña,
             estado: "true",
+            admin: "false",
             verificacion: "false",
           }
           registraUsuarios(dataTemp).then(response => {

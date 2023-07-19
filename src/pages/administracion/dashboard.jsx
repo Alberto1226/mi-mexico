@@ -20,15 +20,38 @@ import {
   faHouse,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-
+import { obtenerUsuario } from "../../api/usuarios";
 import {
   getTokenApi,
   obtenidusuarioLogueado,
   logoutApi,
 } from "../../api/auth";
 import { NavPrincipal } from "../../componentes/navBar/nav";
+import { Error } from "../error/error404";
 
 export function Dashboard() {
+
+  const [tipoUsuario, setTipoUsuario] = useState();
+
+  const obtenerDatosUsuario = () => {
+    try {
+      obtenerUsuario(obtenidusuarioLogueado(getTokenApi())).then(response => {
+        const { data } = response;
+        setTipoUsuario(data.admin);
+      }).catch((e) => {
+        if (e.message === 'Network Error') {
+          //console.log("No hay internet")
+          console.log("Conexión al servidor no disponible");
+        }
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  useEffect(() => {
+    obtenerDatosUsuario();
+  }, []);
 
   const [listarSer, setListSeries] = useState([]);
   const [listarPelicula, setListPelicula] = useState([]);
@@ -108,102 +131,117 @@ export function Dashboard() {
   }, []);
   return (
     <>
-      <ToastContainer />
-      {loading && <Load />}
-      <NavPrincipal
-        listarDocumentales={listarDocumentales}
-        listarPeliculas={listarPelicula}
-        listarSeries={listarSer}
-      />
-      <div class="contenedor">
-        <div class="sidebar ancho">
-          <div class="logo text-warning">
-            <i class="fa fa-ravelry fa-2x logo-sym"></i>
-            <span class="logo-texto"><img src={logo} alt="" /></span>
-          </div>
-
-          <div class="user">
-            <img
-              src={logo2}
-              alt=""
+      {
+        (tipoUsuario == "true") &&
+        (
+          <>
+            <ToastContainer />
+            {loading && <Load />}
+            <NavPrincipal
+              listarDocumentales={listarDocumentales}
+              listarPeliculas={listarPelicula}
+              listarSeries={listarSer}
             />
-            <span class="user-nombre">Administrador</span>
-          </div>
+            <div class="contenedor">
+              <div class="sidebar ancho">
+                <div class="logo text-warning">
+                  <i class="fa fa-ravelry fa-2x logo-sym"></i>
+                  <span class="logo-texto"><img src={logo} alt="" /></span>
+                </div>
 
-          <hr />
-          <Nav className="flex-column">
-            <Nav.Item className="listNav">
-              <Nav.Link className="aa" eventKey="home" active={activeMenu === "home"}>
-                <Link to="/">Inicio</Link>
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item className="listNav" onClick={handleClick}>
-              <Nav.Link className="aa" eventKey="user" active={activeMenu === "user"}>
-                Usuarios
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item className="listNav" onClick={handleClick4}>
-              <Nav.Link className="aa" eventKey="cat" active={activeMenu === "cat"}>
-                Categorias
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item className="listNav" onClick={handleClick5}>
-              <Nav.Link className="aa" eventKey="news" active={activeMenu === "news"}>
-                Patrocinadores
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item className="listNav" onClick={handleClick3}>
-              <Nav.Link className="aa" eventKey="news" active={activeMenu === "news"}>
-                Peliculas
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item className="listNav" onClick={handleClick1}>
-              <Nav.Link className="aa" eventKey="news" active={activeMenu === "news"}>
-                Documentales
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item className="listNav" onClick={handleClick2}>
-              <Nav.Link className="aa" eventKey="news" active={activeMenu === "news"}>
-                Insertar Nueva Serie
-              </Nav.Link>
-            </Nav.Item>
-          </Nav>
-        </div>
-        <div class="main bg-light">
-          <div class="barra"></div>
+                <div class="user">
+                  <img
+                    src={logo2}
+                    alt=""
+                  />
+                  <span class="user-nombre">Administrador</span>
+                </div>
 
-          {showComponent && (
-            <div>
-              <TablaUsuarios />
+                <hr />
+                <Nav className="flex-column">
+                  <Nav.Item className="listNav">
+                    <Nav.Link className="aa" eventKey="home" active={activeMenu === "home"}>
+                      <Link to="/">Inicio</Link>
+                    </Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item className="listNav" onClick={handleClick}>
+                    <Nav.Link className="aa" eventKey="user" active={activeMenu === "user"}>
+                      Usuarios
+                    </Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item className="listNav" onClick={handleClick4}>
+                    <Nav.Link className="aa" eventKey="cat" active={activeMenu === "cat"}>
+                      Categorias
+                    </Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item className="listNav" onClick={handleClick5}>
+                    <Nav.Link className="aa" eventKey="news" active={activeMenu === "news"}>
+                      Patrocinadores
+                    </Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item className="listNav" onClick={handleClick3}>
+                    <Nav.Link className="aa" eventKey="news" active={activeMenu === "news"}>
+                      Peliculas
+                    </Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item className="listNav" onClick={handleClick1}>
+                    <Nav.Link className="aa" eventKey="news" active={activeMenu === "news"}>
+                      Documentales
+                    </Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item className="listNav" onClick={handleClick2}>
+                    <Nav.Link className="aa" eventKey="news" active={activeMenu === "news"}>
+                      Insertar Nueva Serie
+                    </Nav.Link>
+                  </Nav.Item>
+                </Nav>
+              </div>
+              <div class="main bg-light">
+                <div class="barra"></div>
+
+                {showComponent && (
+                  <div>
+                    <TablaUsuarios />
+                  </div>
+                )}
+                {showComponent1 && (
+                  <div>
+                    <Documentales />
+                  </div>
+                )}
+                {showComponent2 && (
+                  <div>
+                    <Series />
+                  </div>
+                )}
+                {showComponent3 && (
+                  <div>
+                    <Peliculas />
+                  </div>
+                )}
+                {showComponent4 && (
+                  <div>
+                    <Categorias />
+                  </div>
+                )}
+                {showComponent5 && (
+                  <div>
+                    <Patorcinadores />
+                  </div>
+                )}
+              </div>
             </div>
-          )}
-          {showComponent1 && (
-            <div>
-              <Documentales />
-            </div>
-          )}
-          {showComponent2 && (
-            <div>
-              <Series />
-            </div>
-          )}
-          {showComponent3 && (
-            <div>
-              <Peliculas />
-            </div>
-          )}
-          {showComponent4 && (
-            <div>
-              <Categorias />
-            </div>
-          )}
-          {showComponent5 && (
-            <div>
-              <Patorcinadores />
-            </div>
-          )}
-        </div>
-      </div>
+          </>
+        )
+      }
+      {
+        (tipoUsuario !== "true") &&
+        (
+          <>
+            <Error />
+          </>
+        )
+      }
     </>
   );
 }
