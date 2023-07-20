@@ -49,11 +49,7 @@
   }
 }
 
-@media(max-width: 900px) {
-  .card__image {
-    height: 7.5rem; /* Ajustar la altura para pantallas de teléfono */
-  }
-}
+
 
 .card__image::before {
   position: relative;
