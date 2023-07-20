@@ -95,7 +95,7 @@ export function SwiperPatrocinadoresN3(props) {
                 <CardPatrocinadores
                   imgpa={patrocinadores.urlImagen}
                   className="cardPatrocinadores"
-                />{/** 
+                />
                 <Container fluid className="footerCardPatro">
                   <Row className="gx-0">
                     <Col>
@@ -120,7 +120,7 @@ export function SwiperPatrocinadoresN3(props) {
                       </a>
                     </Col>
                   </Row>
-                </Container>*/}
+                </Container>
               </SwiperSlide>
             ))}
         </Swiper>

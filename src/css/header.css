@@ -199,7 +199,7 @@
     .imgVermas{
       border-radius: 1vw;
       margin: 10px;
-      width: 21vw;
+      width: 20vw;
     }
     .header {
       display: grid;
@@ -245,8 +245,8 @@
   @media(max-width: 500px) {
     .imgVermas{
       border-radius: 1vw;
-      margin: 10px;
-      width: 17vw;
+      margin: 3px;
+      width: 21vw;
     }
     .wrapper {
       font-size: 15px;
@@ -433,3 +433,5 @@ h4{
 .margindiv{
   margin-left: 20px;
 }
+
+

@@ -43,6 +43,17 @@
   -moz-box-shadow: 10px 5px 33px -9px rgba(0,0,0,0.75);
   box-shadow: 10px 5px 33px -9px rgba(0,0,0,0.75);
 }
+@media screen and (max-width: 767px) {
+  .card__image {
+    height: 5.5rem; /* Ajustar la altura para pantallas de teléfono */
+  }
+}
+
+@media(max-width: 900px) {
+  .card__image {
+    height: 7.5rem; /* Ajustar la altura para pantallas de teléfono */
+  }
+}
 
 .card__image::before {
   position: relative;
@@ -385,6 +396,7 @@ b {
     margin-left: auto;
     margin-top: 0;
   }
+ 
 }
 
 .modalBackgound {
