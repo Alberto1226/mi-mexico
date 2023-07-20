@@ -156,6 +156,7 @@ function Series({ history }) {
           año: formData.anio,
           disponibilidad: "",
           masVisto: "",
+          header: formData.header,
           recomendado: "",
           contador: "0",
           urlPortada: data.secure_url,
@@ -281,6 +282,17 @@ function Series({ history }) {
                     name="nombre"
                     defaultValue={formData.nombre}
                   />
+                </Col>
+                <Col xs={12} md={4}>
+                  <Form.Select
+                    aria-label="¿Header?"
+                    name="header"
+                    defaultValue={formData.header}
+                  >
+                    <option>¿Header?</option>
+                    <option value="1">SI</option>
+                    <option value="0">NO</option>
+                  </Form.Select>
                 </Col>
               </Row>
               <br />

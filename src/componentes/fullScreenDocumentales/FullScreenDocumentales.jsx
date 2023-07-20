@@ -127,7 +127,7 @@ export function FullDocumentales(props) {
       {listarPel &&
         listarPel.map((pel) => (
           <div key={pel.id}>
-            <video id="videoheader" src={video} autoPlay loop controls></video>
+            <video id="videoheader" src={pel.urlVideo} autoPlay loop controls></video>
             <div className="informacionserie">
               <h6 className="tituloSerie">{pel.titulo}</h6>
               <h6 className="sinopsis">{pel.sinopsis}</h6>

@@ -1,6 +1,7 @@
 .item-3 {
     position: relative;
     display: inline-block;
+    
   }
   
   .item-3:hover .body-item {

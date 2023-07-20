@@ -157,7 +157,7 @@ useEffect(() => {
         {listarCap2 &&
           listarCap2.map((cap) => (
             <div key={cap.id}>
-              <video id="videoheader" src={video} autoPlay loop controls></video>
+              <video id="videoheader" src={cap.urlCapitulo} autoPlay loop controls></video>
               <div className="informacionserie">
                 <h6 className="tituloSerie">{cap.nombre}</h6>
                 <h6 className="sinopsis">{cap.descripcion}</h6>

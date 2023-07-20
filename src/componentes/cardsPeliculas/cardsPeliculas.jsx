@@ -34,7 +34,7 @@ export function CardsUser(props) {
         <div class="panel">
           <div class="panel__row panel__buttons">
             <div class="panel__icons">
-              <Button
+              {/*<Button
                 variant="link"
                 onClick={() =>
                   handleWatchClick(
@@ -47,7 +47,7 @@ export function CardsUser(props) {
                     <FontAwesomeIcon icon={faCirclePlay} />
                   </i>
                 </a>
-              </Button>
+              </Button>*/}
               {isFullScreenOpen && (
                 <div className="fullscreen-component">
                   <iframe src={videoUrl} frameBorder="0" allowFullScreen />
@@ -65,12 +65,14 @@ export function CardsUser(props) {
                 </a>
               </Button>
             </div>
+            
             {/** Fin Button card */}
           </div>
           <div class="panel__row info">
+          
+            <span class="year">Año: {props.anio}</span>
+            <b>Durcaión: {props.duracion}</b>
             
-            <span class="year">{props.anio}</span>
-            <b>{props.duracion}</b>
           </div>
           <div class="panel__row genres">{props.genero}</div>
         </div>

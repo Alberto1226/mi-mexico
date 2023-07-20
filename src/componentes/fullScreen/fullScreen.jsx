@@ -159,7 +159,7 @@ export function FullScrean(props) {
       {listarSer &&
         listarSer.map((series) => (
           <div key={series.id}>
-            <video id="videoheader" src={video} autoPlay loop controls></video>
+            <video id="videoheader" src={series.urlTrailer} autoPlay loop controls></video>
             <div className="informacionserie">
               <h6 className="tituloSerie">{series.titulo}</h6>
               <h6 className="sinopsis">{series.sinopsis}</h6>
@@ -196,6 +196,7 @@ export function FullScrean(props) {
                                 nombre={capitulo.nombre}
                                 duracion={capitulo.duracion}
                                 des={capitulo.descripcion}
+                                url={capitulo.urlCapitulo}
                               />
                             </Link>
                           </SwiperSlide>
@@ -230,6 +231,7 @@ function formatModelSeries(data) {
       masVisto: data.masVisto,
       recomendado: data.recomendado,
       urlPortada: data.urlPortada,
+      urlTrailer: data.urlTrailer,
       seccion: data.seccion,
       estado: data.estado,
     });

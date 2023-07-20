@@ -180,6 +180,10 @@
   border-radius: 1vw;
   margin: 10px;
   width: 18vw;
+  -webkit-box-shadow: 10px 5px 33px -9px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 5px 33px -9px rgba(0,0,0,0.75);
+  box-shadow: 10px 5px 33px -9px rgba(0,0,0,0.75);
+
 }
 
 .imgVermas:hover{
@@ -382,7 +386,7 @@
 
   .navboostrap{
     width: 100%;
-    background-color: #ffffff;
+    background-image: radial-gradient(circle at 50% -20.71%, #ffffe0 0, #feffdc 8.33%, #f3ffd7 16.67%, #e6ffd3 25%, #d8fbcf 33.33%, #c7f7cc 41.67%, #b5f2c9 50%, #a1edc8 58.33%, #8de9c9 66.67%, #79e4cc 75%, #63e0d0 83.33%, #4bddd6 91.67%, #2fd9dd 100%);
   }
 .me-auto{
   float: left;

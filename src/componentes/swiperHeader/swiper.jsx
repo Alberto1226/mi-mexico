@@ -5,9 +5,10 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "../../css/swiper.css";
 import "../../css/cardHeader.css"
-import video from "../../assets/videos/intro.mp4";
+
 import {CardHeader} from "../cardsHeader/cardsHeader"
 import { listarSeries } from "../../api/series";
+import { Link } from "react-router-dom";
 //imagenes
 import de1 from "../../assets/img/ber.jpeg";
 import de2 from "../../assets/img/chi.jpeg";
@@ -95,11 +96,12 @@ export function SwiperHeader(props) {
 
     setSlides(slidesToShow);
   };
+
+  
   return (
     <>
       <div className="headerVideo">
-        <video id="videoheader" src={video} className={`video-element ${showPoster ? 'show-poster' : ''}`}  poster={showPoster ? randomImages[randomIndex] : ''} autoPlay loop></video>
-        
+        <video id="videoheader" src="http://18.233.7.20:443/mimexico/peliculas/cerro.mp4"  autoPlay playsinline loop className={`video-element ${showPoster ? 'show-poster' : ''}`}  poster={showPoster ? randomImages[randomIndex] : ''} ></video>
         <div className="areaswiper">
           
           <Swiper
@@ -112,7 +114,9 @@ export function SwiperHeader(props) {
              {listarSer &&
               listarSer.map((serie) => (
             <SwiperSlide className="swiper-slide-header" key={serie.id}>
-              <CardHeader img1={de1}/>
+               <Link to={`/full?id=${serie.id}`} img={"datos"}>
+              <CardHeader img1={serie.urlPortada}/>
+              </Link>
             </SwiperSlide>
            
            ))}
