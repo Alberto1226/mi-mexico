@@ -411,3 +411,24 @@ b {
 .footerCard{
   margin-top: 10px;
 }
+
+@media screen and (max-width: 767px) {
+  .info {
+    flex-direction: column; /* Cambiar dirección de flexbox para apilar los elementos verticalmente */
+    align-items: center; /* Centrar elementos verticalmente */
+    text-align: center; /* Centrar el texto horizontalmente */
+    font-size: 1rem; /* Ajustar el tamaño de fuente para pantallas de móviles */
+  }
+  .card__image{
+    flex-direction: column; /* Cambiar dirección de flexbox para apilar los elementos verticalmente */
+    align-items: center; /* Centrar elementos verticalmente */
+    text-align: center; /* Centrar el texto horizontalmente */
+    font-size: 0.5rem; /* Ajustar el tamaño de fuente para pantallas de móviles */
+  }
+  .titulomovil{
+    flex-direction: column; /* Cambiar dirección de flexbox para apilar los elementos verticalmente */
+    align-items: center; /* Centrar elementos verticalmente */
+    text-align: center; /* Centrar el texto horizontalmente */
+    font-size: 0.4rem; /* Ajustar el tamaño de fuente para pantallas de móviles */
+  }
+}

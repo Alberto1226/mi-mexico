@@ -26,8 +26,9 @@ export function CardsUser(props) {
       <div class="card">
         <div class="card__image">
           <img src={props.img1} alt="" />
-          <h3>{props.titulo}</h3>
+          <h3 className="titulomovil">{props.titulo}</h3>
           <div class="card__heading-sub">
+          
             <span class="actor">{props.director}</span>
           </div>
         </div>
