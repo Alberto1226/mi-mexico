@@ -41,9 +41,32 @@ export function SwiperHeader(props) {
       videoElement.poster = randomImages[randomIndex];
       setTimeout(() => {
         setShowPoster(false);
-      }, 8200);
+      }, 9500);
     }
   }, []);
+
+
+
+  const videoStyle = {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    zIndex: -1,
+  };
+
+  const posterStyle = {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    zIndex: 1,
+    opacity: showPoster ? 1 : 0, // Oculta la imagen de vista previa cuando showPoster es falso
+  };
+
+
   /**listar peliculas */
   const { location } = props;
   const [listarSer, setListSeries] = useState([]);
@@ -100,7 +123,13 @@ export function SwiperHeader(props) {
   return (
     <>
       <div className="headerVideo">
-        <video id="videoheader" src={props.videoh}  autoPlay playsinline loop muted className={`video-element ${showPoster ? 'show-poster' : ''}`}  poster={showPoster ? randomImages[randomIndex] : ''} ></video>
+        <video id="videoheader" src={props.videoh}  autoPlay playsinline loop muted className={`video-element ${showPoster ? 'show-poster' : ''}`}  style={videoStyle}></video>
+
+        <img
+        src={randomImages[randomIndex]}
+        alt="Poster"
+        style={posterStyle}
+      />
         <div className="areaswiper">
           
           <Swiper

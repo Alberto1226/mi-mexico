@@ -7,7 +7,7 @@ export function LoadVideo() {
       // Simulando el tiempo de carga
       const timer = setTimeout(() => {
         setIsLoading(false);
-      }, 6000);
+      }, 7000);
   
       return () => clearTimeout(timer);
     }, []);
