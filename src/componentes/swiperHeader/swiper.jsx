@@ -100,7 +100,7 @@ export function SwiperHeader(props) {
   return (
     <>
       <div className="headerVideo">
-        <video id="videoheader" src={props.videoh}  autoPlay playsinline loop className={`video-element ${showPoster ? 'show-poster' : ''}`}  poster={showPoster ? randomImages[randomIndex] : ''} ></video>
+        <video id="videoheader" src={props.videoh}  autoPlay playsinline loop muted className={`video-element ${showPoster ? 'show-poster' : ''}`}  ></video>
         <div className="areaswiper">
           
           <Swiper
