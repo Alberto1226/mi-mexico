@@ -10,11 +10,11 @@ import {CardHeader} from "../cardsHeader/cardsHeader"
 import { listarSeries } from "../../api/series";
 import { Link } from "react-router-dom";
 //imagenes
-import de1 from "../../assets/img/mxportada.jpg";
-import de2 from "../../assets/img/mxportada.jpg";
-import de3 from "../../assets/img/mxportada.jpg";
-import de4 from "../../assets/img/mxportada.jpg";
-import de5 from "../../assets/img/mxportada.jpg";
+import de1 from "../../assets/img/portada.png";
+import de2 from "../../assets/img/portada.png";
+import de3 from "../../assets/img/portada.png";
+import de4 from "../../assets/img/portada.png";
+import de5 from "../../assets/img/portada.png";
 
 
 SwiperCore.use([Pagination, Autoplay]);

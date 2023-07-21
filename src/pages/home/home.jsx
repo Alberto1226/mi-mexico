@@ -18,6 +18,8 @@ import { LoadVideo } from "../../componentes/loadVideo/loadVideo";
 import { SwiperPatrocinadoresN2 } from "../../componentes/swiperPartocinadorNivel2/swiperNivel2";
 import { SwiperPatrocinadoresN3 } from "../../componentes/swiperPatNivel3/swiperNivel3";
 import { SwiperPeliculasRecomendadas } from "../../componentes/swiperRecomendado/swiperRecomendados";
+import {SwiperEspeciales} from "../../componentes/swiperEspeciales/swiperEspeciales"
+import {SwiperEspeciales2} from "../../componentes/swiperEspeciales2/swiperEspeciales2"
 import imgSwiper from "../../assets/img/1.png";
 import "../../css/header.css";
 import "../../css/cards.css";
@@ -27,6 +29,11 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { listarSeries } from "../../api/series";
 import { listarPeliculas } from "../../api/peliculasListar";
+//imagenes
+import portada2 from "../../assets/img/PORTADA2.png"
+
+
+
 
 export function Home() {
   const [listarDocumentales, setListDocumentales] = useState([]);
@@ -136,7 +143,7 @@ export function Home() {
         <SwiperPeliculas titulo={"Favoritos"} />
         <hr />
         <SwiperHeader img={imgSwiper} videoh={"http://18.233.7.20:443/mimexico/vinicio/teotihuacan.mp4"}/>
-       
+        
         <div className="margindiv">
         <h4>Ver mas +</h4>
         </div>
@@ -144,7 +151,12 @@ export function Home() {
         <VerMasP />
         <VerMasD />
         <hr />
-
+        <img src={portada2} alt="" className="especialespor"/>
+        <SwiperEspeciales2 titulo={"Especial Cervantino "}/>
+        <SwiperEspeciales titulo={"Especial Guelaguetza"}/>
+        
+        
+        <hr />
         <section class="link">
           <div class="patrocinadores">
             <SwiperPatrocinadoresN3 />
