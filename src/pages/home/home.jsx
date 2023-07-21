@@ -109,7 +109,7 @@ export function Home() {
           listarPeliculas={listarPelicula}
           listarSeries={listarSer}
         />
-        <SwiperHeader img={imgSwiper} />
+        <SwiperHeader img={imgSwiper} videoh={"http://18.233.7.20:443/mimexico/peliculas/cerro.mp4"}/>
         
         <SwiperPeliculasRecomendadas titulo={"Recomendados"} />
         <hr />
@@ -135,7 +135,7 @@ export function Home() {
         <hr />
         <SwiperPeliculas titulo={"Favoritos"} />
         <hr />
-        <SwiperHeader img={imgSwiper} />
+        <SwiperHeader img={imgSwiper} videoh={"http://18.233.7.20:443/mimexico/vinicio/teotihuacan.mp4"}/>
        
         <div className="margindiv">
         <h4>Ver mas Series</h4>
