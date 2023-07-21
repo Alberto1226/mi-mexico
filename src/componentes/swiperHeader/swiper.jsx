@@ -10,11 +10,12 @@ import {CardHeader} from "../cardsHeader/cardsHeader"
 import { listarSeries } from "../../api/series";
 import { Link } from "react-router-dom";
 //imagenes
-import de1 from "../../assets/img/ber.jpeg";
-import de2 from "../../assets/img/chi.jpeg";
-import de3 from "../../assets/img/oax.jpeg";
-import de4 from "../../assets/img/teq.jpeg";
-import de5 from "../../assets/img/que.jpeg";
+import de1 from "../../assets/img/mxportada.jpg";
+import de2 from "../../assets/img/mxportada.jpg";
+import de3 from "../../assets/img/mxportada.jpg";
+import de4 from "../../assets/img/mxportada.jpg";
+import de5 from "../../assets/img/mxportada.jpg";
+
 
 SwiperCore.use([Pagination, Autoplay]);
 
@@ -28,6 +29,7 @@ export function SwiperHeader(props) {
     de3,
     de4,
     de5,
+   
     // Agrega aquí más nombres de imágenes
   ];
   const randomIndex = Math.floor(Math.random() * randomImages.length);
@@ -42,7 +44,7 @@ export function SwiperHeader(props) {
       videoElement.poster = randomImages[randomIndex];
       setTimeout(() => {
         setShowPoster(false);
-      }, 1000);
+      }, 2200);
     }
   }, []);
   /**listar peliculas */
