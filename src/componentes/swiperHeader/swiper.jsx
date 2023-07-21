@@ -44,7 +44,7 @@ export function SwiperHeader(props) {
       videoElement.poster = randomImages[randomIndex];
       setTimeout(() => {
         setShowPoster(false);
-      }, 2200);
+      }, 7000);
     }
   }, []);
   /**listar peliculas */
