@@ -118,6 +118,8 @@ export function Home() {
             <SwiperPatrocinadores />
           </div>
         </section>
+        <hr/>
+        <SwiperPeliculas titulo={"Lo mas visto"} />
         <hr />
         <SwiperMasVistos titulo={"Top Peliculas mas vistas"}/>
         <hr />
@@ -125,8 +127,6 @@ export function Home() {
         <hr/>
         <SwiperMasVistosDoc titulo={"Top documentales mas vistas"}/>
         <hr/>
-        <SwiperPeliculas titulo={"Lo mas visto"} />
-        <hr />
         <section class="link">
           <div class="patrocinadores">
             <SwiperPatrocinadoresN2 />
@@ -138,18 +138,10 @@ export function Home() {
         <SwiperHeader img={imgSwiper} videoh={"http://18.233.7.20:443/mimexico/vinicio/teotihuacan.mp4"}/>
        
         <div className="margindiv">
-        <h4>Ver mas Series</h4>
+        <h4>Ver mas +</h4>
         </div>
         <VerMas />
-        <hr />
-        <div className="margindiv">
-        <h4>Ver mas Peliculas</h4>
-        </div>
         <VerMasP />
-        <hr />
-        <div className="margindiv">
-        <h4>Ver mas Documentales</h4>
-        </div>
         <VerMasD />
         <hr />
 
