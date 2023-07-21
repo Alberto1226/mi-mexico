@@ -32,19 +32,16 @@ export function SwiperHeader(props) {
    
     // Agrega aquí más nombres de imágenes
   ];
-  const randomIndex = Math.floor(Math.random() * randomImages.length);
+  const [randomIndex, setRandomIndex] = useState(0);
   useEffect(() => {
-    
-
-    
-
     const videoElement = document.getElementById('videoheader');
 
     if (videoElement) {
+      setRandomIndex(Math.floor(Math.random() * randomImages.length));
       videoElement.poster = randomImages[randomIndex];
       setTimeout(() => {
         setShowPoster(false);
-      }, 7000);
+      }, 7500);
     }
   }, []);
   /**listar peliculas */

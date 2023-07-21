@@ -57,9 +57,12 @@ body {
   position: relative;
   height: 100vh;
   overflow: hidden;
+  background-image: url(../assets/img/portada.png);
+  object-fit: cover;
 }
 
 #videoheader {
+  background-image: url(../assets/img/mxportada.jpg);
   position: relative;
   z-index: 1;
   width: 100%;

@@ -1,6 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Titillium+Web&display=swap');
 
+
 :root {
     --primary: #eeecec;
     --light: #F3F3F3;
@@ -115,7 +116,8 @@
   
   
   #videoheader.show-poster {
-    opacity: 0.5; /* Ajusta el valor de la opacidad según tus necesidades */
+    opacity: 0.2; /* Ajusta el valor de la opacidad según tus necesidades */
+    
   }
 
   .video-element {
