@@ -180,12 +180,20 @@
   /*ver mas*/
 .imgVermas{
   border-radius: 1vw;
-  margin: 8px;
+  margin: 9px;
   width: 18vw;
   -webkit-box-shadow: 10px 5px 33px -9px rgba(0,0,0,0.75);
   -moz-box-shadow: 10px 5px 33px -9px rgba(0,0,0,0.75);
   box-shadow: 10px 5px 33px -9px rgba(0,0,0,0.75);
 
+}
+@-moz-document url-prefix() {
+  .imgVermas {
+    border-radius: 1vw;
+    margin: 10px;
+    width: 18vw;
+    box-shadow: 10px 5px 33px -9px rgba(0, 0, 0, 0.75);
+  }
 }
 
 .imgVermas:hover{
