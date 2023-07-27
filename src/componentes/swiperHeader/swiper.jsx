@@ -133,7 +133,7 @@ export function SwiperHeader(props) {
             pagination={{ clickable: true }}
             className="mySwiper"
           >
-             {listarSer &&
+             {/*listarSer &&
               listarSer.map((serie) => (
             <SwiperSlide className="swiper-slide-header" key={serie.id}>
                <Link to={`/full?id=${serie.id}`} img={"datos"}>
@@ -141,7 +141,8 @@ export function SwiperHeader(props) {
               </Link>
             </SwiperSlide>
            
-           ))}
+           ))
+           */}
           </Swiper>
         </div>
       </div>

@@ -5,6 +5,7 @@ import { SwiperPeliculas } from "../../componentes/swiperPeliculas/swiperPelicul
 import { FooterApp } from "../../componentes/footer/footer";
 import { SwiperPatrocinadores } from "../../componentes/swiperPatrocinadores/swPatrocinadores";
 import { Load } from "../../componentes/load/load";
+import {Apple} from "../../componentes/cardsapple/cardsapple";
 //mas vistos
 import { SwiperMasVistos } from "../../componentes/swiperMasVistos/swMasvistos";
 import {SwiperMasVistosSer} from "../../componentes/swiperMasVistosSeries/swMasVistosSeries";
@@ -117,7 +118,7 @@ export function Home() {
           listarSeries={listarSer}
         />
         <SwiperHeader img={imgSwiper} videoh={"https://www.mxtvmas.com:8443/mimexico/peliculas/cerro.mp4"}/>
-        
+        <Apple titulo={"Recomendados"}/>
         <SwiperPeliculasRecomendadas titulo={"Recomendados"} />
         <hr />
         <section class="link">
@@ -162,6 +163,7 @@ export function Home() {
             <SwiperPatrocinadoresN3 />
           </div>
         </section>
+        
         <FooterApp />
       </div>
     </>

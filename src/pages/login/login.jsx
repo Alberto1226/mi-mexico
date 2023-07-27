@@ -10,6 +10,7 @@ import { obtenerUsuario } from "../../api/usuarios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import img from "../../assets/img/MXtvMas.png"
 
 export function Login({ setRefreshCheckLogin }) {
   const [formData, setFormData] = useState(initialFormValue)
@@ -87,6 +88,7 @@ export function Login({ setRefreshCheckLogin }) {
       <div class="content">
         <div class="container">
           <div class="menu">
+            <img src={img} alt="" className="imglogin" />
             <label>
               Únete a la plataforma de videos que promueve los destinos y
               cultura de México para el mundo
@@ -139,13 +141,13 @@ export function Login({ setRefreshCheckLogin }) {
                 <Link to="/registro">
                   <input class="submit" value="Crear tu cuenta" type="submit" />
                 </Link>
-                <br />
+                
                 <Link to="/">
                   <input class="submit" value="Home" type="submit" />
                 </Link>
                 <label>
-                  © 2022-2023 Todos los Derechos Reservados por mimexico®
-                  mimexicotv®
+                  © 2022-2023 Todos los Derechos Reservados por mxtvmas®
+                  mxtvmas®
                 </label>
               </div>
             </Form>

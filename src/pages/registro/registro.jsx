@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import {  Link } from "react-router-dom";
+
 export function Registro() {
     /**Modal */
     const [show, setShow] = useState(false);
@@ -22,6 +23,7 @@ export function Registro() {
     <>
       <div class="content">
         <div class="container">
+        
           <h2>
             Únete a la plataforma de videos que promueve los destinos y cultura
             de México para el mundo
@@ -31,13 +33,13 @@ export function Registro() {
             Para poder usar y registrarte en la aplicación debes ser mayor de 14
             años. Si quieres suscribirte a los servicios de pago debes ser mayor
             de 18 años. El responsable de tus datos es{" "}
-            <a class="a">mimexicotv.com</a>, quien usará tus datos en calidad de
+            <a class="a">mxtvmas.com</a>, quien usará tus datos en calidad de
             responsable y los administrará dentro de está plataforma de
             videos.**
           </p>
           <h3 class="a">¿Para qué utilizaremos tus datos?</h3>
           <p>
-            Con la aceptación de las condiciones de uso, mimexicotv.com tratará
+            Con la aceptación de las condiciones de uso, <a class="a">mxtvmas.com</a> tratará
             los datos que facilites para prestarte los servicios que se ofrecen
             para acceso a la plataforma a través de sus distintas formas de
             acceso.

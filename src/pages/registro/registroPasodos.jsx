@@ -4,7 +4,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { registraUsuarios } from "../../api/usuarios";
 import { useNavigate } from "react-router-dom";
-
+import img from "../../assets/img/MXtvMas.png";
 export function RegistroPasodos() {
 
   const [formData, setFormData] = useState(initialFormValue());
@@ -61,6 +61,7 @@ export function RegistroPasodos() {
       <div className="content">
         <div className="container">
           <div className="menu">
+          <img src={img} alt="" className="imglogin" />
             <label>
               Únete a la plataforma de videos que promueve los destinos y
               cultura de México para el mundo
@@ -113,8 +114,8 @@ export function RegistroPasodos() {
                 <input className="submit" value="Regresar" type="submit" />
               </Link>
               <label>
-                © 2022-2023 Todos los Derechos Reservados por mimexico®
-                mimexicotv®
+                  © 2022-2023 Todos los Derechos Reservados por mxtvmas®
+                  mxtvmas®
               </label>
             </div>
           </div>
