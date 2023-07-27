@@ -11,10 +11,7 @@ import { listarSeries } from "../../api/series";
 import { Link } from "react-router-dom";
 //imagenes
 import de1 from "../../assets/img/portada.png";
-import de2 from "../../assets/img/portada.png";
-import de3 from "../../assets/img/portada.png";
-import de4 from "../../assets/img/portada.png";
-import de5 from "../../assets/img/portada.png";
+
 
 
 SwiperCore.use([Pagination, Autoplay]);
@@ -25,10 +22,7 @@ export function SwiperHeader(props) {
   const [showPoster, setShowPoster] = useState(true);
   const randomImages = [
     de1,
-    de2,
-    de3,
-    de4,
-    de5,
+    
    
     // Agrega aquí más nombres de imágenes
   ];
@@ -41,7 +35,7 @@ export function SwiperHeader(props) {
       videoElement.poster = randomImages[randomIndex];
       setTimeout(() => {
         setShowPoster(false);
-      }, 9500);
+      }, 9000);
     }
   }, []);
 
@@ -126,7 +120,7 @@ export function SwiperHeader(props) {
         <video id="videoheader" src={props.videoh}  autoPlay playsinline loop muted className={`video-element ${showPoster ? 'show-poster' : ''}`}  style={videoStyle}></video>
 
         <img
-        src={randomImages[randomIndex]}
+        src={de1}
         alt="Poster"
         style={posterStyle}
       />

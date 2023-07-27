@@ -97,7 +97,7 @@ body {
 
 /* Efecto de parallax */
 .headerVideo::before {
-  content: "";
+  
   position: absolute;
   top: 0;
   left: 0;
@@ -112,7 +112,7 @@ body {
 }
 
 .headerVideo::after {
-  content: "";
+  
   position: absolute;
   top: 0;
   left: 0;
@@ -145,6 +145,12 @@ body {
 .informacionserie{
   padding: 10px;
   
+}
+
+
+.video-element{
+  width: 100%;
+  height: 100%;
 }
 
 

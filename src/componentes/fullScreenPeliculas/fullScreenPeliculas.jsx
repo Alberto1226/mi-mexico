@@ -11,6 +11,7 @@ import "../../css/swiper.css";
 import "../../css/cardHeader.css";
 import { registraHistorialUsuario } from "../../api/historialUsuarios";
 import { getTokenApi, obtenidusuarioLogueado } from "../../api/auth";
+import {FullNav} from "../navcompleto/navCompleto";
 
 SwiperCore.use([Pagination, Autoplay]);
 export function FullPeliculas(props) {
@@ -124,6 +125,7 @@ export function FullPeliculas(props) {
 
   return (
     <>
+    <FullNav/>
       {listarPel &&
         listarPel.map((pel) => (
           <div key={pel.id}>

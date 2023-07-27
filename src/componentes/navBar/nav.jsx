@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import Container from 'react-bootstrap/Container';
 import logo from "../../assets/img/MXtvMas.png";
 import {
   getTokenApi,
@@ -104,24 +105,27 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
 
   return (
     <>
-      <div>
-        <div className="barraRosa"></div>
-
-        <Navbar bg="link" expand="xl" className="navboostrap">
+    
+      
+        
+        <Navbar bg="link" expand="xl" sticky="top" className="navboostrap sticky-top">
+        <Container fluid>
           <Navbar.Brand href="#home" className="mexicoLogo" id="logo">
             <img src={logo} alt="" className="logomx" />
 
 
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Toggle aria-controls="navbarScroll" />
+        <Navbar.Collapse id="navbarScroll">
+         
 
-          <Navbar.Collapse id="basic-navbar-nav">
 
 
-
-            <Nav className="me-auto">
-              <Nav.Link href="#home"></Nav.Link>
-              <Nav.Link href="#home"></Nav.Link>
+          <Nav
+            className="me-auto my-2 my-lg-0"
+            style={{ maxHeight: '100px' }}
+            navbarScroll
+          >
             </Nav>
             <div className="buscar">
               <div className="flex items-center mb-1">
@@ -233,12 +237,10 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
             </div>
           </Navbar.Collapse>
 
-
+          </Container>
         </Navbar>
 
-
-
-      </div>
+       
       {/**  <section className="header">
       <div className="barraRosa"></div>
       <div className="mexicoLogo">

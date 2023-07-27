@@ -13,6 +13,8 @@ import { CardHeader } from "../cardsHeader/cardsHeader";
 import { listarCapitulosSeries } from "../../api/capitulosSeries";
 import { Link } from "react-router-dom";
 
+import {FullNav} from "../navcompleto/navCompleto";
+
 SwiperCore.use([Pagination, Autoplay]);
 export function FullCapitulos(props) {
   const locations = useLocation();
@@ -153,7 +155,7 @@ useEffect(() => {
   return (
     
       <>
-      
+      <FullNav/>
         {listarCap2 &&
           listarCap2.map((cap) => (
             <div key={cap.id}>

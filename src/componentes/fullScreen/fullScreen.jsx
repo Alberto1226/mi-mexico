@@ -14,6 +14,7 @@ import { listarCapitulosSeries } from "../../api/capitulosSeries";
 import { registraHistorialUsuario } from "../../api/historialUsuarios";
 import { getTokenApi, obtenidusuarioLogueado } from "../../api/auth";
 import { Link } from "react-router-dom";
+import {FullNav} from "../navcompleto/navCompleto";
 
 SwiperCore.use([Pagination, Autoplay]);
 export function FullScrean(props) {
@@ -156,6 +157,7 @@ export function FullScrean(props) {
   }, [location]);
   return (
     <>
+    <FullNav/>
       {listarSer &&
         listarSer.map((series) => (
           <div key={series.id}>
