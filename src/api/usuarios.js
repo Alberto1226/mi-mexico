@@ -8,7 +8,6 @@ import {
 } from "./endpoints";
 import axios from 'axios';
 
-
 export async function listarUsuarios(){
     const config = {
         headers: {
