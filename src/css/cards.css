@@ -241,12 +241,14 @@ b {
 
 .card__modal-content {
   position: relative;
-  max-width: 45rem;
+  max-width: 50rem;
   margin: 0 auto;
   color: #bbb;
   line-height: 1.4rem;
 }
-
+.sinopsis{
+  text-align: center;
+}
 .card__modal-container {
   position: relative;
 }
@@ -289,7 +291,7 @@ b {
 }
 
 .video-foreground,
-.video-background iframe {
+.video-background{
   position: relative;
   left: 0;
   top: 0;
@@ -380,7 +382,7 @@ b {
   }
 
   .video-foreground,
-  .video-background video {
+  .video-background {
     border-radius: 5px 5px 0 0;
   }
 

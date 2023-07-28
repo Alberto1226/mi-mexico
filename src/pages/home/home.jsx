@@ -119,7 +119,7 @@ export function Home() {
         />
         <SwiperHeader img={imgSwiper} videoh={"https://www.mxtvmas.com:8443/mimexico/peliculas/cerro.mp4"}/>
         <Apple titulo={"Recomendados"}/>
-        <SwiperPeliculasRecomendadas titulo={"Recomendados"} />
+        {/**<SwiperPeliculasRecomendadas titulo={"Recomendados"} /> */}
         <hr />
         <section class="link">
           <div class="patrocinadores">

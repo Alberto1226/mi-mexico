@@ -103,13 +103,12 @@ export function CardsUser(props) {
             </div>
             <div class="card__modal-container">
               <div class="video-description__headline-sub">
-                <span class="rating">99% Match</span>
                 <span class="year">{props.anio}</span>
                 <span class="age">18+</span>
                 <b>{props.duracion}</b>
                 <span class="quality">HD</span>
               </div>
-              <p>{props.sinopsis}</p>
+              <span className="sinopsis">{props.sinopsis}</span><br/>
               <span class="actor"> {props.actores}</span>
               <span class="director"> {props.director}</span>
               <div className="footerCard">
