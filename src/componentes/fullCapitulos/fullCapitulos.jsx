@@ -26,6 +26,7 @@ export function FullCapitulos(props) {
  
     //listar todos los capitulos de la teporada
   const [listarCap, setListCap] = useState([]);
+  const [matchedIndex, setMatchedIndex] = useState(0);
 
   const obtenerCapitulos = () => {
     try {
@@ -55,7 +56,7 @@ export function FullCapitulos(props) {
   }, [location]);
 
   //listar capitulo
-  const [listarCap2, setListCap2] = useState([]);
+  const [listarCap2, setListCap2] = useState([{id: "", urlVideo: "", nombre: "", descripcion: "", duracion: ""}]);
   const [listarCap3, setListCap3] = useState([]);
 
   const obtenerCapitulos2 = () => {
@@ -69,10 +70,21 @@ export function FullCapitulos(props) {
             console.log(data);
           } else {
             const datosCap2 = formatModelCapitulos(data);
-            const filteredCap2 = datosCap2.filter((item) => item.id == id);
+            
+            // Check if there is a match in the filtered data
+            if (datosCap2.length > 0) {
+              // Get the index of the first match in the filtered data
+              const matchIndex = datosCap2.findIndex((data) => data.id === id);
+  
+              // Store the index in a variable (e.g., matchedIndex)
+              // You need to declare the state variable for matchedIndex using useState before using it here.
+              setMatchedIndex(matchIndex);
+            } else {
+              // No match found
+              setMatchedIndex(-1);
+            }
 
-            setListCap2(filteredCap2);
-            console.log(filteredCap2);
+            setListCap2(datosCap2);
           }
         })
         .catch((e) => {});
@@ -131,7 +143,7 @@ const obtenerCapitulos3 = (capitulo) => {
         const { data } = response;
 
         if (!listarCap3 && data) {
-          setListCap2(formatModelCapitulos(data));
+          setListCap3(formatModelCapitulos(data));
           console.log(data);
         } else {
           const datosCap3 = formatModelCapitulos(data);
@@ -152,21 +164,26 @@ useEffect(() => {
   obtenerCapitulos3(capituloSeleccionado);
 
 }, [location, capituloSeleccionado]);
+
+const handleNextVideo = () => {
+  // Increment the matchedIndex to show the next video
+  setMatchedIndex((prevIndex) => (prevIndex + 1) % listarCap2.length);
+};
+
   return (
     
       <>
       <FullNav/>
         {listarCap2 &&
-          listarCap2.map((cap) => (
-            <div key={cap.id}>
-              <video id="videoheader" src={cap.urlCapitulo} autoPlay loop controls></video>
+            <div key={listarCap2[matchedIndex].id ?? ""}>
+              <video id="videoheader" src={listarCap2[matchedIndex].urlCapitulo == undefined ? "" : listarCap2[matchedIndex].urlCapitulo} autoPlay loop controls></video>
               <div className="informacionserie">
-                <h6 className="tituloSerie">{cap.nombre}</h6>
-                <h6 className="sinopsis">{cap.descripcion}</h6>
-                <h6 className="añoserie">{cap.duracion}</h6>
+                <h6 className="tituloSerie">{listarCap2[matchedIndex].nombre == undefined ? "" : listarCap2[matchedIndex].nombre}</h6>
+                <h6 className="sinopsis">{listarCap2[matchedIndex].descripcion == undefined ? "" : listarCap2[matchedIndex].descripcion}</h6>
+                <h6 className="añoserie">{listarCap2[matchedIndex].duracion == undefined ? "" : listarCap2[matchedIndex].duracion}</h6>
               </div>
-            </div>
-          ))}
+              <button onClick={handleNextVideo}>Next Video</button>
+            </div>}
         <Swiper
           spaceBetween={10}
           slidesPerView={slides}

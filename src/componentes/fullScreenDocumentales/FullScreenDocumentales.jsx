@@ -16,7 +16,8 @@ import {FullNav} from "../navcompleto/navCompleto";
 SwiperCore.use([Pagination, Autoplay]);
 export function FullDocumentales(props) {
   const locations = useLocation();
-  const [listarPel, setListPeliculas] = useState([]);
+  const [listarPel, setListPeliculas] = useState([{id: "", urlVideo: "", titulo: "", sinopsis: "", duracion: ""}]);
+  const [matchedIndex, setMatchedIndex] = useState(0);
   const { id } = queryString.parse(locations.search);
 
   const { location } = props;
@@ -53,17 +54,35 @@ export function FullDocumentales(props) {
       listarPeliculas("documentales")
         .then((response) => {
           const { data } = response;
-
+  
           if (!listarPel && data) {
             setListPeliculas(formatModelPeliculas(data));
           } else {
             const datosPel = formatModelPeliculas(data);
-            const filteredpel = datosPel.filter((data) => data.id === id);
-            setListPeliculas(filteredpel);
+  
+            // Check if there is a match in the filtered data
+            if (datosPel.length > 0) {
+              // Get the index of the first match in the filtered data
+              const matchIndex = datosPel.findIndex((data) => data.id === id);
+  
+              // Store the index in a variable (e.g., matchedIndex)
+              // You need to declare the state variable for matchedIndex using useState before using it here.
+              setMatchedIndex(matchIndex);
+            } else {
+              // No match found
+              setMatchedIndex(-1);
+            }
+  
+            // Update the state with the filtered data
+            setListPeliculas(datosPel);
           }
         })
-        .catch((e) => { });
-    } catch (e) { }
+        .catch((e) => {
+          // Handle errors appropriately
+        });
+    } catch (e) {
+      // Handle errors appropriately
+    }
   };
 
   useEffect(() => {
@@ -123,21 +142,25 @@ export function FullDocumentales(props) {
     setSlides(slidesToShow);
   };
 
+  const handleNextVideo = () => {
+    // Increment the matchedIndex to show the next video
+    setMatchedIndex((prevIndex) => (prevIndex + 1) % listarPel.length);
+  };
+
   return (
     <>
-    <FullNav/>
-      {listarPel &&
-        listarPel.map((pel) => (
-          <div key={pel.id}>
-            <video id="videoheader" src={pel.urlVideo} autoPlay loop controls></video>
-            <div className="informacionserie">
-              <h6 className="tituloSerie">{pel.titulo}</h6>
-              <h6 className="sinopsis">{pel.sinopsis}</h6>
-              <h6 className="añoserie">{pel.duracion}</h6>
-            </div>
-
+      <FullNav />
+      {listarPel.length > 0 && (
+        <div key={listarPel[matchedIndex].id ?? ""}>
+          <video id="videoheader" src={listarPel[matchedIndex].urlVideo == undefined ? "" : listarPel[matchedIndex].urlVideo} autoPlay loop controls></video>
+          <div className="informacionserie">
+            <h6 className="tituloSerie">{listarPel[matchedIndex].titulo == undefined ? "" : listarPel[matchedIndex].titulo}</h6>
+            <h6 className="sinopsis">{listarPel[matchedIndex].sinopsis == undefined ? "" : listarPel[matchedIndex].sinopsis}</h6>
+            <h6 className="añoserie">{listarPel[matchedIndex].duracion == undefined ? "" : listarPel[matchedIndex].duracion}</h6>
           </div>
-        ))}
+          <button onClick={handleNextVideo}>Next Video</button>
+        </div>
+      )}
     </>
   );
 }
