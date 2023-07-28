@@ -24,6 +24,8 @@ export function FullScrean(props) {
   const { location } = props;
   const [listarSer, setListSeries] = useState([]);
 
+  
+
   const aumentarContador = () => {
     try {
       // console.log(data)

@@ -226,6 +226,9 @@ footer {
 }
 
 @media (max-width: 500px) {
+  
+
+
   .imgVermas {
     border-radius: 1vw;
     margin: 3px;
@@ -303,6 +306,7 @@ footer {
 
 /*hamburguesa*/
 @media (max-width: 700px) {
+ 
 
   .icon {
     background-color: #e401f9;
@@ -464,4 +468,50 @@ h4 {
 .center-container {
   display: flex;
   justify-content: center;
+}
+
+
+.nextvideo {
+  position: absolute;
+  top: 110%;
+  left: 92%;
+  transform: translate(-50%, -50%);
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #e50914;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 2000;
+}
+
+.nextvideo:hover {
+  background-color: #b2070f;
+}
+
+/* Laptop y pantallas más grandes */
+@media screen and (min-width: 1024px) {
+  .nextvideo {
+    left: 92%;
+    
+  }
+}
+
+/* iPad y tablets */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .nextvideo {
+    left: 90%;
+   
+  }
+}
+
+/* Móvil */
+@media screen and (max-width: 767px) {
+  .nextvideo {
+    left: 85%;
+    top: 25%;
+    font-size: 8px;
+  }
 }

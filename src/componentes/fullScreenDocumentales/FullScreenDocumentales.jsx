@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
 import { listarPeliculas, obtenerPeliculas, actualizarContadorPeliculas } from "../../api/peliculasListar";
@@ -21,6 +21,47 @@ export function FullDocumentales(props) {
   const { id } = queryString.parse(locations.search);
 
   const { location } = props;
+
+
+  const videoRef = useRef(null);
+  const [showNextButton, setShowNextButton] = useState(false);
+
+  const handleVideoTimeUpdate = () => {
+    const video = videoRef.current;
+    const percentagePlayed = (video.currentTime / video.duration) * 100;
+
+    if (percentagePlayed >= 90) {
+      setShowNextButton(true);
+    } else {
+      setShowNextButton(false);
+    }
+  };
+
+  const handleFullscreenChange = () => {
+    const video = videoRef.current;
+
+    if (document.fullscreenElement || document.webkitFullscreenElement) {
+      setShowNextButton(true);
+    } else {
+      setShowNextButton(true);
+    }
+  };
+  //ver boton
+  useEffect(() => {
+    const video = videoRef.current;
+
+    video.addEventListener('timeupdate', handleVideoTimeUpdate);
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+
+    return () => {
+      video.removeEventListener('timeupdate', handleVideoTimeUpdate);
+
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+    };
+  }, []);
 
   const aumentarContador = () => {
     try {
@@ -152,13 +193,16 @@ export function FullDocumentales(props) {
       <FullNav />
       {listarPel.length > 0 && (
         <div key={listarPel[matchedIndex].id ?? ""}>
-          <video id="videoheader" src={listarPel[matchedIndex].urlVideo == undefined ? "" : listarPel[matchedIndex].urlVideo} autoPlay loop controls></video>
+          <video ref={videoRef} id="videoheader" src={listarPel[matchedIndex].urlVideo == undefined ? "" : listarPel[matchedIndex].urlVideo} autoPlay controls></video>
+          {showNextButton && (
+        <button onClick={handleNextVideo} className="nextvideo">Next Video</button>
+      )}
           <div className="informacionserie">
             <h6 className="tituloSerie">{listarPel[matchedIndex].titulo == undefined ? "" : listarPel[matchedIndex].titulo}</h6>
             <h6 className="sinopsis">{listarPel[matchedIndex].sinopsis == undefined ? "" : listarPel[matchedIndex].sinopsis}</h6>
             <h6 className="añoserie">{listarPel[matchedIndex].duracion == undefined ? "" : listarPel[matchedIndex].duracion}</h6>
           </div>
-          <button onClick={handleNextVideo}>Next Video</button>
+          
         </div>
       )}
     </>

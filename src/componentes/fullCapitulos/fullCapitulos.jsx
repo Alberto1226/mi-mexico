@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
 import { listarSeries } from "../../api/series";
@@ -13,18 +13,57 @@ import { CardHeader } from "../cardsHeader/cardsHeader";
 import { listarCapitulosSeries } from "../../api/capitulosSeries";
 import { Link } from "react-router-dom";
 
-import {FullNav} from "../navcompleto/navCompleto";
+import { FullNav } from "../navcompleto/navCompleto";
 
 SwiperCore.use([Pagination, Autoplay]);
 export function FullCapitulos(props) {
   const locations = useLocation();
   const { id } = queryString.parse(locations.search);
   const { temporada } = queryString.parse(locations.search);
-  const { capitulo } = queryString.parse(locations.search);//igual al id de la serie
+  const { capitulo } = queryString.parse(locations.search); //igual al id de la serie
 
   const { location } = props;
- 
-    //listar todos los capitulos de la teporada
+
+  const videoRef = useRef(null);
+  const [showNextButton, setShowNextButton] = useState(false);
+
+  const handleVideoTimeUpdate = () => {
+    const video = videoRef.current;
+    const percentagePlayed = (video.currentTime / video.duration) * 100;
+
+    if (percentagePlayed >= 90) {
+      setShowNextButton(true);
+    } else {
+      setShowNextButton(false);
+    }
+  };
+
+  const handleFullscreenChange = () => {
+    const video = videoRef.current;
+
+    if (document.fullscreenElement || document.webkitFullscreenElement) {
+      setShowNextButton(true);
+    } else {
+      setShowNextButton(true);
+    }
+  };
+  //ver boton
+  useEffect(() => {
+    const video = videoRef.current;
+
+    video.addEventListener('timeupdate', handleVideoTimeUpdate);
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+
+    return () => {
+      video.removeEventListener('timeupdate', handleVideoTimeUpdate);
+
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+    };
+  }, []);
+  //listar todos los capitulos de la teporada
   const [listarCap, setListCap] = useState([]);
   const [matchedIndex, setMatchedIndex] = useState(0);
 
@@ -56,7 +95,9 @@ export function FullCapitulos(props) {
   }, [location]);
 
   //listar capitulo
-  const [listarCap2, setListCap2] = useState([{id: "", urlVideo: "", nombre: "", descripcion: "", duracion: ""}]);
+  const [listarCap2, setListCap2] = useState([
+    { id: "", urlVideo: "", nombre: "", descripcion: "", duracion: "" },
+  ]);
   const [listarCap3, setListCap3] = useState([]);
 
   const obtenerCapitulos2 = () => {
@@ -70,12 +111,12 @@ export function FullCapitulos(props) {
             console.log(data);
           } else {
             const datosCap2 = formatModelCapitulos(data);
-            
+
             // Check if there is a match in the filtered data
             if (datosCap2.length > 0) {
               // Get the index of the first match in the filtered data
               const matchIndex = datosCap2.findIndex((data) => data.id === id);
-  
+
               // Store the index in a variable (e.g., matchedIndex)
               // You need to declare the state variable for matchedIndex using useState before using it here.
               setMatchedIndex(matchIndex);
@@ -94,8 +135,6 @@ export function FullCapitulos(props) {
   useEffect(() => {
     obtenerCapitulos2();
   }, [location]);
-
-  
 
   const [slides, setSlides] = useState(5); // Número inicial de slides a mostrar
 
@@ -119,100 +158,122 @@ export function FullCapitulos(props) {
 
     setSlides(slidesToShow);
   };
- 
+
   /**
- * 
- * actualizar componente
- */
-const [capituloSeleccionado, setCapituloSeleccionado] = useState(capitulo);
+   *
+   * actualizar componente
+   */
+  const [capituloSeleccionado, setCapituloSeleccionado] = useState(capitulo);
 
-useEffect(() => {
-  setCapituloSeleccionado(capitulo);
-  
+  useEffect(() => {
+    setCapituloSeleccionado(capitulo);
+  }, []);
+  const miFuncion = () => {
+    window.location.reload();
+  };
 
-}, []);
-const miFuncion = () => {
-  window.location.reload();
-};
+  const obtenerCapitulos3 = (capitulo) => {
+    try {
+      listarCapitulosSeries(capitulo)
+        .then((response) => {
+          const { data } = response;
 
+          if (!listarCap3 && data) {
+            setListCap3(formatModelCapitulos(data));
+            console.log(data);
+          } else {
+            const datosCap3 = formatModelCapitulos(data);
+            const filteredCap3 = datosCap3.filter((item) => item.id == id);
 
-const obtenerCapitulos3 = (capitulo) => {
-  try {
-    listarCapitulosSeries(capitulo)
-      .then((response) => {
-        const { data } = response;
+            setListCap3(filteredCap3);
+            console.log(filteredCap3);
+          }
+        })
+        .catch((e) => {});
+    } catch (e) {}
+  };
 
-        if (!listarCap3 && data) {
-          setListCap3(formatModelCapitulos(data));
-          console.log(data);
-        } else {
-          const datosCap3 = formatModelCapitulos(data);
-          const filteredCap3 = datosCap3.filter((item) => item.id == id);
+  useEffect(() => {
+    obtenerCapitulos3(capituloSeleccionado);
+  }, [location, capituloSeleccionado]);
 
-          setListCap3(filteredCap3);
-          console.log(filteredCap3);
-          
-        }
-      })
-      .catch((e) => {});
-  } catch (e) {}
-};
-
-
-
-useEffect(() => {
-  obtenerCapitulos3(capituloSeleccionado);
-
-}, [location, capituloSeleccionado]);
-
-const handleNextVideo = () => {
-  // Increment the matchedIndex to show the next video
-  setMatchedIndex((prevIndex) => (prevIndex + 1) % listarCap2.length);
-};
+  const handleNextVideo = () => {
+    // Increment the matchedIndex to show the next video
+    setMatchedIndex((prevIndex) => (prevIndex + 1) % listarCap2.length);
+  };
 
   return (
-    
-      <>
-      <FullNav/>
-        {listarCap2 &&
-            <div key={listarCap2[matchedIndex].id ?? ""}>
-              <video id="videoheader" src={listarCap2[matchedIndex].urlCapitulo == undefined ? "" : listarCap2[matchedIndex].urlCapitulo} autoPlay loop controls></video>
-              <div className="informacionserie">
-                <h6 className="tituloSerie">{listarCap2[matchedIndex].nombre == undefined ? "" : listarCap2[matchedIndex].nombre}</h6>
-                <h6 className="sinopsis">{listarCap2[matchedIndex].descripcion == undefined ? "" : listarCap2[matchedIndex].descripcion}</h6>
-                <h6 className="añoserie">{listarCap2[matchedIndex].duracion == undefined ? "" : listarCap2[matchedIndex].duracion}</h6>
-              </div>
-              <button onClick={handleNextVideo}>Next Video</button>
-            </div>}
-        <Swiper
-          spaceBetween={10}
-          slidesPerView={slides}
-          navigation
-          pagination={{ clickable: true }}
-          className="mySwiper"
-        >
-          {listarCap &&
+    <>
+      <FullNav />
+      {listarCap2 && (
+        <div key={listarCap2[matchedIndex].id ?? ""}>
+          <video
+          ref={videoRef}
+            id="videoheader"
+            src={
+              listarCap2[matchedIndex].urlCapitulo == undefined
+                ? ""
+                : listarCap2[matchedIndex].urlCapitulo
+            }
+            autoPlay
+            
+            controls
+          ></video>
+         {showNextButton && (
+        <button onClick={handleNextVideo} className="nextvideo">Next Video</button>
+      )}
+          <div className="informacionserie">
+            <h6 className="tituloSerie">
+              {listarCap2[matchedIndex].nombre == undefined
+                ? ""
+                : listarCap2[matchedIndex].nombre}
+            </h6>
+            <h6 className="sinopsis">
+              {listarCap2[matchedIndex].descripcion == undefined
+                ? ""
+                : listarCap2[matchedIndex].descripcion}
+            </h6>
+            <h6 className="añoserie">
+              {listarCap2[matchedIndex].duracion == undefined
+                ? ""
+                : listarCap2[matchedIndex].duracion}
+            </h6>
+          </div>
+          
+        </div>
+      )}
+      <Swiper
+        spaceBetween={10}
+        slidesPerView={slides}
+        navigation
+        pagination={{ clickable: true }}
+        className="mySwiper"
+      >
+        {listarCap &&
           listarCap.map((tem) => (
-          <SwiperSlide key={tem.id} className="swiper-slide" onClick={miFuncion}>
-            <Link
-              to={`/fullCap?id=${tem.id}&capitulo=${tem.serie}&temporada=${tem.temporada}`}
-              img={"datos"}
-              onClick={() => setCapituloSeleccionado(tem.capitulo)}
+            <SwiperSlide
+              key={tem.id}
+              className="swiper-slide"
+              onClick={miFuncion}
             >
-              <CardHeader
-                img1={tem.urlPortada}
-                nombre={tem.nombre}
-                duracion={tem.duracion}
-                des={tem.descripcion}
-              />
-            </Link>
-          </SwiperSlide>
-           ))}
-        </Swiper>
-      </>
-    );
+              <Link
+                to={`/fullCap?id=${tem.id}&capitulo=${tem.serie}&temporada=${tem.temporada}`}
+                img={"datos"}
+                onClick={() => setCapituloSeleccionado(tem.capitulo)}
+              >
+                <CardHeader
+                  img1={tem.urlPortada}
+                  nombre={tem.nombre}
+                  duracion={tem.duracion}
+                  des={tem.descripcion}
+                />
+              </Link>
+            </SwiperSlide>
+          ))}
+      </Swiper>
+    </>
+  );
 }
-
 
 function formatModelCapitulos(data) {
   const dataTemp = [];
