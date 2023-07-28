@@ -120,31 +120,26 @@ export function Home() {
         <SwiperHeader img={imgSwiper} videoh={"https://www.mxtvmas.com:8443/mimexico/peliculas/cerro.mp4"}/>
         <Apple titulo={"Recomendados"}/>
         {/**<SwiperPeliculasRecomendadas titulo={"Recomendados"} /> */}
-        <hr />
-        <section class="link">
-          <div class="patrocinadores">
-            <SwiperPatrocinadores />
-          </div>
-        </section>
         <hr/>
         <SwiperPeliculas titulo={"Lo mas visto"} />
         <hr />
-        <SwiperMasVistos titulo={"Top Peliculas mas vistas"}/>
+        {/** <SwiperMasVistos titulo={"Top Peliculas mas vistas"}/>
         <hr />
         <SwiperMasVistosSer titulo={"Top Series mas vistas"}/>
         <hr/>
         <SwiperMasVistosDoc titulo={"Top documentales mas vistas"}/>
-        <hr/>
-        <section class="link">
+        <hr/>*/}
+        {/** <section class="link">
           <div class="patrocinadores">
             <SwiperPatrocinadoresN2 />
           </div>
-        </section>
-        <hr />
+        </section>*/}
+        
         <SwiperPeliculas titulo={"Favoritos"} />
         <hr />
+        {/** 
         <SwiperHeader img={imgSwiper} videoh={"https://www.mxtvmas.com:8443/mimexico/vinicio/teotihuacan.mp4"}/>
-        
+        */}
         <div className="margindiv">
         <h4>Ver mas +</h4>
         </div>
@@ -155,12 +150,15 @@ export function Home() {
         <img src={portada2} alt="" className="especialespor"/>
         <SwiperEspeciales2 titulo={"Especial Cervantino "}/>
         <SwiperEspeciales titulo={"Especial Guelaguetza"}/>
-        
-        
         <hr />
-        <section class="link">
+        {/** <section class="link">
           <div class="patrocinadores">
             <SwiperPatrocinadoresN3 />
+          </div>
+        </section>*/}
+        <section class="link">
+          <div class="patrocinadores">
+            <SwiperPatrocinadores />
           </div>
         </section>
         

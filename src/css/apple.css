@@ -139,11 +139,7 @@
     scale: 1.03;
   }
   
-  footer {
-    padding: var(--paddingSmall) 0;
-    margin: 0 var(--gap);
-    background: var(--backgroundColorDark);
-  }
+  
   
   .footer__content {
     display: flex;

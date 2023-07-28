@@ -83,7 +83,7 @@ export function SwiperPatrocinadores(props) {
           slidesPerView={slides}
           navigation
           autoplay={{
-            delay: 500,
+            delay: 3000,
             loop: true,
             disableOnInteraction: false,
           }}

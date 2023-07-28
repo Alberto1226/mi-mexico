@@ -241,43 +241,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
         </Navbar>
 
        
-      {/**  <section className="header">
-      <div className="barraRosa"></div>
-      <div className="mexicoLogo">
-        <a id="logo" href="#home">
-          Mexico
-        </a>
-      </div>
-      <nav className="main-nav"></nav>
-      <nav className={`sub-nav ${isInputOpen ? 'open' : ''}`}>
-        <Link to={"/"}>
-          <a className="icon">
-            <FontAwesomeIcon icon={faHouse} />
-          </a>
-        </Link>
-        <a className="icon" onClick={handleButtonClick}>
-          {!isInputOpen && (
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
-          )}
-        </a>
-        <Link to="/login">
-          <a className="icon">
-            <FontAwesomeIcon icon={faUser} className="userIcon" />
-          </a>
-        </Link>
-        {isInputOpen && (
-          <div className="buscar">
-            <input
-              type="text"
-              value={searchValue}
-              onChange={handleInputChange}
-              onBlur={handleInputBlur}
-              autoFocus
-            />
-          </div>
-        )}
-      </nav>
-    </section>*/}
+    
     </>
   );
 }
