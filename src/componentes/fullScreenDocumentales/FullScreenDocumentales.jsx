@@ -194,9 +194,7 @@ export function FullDocumentales(props) {
       {listarPel.length > 0 && (
         <div key={listarPel[matchedIndex].id ?? ""}>
           <video ref={videoRef} id="videoheader" src={listarPel[matchedIndex].urlVideo == undefined ? "" : listarPel[matchedIndex].urlVideo} autoPlay controls></video>
-          {showNextButton && (
         <button onClick={handleNextVideo} className="nextvideo">Next Video</button>
-      )}
           <div className="informacionserie">
             <h6 className="tituloSerie">{listarPel[matchedIndex].titulo == undefined ? "" : listarPel[matchedIndex].titulo}</h6>
             <h6 className="sinopsis">{listarPel[matchedIndex].sinopsis == undefined ? "" : listarPel[matchedIndex].sinopsis}</h6>

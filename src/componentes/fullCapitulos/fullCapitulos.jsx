@@ -86,8 +86,8 @@ export function FullCapitulos(props) {
             console.log(filteredCap);
           }
         })
-        .catch((e) => {});
-    } catch (e) {}
+        .catch((e) => { });
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -128,8 +128,8 @@ export function FullCapitulos(props) {
             setListCap2(datosCap2);
           }
         })
-        .catch((e) => {});
-    } catch (e) {}
+        .catch((e) => { });
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -189,8 +189,8 @@ export function FullCapitulos(props) {
             console.log(filteredCap3);
           }
         })
-        .catch((e) => {});
-    } catch (e) {}
+        .catch((e) => { });
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -208,7 +208,7 @@ export function FullCapitulos(props) {
       {listarCap2 && (
         <div key={listarCap2[matchedIndex].id ?? ""}>
           <video
-          ref={videoRef}
+            ref={videoRef}
             id="videoheader"
             src={
               listarCap2[matchedIndex].urlCapitulo == undefined
@@ -216,12 +216,10 @@ export function FullCapitulos(props) {
                 : listarCap2[matchedIndex].urlCapitulo
             }
             autoPlay
-            
+
             controls
           ></video>
-         {showNextButton && (
-        <button onClick={handleNextVideo} className="nextvideo">Next Video</button>
-      )}
+          <button onClick={handleNextVideo} className="nextvideo">Next Video</button>
           <div className="informacionserie">
             <h6 className="tituloSerie">
               {listarCap2[matchedIndex].nombre == undefined
@@ -239,7 +237,7 @@ export function FullCapitulos(props) {
                 : listarCap2[matchedIndex].duracion}
             </h6>
           </div>
-          
+
         </div>
       )}
       <Swiper
