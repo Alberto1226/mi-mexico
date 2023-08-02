@@ -31,7 +31,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { listarSeries } from "../../api/series";
 import { listarPeliculas } from "../../api/peliculasListar";
 //imagenes
-import portada2 from "../../assets/img/PORTADA2.png"
+import portada2 from "../../assets/img/PORTADA2.jpg"
 import { Especiales3 } from "../../componentes/especiales3/especiales3";
 
 
@@ -121,17 +121,17 @@ export function Home() {
         <div className="swvideoheader">
         <SwiperHeader img={imgSwiper} videoh={"https://www.mxtvmas.com:8443/mimexico/peliculas/cerro.mp4"}/>
         </div>
-        {/*<Apple titulo={"Recomendados"}/>*/}
+        <Apple titulo={"Recomendados"}/>
         {/**<SwiperPeliculasRecomendadas titulo={"Recomendados"} /> */}
         
         {/*<SwiperPeliculas titulo={"Serires"} />*/}
-        <Especiales3 titulo={"Series"}/>
+        {/*<Especiales3 titulo={"Series"}/>
         <hr/>
         <div className="margindiv">
         <h4>Series +</h4>
         </div>
         <VerMas />
-        <hr />
+        <hr />*/}
         {/** <SwiperMasVistos titulo={"Top Peliculas mas vistas"}/>
         <hr />
         <SwiperMasVistosSer titulo={"Top Series mas vistas"}/>
@@ -143,18 +143,20 @@ export function Home() {
             <SwiperPatrocinadoresN2 />
           </div>
         </section>*/}
+        {/*<hr />
+        <SwiperPeliculas titulo={"Reportajes"} />*/}
         
-        <SwiperPeliculas titulo={"Reportajes"} />
-        <hr />
         {/** 
         <SwiperHeader img={imgSwiper} videoh={"https://www.mxtvmas.com:8443/mimexico/vinicio/teotihuacan.mp4"}/>
         */}
+        {/*
         <div className="margindiv">
         <h4>Ver mas +</h4>
         </div>
+        
         <VerMas />
         <VerMasP />
-        <VerMasD />
+        <VerMasD />*/}
         <hr />
         <img src={portada2} alt="" className="especialespor"/>
         <SwiperEspeciales2 titulo={"Especial Cervantino "}/>

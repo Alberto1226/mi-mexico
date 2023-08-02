@@ -79,7 +79,7 @@ export function SwiperHeader(props) {
       <Swiper
         navigation
         pagination={{ clickable: true }}
-        autoplay={{ delay: 12000 }}
+        autoplay={{ delay: 9000 }}
         speed={1000}
         effect="flip" // Utiliza el efecto de transición "flip"
         flipEffect={{
