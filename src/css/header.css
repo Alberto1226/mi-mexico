@@ -395,8 +395,7 @@ footer {
 
 .navboostrap {
   width: 100%;
-  background: rgb(124,22,96);
-background: linear-gradient(0deg, rgba(124,22,96,1) 0%, rgba(228,0,186,1) 100%);
+  background-color: black;
 
 }
 
