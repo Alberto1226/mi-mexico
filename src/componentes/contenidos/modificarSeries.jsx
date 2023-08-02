@@ -11,6 +11,8 @@ import { ToastContainer, toast } from "react-toastify";
 import { map } from "lodash";
 import { listarCategorias } from "../../api/categorias";
 import queryString from "query-string";
+import Dropzone from "../Dropzone/Dropzone";
+import { subeArchivosCloudinary } from "../../api/cloudinary";
 
 export default function ModificarSeries({ data, history, setShow }) {
 
@@ -24,6 +26,10 @@ export default function ModificarSeries({ data, history, setShow }) {
     sinopsis: data[6],
     anio: data[9],
   };
+
+  //Para almacenar la imagen del producto que se guardara a la bd
+  const [imagenPortadaPelicula, setImagenPortadaPelicula] = useState(data[12]);
+  console.log(imagenPortadaPelicula)
 
   //modal
   const [formData, setFormData] = useState(initialFormValue(dataTemp));
@@ -146,38 +152,46 @@ export default function ModificarSeries({ data, history, setShow }) {
       toast.warning("Completa el formulario");
     } else {
       try {
-        setLoading(true);
-        // Sube a cloudinary la imagen principal del producto
+        subeArchivosCloudinary(imagenPortadaPelicula, "portadasSeries")
+          .then((response) => {
+            const { data } = response;
+            setLoading(true);
+            console.log(data.secure_url)
+            // Sube a cloudinary la imagen principal del producto
 
-        const dataTemp = {
-          titulo: formData.nombre,
-          categorias: listarCat,
-          actores: formData.actores,
-          director: formData.director,
-          duracion: formData.duracion,
-          sinopsis: formData.sinopsis,
-          calificacion: "",
-          datosTemporada: listSeriesCargados,
-          año: formData.anio,
-          disponibilidad: "",
-          masVisto: "",
-          recomendado: "",
-          urlPortada: "",
-          seccion: "",
-        };
-        actualizarSeries(idSerie, dataTemp).then((response) => {
-          const { data } = response;
-          //notificacion
+            const dataTemp = {
+              titulo: formData.nombre,
+              categorias: listarCat,
+              actores: formData.actores,
+              director: formData.director,
+              duracion: formData.duracion,
+              sinopsis: formData.sinopsis,
+              calificacion: "",
+              datosTemporada: listSeriesCargados,
+              año: formData.anio,
+              disponibilidad: "",
+              urlPortada: data.secure_url,
+              masVisto: "",
+              recomendado: "",
+              seccion: "",
+            };
+            actualizarSeries(idSerie, dataTemp).then((response) => {
+              const { data } = response;
+              //notificacion
 
-          toast.success(data.mensaje);
+              toast.success(data.mensaje);
 
-          history({
-            search: queryString.stringify(""),
+              history({
+                search: queryString.stringify(""),
+              });
+              setLoading(false);
+              setShow(false);
+              //cancelarRegistro()
+            });
+          })
+          .then((e) => {
+            console.log(e);
           });
-          setLoading(false);
-          setShow(false);
-          //cancelarRegistro()
-        });
       } catch (e) {
         console.log(e);
       }
@@ -228,6 +242,18 @@ export default function ModificarSeries({ data, history, setShow }) {
       {loading && <Load />}
       <div className="contact-form">
         <Form onSubmit={onSubmit} onChange={onChange}>
+          <div className="imagenPrincipal">
+            <h4 className="textoImagenPrincipal">Sube tu imagen</h4>
+            <div
+              title="Seleccionar imagen de la categoría"
+              className="imagenPortadaPelicula"
+            >
+              <Dropzone
+                setImagenFile={setImagenPortadaPelicula}
+                imagenProductoBD={data[12]} />
+            </div>
+          </div>
+          <br />
           <Row>
             <Col xs={12} md={8}>
               <Form.Control

@@ -191,7 +191,7 @@ export function Dashboard() {
                   </Nav.Item>
                   <Nav.Item className="listNav" onClick={handleClick2}>
                     <Nav.Link className="aa" eventKey="news" active={activeMenu === "news"}>
-                      Insertar Nueva Serie
+                      Series
                     </Nav.Link>
                   </Nav.Item>
                 </Nav>

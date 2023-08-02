@@ -28,6 +28,10 @@ export function Login({ setRefreshCheckLogin }) {
     enrutamiento("/");
   }
 
+  const cancelarRegistroAdmin = () => {
+    enrutamiento("/Dashboard");
+  }
+
   const onSubmit = async (e) => {
     e.preventDefault()
 
@@ -53,7 +57,7 @@ export function Login({ setRefreshCheckLogin }) {
                 const { data } = response;
                 //setRefreshCheckLogin(true)
                 toast.success('Bienvenido ' + data.nombre)
-                cancelarRegistro()
+                data.admin == "true" ? cancelarRegistroAdmin() : cancelarRegistro();
               }
               )
             } catch (ex) {

@@ -18,6 +18,8 @@ import queryString from "query-string";
 
 export default function ModificarPeliculas({ data, history, setShow }) {
 
+  const idPelicula = data[0];
+
   // Para cancelar el registro
   const cancelarRegistro = () => {
     setShow(false)
@@ -104,39 +106,46 @@ export default function ModificarPeliculas({ data, history, setShow }) {
       toast.warning("Completa el formulario");
     } else {
       try {
-        setLoading(true);
-        // Sube a cloudinary la imagen principal del producto
+        subeArchivosCloudinary(imagenPortadaPelicula, "portadasPeliculas")
+          .then((response) => {
+            const { data } = response;
+            setLoading(true);
+            // Sube a cloudinary la imagen principal del producto
 
-        const dataTemp = {
-          titulo: formData.nombre,
-          categorias: listarCat,
-          actores: formData.actores,
-          director: formData.director,
-          duracion: formData.duracion,
-          sinopsis: formData.sinopsis,
-          calificacion: "",
-          año: formData.anio,
-          disponibilidad: "",
-          masVisto: "",
-          recomendado: "",
-          urlVideo: formData.archPelicula,
-          urlPortada: data.secure_url,
-          seccion: "",
-          estado: "true"
-        };
-        actualizarPeliculas(data[0], dataTemp).then((response) => {
-          const { data } = response;
-          //notificacion
+            const dataTemp = {
+              titulo: formData.nombre,
+              categorias: listarCat,
+              actores: formData.actores,
+              director: formData.director,
+              duracion: formData.duracion,
+              sinopsis: formData.sinopsis,
+              calificacion: "",
+              año: formData.anio,
+              disponibilidad: "",
+              masVisto: "",
+              recomendado: "",
+              urlVideo: formData.archPelicula,
+              urlPortada: data.secure_url,
+              seccion: "",
+              estado: "true"
+            };
+            actualizarPeliculas(idPelicula, dataTemp).then((response) => {
+              const { data } = response;
+              //notificacion
 
-          toast.success(data.mensaje);
-          history({
-            search: queryString.stringify(""),
+              toast.success(data.mensaje);
+              history({
+                search: queryString.stringify(""),
+              });
+              setLoading(false);
+              cancelarRegistro();
+              //window.location.reload();
+              //cancelarRegistro()
+            });
+          })
+          .then((e) => {
+            console.log(e);
           });
-          setLoading(false);
-          cancelarRegistro();
-          //window.location.reload();
-          //cancelarRegistro()
-        });
       } catch (e) {
         console.log(e);
       }

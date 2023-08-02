@@ -205,10 +205,6 @@ function TblSeries(props) {
       },
     },
     {
-      name: "urlPortada",
-      label: "URL PORTADA",
-    },
-    {
       name: "Acciones",
       options: {
         filter: false,
