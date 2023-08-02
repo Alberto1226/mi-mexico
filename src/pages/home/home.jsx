@@ -32,6 +32,7 @@ import { listarSeries } from "../../api/series";
 import { listarPeliculas } from "../../api/peliculasListar";
 //imagenes
 import portada2 from "../../assets/img/PORTADA2.png"
+import { Especiales3 } from "../../componentes/especiales3/especiales3";
 
 
 
@@ -117,11 +118,19 @@ export function Home() {
           listarPeliculas={listarPelicula}
           listarSeries={listarSer}
         />
+        <div className="swvideoheader">
         <SwiperHeader img={imgSwiper} videoh={"https://www.mxtvmas.com:8443/mimexico/peliculas/cerro.mp4"}/>
-        <Apple titulo={"Recomendados"}/>
+        </div>
+        {/*<Apple titulo={"Recomendados"}/>*/}
         {/**<SwiperPeliculasRecomendadas titulo={"Recomendados"} /> */}
+        
+        {/*<SwiperPeliculas titulo={"Serires"} />*/}
+        <Especiales3 titulo={"Series"}/>
         <hr/>
-        <SwiperPeliculas titulo={"Lo mas visto"} />
+        <div className="margindiv">
+        <h4>Series +</h4>
+        </div>
+        <VerMas />
         <hr />
         {/** <SwiperMasVistos titulo={"Top Peliculas mas vistas"}/>
         <hr />
@@ -135,7 +144,7 @@ export function Home() {
           </div>
         </section>*/}
         
-        <SwiperPeliculas titulo={"Favoritos"} />
+        <SwiperPeliculas titulo={"Reportajes"} />
         <hr />
         {/** 
         <SwiperHeader img={imgSwiper} videoh={"https://www.mxtvmas.com:8443/mimexico/vinicio/teotihuacan.mp4"}/>

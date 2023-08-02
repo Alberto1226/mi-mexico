@@ -84,14 +84,14 @@
     overflow-x: hidden;
     width: 100%;
     max-width: var(--maxWidth);
-    mask-image: linear-gradient(
+    /*mask-image: linear-gradient(
       to right,
       hsl(0 0% 0% / 0),
       var(--backgroundColorDark) 20%,
       var(--backgroundColorDark) 80%,
       hsl(0 0% 0% / 0)
     );
-    background: var(--gradient1);
+    background: var(--gradient1);*/
   }
   
   .marquee {

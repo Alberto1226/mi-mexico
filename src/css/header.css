@@ -395,8 +395,9 @@ footer {
 
 .navboostrap {
   width: 100%;
-  background: rgb(250,141,216);
-background: linear-gradient(90deg, rgba(250,141,216,0.9949229691876751) 0%, rgba(221,0,149,1) 100%);
+  background: rgb(124,22,96);
+background: linear-gradient(0deg, rgba(124,22,96,1) 0%, rgba(228,0,186,1) 100%);
+
 }
 
 
@@ -514,4 +515,9 @@ h4 {
     top: 25%;
     font-size: 8px;
   }
+}
+
+
+.swvideoheader{
+  height: 100vh;
 }
