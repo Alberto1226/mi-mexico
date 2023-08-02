@@ -121,7 +121,14 @@ export function Home() {
         <div className="swvideoheader">
         <SwiperHeader img={imgSwiper} videoh={"https://www.mxtvmas.com:8443/mimexico/peliculas/cerro.mp4"}/>
         </div>
-        <Apple titulo={"Recomendados"}/>
+        {/*<img src={portada2} alt="" className="especialespor"/>*/}
+        <SwiperEspeciales2 titulo={"Estrenos"}/>
+        <SwiperEspeciales titulo={"lo mas visto"}/>
+        <hr/>
+        <Especiales3 titulo={"Series"}/>
+        
+        {/*<Apple titulo={""}/>*/}
+
         {/**<SwiperPeliculasRecomendadas titulo={"Recomendados"} /> */}
         
         {/*<SwiperPeliculas titulo={"Serires"} />*/}
@@ -158,10 +165,7 @@ export function Home() {
         <VerMasP />
         <VerMasD />*/}
         <hr />
-        <img src={portada2} alt="" className="especialespor"/>
-        <SwiperEspeciales2 titulo={"Especial Cervantino "}/>
-        <SwiperEspeciales titulo={"Especial Guelaguetza"}/>
-        <hr />
+        
         {/** <section class="link">
           <div class="patrocinadores">
             <SwiperPatrocinadoresN3 />

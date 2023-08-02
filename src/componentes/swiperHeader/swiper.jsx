@@ -52,11 +52,11 @@ export function SwiperHeader(props) {
 
   const randomSlides = [
     {
-      src: "https://www.mxtvmas.com:8443/mimexico/peliculas/cerro.mp4",
+      src: "https://www.mxtvmas.com:8443/mimexico/series/sabores/sabor2.mp4",
       poster: randomImages[0],
     },
     {
-      src: "https://www.mxtvmas.com:8443/mimexico/vinicio/teotihuacan.mp4",
+      src: "https://www.mxtvmas.com:8443/mimexico/series/conciertos/concierto2.mp4",
       poster: randomImages[1],
     },
     {
