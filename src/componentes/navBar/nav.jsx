@@ -225,6 +225,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
               {idUsuario != "" && (
                 <>
                   <a className="icon">
+                  
                     <FontAwesomeIcon
                       icon={faUser}
                       className="userIcon"

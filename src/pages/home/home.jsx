@@ -25,6 +25,8 @@ import imgSwiper from "../../assets/img/1.png";
 import "../../css/header.css";
 import "../../css/cards.css";
 import "../../css/cardPatconiadores.css";
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -33,6 +35,13 @@ import { listarPeliculas } from "../../api/peliculasListar";
 //imagenes
 import portada2 from "../../assets/img/PORTADA2.jpg"
 import { Especiales3 } from "../../componentes/especiales3/especiales3";
+
+//GOOGLE
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
+
+//iconos 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -108,16 +117,56 @@ export function Home() {
     obtenerSeries();
   }, []);
 
+
+  /**
+   * google
+   */
+
+  const location = useLocation();
+  const userData = location.state && location.state.userData;
+
+  /**
+   * CERRAR SESION GOOGLE
+   */
+  const navigate = useNavigate();
+  const handleLogoutSuccess = () => {
+    console.log("Sesión de Google cerrada correctamente");
+    navigate('/');
+  };
   return (
     <>
       <LoadVideo />
       <div>
         <ToastContainer />
+        <div>
+          {userData && (
+          <div className="user-profile">
+            <img src={userData.imageUrl} alt="Imagen de perfil" className="profile-image" />
+            <div className="user-info">
+              <p className="user-name">{userData.name}, Biemvenido a MXTVMAS </p>
+            </div>
+            <GoogleLogout
+            clientId="1088263342718-afnae66cqjekqmlbne7sri3l12gih38f.apps.googleusercontent.com"
+            onLogoutSuccess={handleLogoutSuccess}
+            buttonText="Cerrar sesión"
+            render={(renderProps) => (
+              <button className="logout-button" onClick={renderProps.onClick}>
+                <FontAwesomeIcon icon={faSignOutAlt} /> Salir
+              </button>
+            )}
+          />
+          </div>
+          )}
+                  
+        </div>
         <NavPrincipal
           listarDocumentales={listarDocumentales}
           listarPeliculas={listarPelicula}
           listarSeries={listarSer}
+          
+          
         />
+        
         <div className="swvideoheader">
         <SwiperHeader img={imgSwiper} videoh={"https://www.mxtvmas.com:8443/mimexico/peliculas/cerro.mp4"}/>
         </div>
@@ -126,7 +175,12 @@ export function Home() {
         <SwiperEspeciales titulo={"lo mas visto"}/>
         <hr/>
         <Especiales3 titulo={"Series"}/>
-        
+        {userData && (
+                    <div>
+                      <img src={userData.imageUrl} alt="Imagen de perfil" />
+                      <p>Nombre: {userData.name}</p>
+                    </div>
+                  )}
         {/*<Apple titulo={""}/>*/}
 
         {/**<SwiperPeliculasRecomendadas titulo={"Recomendados"} /> */}

@@ -520,3 +520,54 @@ h4 {
 .swvideoheader{
   height: 100vh;
 }
+
+
+
+/*perfil de google*/
+.user-profile {
+  display: flex;
+  align-items: center;
+  
+  background-color: black;
+  color: white;
+  padding: 10px;
+  
+}
+
+.profile-image {
+  width: 30px; /* Ajusta el tamaño de la imagen según tu preferencia */
+  height: 30px; /* Ajusta el tamaño de la imagen según tu preferencia */
+  border-radius: 50%;
+  margin-right: 20px;
+  
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  
+}
+
+.user-name {
+  margin-right: 20px;
+  color: #eeecec;
+  
+}
+
+/*cerrar sesion google*/
+.logout-button {
+  background: none;
+  border: none;
+  color: #f3b84a;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  float: right;
+  z-index: 2000;
+}
+
+.logout-button i {
+  margin-right: 5px;
+}

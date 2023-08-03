@@ -1,18 +1,25 @@
-import { faHouse } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+
+import { Link} from 'react-router-dom';
+
 import "../../css/login.css";
 import { useState, useEffect } from 'react';
 import { login, setTokenApi } from "../../api/auth";
 import { toast } from "react-toastify";
 import jwtDecode from "jwt-decode";
-import { Spinner, Button, Form, Image, Row, Col } from "react-bootstrap";
+import {Form} from "react-bootstrap";
 import { obtenerUsuario } from "../../api/usuarios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import img from "../../assets/img/MXtvMas.png"
+import { GoogleLogin } from 'react-google-login';
+
 
 export function Login({ setRefreshCheckLogin }) {
+
+  
+
+
   const [formData, setFormData] = useState(initialFormValue)
   const [signInLoading, setSignInLoading] = useState(false)
 
@@ -87,6 +94,19 @@ export function Login({ setRefreshCheckLogin }) {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
+
+  /**google */
+  const [userData, setUserData] = useState(null);
+  const navigate = useNavigate();
+
+  const responseGoogle = (response) => {
+    const { profileObj } = response;
+    setUserData(profileObj);
+
+    // Redirigir al usuario a la página de inicio (Home) y pasar los datos como props
+    navigate('/', { state: { userData: profileObj } });
+  };
+  /**fin google */
   return (
     <>
       <div class="content">
@@ -124,6 +144,19 @@ export function Login({ setRefreshCheckLogin }) {
                     onClick={togglePasswordVisiblity}
                   />
                 </div>
+                <label>
+                  Ingresar con Google
+                </label>
+                <GoogleLogin
+                  clientId="1088263342718-afnae66cqjekqmlbne7sri3l12gih38f.apps.googleusercontent.com"
+                  buttonText="Iniciar sesión con Google"
+                  onSuccess={responseGoogle}
+                  onFailure={responseGoogle}
+                  cookiePolicy={'single_host_origin'}
+                />
+
+                
+
                 <label>
                   ¿Olvidaste la contraseña?
                   <Link to="/recuperarPass">
