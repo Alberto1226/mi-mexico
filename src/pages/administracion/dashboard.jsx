@@ -3,6 +3,7 @@ import "../../css/dashboard.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import { Nav, NavDropdown } from "react-bootstrap";
 import { TablaUsuarios } from "../../componentes/usuarios/tablaUsuarios";
+import Especiales from "../../componentes/contenidos/especiales";
 import Documentales from "../../componentes/contenidos/documentales";
 import Series from "../../componentes/contenidos/series";
 import Peliculas from "../../componentes/contenidos/peliculas";
@@ -64,6 +65,7 @@ export function Dashboard() {
   const [showComponent3, setShowComponent3] = useState(false);
   const [showComponent4, setShowComponent4] = useState(false);
   const [showComponent5, setShowComponent5] = useState(false);
+  const [showComponent6, setShowComponent6] = useState(false);
 
   const handleClick = () => {
     setShowComponent(true);
@@ -113,6 +115,16 @@ export function Dashboard() {
     setShowComponent3(false);
     setShowComponent4(false);
     setShowComponent5(true);
+  };
+
+  const handleClick6 = () => {
+    setShowComponent(false);
+    setShowComponent1(false);
+    setShowComponent2(false);
+    setShowComponent3(false);
+    setShowComponent4(false);
+    setShowComponent5(false);
+    setShowComponent6(true);
   };
 
   //menu
@@ -189,6 +201,11 @@ export function Dashboard() {
                       Documentales
                     </Nav.Link>
                   </Nav.Item>
+                  <Nav.Item className="listNav" onClick={handleClick6}>
+                    <Nav.Link className="aa" eventKey="news" active={activeMenu === "news"}>
+                      Especiales
+                    </Nav.Link>
+                  </Nav.Item>
                   <Nav.Item className="listNav" onClick={handleClick2}>
                     <Nav.Link className="aa" eventKey="news" active={activeMenu === "news"}>
                       Series
@@ -227,6 +244,11 @@ export function Dashboard() {
                 {showComponent5 && (
                   <div>
                     <Patorcinadores />
+                  </div>
+                )}
+                {showComponent6 && (
+                  <div>
+                    <Especiales />
                   </div>
                 )}
               </div>

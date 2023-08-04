@@ -37,7 +37,7 @@ import portada2 from "../../assets/img/PORTADA2.jpg"
 import { Especiales3 } from "../../componentes/especiales3/especiales3";
 
 //GOOGLE
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
+//import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
 //iconos 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -123,23 +123,23 @@ export function Home() {
    */
 
   const location = useLocation();
-  const userData = location.state && location.state.userData;
+  //const userData = location.state && location.state.userData;
 
   /**
    * CERRAR SESION GOOGLE
    */
-  const navigate = useNavigate();
+  /*const navigate = useNavigate();
   const handleLogoutSuccess = () => {
     console.log("Sesión de Google cerrada correctamente");
     navigate('/');
-  };
+  };*/
   return (
     <>
       <LoadVideo />
       <div>
         <ToastContainer />
         <div>
-          {userData && (
+          {/*{userData && (
           <div className="user-profile">
             <img src={userData.imageUrl} alt="Imagen de perfil" className="profile-image" />
             <div className="user-info">
@@ -156,7 +156,7 @@ export function Home() {
             )}
           />
           </div>
-          )}
+            )}*/}
                   
         </div>
         <NavPrincipal
@@ -175,12 +175,12 @@ export function Home() {
         <SwiperEspeciales titulo={"lo mas visto"}/>
         <hr/>
         <Especiales3 titulo={"Series"}/>
-        {userData && (
+        {/*userData && (
                     <div>
                       <img src={userData.imageUrl} alt="Imagen de perfil" />
                       <p>Nombre: {userData.name}</p>
                     </div>
-                  )}
+        )*/}
         {/*<Apple titulo={""}/>*/}
 
         {/**<SwiperPeliculasRecomendadas titulo={"Recomendados"} /> */}

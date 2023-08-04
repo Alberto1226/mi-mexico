@@ -1,12 +1,12 @@
 
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import "../../css/login.css";
 import { useState, useEffect } from 'react';
 import { login, setTokenApi } from "../../api/auth";
 import { toast } from "react-toastify";
 import jwtDecode from "jwt-decode";
-import {Form} from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { obtenerUsuario } from "../../api/usuarios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -17,7 +17,7 @@ import { GoogleLogin } from 'react-google-login';
 
 export function Login({ setRefreshCheckLogin }) {
 
-  
+
 
 
   const [formData, setFormData] = useState(initialFormValue)
@@ -144,7 +144,7 @@ export function Login({ setRefreshCheckLogin }) {
                     onClick={togglePasswordVisiblity}
                   />
                 </div>
-                <label>
+                {/*<label>
                   Ingresar con Google
                 </label>
                 <GoogleLogin
@@ -153,9 +153,9 @@ export function Login({ setRefreshCheckLogin }) {
                   onSuccess={responseGoogle}
                   onFailure={responseGoogle}
                   cookiePolicy={'single_host_origin'}
-                />
+  />*/}
 
-                
+
 
                 <label>
                   ¿Olvidaste la contraseña?
@@ -178,7 +178,7 @@ export function Login({ setRefreshCheckLogin }) {
                 <Link to="/registro">
                   <input class="submit" value="Crear tu cuenta" type="submit" />
                 </Link>
-                
+
                 <Link to="/">
                   <input class="submit" value="Home" type="submit" />
                 </Link>
