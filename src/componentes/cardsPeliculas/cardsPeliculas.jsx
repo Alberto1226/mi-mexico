@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { SwiperFooterCards } from "../swiperFooterCards/sfc";
 import ReactPlayer from "react-player";
-
+import { Link } from "react-router-dom";
 export function CardsUser(props) {
 
   //console.log(props);
@@ -35,20 +35,17 @@ export function CardsUser(props) {
         <div class="panel">
           <div class="panel__row panel__buttons">
             <div class="panel__icons">
-              {/*<Button
+              <Button
                 variant="link"
-                onClick={() =>
-                  handleWatchClick(
-                    "https://www.youtube.com/watch?v=bIGt-ueYHik"
-                  )
-                }
               >
+              <Link to={`/fullPel?id=${props.id}`} >
                 <a>
                   <i className="">
                     <FontAwesomeIcon icon={faCirclePlay} />
                   </i>
                 </a>
-              </Button>*/}
+                </Link>
+              </Button>
               {isFullScreenOpen && (
                 <div className="fullscreen-component">
                   <iframe src={videoUrl} frameBorder="0" allowFullScreen />

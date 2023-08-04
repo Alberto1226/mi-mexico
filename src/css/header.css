@@ -571,3 +571,48 @@ h4 {
 .logout-button i {
   margin-right: 5px;
 }
+
+/*transision ver mas */
+
+.componentes-container {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.componentes-container.mostrar {
+  opacity: 1;
+  max-height: 1000px; /* Ajusta esta altura según tus necesidades */
+}
+
+/*button ver mas*/
+/* Definir la animación de latido */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Estilos del botón de "Ver mas" */
+.ver-mas-button {
+  background-color: transparent;
+  border: none;
+  color: #ff19cd; /* Color azul, puedes ajustarlo */
+  font-size: 30px;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 5px; /* Ajusta el margen según tus preferencias */
+  animation: pulse 2s infinite; /* Aplicar la animación de latido */
+}
+
+.ver-mas-button:hover {
+  text-decoration: underline;
+  animation: none; /* Detener la animación al pasar el cursor */
+}

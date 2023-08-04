@@ -77,6 +77,7 @@ export function SwiperPeliculas(props) {
               listarPel.map((pelicula) => (
                 <SwiperSlide className="swiper-slide" key={pelicula.id}>
                   <CardsUser
+                    id={pelicula.id}
                     img1={pelicula.urlPortada}
                     urlVideo={pelicula.urlVideo}
                     actores={pelicula.actores}
