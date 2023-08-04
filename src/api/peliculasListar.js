@@ -6,7 +6,8 @@ import {
     ENDPOINTSubirVideo,
     ENDPOINTActualizarContadorPeliculas,
     ENDPOINTObtenerPelicula,
-    ENDPOINTListarPeliculasMasVistas
+    ENDPOINTListarPeliculasMasVistas,
+    ENDPOINTListarUltimosCincoEspeciales
 } from './endpoints';
 import axios from 'axios';
 import { API_HOST } from '../utils/constants';
@@ -59,6 +60,17 @@ export async function listarPeliculasMasVista(tipo) {
         }
     };
     return await axios.get(API_HOST + ENDPOINTListarPeliculasMasVistas + `/?tipo=${tipo}`, config);
+}
+
+export async function listarUltimosCincoEspeciales() {
+    const config = {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+
+        }
+    };
+    return await axios.get(API_HOST + ENDPOINTListarUltimosCincoEspeciales, config);
 }
 
 export async function registraPeliculas(data) {

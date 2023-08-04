@@ -20,6 +20,7 @@ export const ENDPOINTSubirVideo = "/peliculas/subirVideo";
 export const ENDPOINTActualizarContadorPeliculas = "/peliculas/actualizarContador";
 export const ENDPOINTObtenerPelicula = "/peliculas/obtenerPelicula";
 export const ENDPOINTListarPeliculasMasVistas = "/peliculas/listarPeliculasMasVistas";
+export const ENDPOINTListarUltimosCincoEspeciales = "/peliculas/listarUltimosCincoEspeciales";
 
 // Categorias
 export const ENDPOINTRegistrarCategoria = "/categorias/registro";
