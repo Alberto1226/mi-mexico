@@ -75,6 +75,7 @@
     height: 900px;
     background: #ffb649;
     z-index: 2;
+    overflow: auto;
   }
   
   .container {
@@ -85,9 +86,8 @@
     margin: auto;
     margin-top: 20px;
     box-shadow: 1px 5px 10px 1px #333;
-    overflow: hidden;
+    overflow: auto;
     background-color: rgba(137, 237, 255, 0.904);
-    
     color: #fff;
   }
   

@@ -19,7 +19,7 @@
     margin: auto;
     margin-top: 20px;
     box-shadow: 1px 5px 10px 1px #333;
-    overflow: hidden;
+    overflow: auto;
     background-color: rgba(122, 246, 255, 0.904);
     padding: 2vw;
    

@@ -1,8 +1,7 @@
-
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 import "../../css/login.css";
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { login, setTokenApi } from "../../api/auth";
 import { toast } from "react-toastify";
 import jwtDecode from "jwt-decode";
@@ -11,93 +10,94 @@ import { obtenerUsuario } from "../../api/usuarios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import img from "../../assets/img/MXtvMas.png"
-//login
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import { GoogleLogin } from '@react-oauth/google';
+import img from "../../assets/img/MXtvMas.png";
+//login google
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
+//login Facebook
+import { LoginSocialFacebook } from "reactjs-social-login";
+import { FacebookLoginButton } from "react-social-login-buttons";
+//bootstrap
 
-
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export function Login({ setRefreshCheckLogin }) {
+  const [formData, setFormData] = useState(initialFormValue);
+  const [signInLoading, setSignInLoading] = useState(false);
 
-
-
-
-  const [formData, setFormData] = useState(initialFormValue)
-  const [signInLoading, setSignInLoading] = useState(false)
-
-  const [mostrarPassword, setMostrarPassword] = useState(false)
+  const [mostrarPassword, setMostrarPassword] = useState(false);
   const togglePasswordVisiblity = () => {
-    setMostrarPassword((val) => !val)
-  }
+    setMostrarPassword((val) => !val);
+  };
 
   // Para definir el enrutamiento
   const enrutamiento = useNavigate();
 
   const cancelarRegistro = () => {
     enrutamiento("/");
-  }
+  };
 
   const cancelarRegistroAdmin = () => {
     enrutamiento("/Dashboard");
-  }
+  };
 
   const onSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (!formData.usuario || !formData.password) {
-      toast.warning('Completa todos los campos del formulario.')
+      toast.warning("Completa todos los campos del formulario.");
     } else {
-      setSignInLoading(true)
+      setSignInLoading(true);
       try {
         const dataTemp = {
           email: formData.usuario,
-          contraseña: formData.password
-        }
+          contraseña: formData.password,
+        };
         login(dataTemp)
           .then((response) => {
             const {
               data: { token },
-            } = response
-            setTokenApi(token)
-            const { _ } = jwtDecode(token)
-            const idUdsuario = _
+            } = response;
+            setTokenApi(token);
+            const { _ } = jwtDecode(token);
+            const idUdsuario = _;
             try {
-              obtenerUsuario(idUdsuario).then(response => {
+              obtenerUsuario(idUdsuario).then((response) => {
                 const { data } = response;
                 //setRefreshCheckLogin(true)
-                toast.success('Bienvenido ' + data.nombre)
-                data.admin == "true" ? cancelarRegistroAdmin() : cancelarRegistro();
-              }
-              )
+                toast.success("Bienvenido " + data.nombre);
+                data.admin == "true"
+                  ? cancelarRegistroAdmin()
+                  : cancelarRegistro();
+              });
             } catch (ex) {
-              toast.error('Error al obtener el usuario')
+              toast.error("Error al obtener el usuario");
             }
           })
           .catch((ex) => {
-            if (ex.message === 'Network Error') {
-              toast.error('Conexión al servidor no disponible')
-              setSignInLoading(false)
+            if (ex.message === "Network Error") {
+              toast.error("Conexión al servidor no disponible");
+              setSignInLoading(false);
             } else {
               if (ex.response && ex.response.status === 401) {
-                const { mensaje } = ex.response.data
-                toast.error(mensaje)
-                setSignInLoading(false)
+                const { mensaje } = ex.response.data;
+                toast.error(mensaje);
+                setSignInLoading(false);
               }
             }
-          })
+          });
       } catch (ex) {
-        toast.error('Error al iniciar sesión')
-        setSignInLoading(false)
+        toast.error("Error al iniciar sesión");
+        setSignInLoading(false);
       }
     }
-  }
+  };
 
   const onChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
-
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   /**google */
   const [userData, setUserData] = useState(null);
@@ -108,9 +108,13 @@ export function Login({ setRefreshCheckLogin }) {
     setUserData(profileObj);
 
     // Redirigir al usuario a la página de inicio (Home) y pasar los datos como props
-    navigate('/', { state: { userData: profileObj } });
+    navigate("/", { state: { userData: profileObj } });
   };
   /**fin google */
+
+  /**facebook */
+
+  /**fin facebook */
   return (
     <>
       <div class="content">
@@ -137,7 +141,7 @@ export function Login({ setRefreshCheckLogin }) {
                 <div className="flex items-center mb-6">
                   <Form.Control
                     placeholder="Contraseña"
-                    type={mostrarPassword ? 'text' : 'password'}
+                    type={mostrarPassword ? "text" : "password"}
                     name="password"
                     defaultValue={formData.password}
                   />
@@ -148,26 +152,42 @@ export function Login({ setRefreshCheckLogin }) {
                     onClick={togglePasswordVisiblity}
                   />
                 </div>
-                <label>
-                  Ingresar con Google
-                </label>
-                <GoogleOAuthProvider clientId="1088263342718-afnae66cqjekqmlbne7sri3l12gih38f.apps.googleusercontent.com">
-                <div>
-                  <GoogleLogin
-                    onSuccess={credentialResponse => {
-                      var decoded = jwt_decode(credentialResponse.credential);
-                      console.log(decoded);
-                      navigate('/', { state: { userData: decoded } });
-                    }}
-                    onError={() => {
-                      console.log('Login Failed');
-                    }}
-                  />
-                </div>
-                </GoogleOAuthProvider>
-
-
-
+                <label>Ingresar con Google / Facebook</label>
+                
+                  <Row>
+                    <Col>
+                      <GoogleOAuthProvider clientId="1088263342718-afnae66cqjekqmlbne7sri3l12gih38f.apps.googleusercontent.com">
+                        <div>
+                          <GoogleLogin
+                            onSuccess={(credentialResponse) => {
+                              var decoded = jwt_decode(
+                                credentialResponse.credential
+                              );
+                              console.log(decoded);
+                              navigate("/", { state: { userData: decoded } });
+                            }}
+                            onError={() => {
+                              console.log("Login Failed");
+                            }}
+                          />
+                        </div>
+                      </GoogleOAuthProvider>
+                    </Col>
+                    <Col>
+                      <LoginSocialFacebook
+                        appId="1332917397360640"
+                        onResolve={(response) => {
+                          console.log(response);
+                        }}
+                        onReject={(error) => {
+                          console.log(error);
+                        }}
+                      >
+                        <FacebookLoginButton />
+                      </LoginSocialFacebook>
+                    </Col>
+                  </Row>
+                
                 <label>
                   ¿Olvidaste la contraseña?
                   <Link to="/recuperarPass">
@@ -208,7 +228,7 @@ export function Login({ setRefreshCheckLogin }) {
 
 function initialFormValue() {
   return {
-    usuario: '',
-    password: '',
-  }
+    usuario: "",
+    password: "",
+  };
 }
