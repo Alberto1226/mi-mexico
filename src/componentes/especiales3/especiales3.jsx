@@ -10,11 +10,11 @@ import "../../css/cardVermas.css";
 import "../../css/swiper.css";
 import "../../css/cardHeader.css"
 
-import c1 from "../../assets/img/especiales/18.jpg"
-import c2 from "../../assets/img/especiales/16.jpg"
-import c3 from "../../assets/img/especiales/17.jpg"
-import c4 from "../../assets/img/especiales/19.jpg"
-import c5 from "../../assets/img/especiales/20.jpg"
+import c1 from "../../assets/img/especiales/1.jpg"
+import c2 from "../../assets/img/especiales/2.jpg"
+import c3 from "../../assets/img/especiales/4.jpg"
+import c4 from "../../assets/img/especiales/5.jpg"
+import c5 from "../../assets/img/especiales/3.jpg"
 
 
 

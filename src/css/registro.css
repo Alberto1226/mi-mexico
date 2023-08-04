@@ -6,9 +6,9 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: #ffb74c;
+    background: #ffffff;
     z-index: 1;
-    overflow: auto;
+    overflow: hidden;
   }
   
   .container {
@@ -19,20 +19,28 @@
     margin: auto;
     margin-top: 20px;
     box-shadow: 1px 5px 10px 1px #333;
-    overflow: auto;
-    background-color: rgba(122, 246, 255, 0.904);
+    overflow: hidden;
+    background-color: #ffb74ce3;
     padding: 2vw;
    
   }
   .btnPoliticas:hover {
-    background-color: #fa00d9;
+    background-color: #00fa60;
     color: #252525;
   }
   .btnPoliticas {
     display: grid;
   
-    border: 2px solid #fa00d9;
-    cursor: pointer;
+    width: 100%;
+        padding: 10px;
+        font-size: 17px;
+        font-weight: 700;
+        color: #3afa00;
+        opacity: 1;
+        background-color: #252525;
+        
+        border: 2px solid #00fa70;
+        cursor: pointer;
     
   }
   p {
@@ -40,7 +48,7 @@
     color: rgb(0, 0, 0);
   }
   .a {
-    color: #fa00d9;
+    color: #ff2478;
     text-align: center;
   }
   .contenedor-flex {
@@ -178,4 +186,4 @@
         height: 100%;
       }
 
-    
+      

@@ -170,6 +170,7 @@ export function Home() {
         <SwiperEspeciales titulo={"lo mas visto"}/>
         <hr/>
         <Especiales3 titulo={"Series"}/>
+        <hr/>
         {/*userData && (
                     <div>
                       <img src={userData.imageUrl} alt="Imagen de perfil" />
@@ -180,7 +181,7 @@ export function Home() {
 
         {/**<SwiperPeliculasRecomendadas titulo={"Recomendados"} /> */}
         
-        {/*<SwiperPeliculas titulo={"Serires"} />*/}
+        <SwiperPeliculas titulo={""} />
         {/*<Especiales3 titulo={"Series"}/>
         <hr/>
         <div className="margindiv">
