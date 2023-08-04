@@ -37,7 +37,7 @@ import portada2 from "../../assets/img/PORTADA2.jpg"
 import { Especiales3 } from "../../componentes/especiales3/especiales3";
 
 //GOOGLE
-//import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import { googleLogout } from '@react-oauth/google';
 
 //iconos 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -123,40 +123,35 @@ export function Home() {
    */
 
   const location = useLocation();
-  //const userData = location.state && location.state.userData;
+  const userData = location.state && location.state.userData;
 
   /**
    * CERRAR SESION GOOGLE
    */
-  /*const navigate = useNavigate();
+  const navigate = useNavigate();
   const handleLogoutSuccess = () => {
+    googleLogout();
     console.log("Sesión de Google cerrada correctamente");
     navigate('/');
-  };*/
+  };
   return (
     <>
       <LoadVideo />
       <div>
         <ToastContainer />
         <div>
-          {/*{userData && (
+          {userData && (
           <div className="user-profile">
-            <img src={userData.imageUrl} alt="Imagen de perfil" className="profile-image" />
+            <img src={userData.picture} alt="Imagen de perfil" className="profile-image"/>
             <div className="user-info">
-              <p className="user-name">{userData.name}, Biemvenido a MXTVMAS </p>
+              <p className="user-name">{userData.name}, Bienvenido a MXTVMAS </p>
             </div>
-            <GoogleLogout
-            clientId="1088263342718-afnae66cqjekqmlbne7sri3l12gih38f.apps.googleusercontent.com"
-            onLogoutSuccess={handleLogoutSuccess}
-            buttonText="Cerrar sesión"
-            render={(renderProps) => (
-              <button className="logout-button" onClick={renderProps.onClick}>
+           
+           <button className="logout-button" onClick={handleLogoutSuccess}>
                 <FontAwesomeIcon icon={faSignOutAlt} /> Salir
               </button>
-            )}
-          />
           </div>
-            )}*/}
+          )}
                   
         </div>
         <NavPrincipal

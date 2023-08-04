@@ -12,7 +12,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import img from "../../assets/img/MXtvMas.png"
-import { GoogleLogin } from 'react-google-login';
+//login
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
+import jwt_decode from "jwt-decode";
+
 
 
 export function Login({ setRefreshCheckLogin }) {
@@ -144,16 +148,23 @@ export function Login({ setRefreshCheckLogin }) {
                     onClick={togglePasswordVisiblity}
                   />
                 </div>
-                {/*<label>
+                <label>
                   Ingresar con Google
                 </label>
-                <GoogleLogin
-                  clientId="1088263342718-afnae66cqjekqmlbne7sri3l12gih38f.apps.googleusercontent.com"
-                  buttonText="Iniciar sesión con Google"
-                  onSuccess={responseGoogle}
-                  onFailure={responseGoogle}
-                  cookiePolicy={'single_host_origin'}
-  />*/}
+                <GoogleOAuthProvider clientId="1088263342718-afnae66cqjekqmlbne7sri3l12gih38f.apps.googleusercontent.com">
+                <div>
+                  <GoogleLogin
+                    onSuccess={credentialResponse => {
+                      var decoded = jwt_decode(credentialResponse.credential);
+                      console.log(decoded);
+                      navigate('/', { state: { userData: decoded } });
+                    }}
+                    onError={() => {
+                      console.log('Login Failed');
+                    }}
+                  />
+                </div>
+                </GoogleOAuthProvider>
 
 
 
