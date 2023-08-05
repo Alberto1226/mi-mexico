@@ -17,7 +17,6 @@ import { FullScrean } from "./componentes/fullScreen/fullScreen";
 import { FullCapitulos } from "./componentes/fullCapitulos/fullCapitulos";
 import { FullPeliculas } from "./componentes/fullScreenPeliculas/fullScreenPeliculas";
 import { FullDocumentales } from "./componentes/fullScreenDocumentales/FullScreenDocumentales";
-import { ResultadoBusqueda } from "./componentes/resultadoBusqueda/resultadoBusqueda";
 
 const router = createBrowserRouter([
   {
@@ -76,11 +75,6 @@ const router = createBrowserRouter([
   {
     path: "/fullDoc",
     element: <FullDocumentales />,
-    errorElement: <Error />,
-  },
-  {
-    path: "/busqueda",
-    element: <ResultadoBusqueda />,
     errorElement: <Error />,
   },
 ]);

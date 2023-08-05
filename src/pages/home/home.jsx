@@ -14,7 +14,6 @@ import { SwiperMasVistosDoc } from "../../componentes/swiperMasVistosDocumentale
 import { VerMas } from "../../componentes/vermas/vermas";
 import { VerMasD } from "../../componentes/vermasDocumentales/verMasDocumentales";
 import { VerMasP } from "../../componentes/vermasPeliculas/vermasPeliculas";
-import { ResultadoBusqueda } from "../../componentes/resultadoBusqueda/resultadoBusqueda";
 import { LoadVideo } from "../../componentes/loadVideo/loadVideo";
 import { SwiperPatrocinadoresN2 } from "../../componentes/swiperPartocinadorNivel2/swiperNivel2";
 import { SwiperPatrocinadoresN3 } from "../../componentes/swiperPatNivel3/swiperNivel3";
