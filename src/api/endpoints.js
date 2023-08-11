@@ -35,7 +35,16 @@ export const ENDPOINTModificarSeries = "/series/actualizar";
 export const ENDPOINTEliminarSeries = "/series/eliminar";
 export const ENDPOINTActualizarContador = "/series/actualizarContador";
 export const ENDPOINTObtenerSerie = "/series/obtenerSerie";
-export const ENDPOINTListarSeriesMasVistas = "/peliculas/listarSeriesMasVistas";
+export const ENDPOINTListarSeriesMasVistas = "/series/listarSeriesMasVistas";
+
+// Series 
+export const ENDPOINTListarSeriesEspeciales = "/seriesEspeciales/listar";
+export const ENDPOINTRegistrarSeriesEspeciales = "/seriesEspeciales/registro";
+export const ENDPOINTModificarSeriesEspeciales = "/seriesEspeciales/actualizar";
+export const ENDPOINTEliminarSeriesEspeciales = "/seriesEspeciales/eliminar";
+export const ENDPOINTActualizarContadorEspeciales = "/seriesEspeciales/actualizarContador";
+export const ENDPOINTObtenerSerieEspeciales = "/seriesEspeciales/obtenerSerie";
+export const ENDPOINTListarSeriesMasVistasEspeciales = "/seriesEspeciales/listarSeriesMasVistas";
 
 // Capitulos de series 
 export const ENDPOINTListarCapitulosSeries = "/capitulosSeries/listar";

@@ -6,6 +6,7 @@ import { TablaUsuarios } from "../../componentes/usuarios/tablaUsuarios";
 import Especiales from "../../componentes/contenidos/especiales";
 import Documentales from "../../componentes/contenidos/documentales";
 import Series from "../../componentes/contenidos/series";
+import SeriesEspeciales from "../../componentes/contenidos/seriesEspeciales";
 import Peliculas from "../../componentes/contenidos/peliculas";
 import Categorias from "../../componentes/categoriasVideos/categproas";
 import Patorcinadores from "../../componentes/patrocinadores/patrocinadores";
@@ -29,6 +30,7 @@ import {
 } from "../../api/auth";
 import { NavPrincipal } from "../../componentes/navBar/nav";
 import { Error } from "../error/error404";
+
 
 export function Dashboard() {
 
@@ -66,6 +68,7 @@ export function Dashboard() {
   const [showComponent4, setShowComponent4] = useState(false);
   const [showComponent5, setShowComponent5] = useState(false);
   const [showComponent6, setShowComponent6] = useState(false);
+  const [showComponent7, setShowComponent7] = useState(false);
 
   const handleClick = () => {
     setShowComponent(true);
@@ -74,6 +77,8 @@ export function Dashboard() {
     setShowComponent3(false);
     setShowComponent4(false);
     setShowComponent5(false);
+    setShowComponent6(false);
+    setShowComponent7(false);
   };
   const handleClick1 = () => {
     setShowComponent(false);
@@ -82,6 +87,8 @@ export function Dashboard() {
     setShowComponent3(false);
     setShowComponent4(false);
     setShowComponent5(false);
+    setShowComponent6(false);
+    setShowComponent7(false);
   };
   const handleClick2 = () => {
     setShowComponent(false);
@@ -90,6 +97,8 @@ export function Dashboard() {
     setShowComponent3(false);
     setShowComponent4(false);
     setShowComponent5(false);
+    setShowComponent6(false);
+    setShowComponent7(false);
   };
   const handleClick3 = () => {
     setShowComponent(false);
@@ -98,6 +107,8 @@ export function Dashboard() {
     setShowComponent3(true);
     setShowComponent4(false);
     setShowComponent5(false);
+    setShowComponent6(false);
+    setShowComponent7(false);
   };
   const handleClick4 = () => {
     setShowComponent(false);
@@ -106,6 +117,8 @@ export function Dashboard() {
     setShowComponent3(false);
     setShowComponent4(true);
     setShowComponent5(false);
+    setShowComponent6(false);
+    setShowComponent7(false);
   };
 
   const handleClick5 = () => {
@@ -115,6 +128,8 @@ export function Dashboard() {
     setShowComponent3(false);
     setShowComponent4(false);
     setShowComponent5(true);
+    setShowComponent6(false);
+    setShowComponent7(false);
   };
 
   const handleClick6 = () => {
@@ -125,6 +140,18 @@ export function Dashboard() {
     setShowComponent4(false);
     setShowComponent5(false);
     setShowComponent6(true);
+    setShowComponent7(false);
+  };
+
+  const handleClick7 = () => {
+    setShowComponent(false);
+    setShowComponent1(false);
+    setShowComponent2(false);
+    setShowComponent3(false);
+    setShowComponent4(false);
+    setShowComponent5(false);
+    setShowComponent6(false);
+    setShowComponent7(true);
   };
 
   //menu
@@ -211,6 +238,11 @@ export function Dashboard() {
                       Series
                     </Nav.Link>
                   </Nav.Item>
+                  <Nav.Item className="listNav" onClick={handleClick7}>
+                    <Nav.Link className="aa" eventKey="news" active={activeMenu === "news"}>
+                      Series Especiales
+                    </Nav.Link>
+                  </Nav.Item>
                 </Nav>
               </div>
               <div class="main bg-light">
@@ -249,6 +281,11 @@ export function Dashboard() {
                 {showComponent6 && (
                   <div>
                     <Especiales />
+                  </div>
+                )}
+                {showComponent7 && (
+                  <div>
+                    <SeriesEspeciales />
                   </div>
                 )}
               </div>
