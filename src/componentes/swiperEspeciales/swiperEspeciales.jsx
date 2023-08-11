@@ -1,44 +1,28 @@
 import React, { useEffect, useState } from "react";
-import SwiperCore, { Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { MasVistos } from "../cardsMasVistos/masVistos";
 import "swiper/swiper.min.css";
 import "swiper/css";
 import "swiper/css/pagination";
 import "../../css/cardVermas.css";
-import { listarUltimosCincoEspeciales } from "../../api/peliculasListar";
-import { Link } from "react-router-dom";
-//import { listarPeliculas } from "../../api/peliculasListar";
-//import imgPel from "../../assets/img/2.jpg";
-import de1 from "../../assets/img/ber.jpeg";
 
-SwiperCore.use([Navigation, Pagination]);
+
+import "../../css/swiper.css";
+import "../../css/cardHeader.css"
+
+
+import g1 from "../../assets/img/especiales/g1.png"
+import g2 from "../../assets/img/especiales/g2.png"
+import g3 from "../../assets/img/especiales/g3.png"
+import g4 from "../../assets/img/especiales/g4.png"
+import g5 from "../../assets/img/especiales/g5.png"
+
+
 
 export function SwiperEspeciales(props) {
-  const { location } = props;
-  const [listarPel, setListPeliculas] = useState(null);
 
-  const obtenerPeliculas = () => {
-    try {
-      listarUltimosCincoEspeciales("especiales")
-        .then((response) => {
-          const { data } = response;
-          console.log(data);
-          if (!listarPel && data) {
-            const datosPel = formatModelPeliculas(data);
-            setListPeliculas(datosPel);
-          } else {
-            const datosPel = formatModelPeliculas(data);
-            setListPeliculas(datosPel);
-          }
-        })
-        .catch((e) => {});
-    } catch (e) {}
-  };
 
-  useEffect(() => {
-    obtenerPeliculas();
-  }, [location]);
+ 
 
   const [slides, setSlides] = useState(5); // Número inicial de slides a mostrar
 
@@ -78,25 +62,32 @@ export function SwiperEspeciales(props) {
                 clickable: true,
               }}
             >
-              {/* Agrega tus SwiperSlides aquí */}
-              {listarPel &&
-                listarPel.map((peli, index) => (
                   <SwiperSlide
                     className="swiper-slide"
-                    data-slide-number={index + 1}
-                    key={peli.id}
                   >
-                     <Link to={`/fullPel?id=${peli.id}&titulo=${peli.titulo}`}>
-                    <MasVistos
-                      img1={peli.urlPortada}
-                      nombre={peli.titulo}
-                      duracion={peli.duracion}
-                      des={peli.sinopsis}
-                    />
-                    </Link>
+                    <MasVistos img1={g1}/>
                   </SwiperSlide>
-                ))}
-              {/* ... Agrega el resto de los slides */}
+                  <SwiperSlide
+                    className="swiper-slide"
+                  >
+                    <MasVistos img1={g2}/>
+                  </SwiperSlide>
+                  <SwiperSlide
+                    className="swiper-slide"
+                  >
+                    <MasVistos img1={g3}/>
+                  </SwiperSlide>
+                  <SwiperSlide
+                    className="swiper-slide"
+                  >
+                    <MasVistos img1={g4}/>
+                  </SwiperSlide>
+                  <SwiperSlide
+                    className="swiper-slide"
+                  >
+                    <MasVistos img1={g5}/>
+                  </SwiperSlide>
+             
             </Swiper>
           </div>
         </div>
