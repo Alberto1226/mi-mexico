@@ -20,7 +20,7 @@ import queryString from "query-string";
 function Especiales({ history }) {
   const [formData, setFormData] = useState(initialFormValue());
   const [show, setShow] = useState(false);
-  const [videoPath, setVideoPath] = useState('');
+  const [videoPath, setVideoPath] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -48,8 +48,8 @@ function Especiales({ history }) {
             setListarCategoria(datosCat);
           }
         })
-        .catch((e) => { });
-    } catch (e) { }
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -65,14 +65,15 @@ function Especiales({ history }) {
 
   const uploadVideo = (file) => {
     const formData = new FormData();
-    formData.append('video', file);
+    formData.append("video", file);
 
-    axios.post(API_HOST + '/peliculas/upload', formData)
+    axios
+      .post(API_HOST + "/peliculas/upload", formData)
       .then((response) => {
         setVideoPath(response.data.videoPath);
       })
       .catch((error) => {
-        console.error('Error uploading video:', error);
+        console.error("Error uploading video:", error);
       });
   };
 
@@ -90,19 +91,20 @@ function Especiales({ history }) {
 
   const cargarImagen1 = () => {
     try {
-      subeArchivosCloudinary(imagenPortadaPelicula1, "portadasEspeciales").then(response => {
-        const { data } = response;
-        // console.log(data)
-        const { secure_url } = data;
-        setLinkImagen1(secure_url)
-      }).catch(e => {
-        console.log(e)
-      })
+      subeArchivosCloudinary(imagenPortadaPelicula1, "portadasEspeciales")
+        .then((response) => {
+          const { data } = response;
+          // console.log(data)
+          const { secure_url } = data;
+          setLinkImagen1(secure_url);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     } catch (e) {
-      console.log(e)
-
+      console.log(e);
     }
-  }
+  };
 
   useEffect(() => {
     cargarImagen1();
@@ -112,19 +114,20 @@ function Especiales({ history }) {
 
   const cargarImagen2 = () => {
     try {
-      subeArchivosCloudinary(imagenPortadaPelicula2, "portadasEspeciales").then(response => {
-        const { data } = response;
-        // console.log(data)
-        const { secure_url } = data;
-        setLinkImagen2(secure_url)
-      }).catch(e => {
-        console.log(e)
-      })
+      subeArchivosCloudinary(imagenPortadaPelicula2, "portadasEspeciales")
+        .then((response) => {
+          const { data } = response;
+          // console.log(data)
+          const { secure_url } = data;
+          setLinkImagen2(secure_url);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     } catch (e) {
-      console.log(e)
-
+      console.log(e);
     }
-  }
+  };
 
   useEffect(() => {
     cargarImagen2();
@@ -134,19 +137,20 @@ function Especiales({ history }) {
 
   const cargarImagen3 = () => {
     try {
-      subeArchivosCloudinary(imagenPortadaPelicula3, "portadasEspeciales").then(response => {
-        const { data } = response;
-        // console.log(data)
-        const { secure_url } = data;
-        setLinkImagen3(secure_url)
-      }).catch(e => {
-        console.log(e)
-      })
+      subeArchivosCloudinary(imagenPortadaPelicula3, "portadasEspeciales")
+        .then((response) => {
+          const { data } = response;
+          // console.log(data)
+          const { secure_url } = data;
+          setLinkImagen3(secure_url);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     } catch (e) {
-      console.log(e)
-
+      console.log(e);
     }
-  }
+  };
 
   useEffect(() => {
     cargarImagen3();
@@ -156,19 +160,20 @@ function Especiales({ history }) {
 
   const cargarImagen4 = () => {
     try {
-      subeArchivosCloudinary(imagenPortadaPelicula4, "portadasEspeciales").then(response => {
-        const { data } = response;
-        // console.log(data)
-        const { secure_url } = data;
-        setLinkImagen4(secure_url)
-      }).catch(e => {
-        console.log(e)
-      })
+      subeArchivosCloudinary(imagenPortadaPelicula4, "portadasEspeciales")
+        .then((response) => {
+          const { data } = response;
+          // console.log(data)
+          const { secure_url } = data;
+          setLinkImagen4(secure_url);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     } catch (e) {
-      console.log(e)
-
+      console.log(e);
     }
-  }
+  };
 
   useEffect(() => {
     cargarImagen4();
@@ -178,19 +183,20 @@ function Especiales({ history }) {
 
   const cargarImagen5 = () => {
     try {
-      subeArchivosCloudinary(imagenPortadaPelicula5, "portadasEspeciales").then(response => {
-        const { data } = response;
-        // console.log(data)
-        const { secure_url } = data;
-        setLinkImagen5(secure_url)
-      }).catch(e => {
-        console.log(e)
-      })
+      subeArchivosCloudinary(imagenPortadaPelicula5, "portadasEspeciales")
+        .then((response) => {
+          const { data } = response;
+          // console.log(data)
+          const { secure_url } = data;
+          setLinkImagen5(secure_url);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     } catch (e) {
-      console.log(e)
-
+      console.log(e);
     }
-  }
+  };
 
   useEffect(() => {
     cargarImagen5();
@@ -200,175 +206,138 @@ function Especiales({ history }) {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (!formData.nombre || !formData.actores || !formData.director || !formData.duracion || !formData.sinopsis || !formData.anio) {
+    if (
+      !formData.nombre ||
+      !formData.actores ||
+      !formData.director ||
+      !formData.duracion ||
+      !formData.sinopsis ||
+      !formData.anio
+    ) {
       toast.warning("Completa el formulario");
     } else {
       try {
-            setLoading(true);
-            // Sube a cloudinary la imagen principal del producto
+        setLoading(true);
+        // Sube a cloudinary la imagen principal del producto
 
-            const dataTemp = {
-              titulo: formData.nombre,
-              categorias: listarCat,
-              actores: formData.actores,
-              director: formData.director,
-              duracion: formData.duracion,
-              tipo: "",
-              sinopsis: formData.sinopsis,
-              calificacion: "",
-              año: formData.anio,
-              disponibilidad: "",
-              masVisto: "",
-              tipo: "especiales",
-              recomendado: formData.recomendado,
-              urlVideo: formData.archPelicula,
-              contador: "0",
-              urlPortada: linkImagen1,
-              seccion: "",
-              estado: "true"
-            };
-            registraPeliculas(dataTemp).then((response) => {
-              const { data } = response;
-              //notificacion
+        const dataTemp = [
+          {
+            titulo: formData.nombre,
+            categorias: listarCat,
+            actores: formData.actores,
+            director: formData.director,
+            duracion: formData.duracion,
+            tipo: "",
+            sinopsis: formData.sinopsis,
+            calificacion: "",
+            año: formData.anio,
+            disponibilidad: "",
+            masVisto: "",
+            tipo: "especiales",
+            recomendado: formData.recomendado,
+            urlVideo: formData.archPelicula,
+            contador: "0",
+            urlPortada: linkImagen1,
+            seccion: "",
+            estado: "true",
+          },
+          {
+            titulo: formData.nombre,
+            categorias: listarCat,
+            actores: formData.actores,
+            director: formData.director,
+            duracion: formData.duracion,
+            tipo: "",
+            sinopsis: formData.sinopsis,
+            calificacion: "",
+            año: formData.anio,
+            disponibilidad: "",
+            masVisto: "",
+            tipo: "especiales",
+            recomendado: formData.recomendado,
+            urlVideo: formData.archPelicula,
+            contador: "0",
+            urlPortada: linkImagen2,
+            seccion: "",
+            estado: "true",
+          },
+          {
+            titulo: formData.nombre,
+            categorias: listarCat,
+            actores: formData.actores,
+            director: formData.director,
+            duracion: formData.duracion,
+            tipo: "",
+            sinopsis: formData.sinopsis,
+            calificacion: "",
+            año: formData.anio,
+            disponibilidad: "",
+            masVisto: "",
+            tipo: "especiales",
+            recomendado: formData.recomendado,
+            urlVideo: formData.archPelicula,
+            contador: "0",
+            urlPortada: linkImagen3,
+            seccion: "",
+            estado: "true",
+          },
+          {
+            titulo: formData.nombre,
+            categorias: listarCat,
+            actores: formData.actores,
+            director: formData.director,
+            duracion: formData.duracion,
+            tipo: "",
+            sinopsis: formData.sinopsis,
+            calificacion: "",
+            año: formData.anio,
+            disponibilidad: "",
+            masVisto: "",
+            tipo: "especiales",
+            recomendado: formData.recomendado,
+            urlVideo: formData.archPelicula,
+            contador: "0",
+            urlPortada: linkImagen4,
+            seccion: "",
+            estado: "true",
+          },
+          {
+            titulo: formData.nombre,
+            categorias: listarCat,
+            actores: formData.actores,
+            director: formData.director,
+            duracion: formData.duracion,
+            tipo: "",
+            sinopsis: formData.sinopsis,
+            calificacion: "",
+            año: formData.anio,
+            disponibilidad: "",
+            masVisto: "",
+            tipo: "especiales",
+            recomendado: formData.recomendado,
+            urlVideo: formData.archPelicula,
+            contador: "0",
+            urlPortada: linkImagen5,
+            seccion: "",
+            estado: "true",
+          },
+        ];
 
-              toast.success(data.mensaje);
-              history({
-                search: queryString.stringify(""),
-              });
-              setLoading(false);
-              setShow(false);
-              //cancelarRegistro()
+        map(dataTemp, (registro, index) =>
+          registraPeliculas(registro).then((response) => {
+            const { data } = response;
+            //notificacion
+
+            toast.success(data.mensaje);
+            history({
+              search: queryString.stringify(""),
             });
-
-            const dataTemp2 = {
-              titulo: formData.nombre,
-              categorias: listarCat,
-              actores: formData.actores,
-              director: formData.director,
-              duracion: formData.duracion,
-              tipo: "",
-              sinopsis: formData.sinopsis,
-              calificacion: "",
-              año: formData.anio,
-              disponibilidad: "",
-              masVisto: "",
-              tipo: "especiales",
-              recomendado: formData.recomendado,
-              urlVideo: formData.archPelicula,
-              contador: "0",
-              urlPortada: linkImagen2,
-              seccion: "",
-              estado: "true"
-            };
-            registraPeliculas(dataTemp2).then((response) => {
-              const { data } = response;
-              //notificacion
-
-              toast.success(data.mensaje);
-              history({
-                search: queryString.stringify(""),
-              });
-              setLoading(false);
-              setShow(false);
-              //cancelarRegistro()
-            });
-            const dataTemp3 = {
-              titulo: formData.nombre,
-              categorias: listarCat,
-              actores: formData.actores,
-              director: formData.director,
-              duracion: formData.duracion,
-              tipo: "",
-              sinopsis: formData.sinopsis,
-              calificacion: "",
-              año: formData.anio,
-              disponibilidad: "",
-              masVisto: "",
-              tipo: "especiales",
-              recomendado: formData.recomendado,
-              urlVideo: formData.archPelicula,
-              contador: "0",
-              urlPortada: linkImagen3,
-              seccion: "",
-              estado: "true"
-            };
-            registraPeliculas(dataTemp3).then((response) => {
-              const { data } = response;
-              //notificacion
-
-              toast.success(data.mensaje);
-              history({
-                search: queryString.stringify(""),
-              });
-              setLoading(false);
-              setShow(false);
-              //cancelarRegistro()
-            });
-
-            const dataTemp4 = {
-              titulo: formData.nombre,
-              categorias: listarCat,
-              actores: formData.actores,
-              director: formData.director,
-              duracion: formData.duracion,
-              tipo: "",
-              sinopsis: formData.sinopsis,
-              calificacion: "",
-              año: formData.anio,
-              disponibilidad: "",
-              masVisto: "",
-              tipo: "especiales",
-              recomendado: formData.recomendado,
-              urlVideo: formData.archPelicula,
-              contador: "0",
-              urlPortada: linkImagen4,
-              seccion: "",
-              estado: "true"
-            };
-            registraPeliculas(dataTemp4).then((response) => {
-              const { data } = response;
-              //notificacion
-
-              toast.success(data.mensaje);
-              history({
-                search: queryString.stringify(""),
-              });
-              setLoading(false);
-              setShow(false);
-              //cancelarRegistro()
-            });
-            const dataTemp5 = {
-              titulo: formData.nombre,
-              categorias: listarCat,
-              actores: formData.actores,
-              director: formData.director,
-              duracion: formData.duracion,
-              tipo: "",
-              sinopsis: formData.sinopsis,
-              calificacion: "",
-              año: formData.anio,
-              disponibilidad: "",
-              masVisto: "",
-              tipo: "especiales",
-              recomendado: formData.recomendado,
-              urlVideo: formData.archPelicula,
-              contador: "0",
-              urlPortada: linkImagen5,
-              seccion: "",
-              estado: "true"
-            };
-            registraPeliculas(dataTemp5).then((response) => {
-              const { data } = response;
-              //notificacion
-
-              toast.success(data.mensaje);
-              history({
-                search: queryString.stringify(""),
-              });
-              setLoading(false);
-              setShow(false);
-              //cancelarRegistro()
-            });
+            //setLoading(false);
+            //setShow(false);
+          })
+        );
+        setLoading(false);
+        setShow(false);
       } catch (e) {
         console.log(e);
       }
@@ -380,39 +349,40 @@ function Especiales({ history }) {
   };
 
   const addItems = () => {
-    const categoria = document.getElementById("categoria").value
+    const categoria = document.getElementById("categoria").value;
 
     if (!categoria) {
       toast.warning("Completa la información de la categoria");
     } else {
       const dataTemp = {
-        categoria: categoria
-      }
+        categoria: categoria,
+      };
 
       //LogRegistroProductosOV(folioActual, cargaProductos.ID, cargaProductos.item, cantidad, um, precioUnitario, total, setListProductosCargados);
       // console.log(dataTemp)
 
-      setListCategorias(
-        [...listarCat, dataTemp]
-      );
+      setListCategorias([...listarCat, dataTemp]);
 
       //document.getElementById("descripcion").value = ""
-      document.getElementById("categoria").value = "Elige una opción"
+      document.getElementById("categoria").value = "Elige una opción";
     }
-  }
+  };
 
   // Para limpiar el formulario de detalles de producto
   const cancelarCargaProducto = () => {
     //document.getElementById("descripcion").value = ""
-    document.getElementById("categoria").value = "Elige una opción"
-  }
+    document.getElementById("categoria").value = "Elige una opción";
+  };
 
   // Para eliminar productos del listado
   const removeItem = (categoria) => {
     let newArray = listarCat;
-    newArray.splice(newArray.findIndex(a => a.nombre === categoria.categoria), 1);
+    newArray.splice(
+      newArray.findIndex((a) => a.nombre === categoria.categoria),
+      1
+    );
     setListCategorias([...newArray]);
-  }
+  };
 
   return (
     <>
@@ -572,18 +542,19 @@ function Especiales({ history }) {
               <br />
               <hr />
               <Badge bg="secondary" className="tituloFormularioDetalles">
-                <h4>A continuación, especifica los detalles del artículo y agregalo</h4>
+                <h4>
+                  A continuación, especifica los detalles del artículo y
+                  agregalo
+                </h4>
               </Badge>
               <br />
               <hr />
 
               <Row>
-
                 <Form.Group as={Col} controlId="formGridPorcentaje scrap">
-                  <Form.Label>
-                    ITEM
-                  </Form.Label>
-                  <Form.Control type="number"
+                  <Form.Label>ITEM</Form.Label>
+                  <Form.Control
+                    type="number"
                     id="index"
                     value={renglon}
                     name="index"
@@ -592,9 +563,7 @@ function Especiales({ history }) {
                 </Form.Group>
 
                 <Form.Group as={Col} controlId="formGridCliente">
-                  <Form.Label>
-                    Categoria
-                  </Form.Label>
+                  <Form.Label>Categoria</Form.Label>
                   <Form.Control
                     id="categoria"
                     as="select"
@@ -603,16 +572,16 @@ function Especiales({ history }) {
                   >
                     <option>Elige una opción</option>
                     {map(listarCategoria, (cat, index) => (
-                      <option key={index} value={cat?.nombre}>{cat?.nombre}</option>
+                      <option key={index} value={cat?.nombre}>
+                        {cat?.nombre}
+                      </option>
                     ))}
                   </Form.Control>
                 </Form.Group>
 
                 <Col sm="1">
                   <Form.Group as={Row} className="formGridCliente">
-                    <Form.Label>
-                      &nbsp;
-                    </Form.Label>
+                    <Form.Label>&nbsp;</Form.Label>
 
                     <Col>
                       <Button
@@ -620,10 +589,13 @@ function Especiales({ history }) {
                         title="Agregar el producto"
                         className="editar"
                         onClick={() => {
-                          addItems()
+                          addItems();
                         }}
                       >
-                        <FontAwesomeIcon icon={faCirclePlus} className="text-lg" />
+                        <FontAwesomeIcon
+                          icon={faCirclePlus}
+                          className="text-lg"
+                        />
                       </Button>
                     </Col>
                     <Col>
@@ -632,13 +604,12 @@ function Especiales({ history }) {
                         title="Cancelar el producto"
                         className="editar"
                         onClick={() => {
-                          cancelarCargaProducto()
+                          cancelarCargaProducto();
                         }}
                       >
                         <FontAwesomeIcon icon={faX} className="text-lg" />
                       </Button>
                     </Col>
-
                   </Form.Group>
                 </Col>
               </Row>
@@ -647,16 +618,17 @@ function Especiales({ history }) {
 
               {/* Listado de productos  */}
               <div className="tablaProductos">
-
                 {/* ID, item, cantidad, um, descripcion, orden de compra, observaciones */}
                 {/* Inicia tabla informativa  */}
-                <Badge bg="secondary" className="tituloListadoProductosSeleccionados">
+                <Badge
+                  bg="secondary"
+                  className="tituloListadoProductosSeleccionados"
+                >
                   <h4>Listado de categorias seleccionadas</h4>
                 </Badge>
                 <br />
                 <hr />
-                <Table className="responsive-tableRegistroVentas"
-                >
+                <Table className="responsive-tableRegistroVentas">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
@@ -664,24 +636,19 @@ function Especiales({ history }) {
                       <th scope="col"></th>
                     </tr>
                   </thead>
-                  <tfoot>
-                  </tfoot>
+                  <tfoot></tfoot>
                   <tbody>
                     {map(listarCat, (producto, index) => (
                       <tr key={index}>
-                        <td scope="row">
-                          {index + 1}
-                        </td>
-                        <td data-title="Descripcion">
-                          {producto.categoria}
-                        </td>
+                        <td scope="row">{index + 1}</td>
+                        <td data-title="Descripcion">{producto.categoria}</td>
                         <td data-title="Eliminar">
                           <Badge
                             bg="danger"
                             title="Eliminar"
                             className="eliminar"
                             onClick={() => {
-                              removeItem(producto)
+                              removeItem(producto);
                             }}
                           >
                             <FontAwesomeIcon icon={faX} className="text-lg" />
@@ -713,7 +680,7 @@ function initialFormValue() {
     duracion: "",
     sinopsis: "",
     anio: "",
-    archPelicula: ""
+    archPelicula: "",
   };
 }
 
@@ -731,4 +698,3 @@ function formatModelCategorias(data) {
 }
 
 export default withRouter(Especiales);
-
