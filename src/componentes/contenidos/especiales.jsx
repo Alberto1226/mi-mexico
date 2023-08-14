@@ -192,7 +192,6 @@ function Especiales({ history }) {
     }
   }
 
-  
   useEffect(() => {
     cargarImagen5();
   }, [imagenPortadaPelicula5]);

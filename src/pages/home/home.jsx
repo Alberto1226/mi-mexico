@@ -20,6 +20,7 @@ import { SwiperPatrocinadoresN3 } from "../../componentes/swiperPatNivel3/swiper
 import { SwiperPeliculasRecomendadas } from "../../componentes/swiperRecomendado/swiperRecomendados";
 import { SwiperEspeciales } from "../../componentes/swiperEspeciales/swiperEspeciales";
 import { SwiperEspeciales2 } from "../../componentes/swiperEspeciales2/swiperEspeciales2";
+import { SwiperCervantino } from "../../componentes/swiperCervantino/swiperCervantino";
 import imgSwiper from "../../assets/img/1.png";
 import "../../css/header.css";
 import "../../css/cards.css";
@@ -176,10 +177,12 @@ export function Home() {
         </div>
         {/*<img src={portada2} alt="" className="especialespor"/>*/}
         <SwiperEspeciales2 titulo={"Estrenos"} />
-        <SwiperEspeciales titulo={"lo mas visto"} />
+        <SwiperEspeciales titulo={"Especiales"} />
         <hr />
         <Especiales3 titulo={"Series"} />
         <hr />
+
+        <SwiperCervantino titulo={"Cervantino"} />
         {/*userData && (
                     <div>
                       <img src={userData.imageUrl} alt="Imagen de perfil" />
