@@ -84,7 +84,7 @@ export function SwiperCervantino(props) {
                     <SwiperSlide
                       className="swiper-slide"
                     >
-                      <Link to={`/fullid=${peli.id}&titulo=${peli.titulo}`}>
+                      <Link to={`/fullSeriesEspeciales?id=${peli?.id}&titulo=${peli?.titulo}`}>
                       <MasVistos
                         img1={peli.urlPortada5}
                         nombre={peli.titulo}
@@ -96,7 +96,7 @@ export function SwiperCervantino(props) {
                     <SwiperSlide
                       className="swiper-slide"
                     >
-                      <Link to={`/fullid=${peli.id}&titulo=${peli.titulo}`}>
+                      <Link to={`/fullSeriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}>
                       <MasVistos
                         img1={peli.urlPortada4}
                         nombre={peli.titulo}
@@ -108,7 +108,7 @@ export function SwiperCervantino(props) {
                     <SwiperSlide
                       className="swiper-slide"
                     >
-                      <Link to={`/fullid=${peli.id}&titulo=${peli.titulo}`}>
+                      <Link to={`/fullSeriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}>
                       <MasVistos
                         img1={peli.urlPortada3}
                         nombre={peli.titulo}
@@ -120,7 +120,7 @@ export function SwiperCervantino(props) {
                     <SwiperSlide
                       className="swiper-slide"
                     >
-                      <Link to={`/fullid=${peli.id}&titulo=${peli.titulo}`}>
+                      <Link to={`/fullSeriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}>
                       <MasVistos
                         img1={peli.urlPortada2}
                         nombre={peli.titulo}
@@ -132,7 +132,7 @@ export function SwiperCervantino(props) {
                     <SwiperSlide
                       className="swiper-slide"
                     >
-                      <Link to={`/fullid=${peli.id}&titulo=${peli.titulo}`}>
+                      <Link to={`/fullSeriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}>
                       <MasVistos
                         img1={peli.urlPortada}
                         nombre={peli.titulo}

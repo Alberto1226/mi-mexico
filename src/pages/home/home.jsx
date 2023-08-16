@@ -175,14 +175,12 @@ export function Home() {
             videoh={"https://www.mxtvmas.com:8443/mimexico/peliculas/cerro.mp4"}
           />
         </div>
+         <SwiperCervantino titulo={"Estrenos"} />
         {/*<img src={portada2} alt="" className="especialespor"/>*/}
-        <SwiperEspeciales2 titulo={"Estrenos"} />
         <SwiperEspeciales titulo={"Especiales"} />
         <hr />
         <Especiales3 titulo={"Series"} />
         <hr />
-
-        <SwiperCervantino titulo={"Cervantino"} />
         {/*userData && (
                     <div>
                       <img src={userData.imageUrl} alt="Imagen de perfil" />
