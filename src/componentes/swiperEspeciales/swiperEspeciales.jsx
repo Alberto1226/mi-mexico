@@ -32,8 +32,8 @@ export function SwiperEspeciales(props) {
             setListPeliculas(datosPel);
           }
         })
-        .catch((e) => {});
-    } catch (e) {}
+        .catch((e) => { });
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -86,13 +86,13 @@ export function SwiperEspeciales(props) {
                     data-slide-number={index + 1}
                     key={peli.id}
                   >
-                     <Link to={`/fullPel?id=${peli.id}&titulo=${peli.titulo}`}>
-                    <MasVistos
-                      img1={peli.urlPortada}
-                      nombre={peli.titulo}
-                      duracion={peli.duracion}
-                      des={peli.sinopsis}
-                    />
+                    <Link to={`/fullPel?id=${peli.id}&titulo=${peli.titulo}`}>
+                      <MasVistos
+                        img1={peli.urlPortada}
+                        nombre={peli.titulo}
+                        duracion={peli.duracion}
+                        des={peli.sinopsis}
+                      />
                     </Link>
                   </SwiperSlide>
                 ))}
