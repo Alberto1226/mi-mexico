@@ -18,6 +18,7 @@ import { FullScreanSeriesEspeciales } from "./componentes/fullScreenSeriesEspeci
 import { FullCapitulos } from "./componentes/fullCapitulos/fullCapitulos";
 import { FullPeliculas } from "./componentes/fullScreenPeliculas/fullScreenPeliculas";
 import { FullDocumentales } from "./componentes/fullScreenDocumentales/FullScreenDocumentales";
+import { SwiperPatrocinadores } from "./componentes/swiperPatrocinadores/swPatrocinadores";
 
 const router = createBrowserRouter([
   {
@@ -81,6 +82,11 @@ const router = createBrowserRouter([
   {
     path: "/fullDoc",
     element: <FullDocumentales />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/patrocinadores",
+    element: <SwiperPatrocinadores/>,
     errorElement: <Error />,
   },
 ]);

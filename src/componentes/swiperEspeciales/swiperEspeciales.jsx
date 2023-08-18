@@ -86,7 +86,7 @@ export function SwiperEspeciales(props) {
                     data-slide-number={index + 1}
                     key={peli.id}
                   >
-                    <Link to={`/fullPel?id=${peli.id}&titulo=${peli.titulo}`}>
+                    <Link to={`/fullPel?id=${peli.id}`}>
                       <MasVistos
                         img1={peli.urlPortada}
                         nombre={peli.titulo}
