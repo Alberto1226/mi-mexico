@@ -99,23 +99,23 @@ export function SwiperPatrocinadores(props) {
                 <Container fluid className="footerCardPatro">
                   <Row className="gx-0">
                     <Col>
-                      <a href={patrocinadores.urlWeb}>
+                      <a href={patrocinadores.urlWeb} target="_blank">
                         <img src={www} alt="" />
                       </a>
                     </Col>
                     <Col>
-                      <a href={patrocinadores.urlFacebook}>
+                      <a href={patrocinadores.urlFacebook} target="_blank">
                         <img src={facebook} alt="" />
                       </a>
                     </Col>
                     <Col>
-                      <a href={patrocinadores.urlTwitter}>
+                      <a href={patrocinadores.urlTwitter} target="_blank">
                         <img src={twitter} alt="" />
                       </a>
                     </Col>
                     <Col>
                       {" "}
-                      <a href={patrocinadores.urlInstagram}>
+                      <a href={patrocinadores.urlInstagram} target="_blank">
                         <img src={instagram} alt="" />
                       </a>
                     </Col>
