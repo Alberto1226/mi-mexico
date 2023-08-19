@@ -16,6 +16,7 @@ import axios from "axios";
 import { API_HOST } from "../../utils/constants";
 import { withRouter } from "../../utils/withRouter";
 import queryString from "query-string";
+import { listarPatrocinadores } from "../../api/patrocinadores";
 
 function Especiales({ history }) {
   const [formData, setFormData] = useState(initialFormValue());
@@ -196,6 +197,29 @@ function Especiales({ history }) {
     cargarImagen5();
   }, [imagenPortadaPelicula5]);
 
+  const [listarPatrocinadoress, setListarPatrocinadores] = useState([]);
+
+  const obtenerPatrocinadoress = () => {
+    try {
+      listarPatrocinadores()
+        .then((response) => {
+          const { data } = response;
+
+          if (!listarPatrocinadoress && data) {
+            setListarPatrocinadores(formatModelPatrocinadores(data));
+          } else {
+            const datosPat = formatModelPatrocinadores(data);
+            setListarPatrocinadores(datosPat);
+          }
+        })
+        .catch((e) => { });
+    } catch (e) { }
+  };
+
+  useEffect(() => {
+    obtenerPatrocinadoress();
+  }, []);
+
   //insert
   const onSubmit = (e) => {
     e.preventDefault();
@@ -225,7 +249,8 @@ function Especiales({ history }) {
           contador: "0",
           urlPortada: linkImagen1,
           seccion: "",
-          estado: "true"
+          estado: "true",
+          patrocinador: formData.patrocinador
         },
         {
           titulo: formData.nombre,
@@ -245,7 +270,8 @@ function Especiales({ history }) {
           contador: "0",
           urlPortada: linkImagen2,
           seccion: "",
-          estado: "true"
+          estado: "true",
+          patrocinador: formData.patrocinador
         },
         {
           titulo: formData.nombre,
@@ -265,7 +291,8 @@ function Especiales({ history }) {
           contador: "0",
           urlPortada: linkImagen3,
           seccion: "",
-          estado: "true"
+          estado: "true",
+          patrocinador: formData.patrocinador
         },
         {
           titulo: formData.nombre,
@@ -285,7 +312,8 @@ function Especiales({ history }) {
           contador: "0",
           urlPortada: linkImagen4,
           seccion: "",
-          estado: "true"
+          estado: "true",
+          patrocinador: formData.patrocinador
         },
         {
           titulo: formData.nombre,
@@ -305,11 +333,12 @@ function Especiales({ history }) {
           contador: "0",
           urlPortada: linkImagen5,
           seccion: "",
-          estado: "true"
+          estado: "true",
+          patrocinador: formData.patrocinador
         }];
 
         map(dataTemp, (registro, index) => (
-          
+
           registraPeliculas(registro).then((response) => {
             const { data } = response;
             //notificacion
@@ -525,6 +554,17 @@ function Especiales({ history }) {
                 name="anio"
                 defaultValue={formData.anio}
               />
+              <Form.Control
+                id="patrocinador"
+                as="select"
+                name="patrocinador"
+                defaultValue={formData.patrocinador}
+              >
+                <option>Elige un patrocinador</option>
+                {map(listarPatrocinadoress, (cat, index) => (
+                  <option key={index} value={cat?.id}>{cat?.nombre}</option>
+                ))}
+              </Form.Control>
               <br />
               <hr />
               <Badge bg="secondary" className="tituloFormularioDetalles">
@@ -669,7 +709,8 @@ function initialFormValue() {
     duracion: "",
     sinopsis: "",
     anio: "",
-    archPelicula: ""
+    archPelicula: "",
+    patrocinador: ""
   };
 }
 
@@ -680,6 +721,24 @@ function formatModelCategorias(data) {
       id: data._id,
       nombre: data.nombre,
       descripcion: data.descripcion,
+      estado: data.estado,
+    });
+  });
+  return dataTemp;
+}
+
+function formatModelPatrocinadores(data) {
+  const dataTemp = [];
+  data.forEach((data) => {
+    dataTemp.push({
+      id: data._id,
+      nombre: data.nombre,
+      urlImagen: data.urlImagen,
+      urlWeb: data.urlWeb,
+      urlFacebook: data.urlFacebook,
+      urlInstagram: data.urlInstagram,
+      urlTwitter: data.urlTwitter,
+      nivel: data.nivel,
       estado: data.estado,
     });
   });

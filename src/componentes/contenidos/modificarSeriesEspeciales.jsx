@@ -12,6 +12,7 @@ import { listarCategorias } from "../../api/categorias";
 import queryString from "query-string";
 import Dropzone from "../Dropzone/Dropzone";
 import { subeArchivosCloudinary } from "../../api/cloudinary";
+import { listarPatrocinadores } from "../../api/patrocinadores";
 
 export default function ModificarSeriesEspeciales({ data, history, setShow }) {
   console.log(data);
@@ -25,6 +26,7 @@ export default function ModificarSeriesEspeciales({ data, history, setShow }) {
     duracion: data[5],
     sinopsis: data[6],
     anio: data[9],
+    patrocinador: data[19],
   };
 
   //Para almacenar la imagen del producto que se guardara a la bd
@@ -81,6 +83,29 @@ export default function ModificarSeriesEspeciales({ data, history, setShow }) {
 
   useEffect(() => {
     obtenerCategorias();
+  }, []);
+
+  const [listarPatrocinadoress, setListarPatrocinadores] = useState([]);
+
+  const obtenerPatrocinadoress = () => {
+    try {
+      listarPatrocinadores()
+        .then((response) => {
+          const { data } = response;
+
+          if (!listarPatrocinadoress && data) {
+            setListarPatrocinadores(formatModelPatrocinadores(data));
+          } else {
+            const datosPat = formatModelPatrocinadores(data);
+            setListarPatrocinadores(datosPat);
+          }
+        })
+        .catch((e) => { });
+    } catch (e) { }
+  };
+
+  useEffect(() => {
+    obtenerPatrocinadoress();
   }, []);
 
   const renglon2 = listarCat.length + 1;
@@ -265,42 +290,43 @@ export default function ModificarSeriesEspeciales({ data, history, setShow }) {
       toast.warning("Completa el formulario");
     } else {
       try {
-            setLoading(true);
-            // Sube a cloudinary la imagen principal del producto
+        setLoading(true);
+        // Sube a cloudinary la imagen principal del producto
 
-            const dataTemp = {
-              titulo: formData.nombre,
-              categorias: listarCat,
-              actores: formData.actores,
-              director: formData.director,
-              duracion: formData.duracion,
-              sinopsis: formData.sinopsis,
-              calificacion: "",
-              datosTemporada: listSeriesCargados,
-              año: formData.anio,
-              disponibilidad: "",
-              urlPortada: data.secure_url,
-              masVisto: "",
-              recomendado: "",
-              seccion: "",
-              urlPortada2: linkImagen2,
-              urlPortada3: linkImagen3,
-              urlPortada4: linkImagen4,
-              urlPortada5: linkImagen5,
-            };
-            actualizarSeriesEspeciales(idSerie, dataTemp).then((response) => {
-              const { data } = response;
-              //notificacion
+        const dataTemp = {
+          titulo: formData.nombre,
+          categorias: listarCat,
+          actores: formData.actores,
+          director: formData.director,
+          duracion: formData.duracion,
+          sinopsis: formData.sinopsis,
+          calificacion: "",
+          datosTemporada: listSeriesCargados,
+          año: formData.anio,
+          disponibilidad: "",
+          urlPortada: data.secure_url,
+          masVisto: "",
+          recomendado: "",
+          seccion: "",
+          urlPortada2: linkImagen2,
+          urlPortada3: linkImagen3,
+          urlPortada4: linkImagen4,
+          urlPortada5: linkImagen5,
+          patrocinador: formData.patrocinador
+        };
+        actualizarSeriesEspeciales(idSerie, dataTemp).then((response) => {
+          const { data } = response;
+          //notificacion
 
-              toast.success(data.mensaje);
+          toast.success(data.mensaje);
 
-              history({
-                search: queryString.stringify(""),
-              });
-              setLoading(false);
-              setShow(false);
-              //cancelarRegistro()
-            });
+          history({
+            search: queryString.stringify(""),
+          });
+          setLoading(false);
+          setShow(false);
+          //cancelarRegistro()
+        });
       } catch (e) {
         console.log(e);
       }
@@ -429,6 +455,17 @@ export default function ModificarSeriesEspeciales({ data, history, setShow }) {
             name="director"
             defaultValue={formData.director}
           />
+          <Form.Control
+            id="patrocinador"
+            as="select"
+            name="patrocinador"
+            defaultValue={formData.patrocinador}
+          >
+            <option>Elige un patrocinador</option>
+            {map(listarPatrocinadoress, (cat, index) => (
+              <option key={index} value={cat?.id} selected={cat?.id == formData.patrocinador}>{cat?.nombre}</option>
+            ))}
+          </Form.Control>
           <br />
           <hr />
           <Badge bg="secondary" className="tituloFormularioDetalles">
@@ -717,6 +754,7 @@ function initialFormValue(data) {
     duracion: data.duracion,
     sinopsis: data.sinopsis,
     anio: data.anio,
+    patrocinador: data.patrocinador
   };
 }
 
@@ -727,6 +765,24 @@ function formatModelCategorias(data) {
       id: data._id,
       nombre: data.nombre,
       descripcion: data.descripcion,
+      estado: data.estado,
+    });
+  });
+  return dataTemp;
+}
+
+function formatModelPatrocinadores(data) {
+  const dataTemp = [];
+  data.forEach((data) => {
+    dataTemp.push({
+      id: data._id,
+      nombre: data.nombre,
+      urlImagen: data.urlImagen,
+      urlWeb: data.urlWeb,
+      urlFacebook: data.urlFacebook,
+      urlInstagram: data.urlInstagram,
+      urlTwitter: data.urlTwitter,
+      nivel: data.nivel,
       estado: data.estado,
     });
   });

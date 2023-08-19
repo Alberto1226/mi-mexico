@@ -14,6 +14,7 @@ import { withRouter } from "../../utils/withRouter";
 import queryString from "query-string";
 import Dropzone from "../Dropzone/Dropzone";
 import { subeArchivosCloudinary } from "../../api/cloudinary";
+import { listarPatrocinadores } from "../../api/patrocinadores";
 
 function Series({ history }) {
   //modal
@@ -50,6 +51,29 @@ function Series({ history }) {
 
   useEffect(() => {
     obtenerCategorias();
+  }, []);
+
+  const [listarPatrocinadoress, setListarPatrocinadores] = useState([]);
+
+  const obtenerPatrocinadoress = () => {
+    try {
+      listarPatrocinadores()
+        .then((response) => {
+          const { data } = response;
+
+          if (!listarPatrocinadoress && data) {
+            setListarPatrocinadores(formatModelPatrocinadores(data));
+          } else {
+            const datosPat = formatModelPatrocinadores(data);
+            setListarPatrocinadores(datosPat);
+          }
+        })
+        .catch((e) => { });
+    } catch (e) { }
+  };
+
+  useEffect(() => {
+    obtenerPatrocinadoress();
   }, []);
 
   const renglon2 = listarCat.length + 1;
@@ -162,7 +186,8 @@ function Series({ history }) {
           urlPortada: data.secure_url,
           urlTrailer: formData.urlTrailer,
           seccion: "",
-          estado: "true"
+          estado: "true",
+          patrocinador: formData.patrocinador
         };
         registraSeries(dataTemp).then((response) => {
           const { data } = response;
@@ -309,6 +334,17 @@ function Series({ history }) {
                 name="director"
                 defaultValue={formData.director}
               />
+              <Form.Control
+                id="patrocinador"
+                as="select"
+                name="patrocinador"
+                defaultValue={formData.patrocinador}
+              >
+                <option>Elige un patrocinador</option>
+                {map(listarPatrocinadoress, (cat, index) => (
+                  <option key={index} value={cat?.id}>{cat?.nombre}</option>
+                ))}
+              </Form.Control>
               <br />
               <hr />
               <Badge bg="secondary" className="tituloFormularioDetalles">
@@ -607,7 +643,8 @@ function initialFormValue() {
     sinopsis: "",
     anio: "",
     archPelicula: "",
-    urlTrailer: ""
+    urlTrailer: "",
+    patrocinador: "",
   };
 }
 
@@ -618,6 +655,24 @@ function formatModelCategorias(data) {
       id: data._id,
       nombre: data.nombre,
       descripcion: data.descripcion,
+      estado: data.estado,
+    });
+  });
+  return dataTemp;
+}
+
+function formatModelPatrocinadores(data) {
+  const dataTemp = [];
+  data.forEach((data) => {
+    dataTemp.push({
+      id: data._id,
+      nombre: data.nombre,
+      urlImagen: data.urlImagen,
+      urlWeb: data.urlWeb,
+      urlFacebook: data.urlFacebook,
+      urlInstagram: data.urlInstagram,
+      urlTwitter: data.urlTwitter,
+      nivel: data.nivel,
       estado: data.estado,
     });
   });

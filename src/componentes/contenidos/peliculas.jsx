@@ -18,6 +18,7 @@ import axios from "axios";
 import { API_HOST } from "../../utils/constants";
 import { withRouter } from "../../utils/withRouter";
 import queryString from "query-string";
+import { listarPatrocinadores } from "../../api/patrocinadores";
 
 function Peliculas({ history }) {
   const [formData, setFormData] = useState(initialFormValue());
@@ -52,6 +53,29 @@ function Peliculas({ history }) {
 
   useEffect(() => {
     obtenerCategorias();
+  }, []);
+
+  const [listarPatrocinadoress, setListarPatrocinadores] = useState([]);
+
+  const obtenerPatrocinadoress = () => {
+    try {
+      listarPatrocinadores()
+        .then((response) => {
+          const { data } = response;
+
+          if (!listarPatrocinadoress && data) {
+            setListarPatrocinadores(formatModelPatrocinadores(data));
+          } else {
+            const datosPat = formatModelPatrocinadores(data);
+            setListarPatrocinadores(datosPat);
+          }
+        })
+        .catch((e) => { });
+    } catch (e) { }
+  };
+
+  useEffect(() => {
+    obtenerPatrocinadoress();
   }, []);
 
   const renglon = listarCat.length + 1;
@@ -117,7 +141,8 @@ function Peliculas({ history }) {
               contador: "0",
               urlPortada: data.secure_url,
               seccion: "",
-              estado: "true"
+              estado: "true",
+              patrocinador: formData.patrocinador
             };
             registraPeliculas(dataTemp).then((response) => {
               const { data } = response;
@@ -233,13 +258,13 @@ function Peliculas({ history }) {
               <br />
 
               <Col xs={12} md={8}>
-                  <Form.Control
-                    placeholder="URL Video"
-                    type="text"
-                    name="archPelicula"
-                    defaultValue={formData.archPelicula}
-                  />
-                </Col>
+                <Form.Control
+                  placeholder="URL Video"
+                  type="text"
+                  name="archPelicula"
+                  defaultValue={formData.archPelicula}
+                />
+              </Col>
 
               {/*<input type="file" name="video" accept=".mp4" onChange={handleFileChange} />
               {videoPath && <video src={videoPath} controls />}
@@ -306,6 +331,18 @@ function Peliculas({ history }) {
                 name="anio"
                 defaultValue={formData.anio}
               />
+
+              <Form.Control
+                id="patrocinador"
+                as="select"
+                name="patrocinador"
+                defaultValue={formData.patrocinador}
+              >
+                <option>Elige un patrocinador</option>
+                {map(listarPatrocinadoress, (cat, index) => (
+                  <option key={index} value={cat?.id}>{cat?.nombre}</option>
+                ))}
+              </Form.Control>
 
               <hr />
               <Badge bg="secondary" className="tituloFormularioDetalles">
@@ -451,7 +488,8 @@ function initialFormValue() {
     sinopsis: "",
     anio: "",
     archPelicula: "",
-    categoria: ""
+    categoria: "",
+    patrocinador: "",
   };
 }
 
@@ -462,6 +500,24 @@ function formatModelCategorias(data) {
       id: data._id,
       nombre: data.nombre,
       descripcion: data.descripcion,
+      estado: data.estado,
+    });
+  });
+  return dataTemp;
+}
+
+function formatModelPatrocinadores(data) {
+  const dataTemp = [];
+  data.forEach((data) => {
+    dataTemp.push({
+      id: data._id,
+      nombre: data.nombre,
+      urlImagen: data.urlImagen,
+      urlWeb: data.urlWeb,
+      urlFacebook: data.urlFacebook,
+      urlInstagram: data.urlInstagram,
+      urlTwitter: data.urlTwitter,
+      nivel: data.nivel,
       estado: data.estado,
     });
   });

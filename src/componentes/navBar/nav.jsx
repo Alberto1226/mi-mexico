@@ -3,6 +3,7 @@ import {
   faMagnifyingGlass,
   faHouse,
   faUser,
+  faArrowDown,
   faSearch
 } from "@fortawesome/free-solid-svg-icons";
 import { Form, Badge } from "react-bootstrap"
@@ -105,10 +106,10 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
 
   return (
     <>
-    
-      
-        
-        <Navbar bg="link" expand="xl" sticky="top" className="navboostrap sticky-top">
+
+
+
+      <Navbar bg="link" expand="xl" sticky="top" className="navboostrap sticky-top">
         <Container fluid>
           <Navbar.Brand href="#home" className="mexicoLogo" id="logo">
             <img src={logo} alt="" className="logomx" />
@@ -116,16 +117,16 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
 
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
-        <Navbar.Collapse id="navbarScroll">
-         
+          <Navbar.Collapse id="navbarScroll">
 
 
 
-          <Nav
-            className="me-auto my-2 my-lg-0"
-            style={{ maxHeight: '100px' }}
-            navbarScroll
-          >
+
+            <Nav
+              className="me-auto my-2 my-lg-0"
+              style={{ maxHeight: '100px' }}
+              navbarScroll
+            >
             </Nav>
             <div className="buscar">
               <div className="flex items-center mb-1">
@@ -142,6 +143,14 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
             </div>
             <div className="botonesnav">
 
+              <Link>
+                <a className="icon" >
+                  <Link to={`/`}><a className="icon">
+                    <FontAwesomeIcon icon={faArrowDown} />
+                  </a></Link>
+
+                </a>
+              </Link>
               {
                 tipo == "" &&
                 (
@@ -225,7 +234,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
               {idUsuario != "" && (
                 <>
                   <a className="icon">
-                  
+
                     <FontAwesomeIcon
                       icon={faUser}
                       className="userIcon"
@@ -238,11 +247,11 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
             </div>
           </Navbar.Collapse>
 
-          </Container>
-        </Navbar>
+        </Container>
+      </Navbar>
 
-       
-    
+
+
     </>
   );
 }

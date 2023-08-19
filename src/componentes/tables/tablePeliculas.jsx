@@ -136,7 +136,6 @@ function TblPeliculas(props) {
       name: "urlPortada",
       label: "URL PORTADA",
     },
-
     {
       name: "estado",
       label: "STATUS",
@@ -162,6 +161,10 @@ function TblPeliculas(props) {
           );
         },
       },
+    },
+    {
+      name: "patrocinador",
+      label: "PATROCINADOR",
     },
     {
       name: "Acciones",
@@ -256,6 +259,7 @@ function formatModelPeliculas(data) {
       urlPortada: data.urlPortada,
       seccion: data.seccion,
       estado: data.estado,
+      patrocinador: data.patrocinador,
     });
   });
   return dataTemp;

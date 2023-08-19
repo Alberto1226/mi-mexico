@@ -220,6 +220,10 @@ function TblSeriesEspeciales(props) {
       label: "URL PORTADA 5",
     },
     {
+      name: "patrocinador",
+      label: "PATROCINADOR",
+    },
+    {
       name: "Acciones",
       options: {
         filter: false,
@@ -355,6 +359,7 @@ function formatModelSeries(data) {
       urlPortada3: data.urlPortada3,
       urlPortada4: data.urlPortada4,
       urlPortada5: data.urlPortada5,
+      patrocinador: data.patrocinador,
     });
   });
   return dataTemp;

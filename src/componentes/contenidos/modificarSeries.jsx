@@ -13,8 +13,10 @@ import { listarCategorias } from "../../api/categorias";
 import queryString from "query-string";
 import Dropzone from "../Dropzone/Dropzone";
 import { subeArchivosCloudinary } from "../../api/cloudinary";
+import { listarPatrocinadores } from "../../api/patrocinadores";
 
 export default function ModificarSeries({ data, history, setShow }) {
+  console.log(data)
 
   const idSerie = data[0];
 
@@ -25,6 +27,7 @@ export default function ModificarSeries({ data, history, setShow }) {
     duracion: data[5],
     sinopsis: data[6],
     anio: data[9],
+    patrocinador: data[15]
   };
 
   //Para almacenar la imagen del producto que se guardara a la bd
@@ -78,6 +81,29 @@ export default function ModificarSeries({ data, history, setShow }) {
 
   useEffect(() => {
     obtenerCategorias();
+  }, []);
+
+  const [listarPatrocinadoress, setListarPatrocinadores] = useState([]);
+
+  const obtenerPatrocinadoress = () => {
+    try {
+      listarPatrocinadores()
+        .then((response) => {
+          const { data } = response;
+
+          if (!listarPatrocinadoress && data) {
+            setListarPatrocinadores(formatModelPatrocinadores(data));
+          } else {
+            const datosPat = formatModelPatrocinadores(data);
+            setListarPatrocinadores(datosPat);
+          }
+        })
+        .catch((e) => { });
+    } catch (e) { }
+  };
+
+  useEffect(() => {
+    obtenerPatrocinadoress();
   }, []);
 
   const renglon2 = listarCat.length + 1;
@@ -174,6 +200,7 @@ export default function ModificarSeries({ data, history, setShow }) {
               masVisto: "",
               recomendado: "",
               seccion: "",
+              patrocinador: formData.patrocinador
             };
             actualizarSeries(idSerie, dataTemp).then((response) => {
               const { data } = response;
@@ -278,6 +305,17 @@ export default function ModificarSeries({ data, history, setShow }) {
             name="director"
             defaultValue={formData.director}
           />
+          <Form.Control
+            id="patrocinador"
+            as="select"
+            name="patrocinador"
+            defaultValue={formData.patrocinador}
+          >
+            <option>Elige un patrocinador</option>
+            {map(listarPatrocinadoress, (cat, index) => (
+              <option key={index} value={cat?.id} selected={cat?.id == formData.patrocinador}>{cat?.nombre}</option>
+            ))}
+          </Form.Control>
           <br />
           <hr />
           <Badge bg="secondary" className="tituloFormularioDetalles">
@@ -566,6 +604,7 @@ function initialFormValue(data) {
     duracion: data.duracion,
     sinopsis: data.sinopsis,
     anio: data.anio,
+    patrocinador: data.patrocinador
   };
 }
 
@@ -576,6 +615,24 @@ function formatModelCategorias(data) {
       id: data._id,
       nombre: data.nombre,
       descripcion: data.descripcion,
+      estado: data.estado,
+    });
+  });
+  return dataTemp;
+}
+
+function formatModelPatrocinadores(data) {
+  const dataTemp = [];
+  data.forEach((data) => {
+    dataTemp.push({
+      id: data._id,
+      nombre: data.nombre,
+      urlImagen: data.urlImagen,
+      urlWeb: data.urlWeb,
+      urlFacebook: data.urlFacebook,
+      urlInstagram: data.urlInstagram,
+      urlTwitter: data.urlTwitter,
+      nivel: data.nivel,
       estado: data.estado,
     });
   });

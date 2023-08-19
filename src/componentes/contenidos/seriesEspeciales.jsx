@@ -14,16 +14,17 @@ import { withRouter } from "../../utils/withRouter";
 import queryString from "query-string";
 import Dropzone from "../Dropzone/Dropzone";
 import { subeArchivosCloudinary } from "../../api/cloudinary";
+import { listarPatrocinadores } from "../../api/patrocinadores";
 
 function SeriesEspeciales({ history }) {
   //modal
   const [formData, setFormData] = useState(initialFormValue());
-   //Para almacenar la imagen del producto que se guardara a la bd
-   const [imagenPortadaPelicula1, setImagenPortadaPelicula1] = useState(null);
-   const [imagenPortadaPelicula2, setImagenPortadaPelicula2] = useState(null);
-   const [imagenPortadaPelicula3, setImagenPortadaPelicula3] = useState(null);
-   const [imagenPortadaPelicula4, setImagenPortadaPelicula4] = useState(null);
-   const [imagenPortadaPelicula5, setImagenPortadaPelicula5] = useState(null);
+  //Para almacenar la imagen del producto que se guardara a la bd
+  const [imagenPortadaPelicula1, setImagenPortadaPelicula1] = useState(null);
+  const [imagenPortadaPelicula2, setImagenPortadaPelicula2] = useState(null);
+  const [imagenPortadaPelicula3, setImagenPortadaPelicula3] = useState(null);
+  const [imagenPortadaPelicula4, setImagenPortadaPelicula4] = useState(null);
+  const [imagenPortadaPelicula5, setImagenPortadaPelicula5] = useState(null);
   const [listSeriesCargados, setListSeriesCargados] = useState([]);
 
   const [show, setShow] = useState(false);
@@ -72,6 +73,29 @@ function SeriesEspeciales({ history }) {
     }
     setCapitulos(nuevosCapitulos);
   };
+
+  const [listarPatrocinadoress, setListarPatrocinadores] = useState([]);
+
+  const obtenerPatrocinadoress = () => {
+    try {
+      listarPatrocinadores()
+        .then((response) => {
+          const { data } = response;
+
+          if (!listarPatrocinadoress && data) {
+            setListarPatrocinadores(formatModelPatrocinadores(data));
+          } else {
+            const datosPat = formatModelPatrocinadores(data);
+            setListarPatrocinadores(datosPat);
+          }
+        })
+        .catch((e) => { });
+    } catch (e) { }
+  };
+
+  useEffect(() => {
+    obtenerPatrocinadoress();
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -279,6 +303,7 @@ function SeriesEspeciales({ history }) {
           urlPortada3: linkImagen3,
           urlPortada4: linkImagen4,
           urlPortada5: linkImagen5,
+          patrocinador: formData.patrocinador
         };
         registraSeriesEspeciales(dataTemp).then((response) => {
           const { data } = response;
@@ -351,7 +376,7 @@ function SeriesEspeciales({ history }) {
     setListCategorias([...newArray]);
   }
 
-  
+
 
   return (
     <>
@@ -378,7 +403,7 @@ function SeriesEspeciales({ history }) {
         <Modal.Body>
           <div className="contact-form">
             <Form onSubmit={onSubmit} onChange={onChange}>
-            <div className="imagenPrincipal">
+              <div className="imagenPrincipal">
                 <h4 className="textoImagenPrincipal">Imagen 1</h4>
                 <div
                   title="Seleccionar imagen de la categoría"
@@ -620,7 +645,17 @@ function SeriesEspeciales({ history }) {
                 name="urlTrailer"
                 defaultValue={formData.urlTrailer}
               />
-
+              <Form.Control
+                id="patrocinador"
+                as="select"
+                name="patrocinador"
+                defaultValue={formData.patrocinador}
+              >
+                <option>Elige un patrocinador</option>
+                {map(listarPatrocinadoress, (cat, index) => (
+                  <option key={index} value={cat?.id}>{cat?.nombre}</option>
+                ))}
+              </Form.Control>
               <hr />
               <Badge bg="secondary" className="tituloFormularioDetalles">
                 <h4>A continuación, especifica las categorias</h4>
@@ -765,7 +800,8 @@ function initialFormValue() {
     sinopsis: "",
     anio: "",
     archPelicula: "",
-    urlTrailer: ""
+    urlTrailer: "",
+    patrocinador: "",
   };
 }
 
@@ -776,6 +812,24 @@ function formatModelCategorias(data) {
       id: data._id,
       nombre: data.nombre,
       descripcion: data.descripcion,
+      estado: data.estado,
+    });
+  });
+  return dataTemp;
+}
+
+function formatModelPatrocinadores(data) {
+  const dataTemp = [];
+  data.forEach((data) => {
+    dataTemp.push({
+      id: data._id,
+      nombre: data.nombre,
+      urlImagen: data.urlImagen,
+      urlWeb: data.urlWeb,
+      urlFacebook: data.urlFacebook,
+      urlInstagram: data.urlInstagram,
+      urlTwitter: data.urlTwitter,
+      nivel: data.nivel,
       estado: data.estado,
     });
   });
