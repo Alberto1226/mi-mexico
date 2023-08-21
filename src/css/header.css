@@ -38,10 +38,16 @@
   padding: 1vw;
   color: #ffffff;
   margin: 8px;
+  cursor: pointer;
 }
 
 .botonesnav {
   margin-left: 100px;
+  cursor: pointer;
+}
+
+.icon:hover{
+  background-color: #6ec819;
 }
 
 .mexicoLogo {

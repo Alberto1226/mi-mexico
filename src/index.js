@@ -19,6 +19,7 @@ import { FullCapitulos } from "./componentes/fullCapitulos/fullCapitulos";
 import { FullPeliculas } from "./componentes/fullScreenPeliculas/fullScreenPeliculas";
 import { FullDocumentales } from "./componentes/fullScreenDocumentales/FullScreenDocumentales";
 import { SwiperPatrocinadores } from "./componentes/swiperPatrocinadores/swPatrocinadores";
+import { GuelaguetzaFull } from "./componentes/fullGuela/fullGuela";
 
 const router = createBrowserRouter([
   {
@@ -87,6 +88,12 @@ const router = createBrowserRouter([
   {
     path: "/patrocinadores",
     element: <SwiperPatrocinadores/>,
+    errorElement: <Error />,
+  },
+  ,
+  {
+    path: "/epecialguela",
+    element: <GuelaguetzaFull/>,
     errorElement: <Error />,
   },
 ]);

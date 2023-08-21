@@ -30,6 +30,7 @@ export function SwiperEspeciales(props) {
           } else {
             const datosPel = formatModelPeliculas(data);
             setListPeliculas(datosPel);
+            console.log("especiales"+datosPel);
           }
         })
         .catch((e) => { });
@@ -80,18 +81,19 @@ export function SwiperEspeciales(props) {
             >
               {/* Agrega tus SwiperSlides aquí */}
               {listarPel &&
-                listarPel.map((peli, index) => (
+                listarPel.map((peliculas, index) => (
                   <SwiperSlide
                     className="swiper-slide"
-                    data-slide-number={index + 1}
-                    key={peli.id}
+                    //descomentarear para var el indice
+                    //data-slide-number={index + 1}
+                    key={peliculas.id}
                   >
-                    <Link to={`/fullPel?id=${peli.id}`}>
+                    <Link to={`/epecialguela?id=${peliculas.id}`}>
                       <MasVistos
-                        img1={peli.urlPortada}
-                        nombre={peli.titulo}
-                        duracion={peli.duracion}
-                        des={peli.sinopsis}
+                        img1={peliculas.urlPortada}
+                        nombre={peliculas.titulo}
+                        duracion={peliculas.duracion}
+                        des={peliculas.sinopsis}
                       />
                     </Link>
                   </SwiperSlide>
