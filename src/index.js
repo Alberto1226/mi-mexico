@@ -21,6 +21,7 @@ import { FullDocumentales } from "./componentes/fullScreenDocumentales/FullScree
 import { SwiperPatrocinadores } from "./componentes/swiperPatrocinadores/swPatrocinadores";
 import { GuelaguetzaFull } from "./componentes/fullGuela/fullGuela";
 
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -96,6 +97,7 @@ const router = createBrowserRouter([
     element: <GuelaguetzaFull/>,
     errorElement: <Error />,
   },
+  
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

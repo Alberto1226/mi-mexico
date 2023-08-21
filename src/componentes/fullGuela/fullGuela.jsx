@@ -13,6 +13,7 @@ import { getTokenApi, obtenidusuarioLogueado } from "../../api/auth";
 import { FullNav } from "../navcompleto/navCompleto";
 import Modal from "react-bootstrap/Modal";
 import { listarUltimosCincoEspeciales } from "../../api/peliculasListar";
+import ReactPlayer from "react-player";
 
 SwiperCore.use([Pagination, Autoplay]);
 export function GuelaguetzaFull(props) {
@@ -207,7 +208,8 @@ export function GuelaguetzaFull(props) {
       
       {listarPel.length > 0 && (
         <div key={listarPel[matchedIndex].id ?? ""}>
-          <video  ref={videoRef} id="videoheader" src={listarPel[matchedIndex].urlVideo == undefined ? "" : listarPel[matchedIndex].urlVideo} autoPlay controls></video>
+          <video  ref={videoRef} id="videofull" src={listarPel[matchedIndex].urlVideo == undefined ? "" : listarPel[matchedIndex].urlVideo} autoPlay controls width={"100%"} height={"100%"}></video>
+          
         <button onClick={handleNextVideo} className="nextvideo">Next Video</button>
           <div className="informacionserie">
             <h6 className="tituloSerie">{listarPel[matchedIndex].titulo == undefined ? "" : listarPel[matchedIndex].titulo}</h6>

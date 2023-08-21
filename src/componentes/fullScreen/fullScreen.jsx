@@ -172,7 +172,7 @@ export function FullScrean(props) {
       {listarSer &&
         listarSer.map((series) => (
           <div key={series.id}>
-            <video id="videoheader" src={series.urlTrailer} autoPlay loop controls></video>
+            <video id="videofull" src={series.urlTrailer} autoPlay loop controls width={"100%"} height={"100%"}></video>
             <div className="informacionserie">
               <h6 className="tituloSerie">{series.titulo}</h6>
               <h6 className="sinopsis">{series.sinopsis}</h6>

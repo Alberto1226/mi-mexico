@@ -209,7 +209,7 @@ export function FullCapitulos(props) {
         <div key={listarCap2[matchedIndex].id ?? ""}>
           <video
             ref={videoRef}
-            id="videoheader"
+            id="videofull"
             src={
               listarCap2[matchedIndex].urlCapitulo == undefined
                 ? ""
@@ -218,6 +218,7 @@ export function FullCapitulos(props) {
             autoPlay
 
             controls
+            width={"100%"} height={"100%"}
           ></video>
           <button onClick={handleNextVideo} className="nextvideo">Next Video</button>
           <div className="informacionserie">

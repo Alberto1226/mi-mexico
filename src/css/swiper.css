@@ -75,6 +75,11 @@ body {
   transition: opacity 0.5s ease; /* Agrega una transición de opacidad suave */
 }
 
+.videoheader{
+  width: auto;
+  height: auto;
+}
+
 .mySwiperHeader{
   height: 92  vh;
   width: 100%;
