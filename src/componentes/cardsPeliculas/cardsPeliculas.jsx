@@ -29,7 +29,7 @@ export function CardsUser(props) {
           <h3 className="titulomovil">{props.titulo}</h3>
           <div class="card__heading-sub">
           
-            <span class="actor">{props.director}</span>
+            {/**<span class="actor">{props.director}</span> */}
           </div>
         </div>
         <div class="panel">
