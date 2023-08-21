@@ -338,11 +338,14 @@ footer {
   .logomx {
     padding: 1px;
     margin: 1px;
+    cursor: pointer;
   }
 
   .mexicoLogo img {
     height: 35px;
     margin-left: 10px;
+    cursor: pointer;
+    z-index: 1000;
   }
 
   .botonesnav {
@@ -426,6 +429,8 @@ footer {
 .logomx {
   padding: 1px;
   margin: 10px;
+  cursor: pointer;
+  z-index: 2000;
 }
 
 /*footer*/

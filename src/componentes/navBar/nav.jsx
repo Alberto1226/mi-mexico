@@ -111,11 +111,16 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
 
       <Navbar bg="link" expand="xl" sticky="top" className="navboostrap sticky-top">
         <Container fluid>
+        <Link to={`/`}>
           <Navbar.Brand href="#home" className="mexicoLogo" id="logo">
+          
+            <a href="">
             <img src={logo} alt="" className="logomx" />
-
+            </a>
+            
 
           </Navbar.Brand>
+          </Link>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
 
