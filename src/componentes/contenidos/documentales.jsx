@@ -119,7 +119,7 @@ function Documentales({ history }) {
             const { data } = response;
             setLoading(true);
             // Sube a cloudinary la imagen principal del producto
-
+            const data2 = formData.patrocinador.split("-")
             const dataTemp = {
               titulo: formData.nombre,
               categorias: listarCat,
@@ -139,7 +139,8 @@ function Documentales({ history }) {
               urlPortada: data.secure_url,
               seccion: "",
               estado: "true",
-              patrocinador: formData.patrocinador
+              patrocinador: data2[0],
+              patrocinadorPortada: data2[1]
             };
             registraPeliculas(dataTemp).then((response) => {
               const { data } = response;
@@ -321,7 +322,7 @@ function Documentales({ history }) {
               >
                 <option>Elige un patrocinador</option>
                 {map(listarPatrocinadoress, (cat, index) => (
-                  <option key={index} value={cat?.id}>{cat?.nombre}</option>
+                  <option key={index} value={cat?.id+"-"+cat?.urlImagen}>{cat?.nombre}</option>
                 ))}
               </Form.Control>
               <br />

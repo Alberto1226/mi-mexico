@@ -12,6 +12,7 @@ import "../../css/cardHeader.css";
 import { registraHistorialUsuario } from "../../api/historialUsuarios";
 import { getTokenApi, obtenidusuarioLogueado } from "../../api/auth";
 import {FullNav} from "../navcompleto/navCompleto";
+import Modal from "react-bootstrap/Modal";
 
 SwiperCore.use([Pagination, Autoplay]);
 export function FullDocumentales(props) {
@@ -188,6 +189,14 @@ export function FullDocumentales(props) {
     setMatchedIndex((prevIndex) => (prevIndex + 1) % listarPel.length);
   };
 
+
+  //modal
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
+  const [show, setShow] = useState(true);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <>
       <FullNav />
@@ -200,7 +209,13 @@ export function FullDocumentales(props) {
             <h6 className="sinopsis">{listarPel[matchedIndex].sinopsis == undefined ? "" : listarPel[matchedIndex].sinopsis}</h6>
             <h6 className="añoserie">{listarPel[matchedIndex].duracion == undefined ? "" : listarPel[matchedIndex].duracion}</h6>
           </div>
-          
+          <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Patrocinador oficial</Modal.Title>
+        </Modal.Header>
+        <Modal.Body><img src={listarPel[matchedIndex].patrocinadorPortada == undefined ? "" : listarPel[matchedIndex].patrocinadorPortada} /></Modal.Body>
+        
+      </Modal>
         </div>
       )}
     </>
@@ -229,6 +244,8 @@ function formatModelPeliculas(data) {
       urlPortada: data.urlPortada,
       seccion: data.seccion,
       estado: data.estado,
+      patrocinador: data.patrocinador,
+      patrocinadorPortada: data.patrocinadorPortada,
     });
   });
   return dataTemp;

@@ -167,7 +167,7 @@ function Series({ history }) {
           const { data } = response;
         setLoading(true);
         // Sube a cloudinary la imagen principal del producto
-
+         const data2 = formData.patrocinador.split("-")
         const dataTemp = {
           titulo: formData.nombre,
           categorias: listarCat,
@@ -187,7 +187,8 @@ function Series({ history }) {
           urlTrailer: formData.urlTrailer,
           seccion: "",
           estado: "true",
-          patrocinador: formData.patrocinador
+          patrocinador: data2[0],
+          patrocinadorPortada: data2[1]
         };
         registraSeries(dataTemp).then((response) => {
           const { data } = response;
@@ -342,7 +343,7 @@ function Series({ history }) {
               >
                 <option>Elige un patrocinador</option>
                 {map(listarPatrocinadoress, (cat, index) => (
-                  <option key={index} value={cat?.id}>{cat?.nombre}</option>
+                  <option key={index} value={cat?.id+"-"+cat?.urlImagen}>{cat?.nombre}</option>
                 ))}
               </Form.Control>
               <br />

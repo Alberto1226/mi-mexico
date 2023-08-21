@@ -238,6 +238,8 @@ function formatModelSeries(data) {
       urlTrailer: data.urlTrailer,
       seccion: data.seccion,
       estado: data.estado,
+      patrocinador: data.patrocinador,
+      patrocinadorPortada: data.patrocinadorPortada,
     });
   });
   return dataTemp;

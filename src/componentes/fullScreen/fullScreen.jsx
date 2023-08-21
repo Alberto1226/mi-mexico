@@ -2,8 +2,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
+import Modal from "react-bootstrap/Modal";
 import { listarSeries, obtenerSeries, actualizarContadorSeries } from "../../api/series";
-import video from "../../assets/videos/intro.mp4";
 import SwiperCore, { Pagination, Autoplay } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -157,6 +157,15 @@ export function FullScrean(props) {
   useEffect(() => {
     obtenerCapitulos();
   }, [location]);
+
+
+
+  //modal
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
+  const [show, setShow] = useState(true);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
     <>
     <FullNav/>
@@ -171,6 +180,13 @@ export function FullScrean(props) {
               <h6 className="añoserie">{series.año}</h6>
 
             </div>
+            <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Patrocinador oficial</Modal.Title>
+        </Modal.Header>
+        <Modal.Body><img src={series.patrocinadorPortada} /></Modal.Body>
+        
+      </Modal>
             <hr />
             {Array.isArray(series.datosTemporada) &&
               series.datosTemporada.map((temporada) => (
@@ -206,13 +222,16 @@ export function FullScrean(props) {
                           </SwiperSlide>
                         ))}
                     </Swiper>
+                    
                   ) : (
                     <p>No hay capítulos disponibles</p>
                   )}
                 </div>
               ))}
           </div>
+          
         ))}
+        
     </>
   );
 }
@@ -238,6 +257,9 @@ function formatModelSeries(data) {
       urlTrailer: data.urlTrailer,
       seccion: data.seccion,
       estado: data.estado,
+      patrocinador: data.patrocinador,
+      patrocinadorPortada: data.patrocinadorPortada,
+
     });
   });
   return dataTemp;

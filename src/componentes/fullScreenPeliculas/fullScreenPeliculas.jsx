@@ -3,7 +3,6 @@ import React, { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
 import { listarPeliculas, obtenerPeliculas, actualizarContadorPeliculas } from "../../api/peliculasListar";
-import video from "../../assets/videos/intro.mp4";
 import SwiperCore, { Pagination, Autoplay } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -12,6 +11,8 @@ import "../../css/cardHeader.css";
 import { registraHistorialUsuario } from "../../api/historialUsuarios";
 import { getTokenApi, obtenidusuarioLogueado } from "../../api/auth";
 import { FullNav } from "../navcompleto/navCompleto";
+import Modal from "react-bootstrap/Modal";
+import Button from 'react-bootstrap/Button';
 
 SwiperCore.use([Pagination, Autoplay]);
 export function FullPeliculas(props) {
@@ -189,9 +190,20 @@ export function FullPeliculas(props) {
     setMatchedIndex((prevIndex) => (prevIndex + 1) % listarPel.length);
   };
 
+
+
+  //modal
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
+  const [show, setShow] = useState(true);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
     <>
       <FullNav />
+      
+      
+      
       {listarPel.length > 0 && (
         <div key={listarPel[matchedIndex].id ?? ""}>
           <video  ref={videoRef} id="videoheader" src={listarPel[matchedIndex].urlVideo == undefined ? "" : listarPel[matchedIndex].urlVideo} autoPlay controls></video>
@@ -201,9 +213,17 @@ export function FullPeliculas(props) {
             <h6 className="sinopsis">{listarPel[matchedIndex].sinopsis == undefined ? "" : listarPel[matchedIndex].sinopsis}</h6>
             <h6 className="añoserie">{listarPel[matchedIndex].duracion == undefined ? "" : listarPel[matchedIndex].duracion}</h6>
           </div>
-          
+          <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Patrocinador oficial</Modal.Title>
+        </Modal.Header>
+        <Modal.Body><img src={listarPel[matchedIndex].patrocinadorPortada == undefined ? "" : listarPel[matchedIndex].patrocinadorPortada} /></Modal.Body>
+        
+      </Modal>
         </div>
+        
       )}
+     
     </>
   );
 }
@@ -230,6 +250,8 @@ function formatModelPeliculas(data) {
       urlPortada: data.urlPortada,
       seccion: data.seccion,
       estado: data.estado,
+      patrocinador: data.patrocinador,
+      patrocinadorPortada: data.patrocinadorPortada,
     });
   });
   return dataTemp;
