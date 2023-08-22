@@ -6,7 +6,7 @@ import "swiper/css/pagination";
 import "../../css/swiper.css";
 import "../../css/cardHeader.css";
 //imagenes
-import de1 from "../../assets/img/portada.png";
+import de1 from "../../assets/img/51FIC01.jpg";
 
 SwiperCore.use([Pagination, Autoplay]);
 
@@ -16,6 +16,7 @@ export function SwiperHeader(props) {
   const [showPoster, setShowPoster] = useState(true);
   const randomImages = [
     de1,
+    
     // Agrega aquí más nombres de imágenes
   ];
   const [randomIndex, setRandomIndex] = useState(0);
@@ -52,10 +53,10 @@ export function SwiperHeader(props) {
 
   const randomSlides = [
     {
-      src: "https://www.mxtvmas.com:8443/mimexico/series/sabores/sabor2.mp4",
+      src: "https://www.mxtvmas.com:8443/mimexico/series/cervantino/Imperdibles.mp4",
       poster: randomImages[0],
     },
-    {
+    /*{
       src: "https://www.mxtvmas.com:8443/mimexico/series/conciertos/concierto2.mp4",
       poster: randomImages[1],
     },
@@ -66,7 +67,7 @@ export function SwiperHeader(props) {
     {
       src: "https://www.mxtvmas.com:8443/mimexico/series/pueblosMagicos/magico.mp4",
       poster: randomImages[1],
-    },
+    },*/
     // Agrega más objetos de slide aquí
   ];
 
@@ -79,7 +80,7 @@ export function SwiperHeader(props) {
       <Swiper
         navigation
         pagination={{ clickable: true }}
-        autoplay={{ delay: 9000 }}
+        //autoplay={{ delay: 9000 }}
         speed={1000}
         effect="flip" // Utiliza el efecto de transición "flip"
         flipEffect={{
@@ -94,7 +95,8 @@ export function SwiperHeader(props) {
           <div className="headerVideo">
             <video
               id="videoheader"
-              src={slide.src}
+              //src={slide.src}
+              src="https://www.mxtvmas.com:8443/mimexico/series/cervantino/Imperdibles.mp4"
               autoPlay
               playsinline
               loop
