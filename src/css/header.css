@@ -310,6 +310,28 @@ footer {
   opacity: 1;
 }
 
+
+/*categorias*/
+.categories-list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+
+.category-item {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.expand-icon {
+  margin-left: 8px;
+}
+
+
 /*hamburguesa*/
 @media (max-width: 700px) {
  
@@ -626,4 +648,21 @@ h4 {
 .ver-mas-button:hover {
   text-decoration: underline;
   animation: none; /* Detener la animación al pasar el cursor */
+}
+
+
+.btndel{
+  background-color: transparent;
+  border-radius: 10vw;
+  background-color: black;
+}
+
+
+.swiper-slide-categorias{
+  font-size: 10px;
+  
+}
+
+.imgcatlis{
+  font-size: 10px;
 }

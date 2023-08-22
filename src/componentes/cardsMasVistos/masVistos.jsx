@@ -11,7 +11,7 @@ export function MasVistos(props) {
               <i class="icon-play"></i>
             </div>
           </div>
-          <div class="title body-item-3">{props.nombre}</div>
+          <div class="title body-item-3 nombrecard">{props.nombre}</div>
           <div class="properties body-item-3">
             <span class="time">{props.duracion}</span>
           </div>

@@ -19,16 +19,26 @@ import {
   logoutApi,
 } from "../../api/auth"
 import { obtenerUsuario } from "../../api/usuarios";
+import { listarDetallesCategoriasSeries } from "../../api/series";
+import Modal from "react-bootstrap/Modal";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 import { map } from "lodash"
+import { SwiperCategorias } from "../swiperCategorias/swiperCategorias";
 
 export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales }) {
   const listaMultimedia = listarSeries.concat(listarPeliculas, listarDocumentales);
   console.log(listaMultimedia)
   const [isInputOpen, setIsInputOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => {
+    setShow(true);
+  };
+
 
   const redirecciona = useNavigate();
 
@@ -148,14 +158,40 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
             </div>
             <div className="botonesnav">
 
-              <Link>
+
+            
+                <a className="icon" >
+                  <a className="icon">
+                    <FontAwesomeIcon
+                      icon={faArrowDown}
+                      onClick={() => handleShow()}
+                    />
+                  </a>
+                  <Modal
+                    size="xl"
+                    show={show}
+                    onHide={handleClose}
+                    dialogClassName="modal-90w"
+                    backdrop="static"
+                    keyboard={false}
+                  >
+                    <Modal.Header closeButton>
+                      <Modal.Title>Vista por categorias</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <SwiperCategorias />
+                    </Modal.Body>
+                  </Modal>
+                </a>
+              
+             {/**  <Link>
                 <a className="icon" >
                   <Link to={`/`}><a className="icon">
                     <FontAwesomeIcon icon={faArrowDown} />
                   </a></Link>
 
                 </a>
-              </Link>
+              </Link>*/}
               {
                 tipo == "" &&
                 (
