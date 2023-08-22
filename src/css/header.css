@@ -233,7 +233,25 @@ footer {
 
 @media (max-width: 500px) {
   
+  /*categorias*/
+.categories-list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  overflow: auto;
+}
 
+.category-item {
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
+  padding: 2px;
+  border: 1px solid #ccc;
+  font-size: 10px;
+  text-align: center;
+  border-radius: 4px;
+  
+}
 
   .imgVermas {
     border-radius: 1vw;
@@ -316,6 +334,7 @@ footer {
   display: flex;
   list-style: none;
   padding: 0;
+  overflow: auto;
 }
 
 .category-item {
@@ -325,6 +344,7 @@ footer {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  
 }
 
 .expand-icon {
