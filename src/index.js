@@ -18,6 +18,7 @@ import { FullScreanSeriesEspeciales } from "./componentes/fullScreenSeriesEspeci
 import { FullCapitulos } from "./componentes/fullCapitulos/fullCapitulos";
 import { FullPeliculas } from "./componentes/fullScreenPeliculas/fullScreenPeliculas";
 import { FullDocumentales } from "./componentes/fullScreenDocumentales/FullScreenDocumentales";
+import { FullEspeciales } from "./componentes/fullScreenEspeciales/fullScreenEspeciales";
 import { SwiperPatrocinadores } from "./componentes/swiperPatrocinadores/swPatrocinadores";
 import { GuelaguetzaFull } from "./componentes/fullGuela/fullGuela";
 
@@ -84,6 +85,11 @@ const router = createBrowserRouter([
   {
     path: "/fullDoc",
     element: <FullDocumentales />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/fullEsp",
+    element: <FullEspeciales />,
     errorElement: <Error />,
   },
   {

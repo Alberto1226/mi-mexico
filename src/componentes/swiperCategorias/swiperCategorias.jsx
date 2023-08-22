@@ -55,10 +55,10 @@ export function SwiperCategorias(props) {
         .then((response) => {
           const { data } = response;
           if (!listarDoc && data) {
-            const datosPel = formatModelPeliculas(data);
+            const datosPel = formatModelDocumentales(data);
             setListDocumentales(datosPel);
           } else {
-            const datosPel = formatModelPeliculas(data);
+            const datosPel = formatModelDocumentales(data);
             setListDocumentales(datosPel);
           }
         })
@@ -72,7 +72,7 @@ export function SwiperCategorias(props) {
         .then((response) => {
           const { data } = response;
           if (!listarEsp && data) {
-            const datosPel = formatModelPeliculas(data);
+            const datosPel = formatModelEspeciales(data);
             setListEspeciales(datosPel);
           } else {
             const datosPel = formatModelPeliculas(data);
@@ -89,10 +89,10 @@ export function SwiperCategorias(props) {
         .then((response) => {
           const { data } = response;
           if (!listarSeriesEsp && data) {
-            const datosPel = formatModelPeliculas(data);
+            const datosPel = formatModelSeriesEspeciales(data);
             setListSeriesEsp(datosPel);
           } else {
-            const datosPel = formatModelPeliculas(data);
+            const datosPel = formatModelSeriesEspeciales(data);
             setListSeriesEsp(datosPel);
           }
         })
@@ -106,10 +106,10 @@ export function SwiperCategorias(props) {
         .then((response) => {
           const { data } = response;
           if (!listarSeries && data) {
-            const datosPel = formatModelPeliculas(data);
+            const datosPel = formatModelSeries(data);
             setListSeries(datosPel);
           } else {
-            const datosPel = formatModelPeliculas(data);
+            const datosPel = formatModelSeries(data);
             setListSeries(datosPel);
           }
         })
@@ -197,52 +197,73 @@ export function SwiperCategorias(props) {
 
   return (
     <>
-        <section className="main-container">
-          <div className="location" id="home">
+      <section className="main-container">
+        <div className="location" id="home">
 
-            <div>
+          <div>
             <ul className="categories-list">
-        {groupedCategories.map(group => (
-          <li
-            key={group.categoria}
-            className="category-item"
-            onClick={() => setSelectedCategory(group.categoria)}
-          >
-            <span className="category-name">{group.categoria}</span>
-            <FontAwesomeIcon icon={faChevronDown} className="expand-icon" />
-          </li>
-        ))}
-      </ul>
-            
+              {groupedCategories.map(group => (
+                <li
+                  key={group.categoria}
+                  className="category-item"
+                  onClick={() => setSelectedCategory(group.categoria)}
+                >
+                  <span className="category-name">{group.categoria}</span>
+                  <FontAwesomeIcon icon={faChevronDown} className="expand-icon" />
+                </li>
+              ))}
+            </ul>
+
 
             <div className="cards-container">
-            <Swiper
-              spaceBetween={20}
-              slidesPerView={slides}
-              navigation
-              pagination={{
-                clickable: true,
-              }}>
-        {selectedCategory &&
-          groupedCategories.map(group => {
-            if (group.categoria === selectedCategory) {
-              return group.objetos.map(objeto => (
-                <SwiperSlide key={objeto.id} className="swiper-slide-categorias">
-                  <MasVistos className="imgcatlis" img1={objeto.urlPortada} nombre={objeto.titulo} />
-                  
-                </SwiperSlide>
-              ));
-            }
-            return null;
-          })}
-          </Swiper>
-      </div>
-      </div>
+              <Swiper
+                spaceBetween={20}
+                slidesPerView={slides}
+                navigation
+                pagination={{
+                  clickable: true,
+                }}>
+                {selectedCategory &&
+                  groupedCategories.map(group => {
+                    if (group.categoria === selectedCategory) {
+                      return group.objetos.map(objeto => (
+                        <SwiperSlide key={objeto.id} className="swiper-slide-categorias">
 
-
-            
+                          {objeto.tipo === 'peliculas' ? (
+                            <Link to={`/fullPel?id=${objeto.id}&titulo=${objeto.titulo}`}><a className="icon">
+                              <MasVistos className="imgcatlis" img1={objeto.urlPortada} nombre={objeto.titulo} />
+                            </a></Link>
+                          ) : objeto.tipo === 'documentales' ? (
+                            <Link to={`/fullDoc?id=${objeto.id}&titulo=${objeto.titulo}&id2=${objeto.id}`}><a className="icon">
+                             <MasVistos className="imgcatlis" img1={objeto.urlPortada} nombre={objeto.titulo} />
+                             </a></Link>
+                          ) : objeto.tipo === 'especiales' ? (
+                            <Link to={`/fullEsp?id=${objeto.id}&titulo=${objeto.titulo}`}><a className="icon">
+                             <MasVistos className="imgcatlis" img1={objeto.urlPortada} nombre={objeto.titulo} />
+                             </a></Link>
+                          ) : objeto.tipo === "series" ? (
+                            <Link to={`/full?id=${objeto.id}&titulo=${objeto.titulo}`}><a className="icon">
+                             <MasVistos className="imgcatlis" img1={objeto.urlPortada} nombre={objeto.titulo} />
+                             </a></Link>
+                          ) : (
+                            <Link to={`/fullSeriesEspeciales?id=${objeto.id}&titulo=${objeto.titulo}`}><a className="icon">
+                             <MasVistos className="imgcatlis" img1={objeto.urlPortada} nombre={objeto.titulo} />
+                             </a></Link>
+                          )
+                          }
+                        </SwiperSlide>
+                      ));
+                    }
+                    return null;
+                  })}
+              </Swiper>
+            </div>
           </div>
-        </section>
+
+
+
+        </div>
+      </section>
 
     </>
   );
@@ -257,6 +278,67 @@ function formatModelPeliculas(data) {
       categoria: data.categoria,
       urlPortada: data.urlPortada,
       urlVideo: data.urlVideo,
+      tipo: "peliculas"
+    });
+  });
+  return dataTemp;
+}
+
+function formatModelDocumentales(data) {
+  const dataTemp = [];
+  data.forEach((data) => {
+    dataTemp.push({
+      id: data.id,
+      titulo: data.titulo,
+      categoria: data.categoria,
+      urlPortada: data.urlPortada,
+      urlVideo: data.urlVideo,
+      tipo: "documentales"
+    });
+  });
+  return dataTemp;
+}
+
+function formatModelEspeciales(data) {
+  const dataTemp = [];
+  data.forEach((data) => {
+    dataTemp.push({
+      id: data.id,
+      titulo: data.titulo,
+      categoria: data.categoria,
+      urlPortada: data.urlPortada,
+      urlVideo: data.urlVideo,
+      tipo: "especiales"
+    });
+  });
+  return dataTemp;
+}
+
+function formatModelSeries(data) {
+  const dataTemp = [];
+  data.forEach((data) => {
+    dataTemp.push({
+      id: data.id,
+      titulo: data.titulo,
+      categoria: data.categoria,
+      urlPortada: data.urlPortada,
+      urlVideo: data.urlVideo,
+      tipo: "series"
+    });
+  });
+  return dataTemp;
+}
+
+function formatModelSeriesEspeciales(data) {
+  const dataTemp = [];
+  data.forEach((data) => {
+    dataTemp.push({
+      id: data.id,
+      titulo: data.titulo,
+      categoria: data.categoria,
+      urlPortada: data.urlPortada,
+      urlVideo: data.urlVideo,
+      tipo: "seriesEspeciales"
     });
   });
   return dataTemp;

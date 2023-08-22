@@ -167,7 +167,7 @@ export function SwiperMasVistosDoc(props) {
                     className="swiper-slide"
                     data-slide-number={index + 1}
                   >
-                    <Link to={`/fullDoc?id=${peli.id}&titulo=${peli.titulo}&id2=${peli.id}`} >
+                    <Link to={ `/fullDoc?id=${peli.id}&titulo=${peli.titulo}&id2=${peli.id}`} >
                       <MasVistos
                         img1={peli.urlPortada}
                         nombre={peli.titulo}
