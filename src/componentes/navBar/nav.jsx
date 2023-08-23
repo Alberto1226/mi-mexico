@@ -160,11 +160,11 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
 
 
             
-                <a className="icon" >
-                  <a className="icon">
+                
+                  <a className="icon" onClick={() => handleShow()}>
                     <FontAwesomeIcon
                       icon={faArrowDown}
-                      onClick={() => handleShow()}
+                      
                     />
                   </a>
                   <Modal
@@ -182,7 +182,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
                       <SwiperCategorias />
                     </Modal.Body>
                   </Modal>
-                </a>
+                
               
              {/**  <Link>
                 <a className="icon" >
@@ -197,12 +197,12 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
                 (
                   <>
                     <Link>
-                      <a className="icon" >
+                      
                         <Link to={`/`}><a className="icon">
                           <FontAwesomeIcon icon={faMagnifyingGlass} />
                         </a></Link>
 
-                      </a>
+                      
                     </Link>
                   </>
                 )
@@ -213,12 +213,12 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
                 (
                   <>
                     <Link>
-                      <a className="icon" >
+                      
                         <Link to={`/full?id=${id}&titulo=${titulo}`}><a className="icon">
                           <FontAwesomeIcon icon={faMagnifyingGlass} />
                         </a></Link>
 
-                      </a>
+                      
                     </Link>
                   </>
                 )
@@ -229,12 +229,12 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
                 (
                   <>
                     <Link>
-                      <a className="icon" >
+                      
                         <Link to={`/fullPel?id=${id}&titulo=${titulo}`}><a className="icon">
                           <FontAwesomeIcon icon={faMagnifyingGlass} />
                         </a></Link>
 
-                      </a>
+                      
                     </Link>
                   </>
                 )
@@ -245,12 +245,12 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
                 (
                   <>
                     <Link>
-                      <a className="icon" >
+                      
                         <Link to={`/fullDoc?id=${id}&titulo=${titulo}&id2=${id}`}><a className="icon">
                           <FontAwesomeIcon icon={faMagnifyingGlass} />
                         </a></Link>
 
-                      </a>
+                      
                     </Link>
                   </>
                 )
