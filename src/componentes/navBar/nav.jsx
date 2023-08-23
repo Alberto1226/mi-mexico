@@ -303,12 +303,12 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
 
               {idUsuario != "" && (
                 <>
-                  <a className="icon">
+                  <a className="icon" onClick={() => cerrarSesion()}>
 
                     <FontAwesomeIcon
                       icon={faUser}
                       className="userIcon"
-                      onClick={() => cerrarSesion()}
+                      
                     />
                   </a>
                 </>
