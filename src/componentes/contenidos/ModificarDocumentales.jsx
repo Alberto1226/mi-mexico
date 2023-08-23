@@ -29,7 +29,7 @@ export default function ModificarDocumentales({ data, setShow, history }) {
     sinopsis: data[7],
     anio: data[9],
     archPelicula: data[12],
-    patrocinador: data[16]
+    patrocinador: data[15] + "," + data[16]
   };
 
   const [formData, setFormData] = useState(initialFormValue(dataTemp));
@@ -132,7 +132,7 @@ export default function ModificarDocumentales({ data, setShow, history }) {
             const { data } = response;
             setLoading(true);
             // Sube a cloudinary la imagen principal del producto
-
+            const data2 = formData.patrocinador.split(",")
             const dataTemp = {
               titulo: formData.nombre,
               categorias: listarCat,
@@ -148,6 +148,8 @@ export default function ModificarDocumentales({ data, setShow, history }) {
               urlVideo: formData.archPelicula,
               urlPortada: data.secure_url,
               seccion: "",
+              patrocinador: data2[0],
+              patrocinadorPortada: data2[1]
             };
             actualizarPeliculas(idDocumental, dataTemp).then((response) => {
               const { data } = response;
@@ -300,7 +302,7 @@ export default function ModificarDocumentales({ data, setShow, history }) {
           >
             <option>Elige un patrocinador</option>
             {map(listarPatrocinadoress, (cat, index) => (
-              <option key={index} value={cat?.id} selected={cat?.id == formData.patrocinador}>{cat?.nombre}</option>
+              <option key={index} value={cat?.id + "," + cat?.urlImagen} selected={cat?.id + "," + cat?.urlImagen == formData.patrocinador}>{cat?.nombre}</option>
             ))}
           </Form.Control>
           <br />

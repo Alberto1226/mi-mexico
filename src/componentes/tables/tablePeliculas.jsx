@@ -167,6 +167,10 @@ function TblPeliculas(props) {
       label: "PATROCINADOR",
     },
     {
+      name: "patrocinadorPortada",
+      label: "PORTADA DEL PATROCINADOR",
+    },
+    {
       name: "Acciones",
       options: {
         filter: false,
@@ -260,6 +264,7 @@ function formatModelPeliculas(data) {
       seccion: data.seccion,
       estado: data.estado,
       patrocinador: data.patrocinador,
+      patrocinadorPortada: data.patrocinadorPortada
     });
   });
   return dataTemp;

@@ -27,7 +27,7 @@ export default function ModificarSeries({ data, history, setShow }) {
     duracion: data[5],
     sinopsis: data[6],
     anio: data[9],
-    patrocinador: data[15]
+    patrocinador: data[15] + "," + data[16]
   };
 
   //Para almacenar la imagen del producto que se guardara a la bd
@@ -184,7 +184,7 @@ export default function ModificarSeries({ data, history, setShow }) {
             setLoading(true);
             console.log(data.secure_url)
             // Sube a cloudinary la imagen principal del producto
-
+            const data2 = formData.patrocinador.split(",")
             const dataTemp = {
               titulo: formData.nombre,
               categorias: listarCat,
@@ -200,7 +200,8 @@ export default function ModificarSeries({ data, history, setShow }) {
               masVisto: "",
               recomendado: "",
               seccion: "",
-              patrocinador: formData.patrocinador
+              patrocinador: data2[0],
+              patrocinadorPortada: data2[1]
             };
             actualizarSeries(idSerie, dataTemp).then((response) => {
               const { data } = response;
@@ -313,7 +314,7 @@ export default function ModificarSeries({ data, history, setShow }) {
           >
             <option>Elige un patrocinador</option>
             {map(listarPatrocinadoress, (cat, index) => (
-              <option key={index} value={cat?.id} selected={cat?.id == formData.patrocinador}>{cat?.nombre}</option>
+              <option key={index} value={cat?.id + "," + cat?.urlImagen} selected={cat?.id + "," + cat?.urlImagen == formData.patrocinador}>{cat?.nombre}</option>
             ))}
           </Form.Control>
           <br />

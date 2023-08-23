@@ -122,7 +122,7 @@ function Peliculas({ history }) {
 
             setLoading(true);
             // Sube a cloudinary la imagen principal del producto
-            const data2 = formData.patrocinador.split("-")
+            const data2 = formData.patrocinador.split(",")
             const dataTemp = {
               titulo: formData.nombre,
               categorias: listarCat,
@@ -341,7 +341,7 @@ function Peliculas({ history }) {
               >
                 <option>Elige un patrocinador</option>
                 {map(listarPatrocinadoress, (cat, index) => (
-                  <option key={index} value={cat?.id+"-"+cat?.urlImagen}>{cat?.nombre}</option>
+                  <option key={index} value={cat?.id+","+cat?.urlImagen}>{cat?.nombre}</option>
                 ))}
               </Form.Control>
 

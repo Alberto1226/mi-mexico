@@ -279,7 +279,7 @@ function SeriesEspeciales({ history }) {
       try {
         setLoading(true);
         // Sube a cloudinary la imagen principal del producto
-
+        const data2 = formData.patrocinador.split(",")
         const dataTemp = {
           titulo: formData.nombre,
           categorias: listarCat,
@@ -303,7 +303,8 @@ function SeriesEspeciales({ history }) {
           urlPortada3: linkImagen3,
           urlPortada4: linkImagen4,
           urlPortada5: linkImagen5,
-          patrocinador: formData.patrocinador
+          patrocinador: data2[0],
+          patrocinadorPortada: data2[1]
         };
         registraSeriesEspeciales(dataTemp).then((response) => {
           const { data } = response;
@@ -653,7 +654,7 @@ function SeriesEspeciales({ history }) {
               >
                 <option>Elige un patrocinador</option>
                 {map(listarPatrocinadoress, (cat, index) => (
-                  <option key={index} value={cat?.id}>{cat?.nombre}</option>
+                  <option key={index} value={cat?.id + "," + cat?.urlImagen}>{cat?.nombre}</option>
                 ))}
               </Form.Control>
               <hr />

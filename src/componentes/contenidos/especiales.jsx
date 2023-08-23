@@ -230,7 +230,7 @@ function Especiales({ history }) {
       try {
         setLoading(true);
         // Sube a cloudinary la imagen principal del producto
-
+        const data2 = formData.patrocinador.split(",")
         const dataTemp = [{
           titulo: formData.nombre,
           categorias: listarCat,
@@ -250,7 +250,8 @@ function Especiales({ history }) {
           urlPortada: linkImagen1,
           seccion: "",
           estado: "true",
-          patrocinador: formData.patrocinador
+          patrocinador: data2[0],
+          patrocinadorPortada: data2[1]
         },
         {
           titulo: formData.nombre,
@@ -271,7 +272,8 @@ function Especiales({ history }) {
           urlPortada: linkImagen2,
           seccion: "",
           estado: "true",
-          patrocinador: formData.patrocinador
+          patrocinador: data2[0],
+          patrocinadorPortada: data2[1]
         },
         {
           titulo: formData.nombre,
@@ -292,7 +294,8 @@ function Especiales({ history }) {
           urlPortada: linkImagen3,
           seccion: "",
           estado: "true",
-          patrocinador: formData.patrocinador
+          patrocinador: data2[0],
+          patrocinadorPortada: data2[1]
         },
         {
           titulo: formData.nombre,
@@ -313,7 +316,8 @@ function Especiales({ history }) {
           urlPortada: linkImagen4,
           seccion: "",
           estado: "true",
-          patrocinador: formData.patrocinador
+          patrocinador: data2[0],
+          patrocinadorPortada: data2[1]
         },
         {
           titulo: formData.nombre,
@@ -334,7 +338,8 @@ function Especiales({ history }) {
           urlPortada: linkImagen5,
           seccion: "",
           estado: "true",
-          patrocinador: formData.patrocinador
+          patrocinador: data2[0],
+          patrocinadorPortada: data2[1]
         }];
 
         map(dataTemp, (registro, index) => (
@@ -562,7 +567,7 @@ function Especiales({ history }) {
               >
                 <option>Elige un patrocinador</option>
                 {map(listarPatrocinadoress, (cat, index) => (
-                  <option key={index} value={cat?.id}>{cat?.nombre}</option>
+                  <option key={index} value={cat?.id + "," + cat?.urlImagen}>{cat?.nombre}</option>
                 ))}
               </Form.Control>
               <br />
