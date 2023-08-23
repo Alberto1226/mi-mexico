@@ -13,6 +13,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Container from 'react-bootstrap/Container';
 import logo from "../../assets/img/MXtvMas.png";
+import { useLocation } from "react-router-dom";
 import {
   getTokenApi,
   obtenidusuarioLogueado,
@@ -26,6 +27,14 @@ import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 import { map } from "lodash"
 import { SwiperCategorias } from "../swiperCategorias/swiperCategorias";
+
+import UserProfile from './perfil';
+//GOOGLE
+import { googleLogout } from "@react-oauth/google";
+
+//iconos
+
+import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
 export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales }) {
   const listaMultimedia = listarSeries.concat(listarPeliculas, listarDocumentales);
@@ -114,14 +123,34 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
 
   console.log(filteredItems)
 
+
+  /**
+   * google
+   */
+
+  const location = useLocation();
+  const userData = location.state && location.state.userData;
+
+  /**
+   * CERRAR SESION GOOGLE
+   */
+  const navigate = useNavigate();
+  const handleLogoutSuccess = () => {
+    googleLogout();
+    console.log("Sesión de Google cerrada correctamente");
+    toast.success("Sesión de Google cerrada correctamente");
+    navigate("/");
+  };
+
   return (
     <>
 
-
+        
 
       <Navbar bg="link" expand="xl" sticky="top" className="navboostrap sticky-top">
+      
         <Container fluid>
-        <Link to={`/`}>
+        <Link to={`/home2`}>
           <Navbar.Brand href="#home" className="mexicoLogo" id="logo">
           
             <a href="">
@@ -198,7 +227,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
                   <>
                     <Link>
                       
-                        <Link to={`/`}><a className="icon">
+                        <Link to={`/home2`}><a className="icon">
                           <FontAwesomeIcon icon={faMagnifyingGlass} />
                         </a></Link>
 
@@ -256,7 +285,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
                 )
               }
 
-              <Link to={"/"}>
+              <Link to={"/home2"}>
                 <a className="icon">
                   <FontAwesomeIcon icon={faHouse} />
                 </a>

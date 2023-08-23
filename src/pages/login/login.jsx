@@ -36,7 +36,7 @@ export function Login({ setRefreshCheckLogin }) {
   const enrutamiento = useNavigate();
 
   const cancelarRegistro = () => {
-    enrutamiento("/");
+    enrutamiento("/home2");
   };
 
   const cancelarRegistroAdmin = () => {
@@ -164,7 +164,7 @@ export function Login({ setRefreshCheckLogin }) {
                                 credentialResponse.credential
                               );
                               console.log(decoded);
-                              navigate("/", { state: { userData: decoded } });
+                              navigate("/home2", { state: { userData: decoded } });
                             }}
                             onError={() => {
                               console.log("Login Failed");
@@ -210,7 +210,7 @@ export function Login({ setRefreshCheckLogin }) {
                   <input class="submit" value="Crear tu cuenta" type="submit" />
                 </Link>
 
-                <Link to="/">
+                <Link to="/home2">
                   <input class="submit" value="Home" type="submit" />
                 </Link>
                 <label>

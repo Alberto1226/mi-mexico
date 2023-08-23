@@ -129,7 +129,7 @@ export function Home() {
     googleLogout();
     console.log("Sesión de Google cerrada correctamente");
     toast.success("Sesión de Google cerrada correctamente");
-    navigate("/");
+    navigate("/home2");
   };
 
   //ver mas

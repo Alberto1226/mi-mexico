@@ -21,12 +21,18 @@ import { FullDocumentales } from "./componentes/fullScreenDocumentales/FullScree
 import { FullEspeciales } from "./componentes/fullScreenEspeciales/fullScreenEspeciales";
 import { SwiperPatrocinadores } from "./componentes/swiperPatrocinadores/swPatrocinadores";
 import { GuelaguetzaFull } from "./componentes/fullGuela/fullGuela";
+import { Home2 } from "./pages/home/home2";
 
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+    errorElement: <Error />,
+  },
+  {
+    path: "home2",
+    element: <Home2 />,
     errorElement: <Error />,
   },
   {
