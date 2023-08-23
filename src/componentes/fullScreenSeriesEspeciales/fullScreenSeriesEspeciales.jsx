@@ -166,9 +166,10 @@ export function FullScreanSeriesEspeciales(props) {
             <video id="videofull" src={series.urlTrailer} autoPlay loop controls width={"100%"} height={"100%"}></video>
             <div className="informacionserie">
               <h6 className="tituloSerie">{series.titulo}</h6>
-              <h6 className="sinopsis">{series.sinopsis}</h6>
+              <div className="fuentecervantino" dangerouslySetInnerHTML={{ __html: series.sinopsis || "" }} />
+              {/**<h6 className="sinopsis">{series.sinopsis}</h6> */}
 
-              <h6 className="añoserie">{series.año}</h6>
+              <h6 className="añoserie">Año de lanzamineto: {series.año}</h6>
 
             </div>
             <hr />

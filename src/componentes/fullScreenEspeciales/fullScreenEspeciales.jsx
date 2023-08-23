@@ -210,6 +210,8 @@ export function FullEspeciales(props) {
         <button onClick={handleNextVideo} className="nextvideo">Next Video</button>
           <div className="informacionserie">
             <h6 className="tituloSerie">{listarPel[matchedIndex].titulo == undefined ? "" : listarPel[matchedIndex].titulo}</h6>
+            {/**<div dangerouslySetInnerHTML={{ __html: listarPel[matchedIndex].sinopsis || "" }} /> */}
+
             <h6 className="sinopsis">{listarPel[matchedIndex].sinopsis == undefined ? "" : listarPel[matchedIndex].sinopsis}</h6>
             <h6 className="añoserie">{listarPel[matchedIndex].duracion == undefined ? "" : listarPel[matchedIndex].duracion}</h6>
           </div>

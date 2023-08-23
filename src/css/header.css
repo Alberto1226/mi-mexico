@@ -699,3 +699,13 @@ h4 {
 .imgcatlis{
   font-size: 10px;
 }
+
+
+.fuentecervantino{
+  margin: 1vw 5vw 1vw 5vw;
+  font-size: 20px;
+  text-align: justify;
+  font-family: 'Bebas Neue', sans-serif;
+font-family: 'Oswald', sans-serif;
+font-family: 'Titillium Web', sans-serif;
+}
