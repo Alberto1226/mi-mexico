@@ -160,7 +160,13 @@ export function FullScreanSeriesEspeciales(props) {
   return (
     <>
     <FullNav/>
-      {listarSer &&
+    
+      
+      
+
+
+        {/**nuevo */}
+        {listarSer &&
         listarSer.map((series) => (
           <div key={series.id}>
             <video id="videofull" src={series.urlTrailer} autoPlay loop controls width={"100%"} height={"100%"}></video>
@@ -191,21 +197,19 @@ export function FullScreanSeriesEspeciales(props) {
                             capitulo.temporada === temporada.temporada
                         )
                         .map((capitulo) => (
-                          <SwiperSlide
-                            key={capitulo.nombre}
-                            className="swiper-slide"
-                          >
+                          <a key={capitulo.nombre} img={"datos"}>
+                         
                             <Link to={`/fullCap?id=${capitulo.id}&capitulo=${capitulo.serie}&temporada=${capitulo.temporada}`} img={"datos"}>
-                              <CardHeader
-                                img1={capitulo.urlPortada}
-                                nombre={capitulo.nombre}
-                                duracion={capitulo.duracion}
-                                des={capitulo.descripcion}
-                                url={capitulo.urlCapitulo}
-                              />
+                            <img
+                              className="imgVermas"
+                              src={capitulo.urlPortada}
+                              alt=""
+
+                            />
                             </Link>
-                          </SwiperSlide>
+                            </a>
                         ))}
+                        
                     </Swiper>
                   ) : (
                     <p>No hay capítulos disponibles</p>
