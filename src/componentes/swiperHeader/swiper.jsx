@@ -7,6 +7,7 @@ import "../../css/swiper.css";
 import "../../css/cardHeader.css";
 //imagenes
 import de1 from "../../assets/img/51FIC01.jpg";
+import { Link } from "react-router-dom";
 
 SwiperCore.use([Pagination, Autoplay]);
 
@@ -75,6 +76,8 @@ export function SwiperHeader(props) {
     randomSlides.sort(() => Math.random() - 0.5)
   );
 
+  var urportada="https://www.mxtvmas.com:8443/mimexico/series/cervantino/Imperdibles.mp4";
+
   return (
     <>
       <Swiper
@@ -93,10 +96,12 @@ export function SwiperHeader(props) {
         {currentSlides.map((slide, index) => (
         <SwiperSlide className="swiper-slide-header2">
           <div className="headerVideo">
+            <Link to={`/fullheader`}>
+              
             <video
               id="videoheader"
               //src={slide.src}
-              src="https://www.mxtvmas.com:8443/mimexico/series/cervantino/Imperdibles.mp4"
+              src={urportada}
               autoPlay
               playsinline
               loop
@@ -104,8 +109,10 @@ export function SwiperHeader(props) {
               className={`video-element ${showPoster ? "show-poster" : ""}`}
               style={videoStyle}
             ></video>
-
+            
+           
             <img src={de1} alt="Poster" style={posterStyle} />
+            </Link>
           </div>
         </SwiperSlide>
         ))}

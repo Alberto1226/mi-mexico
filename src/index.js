@@ -22,6 +22,7 @@ import { FullEspeciales } from "./componentes/fullScreenEspeciales/fullScreenEsp
 import { SwiperPatrocinadores } from "./componentes/swiperPatrocinadores/swPatrocinadores";
 import { GuelaguetzaFull } from "./componentes/fullGuela/fullGuela";
 import { Home2 } from "./pages/home/home2";
+import { FullVideoHeader } from "./componentes/fullScreenheade/fullscreenheader";
 
 
 const router = createBrowserRouter([
@@ -107,6 +108,11 @@ const router = createBrowserRouter([
   {
     path: "/epecialguela",
     element: <GuelaguetzaFull/>,
+    errorElement: <Error />,
+  },
+  {
+    path: "/fullheader",
+    element: <FullVideoHeader/>,
     errorElement: <Error />,
   },
   

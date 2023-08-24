@@ -183,10 +183,7 @@ export function Dashboard() {
             />
             <div class="contenedor">
               <div class="sidebar ancho">
-                <div class="logo text-warning">
-                  <i class="fa fa-ravelry fa-2x logo-sym"></i>
-                  <span class="logo-texto"><img src={logo} alt="" /></span>
-                </div>
+                
 
                 <div class="user">
                   <img
