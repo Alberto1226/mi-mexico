@@ -25,7 +25,7 @@ export function FooterApp(props) {
         </section>
         <footer>
          
-          <p>© 2022-2023 Todos los Derechos Reservados por mxtvmas®</p>
+          <p>© 2022-2023 Todos los Derechos Reservados por miMéxico®</p>
           <img src={imgfooter} alt=""  className='imgfooter'/>
         </footer>
       </>

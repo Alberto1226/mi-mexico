@@ -114,8 +114,7 @@ export function RegistroPasodos() {
                 <input className="submit" value="Regresar" type="submit" />
               </Link>
               <label>
-                  © 2022-2023 Todos los Derechos Reservados por mxtvmas®
-                  mxtvmas®
+                  © 2022-2023 Todos los Derechos Reservados por miMéxico®
               </label>
             </div>
           </div>

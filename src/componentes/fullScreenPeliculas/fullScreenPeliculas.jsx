@@ -13,6 +13,8 @@ import { getTokenApi, obtenidusuarioLogueado } from "../../api/auth";
 import { FullNav } from "../navcompleto/navCompleto";
 import Modal from "react-bootstrap/Modal";
 import Button from 'react-bootstrap/Button';
+import { SwiperPatrocinadores } from "../swiperPatrocinadores/swPatrocinadores";
+import { FooterApp } from "../footer/footer";
 
 SwiperCore.use([Pagination, Autoplay]);
 export function FullPeliculas(props) {
@@ -220,10 +222,19 @@ export function FullPeliculas(props) {
         <Modal.Body><img src={listarPel[matchedIndex].patrocinadorPortada == undefined ? "" : listarPel[matchedIndex].patrocinadorPortada} /></Modal.Body>
         
       </Modal>
+
         </div>
         
       )}
      
+
+     <section class="link">
+          <div class="patrocinadores">
+            <SwiperPatrocinadores />
+          </div>
+        </section>
+
+        <FooterApp />
     </>
   );
 }

@@ -15,6 +15,8 @@ import { registraHistorialUsuario } from "../../api/historialUsuarios";
 import { getTokenApi, obtenidusuarioLogueado } from "../../api/auth";
 import { Link } from "react-router-dom";
 import {FullNav} from "../navcompleto/navCompleto";
+import { SwiperPatrocinadores } from "../swiperPatrocinadores/swPatrocinadores";
+import { FooterApp } from "../footer/footer";
 
 SwiperCore.use([Pagination, Autoplay]);
 export function FullScreanSeriesEspeciales(props) {
@@ -218,6 +220,16 @@ export function FullScreanSeriesEspeciales(props) {
               ))}
           </div>
         ))}
+
+
+
+<section class="link">
+          <div class="patrocinadores">
+            <SwiperPatrocinadores />
+          </div>
+        </section>
+
+        <FooterApp />
     </>
   );
 }

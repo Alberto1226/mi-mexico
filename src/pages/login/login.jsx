@@ -214,8 +214,7 @@ export function Login({ setRefreshCheckLogin }) {
                   <input class="submit" value="Home" type="submit" />
                 </Link>
                 <label>
-                  © 2022-2023 Todos los Derechos Reservados por mxtvmas®
-                  mxtvmas®
+                  © 2022-2023 Todos los Derechos Reservados por miMéxico®
                 </label>
               </div>
             </Form>

@@ -14,6 +14,8 @@ import { FullNav } from "../navcompleto/navCompleto";
 import Modal from "react-bootstrap/Modal";
 import { listarUltimosCincoEspeciales } from "../../api/peliculasListar";
 import ReactPlayer from "react-player";
+import { SwiperPatrocinadores } from "../swiperPatrocinadores/swPatrocinadores";
+import { FooterApp } from "../footer/footer";
 
 SwiperCore.use([Pagination, Autoplay]);
 export function GuelaguetzaFull(props) {
@@ -226,6 +228,16 @@ export function GuelaguetzaFull(props) {
         </div>
         
       )}
+
+
+      {/**footer */}
+      <section class="link">
+          <div class="patrocinadores">
+            <SwiperPatrocinadores />
+          </div>
+        </section>
+
+        <FooterApp />
      
     </>
   );
