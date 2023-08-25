@@ -32,6 +32,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { listarSeries } from "../../api/series";
 import { listarPeliculas } from "../../api/peliculasListar";
+import { SwiperEstrenos } from "../../componentes/swiperEstrenos/swEstrenos";
 //imagenes
 import portada2 from "../../assets/img/PORTADA2.jpg";
 import { Especiales3 } from "../../componentes/especiales3/especiales3";
@@ -175,12 +176,12 @@ export function Home() {
             videoh={"https://www.mxtvmas.com:8443/mimexico/peliculas/cerro.mp4"}
           />
         </div>
-         <SwiperCervantino titulo={"Estrenos"} />
+        <SwiperEstrenos titulo={"Estrenos"} />
         {/*<img src={portada2} alt="" className="especialespor"/>*/}
         <SwiperEspeciales titulo={"Especiales"} />
+        <SwiperCervantino titulo={""} />
         <hr />
-        <Especiales3 titulo={"Series"} />
-        <hr />
+        {/*<Especiales3 titulo={"Series"} />*/}
         {/*userData && (
                     <div>
                       <img src={userData.imageUrl} alt="Imagen de perfil" />
@@ -191,7 +192,8 @@ export function Home() {
 
         {/**<SwiperPeliculasRecomendadas titulo={"Recomendados"} /> */}
 
-        <SwiperPeliculas titulo={""} />
+        <SwiperPeliculas titulo={"Peliculas"} />
+        
         {/*<Especiales3 titulo={"Series"}/>
         <hr/>
         <div className="margindiv">

@@ -47,8 +47,6 @@ export function SwiperCategorias(props) {
     } catch (e) { }
   };
 
-
-
   const obtenerDocumentales = () => {
     try {
       listarDetallesCategoriasPeliculas("documentales")
@@ -227,30 +225,30 @@ export function SwiperCategorias(props) {
                   groupedCategories.map(group => {
                     if (group.categoria === selectedCategory) {
                       return group.objetos.map(objeto => (
-                        <SwiperSlide key={objeto.id} className="swiper-slide-categorias">
-
+                        <SwiperSlide
+                          key={objeto.id}
+                          className="swiper-slide-categorias">
                           {objeto.tipo === 'peliculas' ? (
                             <Link to={`/fullPel?id=${objeto.id}&titulo=${objeto.titulo}`}><a className="icon">
-                              <MasVistos className="imgcatlis" img1={objeto.urlPortada}  />
+                              <MasVistos className="imgcatlis" img1={objeto.urlPortada} />
                             </a></Link>
                           ) : objeto.tipo === 'documentales' ? (
                             <Link to={`/fullDoc?id=${objeto.id}&titulo=${objeto.titulo}&id2=${objeto.id}`}><a className="icon">
-                             <MasVistos className="imgcatlis" img1={objeto.urlPortada}  />
-                             </a></Link>
+                              <MasVistos className="imgcatlis" img1={objeto.urlPortada} />
+                            </a></Link>
                           ) : objeto.tipo === 'especiales' ? (
                             <Link to={`/fullEsp?id=${objeto.id}&titulo=${objeto.titulo}`}><a className="icon">
-                             <MasVistos className="imgcatlis" img1={objeto.urlPortada}  />
-                             </a></Link>
+                              <MasVistos className="imgcatlis" img1={objeto.urlPortada} />
+                            </a></Link>
                           ) : objeto.tipo === "series" ? (
                             <Link to={`/full?id=${objeto.id}&titulo=${objeto.titulo}`}><a className="icon">
-                             <MasVistos className="imgcatlis" img1={objeto.urlPortada}  />
-                             </a></Link>
+                              <MasVistos className="imgcatlis" img1={objeto.urlPortada} />
+                            </a></Link>
                           ) : (
                             <Link to={`/fullSeriesEspeciales?id=${objeto.id}&titulo=${objeto.titulo}`}><a className="icon">
-                             <MasVistos className="imgcatlis" img1={objeto.urlPortada}  />
-                             </a></Link>
-                          )
-                          }
+                              <MasVistos className="imgcatlis" img1={objeto.urlPortada} />
+                            </a></Link>
+                          )}
                         </SwiperSlide>
                       ));
                     }

@@ -7,7 +7,8 @@ import {
     ENDPOINTObtenerSerieEspeciales,
     ENDPOINTListarSeriesMasVistasEspeciales,
     ENDPOINTListarUltimosCincoSeriesEspeciales,
-    ENDPOINTDetallesCategoriasSeriesEspeciales
+    ENDPOINTDetallesCategoriasSeriesEspeciales,
+    ENDPOINTListarUltimaSerieEspecial
 } from './endpoints';
 import axios from 'axios';
 import { API_HOST } from '../utils/constants';
@@ -35,6 +36,17 @@ export async function listarSeriesEspeciales() {
         }
     };
     return await axios.get(API_HOST + ENDPOINTListarSeriesEspeciales, config);
+}
+
+export async function listarUltimaSerieEspecial() {
+    const config = {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+
+        }
+    };
+    return await axios.get(API_HOST + ENDPOINTListarUltimaSerieEspecial, config);
 }
 
 export async function listarDetallesCategoriasEspeciales() {

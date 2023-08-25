@@ -32,6 +32,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { listarSeries } from "../../api/series";
 import { listarPeliculas } from "../../api/peliculasListar";
+import { SwiperEstrenos } from "../../componentes/swiperEstrenos/swEstrenos";
 //imagenes
 import portada2 from "../../assets/img/PORTADA2.jpg";
 import { Especiales3 } from "../../componentes/especiales3/especiales3";
@@ -129,7 +130,7 @@ export function Home2() {
     googleLogout();
     console.log("Sesión de Google cerrada correctamente");
     toast.success("Sesión de Google cerrada correctamente");
-    navigate("/");
+    navigate("/home2");
   };
 
   //ver mas
@@ -140,7 +141,6 @@ export function Home2() {
   };
   return (
     <>
-      
       <div>
         <ToastContainer />
         <div>
@@ -172,18 +172,15 @@ export function Home2() {
         <div className="swvideoheader">
           <SwiperHeader
             img={imgSwiper}
-            //videoh={"https://www.mxtvmas.com:8443/mimexico/peliculas/cerro.mp4"}
+            videoh={"https://www.mxtvmas.com:8443/mimexico/peliculas/cerro.mp4"}
           />
         </div>
-        <SwiperMasVistos titulo={"Estrenos"}/>
-        
+        <SwiperEstrenos titulo={"Estrenos"} />
         {/*<img src={portada2} alt="" className="especialespor"/>*/}
-        
-        <SwiperCervantino titulo={"Especiales"}/>
-        <SwiperEspeciales  />
+        <SwiperEspeciales titulo={"Especiales"} />
+        <SwiperCervantino titulo={""} />
         <hr />
-        {/** <Especiales3 titulo={"Series"} />
-        <hr />*/}
+        {/*<Especiales3 titulo={"Series"} />*/}
         {/*userData && (
                     <div>
                       <img src={userData.imageUrl} alt="Imagen de perfil" />
@@ -193,8 +190,9 @@ export function Home2() {
         {/*<Apple titulo={""}/>*/}
 
         {/**<SwiperPeliculasRecomendadas titulo={"Recomendados"} /> */}
-        <SwiperMasVistosSer titulo={"Series"} />
-        {/**peliculas cards <SwiperPeliculas titulo={"Estrenos"} />*/}
+
+        <SwiperPeliculas titulo={"Peliculas"} />
+        
         {/*<Especiales3 titulo={"Series"}/>
         <hr/>
         <div className="margindiv">

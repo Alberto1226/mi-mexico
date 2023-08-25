@@ -22,6 +22,7 @@ export const ENDPOINTObtenerPelicula = "/peliculas/obtenerPelicula";
 export const ENDPOINTListarPeliculasMasVistas = "/peliculas/listarPeliculasMasVistas";
 export const ENDPOINTListarUltimosCincoEspeciales = "/peliculas/listarUltimosCincoEspeciales";
 export const ENDPOINTDetallesCategoriasPeliculas = "/peliculas/listarDetallesCategoria";
+export const ENDPOINTListarUltimaPelicula = "/peliculas/listarUltimo";
 
 // Categorias
 export const ENDPOINTRegistrarCategoria = "/categorias/registro";
@@ -38,6 +39,7 @@ export const ENDPOINTActualizarContador = "/series/actualizarContador";
 export const ENDPOINTObtenerSerie = "/series/obtenerSerie";
 export const ENDPOINTListarSeriesMasVistas = "/series/listarSeriesMasVistas";
 export const ENDPOINTDetallesCategoriasSeries = "/series/listarDetallesCategoria";
+export const ENDPOINTListarUltimaSerie = "/series/listarUltimo";
 
 // Series especiales
 export const ENDPOINTListarSeriesEspeciales = "/seriesEspeciales/listar";
@@ -49,6 +51,7 @@ export const ENDPOINTObtenerSerieEspeciales = "/seriesEspeciales/obtenerSerie";
 export const ENDPOINTListarSeriesMasVistasEspeciales = "/seriesEspeciales/listarSeriesMasVistas";
 export const ENDPOINTListarUltimosCincoSeriesEspeciales = "/seriesEspeciales/listarUltimosCincoEspeciales";
 export const ENDPOINTDetallesCategoriasSeriesEspeciales = "/seriesEspeciales/listarDetallesCategoria";
+export const ENDPOINTListarUltimaSerieEspecial = "/seriesEspeciales/listarUltimo";
 
 // Capitulos de series 
 export const ENDPOINTListarCapitulosSeries = "/capitulosSeries/listar";
