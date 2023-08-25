@@ -164,26 +164,26 @@ export function SwiperEstrenos(props) {
                   <SwiperSlide
                     key={peli.id}
                     className="swiper-slide"
-                    data-slide-number={index + 1}
+                    //data-slide-number={index + 1}
                   >
                     {peli.tipo === 'peliculas' ? (
-                      <Link to={`/fullPel?id=${peli.id}&titulo=${peli.titulo}`}><a className="icon">
+                      <Link to={`/fullPel?id=${peli.id}&titulo=${peli.titulo}`}><a >
                         <MasVistos className="imgcatlis" img1={peli.urlPortada} />
                       </a></Link>
                     ) : peli.tipo === 'documentales' ? (
-                      <Link to={`/fullDoc?id=${peli.id}&titulo=${peli.titulo}&id2=${peli.id}`}><a className="icon">
+                      <Link to={`/fullDoc?id=${peli.id}&titulo=${peli.titulo}&id2=${peli.id}`}><a >
                         <MasVistos className="imgcatlis" img1={peli.urlPortada} />
                       </a></Link>
                     ) : peli.tipo === 'especiales' ? (
-                      <Link to={`/fullEsp?id=${peli.id}&titulo=${peli.titulo}`}><a className="icon">
+                      <Link to={`/fullEsp?id=${peli.id}&titulo=${peli.titulo}`}><a >
                         <MasVistos className="imgcatlis" img1={peli.urlPortada} />
                       </a></Link>
                     ) : peli.tipo === "series" ? (
-                      <Link to={`/full?id=${peli.id}&titulo=${peli.titulo}`}><a className="icon">
+                      <Link to={`/full?id=${peli.id}&titulo=${peli.titulo}`}><a >
                         <MasVistos className="imgcatlis" img1={peli.urlPortada} />
                       </a></Link>
                     ) : (
-                      <Link to={`/fullSeriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}><a className="icon">
+                      <Link to={`/fullSeriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}><a >
                         <MasVistos className="imgcatlis" img1={peli.urlPortada} />
                       </a></Link>
                     )}
