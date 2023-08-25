@@ -83,7 +83,7 @@ export function SwiperMasVistos(props) {
                 listarPel.map((peli, index) => (
                   <SwiperSlide
                     className="swiper-slide"
-                    data-slide-number={index + 1}
+                    //data-slide-number={index + 1}
                     key={peli.id}
                   >
                      <Link to={`/fullPel?id=${peli.id}&titulo=${peli.titulo}`}>

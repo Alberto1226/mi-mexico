@@ -16,6 +16,9 @@ import Button from 'react-bootstrap/Button';
 import { SwiperPatrocinadores } from "../swiperPatrocinadores/swPatrocinadores";
 import { FooterApp } from "../footer/footer";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+
 SwiperCore.use([Pagination, Autoplay]);
 export function FullEspeciales(props) {
   const locations = useLocation();
@@ -200,6 +203,11 @@ export function FullEspeciales(props) {
   const [show, setShow] = useState(true);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+
+  useEffect(() => {
+    window.scrollTo(0, 0); // Mueve la página al inicio
+  }, []);
   return (
     <>
       <FullNav />
@@ -209,9 +217,9 @@ export function FullEspeciales(props) {
       {listarPel.length > 0 && (
         <div key={listarPel[matchedIndex].id ?? ""}>
           <video  ref={videoRef} id="videofull" src={listarPel[matchedIndex].urlVideo == undefined ? "" : listarPel[matchedIndex].urlVideo} autoPlay controls width={"100%"} height={"100%"}></video>
-        <button onClick={handleNextVideo} className="nextvideo">Next Video</button>
+        
           <div className="informacionserie">
-            <h6 className="tituloSerie">{listarPel[matchedIndex].titulo == undefined ? "" : listarPel[matchedIndex].titulo}</h6>
+            <h6 className="tituloSerie">{listarPel[matchedIndex].titulo == undefined ? "" : listarPel[matchedIndex].titulo}<button onClick={handleNextVideo} className="nextvideo2">Next Video <FontAwesomeIcon icon={faArrowRight}/></button></h6>
             {/**<div dangerouslySetInnerHTML={{ __html: listarPel[matchedIndex].sinopsis || "" }} /> */}
 
             <h6 className="sinopsis">{listarPel[matchedIndex].sinopsis == undefined ? "" : listarPel[matchedIndex].sinopsis}</h6>

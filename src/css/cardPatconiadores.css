@@ -28,7 +28,11 @@
    height: 15px;
    margin: 0 0 0 0;
    cursor: pointer;
+   transition: transform 0.3s ease;
    }
+   .footerCardPatro img:hover{
+    transform: scale(1.5);
+    }
 
    @media (max-width: 768px) {
     

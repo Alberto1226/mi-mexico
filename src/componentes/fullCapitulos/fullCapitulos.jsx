@@ -3,7 +3,8 @@ import React, { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
 import { listarSeries } from "../../api/series";
-import video from "../../assets/videos/intro.mp4";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import SwiperCore, { Pagination, Autoplay } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -204,6 +205,10 @@ export function FullCapitulos(props) {
     setMatchedIndex((prevIndex) => (prevIndex + 1) % listarCap2.length);
   };
 
+
+  useEffect(() => {
+    window.scrollTo(0, 0); // Mueve la página al inicio
+  }, []);
   return (
     <>
       <FullNav />
@@ -222,9 +227,9 @@ export function FullCapitulos(props) {
             controls
             width={"100%"} height={"100%"}
           ></video>
-          <button onClick={handleNextVideo} className="nextvideo">Next Video</button>
+          
           <div className="informacionserie">
-            <h6 className="tituloSerie">
+            <h6 className="tituloSerie"><button onClick={handleNextVideo} className="nextvideo2">Next Video <FontAwesomeIcon icon={faArrowRight} /></button>
               {listarCap2[matchedIndex].nombre == undefined
                 ? ""
                 : listarCap2[matchedIndex].nombre}
@@ -244,7 +249,7 @@ export function FullCapitulos(props) {
         </div>
       )}
       <Swiper
-        spaceBetween={10}
+        spaceBetween={20}
         slidesPerView={slides}
         navigation
         pagination={{ clickable: true }}
@@ -264,9 +269,9 @@ export function FullCapitulos(props) {
               >
                 <CardHeader
                   img1={tem.urlPortada}
-                  nombre={tem.nombre}
+                  //nombre={tem.nombre}
                   duracion={tem.duracion}
-                  des={tem.descripcion}
+                  //des={tem.descripcion}
                 />
               </Link>
             </SwiperSlide>

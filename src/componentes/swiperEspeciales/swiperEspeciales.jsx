@@ -93,7 +93,7 @@ export function SwiperEspeciales(props) {
                         img1={peliculas.urlPortada}
                         nombre={peliculas.titulo}
                         duracion={peliculas.duracion}
-                        des={peliculas.sinopsis}
+                        //des={peliculas.sinopsis}
                       />
                     </Link>
                   </SwiperSlide>

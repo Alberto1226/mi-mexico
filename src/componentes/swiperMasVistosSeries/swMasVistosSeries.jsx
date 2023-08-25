@@ -83,7 +83,7 @@ export function SwiperMasVistosSer(props) {
                 listarSer.map((serie, index) => (
                   <SwiperSlide
                     className="swiper-slide"
-                    data-slide-number={index + 1}
+                    //data-slide-number={index + 1}
                     key={serie.id}
                   >
                     <Link to={`/full?id=${serie.id}&titulo=${serie.titulo}`} >

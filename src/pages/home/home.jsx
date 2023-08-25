@@ -153,7 +153,7 @@ export function Home() {
               />
               <div className="user-info">
                 <p className="user-name">
-                  {userData.name}, Bienvenido a MXTVMAS{" "}
+                  {userData.name}, Bienvenido a MiMéxicoTV{" "}
                 </p>
               </div>
 

@@ -153,7 +153,7 @@ export function Home2() {
               />
               <div className="user-info">
                 <p className="user-name">
-                  {userData.name}, Bienvenido a MXTVMAS{" "}
+                  {userData.name}, Bienvenido a MiMéxicoTV{" "}
                 </p>
               </div>
 
@@ -172,15 +172,18 @@ export function Home2() {
         <div className="swvideoheader">
           <SwiperHeader
             img={imgSwiper}
-            videoh={"https://www.mxtvmas.com:8443/mimexico/peliculas/cerro.mp4"}
+            //videoh={"https://www.mxtvmas.com:8443/mimexico/peliculas/cerro.mp4"}
           />
         </div>
-         <SwiperCervantino titulo={"Estrenos"} />
+        <SwiperMasVistos titulo={"Estrenos"}/>
+        
         {/*<img src={portada2} alt="" className="especialespor"/>*/}
-        <SwiperEspeciales titulo={"Especiales"} />
+        
+        <SwiperCervantino titulo={"Especiales"}/>
+        <SwiperEspeciales  />
         <hr />
-        <Especiales3 titulo={"Series"} />
-        <hr />
+        {/** <Especiales3 titulo={"Series"} />
+        <hr />*/}
         {/*userData && (
                     <div>
                       <img src={userData.imageUrl} alt="Imagen de perfil" />
@@ -190,8 +193,8 @@ export function Home2() {
         {/*<Apple titulo={""}/>*/}
 
         {/**<SwiperPeliculasRecomendadas titulo={"Recomendados"} /> */}
-
-        <SwiperPeliculas titulo={""} />
+        <SwiperMasVistosSer titulo={"Series"} />
+        {/**peliculas cards <SwiperPeliculas titulo={"Estrenos"} />*/}
         {/*<Especiales3 titulo={"Series"}/>
         <hr/>
         <div className="margindiv">

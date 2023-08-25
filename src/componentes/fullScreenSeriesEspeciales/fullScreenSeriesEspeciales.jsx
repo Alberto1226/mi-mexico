@@ -159,6 +159,11 @@ export function FullScreanSeriesEspeciales(props) {
   useEffect(() => {
     obtenerCapitulos();
   }, [location]);
+
+
+  useEffect(() => {
+    window.scrollTo(0, 0); // Mueve la página al inicio
+  }, []);
   return (
     <>
     <FullNav/>
@@ -221,7 +226,7 @@ export function FullScreanSeriesEspeciales(props) {
           </div>
         ))}
 
-
+{/**<iframe width="100%" height="700px" src="https://www.youtube.com/embed/Bg01tyI0rWs?si=kzUCiL7HjwQcaQHo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> */}
 
 <section class="link">
           <div class="patrocinadores">

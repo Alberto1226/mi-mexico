@@ -89,7 +89,7 @@ export function SwiperCervantino(props) {
                         img1={peli.urlPortada5}
                         nombre={peli.titulo}
                         duracion={peli.duracion}
-                        des={peli.sinopsis} 
+                        //des={peli.sinopsis} 
                         />
                         </Link>
                     </SwiperSlide>
@@ -101,7 +101,7 @@ export function SwiperCervantino(props) {
                         img1={peli.urlPortada4}
                         nombre={peli.titulo}
                         duracion={peli.duracion}
-                        des={peli.sinopsis}
+                        //des={peli.sinopsis}
                       />
                       </Link>
                     </SwiperSlide>
@@ -113,7 +113,7 @@ export function SwiperCervantino(props) {
                         img1={peli.urlPortada3}
                         nombre={peli.titulo}
                         duracion={peli.duracion}
-                        des={peli.sinopsis}
+                        //des={peli.sinopsis}
                       />
                       </Link>
                     </SwiperSlide>
@@ -125,7 +125,7 @@ export function SwiperCervantino(props) {
                         img1={peli.urlPortada2}
                         nombre={peli.titulo}
                         duracion={peli.duracion}
-                        des={peli.sinopsis}
+                        //des={peli.sinopsis}
                       />
                       </Link>
                     </SwiperSlide>
@@ -137,7 +137,7 @@ export function SwiperCervantino(props) {
                         img1={peli.urlPortada}
                         nombre={peli.titulo}
                         duracion={peli.duracion}
-                        des={peli.sinopsis}
+                        //des={peli.sinopsis}
                       />
                       </Link>
                     </SwiperSlide>

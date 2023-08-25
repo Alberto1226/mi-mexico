@@ -168,6 +168,11 @@ export function FullScrean(props) {
   const [show, setShow] = useState(true);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+
+  useEffect(() => {
+    window.scrollTo(0, 0); // Mueve la página al inicio
+  }, []);
   return (
     <>
     <FullNav/>
