@@ -68,7 +68,7 @@ export function SwiperEstrenos(props) {
             const datosPel = formatModelEspeciales(data);
             setListEspeciales(datosPel);
           } else {
-            const datosPel = formatModelPeliculas(data);
+            const datosPel = formatModelEspeciales(data);
             setListEspeciales(datosPel);
           }
         })
@@ -166,27 +166,38 @@ export function SwiperEstrenos(props) {
                     className="swiper-slide"
                     //data-slide-number={index + 1}
                   >
-                    {peli.tipo === 'peliculas' ? (
-                      <Link to={`/fullPel?id=${peli.id}&titulo=${peli.titulo}`}><a >
-                        <MasVistos className="imgcatlis" img1={peli.urlPortada} />
-                      </a></Link>
+                    {peli.tipo === "especiales" ? (
+                      <Link to={`/epecialguela?id=${peli.id}&titulo=${peli.titulo}`}>
+                        <a>
+                          <MasVistos className="imgcatlis" img1={peli.urlPortada} />
+                        </a>
+                      </Link>
                     ) : peli.tipo === 'documentales' ? (
-                      <Link to={`/fullDoc?id=${peli.id}&titulo=${peli.titulo}&id2=${peli.id}`}><a >
-                        <MasVistos className="imgcatlis" img1={peli.urlPortada} />
-                      </a></Link>
-                    ) : peli.tipo === 'especiales' ? (
-                      <Link to={`/fullEsp?id=${peli.id}&titulo=${peli.titulo}`}><a >
-                        <MasVistos className="imgcatlis" img1={peli.urlPortada} />
-                      </a></Link>
+                      <Link to={`/fullDoc?id=${peli.id}&titulo=${peli.titulo}&id2=${peli.id}`}>
+                        <a>
+                          <MasVistos className="imgcatlis" img1={peli.urlPortada} />
+                        </a>
+                      </Link>
+                    ) : peli.tipo === "peliculas" ? (
+                      <Link to={`/fullPel?id=${peli.id}&titulo=${peli.titulo}`}>
+                        <a>
+                          <MasVistos className="imgcatlis" img1={peli.urlPortada} />
+                        </a>
+                      </Link>
                     ) : peli.tipo === "series" ? (
-                      <Link to={`/full?id=${peli.id}&titulo=${peli.titulo}`}><a >
-                        <MasVistos className="imgcatlis" img1={peli.urlPortada} />
-                      </a></Link>
+                      <Link to={`/full?id=${peli.id}&titulo=${peli.titulo}`}>
+                        <a>
+                          <MasVistos className="imgcatlis" img1={peli.urlPortada} />
+                        </a>
+                      </Link>
                     ) : (
-                      <Link to={`/fullSeriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}><a >
-                        <MasVistos className="imgcatlis" img1={peli.urlPortada} />
-                      </a></Link>
+                      <Link to={`/fullSeriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}>
+                        <a>
+                          <MasVistos className="imgcatlis" img1={peli.urlPortada} />
+                        </a>
+                      </Link>
                     )}
+
                   </SwiperSlide>
                 ))}
               {/* ... Agrega el resto de los slides */}
