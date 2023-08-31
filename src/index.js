@@ -23,7 +23,7 @@ import { SwiperPatrocinadores } from "./componentes/swiperPatrocinadores/swPatro
 import { GuelaguetzaFull } from "./componentes/fullGuela/fullGuela";
 import { Home2 } from "./pages/home/home2";
 import { FullVideoHeader } from "./componentes/fullScreenheade/fullscreenheader";
-
+import { PoliticaPrivacidad } from "./pages/registro/politicaPrivcidad";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +34,16 @@ const router = createBrowserRouter([
   {
     path: "home2",
     element: <Home2 />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/politicaPrivacidad",
+    element: <PoliticaPrivacidad />,
     errorElement: <Error />,
   },
   {

@@ -200,7 +200,7 @@ export function Login({ setRefreshCheckLogin }) {
                   que acepta los
                 </label>
                 <a class="a">Términos de Uso </a>|
-                <a class="a"> Política de Privacidad</a>
+                <Link to={`/politicaPrivacidad`}><a class="a" > Política de Privacidad</a></Link>
               </div>
 
               <hr />
