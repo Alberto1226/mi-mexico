@@ -279,12 +279,6 @@ export function FullCapitulos(props) {
       </Swiper>
 
       {/**footer */}
-      <section class="link">
-          <div class="patrocinadores">
-            <SwiperPatrocinadores />
-          </div>
-        </section>
-
         <FooterApp />
     </>
   );

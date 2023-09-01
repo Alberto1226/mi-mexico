@@ -17,16 +17,20 @@
   }
 
   .swiper-slide::before {
-    content: attr(data-slide-number);
+    /*content: attr(data-slide-number);*/
+    content: ""; /* Código del icono de reproducción en Font Awesome */
     position: absolute;
-    top: 10px;
+    top: 6vh;
     right: 10px;
     font-size: 18px;
     font-weight: bold;
     color: #fff;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 5px 10px;
-    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.5);
+    background-image: url('../assets/img/boton-de-play.png');
+    background-size: cover; /* Ajusta el tamaño de fondo según tus necesidades */
+    background-repeat: no-repeat;
+    padding: 15px 15px;
+    border-radius: 3vw;
     z-index: 1;
   }
 

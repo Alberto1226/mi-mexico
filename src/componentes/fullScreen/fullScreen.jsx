@@ -173,6 +173,10 @@ export function FullScrean(props) {
   useEffect(() => {
     window.scrollTo(0, 0); // Mueve la página al inicio
   }, []);
+
+  const cerrarVentanaFlotante = () => {
+    setShow(false);
+  };
   return (
     <>
     <FullNav/>
@@ -187,13 +191,43 @@ export function FullScrean(props) {
               <h6 className="añoserie">{series.año}</h6>
 
             </div>
-            <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Patrocinador oficial</Modal.Title>
-        </Modal.Header>
-        <Modal.Body><img src={series.patrocinadorPortada} /></Modal.Body>
-        
-      </Modal>
+            
+
+      <div>
+      {show && (
+        <div
+          style={{
+            position: 'fixed',
+            bottom: '20px',
+            right: '20px',
+            borderRadius: '10px',
+            backgroundColor: 'white',
+            border: '1px solid #ccc',
+            width: '200px', // Ancho deseado del recuadro
+            boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
+            zIndex: 9999,
+          }}
+        >
+          <button
+            style={{
+              position: 'absolute',
+              top: '5px',
+              right: '5px',
+              cursor: 'pointer',
+              backgroundColor: 'transparent',
+              border: 'none',
+            }}
+            onClick={cerrarVentanaFlotante}
+          >
+            X
+          </button>
+          <div style={{ padding: '10px' }}>
+            <h2>Patrocinador oficial</h2>
+            <img src={series.patrocinadorPortada} />
+          </div>
+        </div>
+      )}
+    </div>
             <hr />
             {Array.isArray(series.datosTemporada) &&
               series.datosTemporada.map((temporada) => (

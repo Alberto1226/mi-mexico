@@ -206,6 +206,14 @@ export function FullDocumentales(props) {
     window.scrollTo(0, 0); // Mueve la página al inicio
   }, []);
 
+
+
+  //const [show, setShow] = useState(true); // Cambiado a true para que esté abierta por defecto
+
+  const cerrarVentanaFlotante = () => {
+    setShow(false);
+  };
+
   return (
     <>
       <FullNav />
@@ -218,24 +226,65 @@ export function FullDocumentales(props) {
             <h6 className="sinopsis">{listarPel[matchedIndex].sinopsis == undefined ? "" : listarPel[matchedIndex].sinopsis}</h6>
             <h6 className="añoserie">{listarPel[matchedIndex].duracion == undefined ? "" : listarPel[matchedIndex].duracion}</h6>
           </div>
-          <Modal show={show} onHide={handleClose}>
+         {/**  <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Patrocinador oficial</Modal.Title>
         </Modal.Header>
         <Modal.Body><img src={listarPel[matchedIndex].patrocinadorPortada == undefined ? "" : listarPel[matchedIndex].patrocinadorPortada} /></Modal.Body>
         
-      </Modal>
+      </Modal>*/}
+
+
+<div>
+      {show && (
+        <div
+          style={{
+            position: 'fixed',
+            bottom: '20px',
+            right: '20px',
+            borderRadius: '10px',
+            backgroundColor: 'white',
+            border: '1px solid #ccc',
+            width: '200px', // Ancho deseado del recuadro
+            boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
+            zIndex: 9999,
+          }}
+        >
+          <button
+            style={{
+              position: 'absolute',
+              top: '5px',
+              right: '5px',
+              cursor: 'pointer',
+              backgroundColor: 'transparent',
+              border: 'none',
+            }}
+            onClick={cerrarVentanaFlotante}
+          >
+            X
+          </button>
+          <div style={{ padding: '10px' }}>
+            <h2>Patrocinador oficial</h2>
+            <img
+              src={
+                listarPel[matchedIndex].patrocinadorPortada === undefined
+                  ? ''
+                  : listarPel[matchedIndex].patrocinadorPortada
+              }
+              alt="Patrocinador"
+              style={{ maxWidth: '100%', height: 'auto' }}
+            />
+          </div>
+        </div>
+      )}
+    </div>
         </div>
       )}
 
 
 
        {/**footer */}
-       <section class="link">
-          <div class="patrocinadores">
-            <SwiperPatrocinadores />
-          </div>
-        </section>
+       
 
         <FooterApp />
     </>
