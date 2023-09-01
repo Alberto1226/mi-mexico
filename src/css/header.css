@@ -345,20 +345,8 @@ footer {
   overflow: auto;
 }
 
-.category-item {
-  display: flex;
-  align-items: center;
-  margin-right: 20px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 2vw;
-  background-color: #1d8dce;
-  color: white;
-  cursor: pointer;
-}
-.category-item:hover {
-  background-color: #6ec819;
-}
+
+
 
 .expand-icon {
   margin-left: 8px;
@@ -755,4 +743,111 @@ h4 {
   font-family: 'Bebas Neue', sans-serif;
 font-family: 'Oswald', sans-serif;
 font-family: 'Titillium Web', sans-serif;
+}
+
+
+/*modal*/
+.modal-content {
+  background-color: #222;
+  color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  background-color: #333;
+  border-bottom: none;
+}
+
+.modal-title {
+  color: #fff;
+}
+
+/* Estilos para el botón de cierre */
+.close {
+  color: #fff;
+  opacity: 0.8;
+}
+
+.close:hover {
+  opacity: 1;
+}
+
+/* Estilos para el cuerpo del modal */
+.modal-body {
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Estilos para el fondo del modal */
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Estilos para el contenido del modal */
+.modal-dialog {
+  max-width: 90%;
+}
+
+/* Agregar un borde personalizado */
+.modal-90w {
+  border: 2px solid #00ffcc;
+  border-radius: 10px;
+}
+
+.modalcategory{
+  color: #00ffcc;
+}
+
+.bodycategorias{
+  background-color: #222;
+}
+
+
+/* Estilos para el ul */
+.categories-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: #222;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para los elementos li */
+.category-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid #333;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.category-item:last-child {
+  border-bottom: none;
+}
+
+/* Estilos para el texto de categoría */
+.category-name {
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Estilos para el icono de expansión */
+.expand-icon {
+  color: #00ffcc;
+  font-size: 16px;
+  transition: transform 0.3s;
+}
+
+/* Cambiar el icono de expansión cuando se hace clic en el elemento */
+.category-item.active .expand-icon {
+  transform: rotate(180deg);
+}
+
+/* Cambiar el fondo del elemento li cuando se pasa el mouse por encima */
+.category-item:hover {
+  background-color: #333;
 }

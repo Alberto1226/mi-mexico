@@ -204,8 +204,8 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
                     backdrop="static"
                     keyboard={false}
                   >
-                    <Modal.Header closeButton>
-                      <Modal.Title>Vista por categorias</Modal.Title>
+                    <Modal.Header closeButton className="modalcategory">
+                      
                     </Modal.Header>
                     <Modal.Body>
                       <SwiperCategorias />

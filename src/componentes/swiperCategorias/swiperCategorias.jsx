@@ -195,10 +195,10 @@ export function SwiperCategorias(props) {
 
   return (
     <>
-      <section className="main-container">
+      <section className="main-container bodycategorias">
         <div className="location" id="home">
 
-          <div>
+          <div className="">
             <ul className="categories-list">
               {groupedCategories.map(group => (
                 <li
@@ -212,7 +212,7 @@ export function SwiperCategorias(props) {
               ))}
             </ul>
 
-
+            <br/>
             <div className="cards-container">
               <Swiper
                 spaceBetween={20}
