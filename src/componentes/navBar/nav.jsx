@@ -41,6 +41,9 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
   console.log(listaMultimedia)
   const [isInputOpen, setIsInputOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const [sugerencias, setSugerencias] = useState([]);
+  const [selectedSuggestion, setSelectedSuggestion] = useState(null);
+  
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -48,6 +51,8 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
     setShow(true);
   };
 
+
+  
 
   const redirecciona = useNavigate();
 
@@ -87,8 +92,29 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
     setIsInputOpen(true);
   };
 
-  const handleInputChange = (event) => {
+  /*const handleInputChange = (event) => {
     setSearchValue(event.target.value);
+  };*/
+  const handleInputChange = (event) => {
+    const inputValue = event.target.value;
+    setSearchValue(inputValue);
+
+    // Filtrar sugerencias basadas en la entrada del usuario
+    const sugerenciasFiltradas = listaMultimedia.filter((item) =>
+      item.titulo.toLowerCase().includes(inputValue.toLowerCase())
+    );
+
+    // Actualizar la lista de sugerencias
+    setSugerencias(sugerenciasFiltradas);
+  };
+
+  const handleSugerenciaSeleccionada = (sugerencia) => {
+    // Llenar el campo de búsqueda con la sugerencia seleccionada
+    setSearchValue(sugerencia.titulo);
+
+    // Limpiar la lista de sugerencias y restablecer la selección
+    setSugerencias([]);
+    setSelectedSuggestion(null);
   };
 
   const handleInputBlur = () => {
@@ -172,19 +198,41 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
               navbarScroll
             >
             </Nav>
-            <div className="buscar">
-              <div className="flex items-center mb-1">
-                <Form.Control
-                  type="text"
-                  value={searchValue}
-                  onChange={handleInputChange}
-                  onBlur={handleInputBlur}
-                  autoFocus
-                  className="inputbuscar"
-                  placeholder="Buscar..."
-                />
-              </div>
-            </div>
+            
+            <div className="position-relative buscar">
+      <div >
+        <div className="flex items-center mb-1">
+          <input
+            type="text"
+            value={searchValue}
+            onChange={handleInputChange}
+            autoFocus
+            className="inputbuscar"
+            placeholder="Buscar..."
+          />
+        </div>
+      </div>
+      {sugerencias.length > 0 && (
+        <div className="position-absolute mt-2">
+          <ul className="list-group">
+            {sugerencias.map((sugerencia) => (
+              <li
+                key={sugerencia.id}
+                className={`list-group-item ${
+                  sugerencia === selectedSuggestion ? 'active' : ''
+                }`}
+                onClick={() => handleSugerenciaSeleccionada(sugerencia)}
+              >
+                {sugerencia.titulo}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+    
+
+
             <div className="botonesnav">
 
 

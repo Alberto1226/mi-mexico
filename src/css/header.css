@@ -46,10 +46,7 @@
   background-color: #6ec819;
   
 }
-.botonesnav {
-  margin-left: 100px;
-  cursor: pointer;
-}
+
 
 
 
@@ -320,10 +317,30 @@ footer {
 }
 
 .buscar {
-  width: 56%;
-  float: right;
-  border: 1px #6ec819;
+  width: 70%;
+  align-items: center;
+  text-align: justify;
+  
+  margin-left: 5vw;
+  position: relative;
+  
 }
+
+.botonesnav {
+  margin-left: 30px;
+  cursor: pointer;
+}
+
+.list-group{
+  background-color: #222;
+  border: 2px solid #00ffcc;
+  border-radius: 1vw;
+}
+.list-group li{
+  background-color: #222;
+  color: #ccc;
+}
+
 .btnBuscar {
   position: relative;
   float: right;
@@ -334,6 +351,8 @@ footer {
 .inputbuscar {
   background-color: #ffffff;
   opacity: 1;
+  color: #222;
+  width: 100%
 }
 
 
