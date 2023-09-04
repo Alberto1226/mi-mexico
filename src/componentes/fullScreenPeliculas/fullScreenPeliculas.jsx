@@ -28,7 +28,23 @@ export function FullPeliculas(props) {
 
   const { location } = props;
 
+  /**landscape */
+  const toggleFullScreen = () => {
+    const videoElement = videoRef.current;
 
+    if (videoElement) {
+      if (videoElement.requestFullscreen) {
+        videoElement.requestFullscreen();
+      } else if (videoElement.mozRequestFullScreen) {
+        videoElement.mozRequestFullScreen();
+      } else if (videoElement.webkitRequestFullscreen) {
+        videoElement.webkitRequestFullscreen();
+      } else if (videoElement.msRequestFullscreen) {
+        videoElement.msRequestFullscreen();
+      }
+    }
+  };
+  /**fin */
 
   const videoRef = useRef(null);
   const [showNextButton, setShowNextButton] = useState(false);
@@ -219,7 +235,7 @@ export function FullPeliculas(props) {
       <FullNav />
       {listarPel.length > 0 && (
         <div key={listarPel[matchedIndex].id ?? ""}>
-          <video ref={videoRef} id="videofull" src={listarPel[matchedIndex].urlVideo == undefined ? "" : listarPel[matchedIndex].urlVideo} autoPlay controls width={"100%"} height={"100%"}></video>
+          <video onClick={toggleFullScreen} ref={videoRef} id="videofull" src={listarPel[matchedIndex].urlVideo == undefined ? "" : listarPel[matchedIndex].urlVideo} controls width={"100%"} height={"100%"} ></video>
 
           <div className="informacionserie">
             <h6 className="tituloSerie">{listarPel[matchedIndex].titulo == undefined ? "" : listarPel[matchedIndex].titulo}<button onClick={handleNextVideo} className="nextvideo2">Next Video <FontAwesomeIcon icon={faArrowRight} /></button></h6>
