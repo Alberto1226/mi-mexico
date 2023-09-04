@@ -38,6 +38,7 @@ import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
 export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales, listarSeriesEspeciales }) {
   const listaMultimedia = listarSeries.concat(listarPeliculas, listarDocumentales, listarSeriesEspeciales);
+  console.log(listaMultimedia)
   const [isInputOpen, setIsInputOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [sugerencias, setSugerencias] = useState([]);

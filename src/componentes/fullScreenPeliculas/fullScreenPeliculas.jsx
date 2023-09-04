@@ -22,7 +22,7 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 SwiperCore.use([Pagination, Autoplay]);
 export function FullPeliculas(props) {
   const locations = useLocation();
-  const [listarPel, setListPeliculas] = useState([{id: "", urlVideo: "", titulo: "", sinopsis: "", duracion: ""}]);
+  const [listarPel, setListPeliculas] = useState([{ id: "", urlVideo: "", titulo: "", sinopsis: "", duracion: "" }]);
   const [matchedIndex, setMatchedIndex] = useState(0);
   const { id } = queryString.parse(locations.search);
 
@@ -101,17 +101,17 @@ export function FullPeliculas(props) {
       listarPeliculas("peliculas")
         .then((response) => {
           const { data } = response;
-  
+
           if (!listarPel && data) {
             setListPeliculas(formatModelPeliculas(data));
           } else {
             const datosPel = formatModelPeliculas(data);
-  
+
             // Check if there is a match in the filtered data
             if (datosPel.length > 0) {
               // Get the index of the first match in the filtered data
               const matchIndex = datosPel.findIndex((data) => data.id === id);
-  
+
               // Store the index in a variable (e.g., matchedIndex)
               // You need to declare the state variable for matchedIndex using useState before using it here.
               setMatchedIndex(matchIndex);
@@ -119,7 +119,7 @@ export function FullPeliculas(props) {
               // No match found
               setMatchedIndex(-1);
             }
-  
+
             // Update the state with the filtered data
             setListPeliculas(datosPel);
           }
@@ -217,75 +217,64 @@ export function FullPeliculas(props) {
   return (
     <>
       <FullNav />
-      
-      
-      
       {listarPel.length > 0 && (
         <div key={listarPel[matchedIndex].id ?? ""}>
-          <video  ref={videoRef} id="videofull" src={listarPel[matchedIndex].urlVideo == undefined ? "" : listarPel[matchedIndex].urlVideo} autoPlay controls width={"100%"} height={"100%"}></video>
-        
+          <video ref={videoRef} id="videofull" src={listarPel[matchedIndex].urlVideo == undefined ? "" : listarPel[matchedIndex].urlVideo} autoPlay controls width={"100%"} height={"100%"}></video>
+
           <div className="informacionserie">
-            <h6 className="tituloSerie">{listarPel[matchedIndex].titulo == undefined ? "" : listarPel[matchedIndex].titulo}<button onClick={handleNextVideo} className="nextvideo2">Next Video <FontAwesomeIcon icon={faArrowRight}/></button></h6>
+            <h6 className="tituloSerie">{listarPel[matchedIndex].titulo == undefined ? "" : listarPel[matchedIndex].titulo}<button onClick={handleNextVideo} className="nextvideo2">Next Video <FontAwesomeIcon icon={faArrowRight} /></button></h6>
             <h6 className="sinopsis">{listarPel[matchedIndex].sinopsis == undefined ? "" : listarPel[matchedIndex].sinopsis}</h6>
             <h6 className="añoserie">{listarPel[matchedIndex].duracion == undefined ? "" : listarPel[matchedIndex].duracion}</h6>
           </div>
           <div>
-      {show && (
-        <div
-          style={{
-            position: 'fixed',
-            bottom: '20px',
-            right: '20px',
-            borderRadius: '10px',
-            backgroundColor: 'white',
-            border: '1px solid #ccc',
-            width: '200px', // Ancho deseado del recuadro
-            boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
-            zIndex: 9999,
-          }}
-        >
-          <button
-            style={{
-              position: 'absolute',
-              top: '5px',
-              right: '5px',
-              cursor: 'pointer',
-              backgroundColor: 'transparent',
-              border: 'none',
-            }}
-            onClick={cerrarVentanaFlotante}
-          >
-            X
-          </button>
-          <div style={{ padding: '10px' }}>
-            <h2>Patrocinador oficial</h2>
-            <img
-              src={
-                listarPel[matchedIndex].patrocinadorPortada === undefined
-                  ? ''
-                  : listarPel[matchedIndex].patrocinadorPortada
-              }
-              alt="Patrocinador"
-              style={{ maxWidth: '100%', height: 'auto' }}
-            />
+            {show && (
+              <div
+                style={{
+                  position: 'fixed',
+                  bottom: '20px',
+                  right: '20px',
+                  borderRadius: '10px',
+                  backgroundColor: 'white',
+                  border: '1px solid #ccc',
+                  width: '200px', // Ancho deseado del recuadro
+                  boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
+                  zIndex: 9999,
+                }}
+              >
+                <button
+                  style={{
+                    position: 'absolute',
+                    top: '5px',
+                    right: '5px',
+                    cursor: 'pointer',
+                    backgroundColor: 'transparent',
+                    border: 'none',
+                  }}
+                  onClick={cerrarVentanaFlotante}
+                >
+                  X
+                </button>
+                <div style={{ padding: '10px' }}>
+                  <h2>Patrocinador oficial</h2>
+                  <img
+                    src={
+                      listarPel[matchedIndex].patrocinadorPortada === undefined
+                        ? ''
+                        : listarPel[matchedIndex].patrocinadorPortada
+                    }
+                    alt="Patrocinador"
+                    style={{ maxWidth: '100%', height: 'auto' }}
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
-    </div>
-
-
-        </div>
-        
-      )}
-     
-
-    
-
-        <FooterApp />
+      <FooterApp />
     </>
   );
 }
-
 
 function formatModelPeliculas(data) {
   const dataTemp = [];
