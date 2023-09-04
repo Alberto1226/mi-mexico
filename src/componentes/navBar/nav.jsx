@@ -36,14 +36,13 @@ import { googleLogout } from "@react-oauth/google";
 
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
-export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales }) {
-  const listaMultimedia = listarSeries.concat(listarPeliculas, listarDocumentales);
-  console.log(listaMultimedia)
+export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales, listarSeriesEspeciales }) {
+  const listaMultimedia = listarSeries.concat(listarPeliculas, listarDocumentales, listarSeriesEspeciales);
   const [isInputOpen, setIsInputOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [sugerencias, setSugerencias] = useState([]);
   const [selectedSuggestion, setSelectedSuggestion] = useState(null);
-  
+
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -52,7 +51,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
   };
 
 
-  
+
 
   const redirecciona = useNavigate();
 
@@ -170,98 +169,78 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
 
   return (
     <>
-
-        
-
       <Navbar bg="link" expand="xl" sticky="top" className="navboostrap sticky-top">
-      
-        <Container fluid>
-        <Link to={`/home2`}>
-          <Navbar.Brand href="#home" className="mexicoLogo" id="logo">
-          
-            <a href="">
-            <img src={logo} alt="" className="logomx" />
-            </a>
-            
 
-          </Navbar.Brand>
+        <Container fluid>
+          <Link to={`/home2`}>
+            <Navbar.Brand href="#home" className="mexicoLogo" id="logo">
+              <a href="">
+                <img src={logo} alt="" className="logomx" />
+              </a>
+            </Navbar.Brand>
           </Link>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
-
-
-
-
             <Nav
               className="me-auto my-2 my-lg-0"
               style={{ maxHeight: '100px' }}
               navbarScroll
             >
             </Nav>
-            
             <div className="position-relative buscar">
-      <div >
-        <div className="flex items-center mb-1">
-          <input
-            type="text"
-            value={searchValue}
-            onChange={handleInputChange}
-            autoFocus
-            className="inputbuscar"
-            placeholder="Buscar..."
-          />
-        </div>
-      </div>
-      {sugerencias.length > 0 && (
-        <div className="position-absolute mt-2">
-          <ul className="list-group">
-            {sugerencias.map((sugerencia) => (
-              <li
-                key={sugerencia.id}
-                className={`list-group-item ${
-                  sugerencia === selectedSuggestion ? 'active' : ''
-                }`}
-                onClick={() => handleSugerenciaSeleccionada(sugerencia)}
-              >
-                {sugerencia.titulo}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </div>
-    
-
-
+              <div >
+                <div className="flex items-center mb-1">
+                  <input
+                    type="text"
+                    value={searchValue}
+                    onChange={handleInputChange}
+                    autoFocus
+                    className="inputbuscar"
+                    placeholder="Buscar..."
+                  />
+                </div>
+              </div>
+              {sugerencias.length > 0 && (
+                <div className="position-absolute mt-2">
+                  <ul className="list-group">
+                    {sugerencias.map((sugerencia) => (
+                      <li
+                        key={sugerencia.id}
+                        className={`list-group-item ${sugerencia === selectedSuggestion ? 'active' : ''
+                          }`}
+                        onClick={() => handleSugerenciaSeleccionada(sugerencia)}
+                      >
+                        {sugerencia.titulo}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
             <div className="botonesnav">
+              <a className="icon" onClick={() => handleShow()}>
+                <FontAwesomeIcon
+                  icon={faArrowDown}
+                />
+              </a>
+              <Modal
+                size="xl"
+                show={show}
+                onHide={handleClose}
+                dialogClassName="modal-90w"
+                backdrop="static"
+                keyboard={false}
+              >
+                <Modal.Header closeButton className="modalcategory">
+
+                </Modal.Header>
+                <Modal.Body>
+                  <SwiperCategorias />
+                </Modal.Body>
+              </Modal>
 
 
-            
-                
-                  <a className="icon" onClick={() => handleShow()}>
-                    <FontAwesomeIcon
-                      icon={faArrowDown}
-                      
-                    />
-                  </a>
-                  <Modal
-                    size="xl"
-                    show={show}
-                    onHide={handleClose}
-                    dialogClassName="modal-90w"
-                    backdrop="static"
-                    keyboard={false}
-                  >
-                    <Modal.Header closeButton className="modalcategory">
-                      
-                    </Modal.Header>
-                    <Modal.Body>
-                      <SwiperCategorias />
-                    </Modal.Body>
-                  </Modal>
-                
-              
-             {/**  <Link>
+              {/**  <Link>
                 <a className="icon" >
                   <Link to={`/`}><a className="icon">
                     <FontAwesomeIcon icon={faArrowDown} />
@@ -274,12 +253,12 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
                 (
                   <>
                     <Link>
-                      
-                        <Link to={`/home2`}><a className="icon">
-                          <FontAwesomeIcon icon={faMagnifyingGlass} />
-                        </a></Link>
 
-                      
+                      <Link to={`/home2`}><a className="icon">
+                        <FontAwesomeIcon icon={faMagnifyingGlass} />
+                      </a></Link>
+
+
                     </Link>
                   </>
                 )
@@ -290,12 +269,28 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
                 (
                   <>
                     <Link>
-                      
-                        <Link to={`/full?id=${id}&titulo=${titulo}`}><a className="icon">
-                          <FontAwesomeIcon icon={faMagnifyingGlass} />
-                        </a></Link>
 
-                      
+                      <Link to={`/full?id=${id}&titulo=${titulo}`}><a className="icon">
+                        <FontAwesomeIcon icon={faMagnifyingGlass} />
+                      </a></Link>
+
+
+                    </Link>
+                  </>
+                )
+              }
+
+              {
+                tipo == "seriesEspeciales" &&
+                (
+                  <>
+                    <Link>
+
+                      <Link to={`/fullSeriesEspeciales?id=${id}&titulo=${titulo}`}><a className="icon">
+                        <FontAwesomeIcon icon={faMagnifyingGlass} />
+                      </a></Link>
+
+
                     </Link>
                   </>
                 )
@@ -306,12 +301,28 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
                 (
                   <>
                     <Link>
-                      
-                        <Link to={`/fullPel?id=${id}&titulo=${titulo}`}><a className="icon">
-                          <FontAwesomeIcon icon={faMagnifyingGlass} />
-                        </a></Link>
 
-                      
+                      <Link to={`/fullPel?id=${id}&titulo=${titulo}`}><a className="icon">
+                        <FontAwesomeIcon icon={faMagnifyingGlass} />
+                      </a></Link>
+
+
+                    </Link>
+                  </>
+                )
+              }
+
+              {
+                tipo == "especiales" &&
+                (
+                  <>
+                    <Link>
+
+                      <Link to={`/fullEsp?id=${id}&titulo=${titulo}`}><a className="icon">
+                        <FontAwesomeIcon icon={faMagnifyingGlass} />
+                      </a></Link>
+
+
                     </Link>
                   </>
                 )
@@ -322,12 +333,12 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
                 (
                   <>
                     <Link>
-                      
-                        <Link to={`/fullDoc?id=${id}&titulo=${titulo}&id2=${id}`}><a className="icon">
-                          <FontAwesomeIcon icon={faMagnifyingGlass} />
-                        </a></Link>
 
-                      
+                      <Link to={`/fullDoc?id=${id}&titulo=${titulo}&id2=${id}`}><a className="icon">
+                        <FontAwesomeIcon icon={faMagnifyingGlass} />
+                      </a></Link>
+
+
                     </Link>
                   </>
                 )
@@ -356,7 +367,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
                     <FontAwesomeIcon
                       icon={faUser}
                       className="userIcon"
-                      
+
                     />
                   </a>
                 </>

@@ -59,6 +59,7 @@ export function Dashboard() {
   const [listarSer, setListSeries] = useState([]);
   const [listarPelicula, setListPelicula] = useState([]);
   const [listarDocumentales, setListDocumentales] = useState([]);
+  const [listarSerEsp, setListSeriesEspeciales] = useState([]);
 
   const [activeMenu, setActiveMenu] = useState("home");
   const [showComponent, setShowComponent] = useState(false);
@@ -180,6 +181,7 @@ export function Dashboard() {
               listarDocumentales={listarDocumentales}
               listarPeliculas={listarPelicula}
               listarSeries={listarSer}
+              listarSeriesEspeciales={listarSerEsp}
             />
             <div class="contenedor">
               <div class="sidebar ancho">

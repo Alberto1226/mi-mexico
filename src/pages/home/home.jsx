@@ -32,6 +32,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { listarSeries } from "../../api/series";
 import { listarPeliculas } from "../../api/peliculasListar";
+import { listarSeriesEspeciales } from "../../api/seriesEspeciales";
 import { SwiperEstrenos } from "../../componentes/swiperEstrenos/swEstrenos";
 //imagenes
 import portada2 from "../../assets/img/PORTADA2.jpg";
@@ -115,6 +116,30 @@ export function Home() {
     obtenerSeries();
   }, []);
 
+  const [listarSerEsp, setListSeriesEspeciales] = useState([]);
+
+  const obtenerSeriesEspeciales = () => {
+    try {
+      listarSeriesEspeciales()
+        .then((response) => {
+          const { data } = response;
+
+          if (!listarSerEsp && data) {
+            setListSeriesEspeciales(formatModelSeriesEspeciales(data));
+            console.log(data);
+          } else {
+            const datosSer = formatModelSeriesEspeciales(data);
+            setListSeriesEspeciales(datosSer);
+          }
+        })
+        .catch((e) => {});
+    } catch (e) {}
+  };
+
+  useEffect(() => {
+    obtenerSeriesEspeciales();
+  }, []);
+
   /**
    * google
    */
@@ -168,6 +193,7 @@ export function Home() {
           listarDocumentales={listarDocumentales}
           listarPeliculas={listarPelicula}
           listarSeries={listarSer}
+          listarSeriesEspeciales={listarSerEsp}
         />
 
         <div className="swvideoheader">
@@ -295,6 +321,33 @@ function formatModelSeries(data) {
       director: data.director,
       duracion: data.duracion,
       tipo: "series",
+      sinopsis: data.sinopsis,
+      calificacion: data.calificacion,
+      datosTemporada: data.datosTemporada,
+      año: data.año,
+      disponibilidad: data.disponibilidad,
+      masVisto: data.masVisto,
+      recomendado: data.recomendado,
+      urlVideo: data.urlTrailer,
+      urlPortada: data.urlPortada,
+      seccion: data.seccion,
+      estado: data.estado,
+    });
+  });
+  return dataTemp;
+}
+
+function formatModelSeriesEspeciales(data) {
+  const dataTemp = [];
+  data.forEach((data) => {
+    dataTemp.push({
+      id: data._id,
+      titulo: data.titulo,
+      categorias: data.categorias,
+      actores: data.actores,
+      director: data.director,
+      duracion: data.duracion,
+      tipo: "seriesEspeciales",
       sinopsis: data.sinopsis,
       calificacion: data.calificacion,
       datosTemporada: data.datosTemporada,
