@@ -1,6 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import React, { useEffect, useState, useRef } from "react";
-import { useLocation } from "react-router-dom";
+
+import { useLocation, useNavigate } from "react-router-dom";
 import queryString from "query-string";
 import { listarPeliculas, obtenerPeliculas, actualizarContadorPeliculas } from "../../api/peliculasListar";
 import SwiperCore, { Pagination, Autoplay } from "swiper";
@@ -22,6 +23,7 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 SwiperCore.use([Pagination, Autoplay]);
 export function FullPeliculas(props) {
   const locations = useLocation();
+  const history = useNavigate();
   const [listarPel, setListPeliculas] = useState([{ id: "", urlVideo: "", titulo: "", sinopsis: "", duracion: "" }]);
   const [matchedIndex, setMatchedIndex] = useState(0);
   const { id } = queryString.parse(locations.search);
@@ -44,6 +46,22 @@ export function FullPeliculas(props) {
       }
     }
   };
+  /**fin */
+
+  /**regresar */
+  useEffect(() => {
+    const handleBackButton = (event) => {
+      // Tu lógica de navegación aquí
+      // Por ejemplo, puedes utilizar react-router o cambiar de ruta manualmente
+       history.push('/');
+    };
+
+    window.addEventListener('popstate', handleBackButton);
+
+    return () => {
+      window.removeEventListener('popstate', handleBackButton);
+    };
+  }, []);
   /**fin */
 
   const videoRef = useRef(null);
