@@ -234,9 +234,39 @@ footer {
     grid-gap: 20px;
     grid-template-columns: repeat(3, 1fr);
   }
+  footer{
+    display: none;
+  }
 }
 
 @media (max-width: 500px) {
+
+  body{
+    background-color: #222;
+    color: #ccc;
+  }
+  .main-container{
+    background-color: #222;
+    color: #ccc;
+    margin: 0;
+    padding: 0 15px 0 15px;
+    font-size: 15px;
+  }
+  .link{
+    background-color: #222;
+    color: #ccc;
+    padding: 10px;
+  }
+  .home{
+    font-size: 10px;
+  }
+  .center-container{
+    color: #ccc;
+  }
+  .grid-containerfoo img{
+    color: #ccc;
+  }
+  
   
   /*categorias*/
 .categories-list {
@@ -244,8 +274,11 @@ footer {
   list-style: none;
   padding: 0;
   overflow: auto;
+  
 }
-
+footer{
+  display: none;
+}
 .category-item {
   display: flex;
   align-items: center;
@@ -869,4 +902,46 @@ font-family: 'Titillium Web', sans-serif;
 /* Cambiar el fondo del elemento li cuando se pasa el mouse por encima */
 .category-item:hover {
   background-color: #333;
+}
+
+
+
+.iconNavMovil{
+  
+  text-align: center;
+  width: 100%;
+  color: #fff;
+  background-color: #e401f9;
+  padding: 1vw;
+  border-radius: 5vw;
+}
+
+.navMovil{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #3b3b3b;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  z-index: 1000;
+  box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.2);
+  text-align: center;
+
+  border-radius: 15px 15px 0 0;
+
+  
+  
+}
+
+#elementosnav{
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  cursor: pointer;
+  color: #ccc;
+  margin-left: 30vw;
+  
 }

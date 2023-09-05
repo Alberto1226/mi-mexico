@@ -7,7 +7,7 @@
     border-left: 5vw;
     margin: 0 0 0 0;
     padding: 0 0 0 0;
-    border-radius: 3vw;;
+    border-radius: 3vw;
     
    
 }
@@ -24,4 +24,25 @@
     
   }
 
+
+  @media (max-width: 500px) {
+
+    .swiper{
+      background-color: #222;
+      color: #ccc;
+    }
+  
+    .swiper-slide {
+      background-color: #222;
+      color: #ccc;
+      border-radius: 2vw;
+    }
+  
+    .swiper-slide img {
+      border-radius: 2vw;
+    }
+
+    
+  
+  }
  

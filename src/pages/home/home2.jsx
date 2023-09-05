@@ -44,6 +44,7 @@ import { googleLogout } from "@react-oauth/google";
 //iconos
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import BottomNavigation from "../../componentes/navBar/navMovil";
 
 export function Home2() {
   const [listarDocumentales, setListDocumentales] = useState([]);
@@ -278,6 +279,7 @@ export function Home2() {
         </section>
 
         <FooterApp />
+        
       </div>
     </>
   );

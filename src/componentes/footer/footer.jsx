@@ -4,6 +4,7 @@ import des from "../../assets/img/dispositivos/desktop.png";
 import des2 from "../../assets/img/dispositivos/movil.png";
 import des3 from "../../assets/img/dispositivos/tablets.png";
 import des4 from "../../assets/img/dispositivos/web.png";
+import BottomNavigation from "../navBar/navMovil";
 export function FooterApp(props) {
     return (
       <>
@@ -28,6 +29,7 @@ export function FooterApp(props) {
           <p>© 2022-2023 Todos los Derechos Reservados por miMéxico®</p>
           <img src={imgfooter} alt=""  className='imgfooter'/>
         </footer>
+        <BottomNavigation/>
       </>
     );
   }

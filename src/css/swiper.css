@@ -23,6 +23,8 @@ body {
   align-items: center;
 }
 
+
+
 .swiper-slide img {
   display: block;
   width: 100%;
@@ -177,4 +179,24 @@ body {
 
 .custom-transition.show-poster {
   opacity: 0; /* Oculta el póster durante la transición */
+}
+
+
+@media (max-width: 500px) {
+
+  .swiper{
+    background-color: #222;
+    color: #ccc;
+  }
+
+  .swiper-slide {
+    background-color: #222;
+    color: #ccc;
+    border-radius: 2vw;
+  }
+
+  .swiper-slide img {
+    border-radius: 2vw;
+  }
+
 }
