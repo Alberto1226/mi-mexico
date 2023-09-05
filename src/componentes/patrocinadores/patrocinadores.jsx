@@ -15,7 +15,7 @@ import "./patrocinadores.css";
 import { withRouter } from "../../utils/withRouter";
 import queryString from "query-string";
 
-function Patorcinadores({history}) {
+function Patorcinadores({ history }) {
   const [formData, setFormData] = useState(initialFormValue());
   const [show, setShow] = useState(false);
 
@@ -59,6 +59,8 @@ function Patorcinadores({history}) {
             urlTwitter: formData.twPatrocinador,
             nivel: formData.nivel,
             estado: "true",
+            numeroApariciones: formData.numeroApariciones,
+            prioridadAparicion: formData.prioridadAparicion
           };
           registraPatrocinadores(dataTemp).then((response) => {
             const { data } = response;
@@ -173,6 +175,27 @@ function Patorcinadores({history}) {
                 <option value="3">3</option>
               </Form.Control>
 
+              <br />
+
+              <Form.Control
+                placeholder="Numero de apariciones"
+                type="number"
+                name="numeroApariciones"
+                defaultValue={formData.numeroApariciones}
+              />
+              <br />
+              <Form.Control
+                id="prioridadAparicion"
+                as="select"
+                name="prioridadAparicion"
+                defaultValue={formData.prioridadAparicion}
+              >
+                <option>¿Prioritario?</option>
+                <option value="1">SI</option>
+                <option value="0">NO</option>
+              </Form.Control>
+              <br />
+
               <label></label>
               <input className="submit" value="Enviar" type="submit" />
             </Form>
@@ -191,7 +214,9 @@ function initialFormValue() {
     fbPatrocinador: "",
     inPatrocinador: "",
     twPatrocinador: "",
-    nivel: ""
+    nivel: "",
+    numeroApariciones: "",
+    prioridadAparicion: ""
   };
 }
 

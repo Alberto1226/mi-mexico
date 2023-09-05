@@ -23,7 +23,9 @@ export default function ModificarPatorcinadores({ data, history, setShow }) {
     urlFacebook: data[4],
     urlInstagram: data[5],
     urlTwitter: data[6],
-    nivel: data[7]
+    nivel: data[7],
+    numeroApariciones: data[9],
+    prioridadAparicion: data[10]
   };
 
   const [formData, setFormData] = useState(initialFormValue(dataTemp));
@@ -66,6 +68,8 @@ export default function ModificarPatorcinadores({ data, history, setShow }) {
             urlTwitter: formData.twPatrocinador,
             nivel: formData.nivel,
             estado: "true",
+            numeroApariciones: formData.numeroApariciones,
+            prioridadAparicion: formData.prioridadAparicion
           };
           actualizarPatrocinadores(idPatrocinador, dataTemp).then((response) => {
             const { data } = response;
@@ -159,6 +163,27 @@ export default function ModificarPatorcinadores({ data, history, setShow }) {
             <option value="3" selected={formData.nivel == "3"}>3</option>
           </Form.Control>
 
+          <br />
+
+          <Form.Control
+            placeholder="Numero de apariciones"
+            type="number"
+            name="numeroApariciones"
+            defaultValue={formData.numeroApariciones}
+          />
+          <br />
+          <Form.Control
+            id="prioridadAparicion"
+            as="select"
+            name="prioridadAparicion"
+            defaultValue={formData.prioridadAparicion}
+          >
+            <option>¿Prioritario?</option>
+            <option value="1" selected={formData.prioridadAparicion == "1"}>SI</option>
+            <option value="0" selected={formData.prioridadAparicion == "0"}>NO</option>
+          </Form.Control>
+          <br />
+
           <label></label>
           <input className="submit" value="Enviar" type="submit" />
         </Form>
@@ -175,6 +200,8 @@ function initialFormValue(data) {
     fbPatrocinador: data.urlFacebook,
     inPatrocinador: data.urlInstagram,
     twPatrocinador: data.urlTwitter,
-    nivel: data.nivel
+    nivel: data.nivel,
+    numeroApariciones: data.numeroApariciones,
+    prioridadAparicion: data.prioridadAparicion
   };
 }

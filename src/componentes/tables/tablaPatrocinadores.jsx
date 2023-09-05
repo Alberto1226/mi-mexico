@@ -41,8 +41,8 @@ function TblPatrocinadores(props) {
             setListPatro(datosPatro);
           }
         })
-        .catch((e) => {});
-    } catch (e) {}
+        .catch((e) => { });
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -105,18 +105,48 @@ function TblPatrocinadores(props) {
       options: {
         customBodyRender: (value) => {
           const estado = value;
-    
+
           let estiloTexto = "";
           let estadoTexto = "";
-    
-          if (estado=="true") {
-            estiloTexto = "activo"; 
+
+          if (estado == "true") {
+            estiloTexto = "activo";
             estadoTexto = "Activo";
           } else {
-            estiloTexto = "inhabilitado"; 
+            estiloTexto = "inhabilitado";
             estadoTexto = "Inhabilitado";
           }
-    
+
+          return (
+            <div className={estiloTexto}>
+              {estadoTexto}
+            </div>
+          );
+        },
+      },
+    },
+    {
+      name: "numeroApariciones",
+      label: "NUMERO DE APARICIONES"
+    },
+    {
+      name: "prioridadAparicion",
+      label: "PRIORIDAD DE APARICION",
+      options: {
+        customBodyRender: (value) => {
+          const estado = value;
+
+          let estiloTexto = "";
+          let estadoTexto = "";
+
+          if (estado == "1") {
+            estiloTexto = "Prioritario";
+            estadoTexto = "Prioritario";
+          } else {
+            estiloTexto = "No prioritario";
+            estadoTexto = "No prioritario";
+          }
+
           return (
             <div className={estiloTexto}>
               {estadoTexto}
@@ -169,7 +199,7 @@ function TblPatrocinadores(props) {
                     <Modal.Title>Eliminar Pelicula</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <EliminarPatorcinadores data={selectedRowData} history={history} setShow={setShow2}/>
+                    <EliminarPatorcinadores data={selectedRowData} history={history} setShow={setShow2} />
                   </Modal.Body>
                 </Modal>
               </button>
@@ -208,6 +238,8 @@ function formatModelPatrocinadores(data) {
       urlTwitter: data.urlTwitter,
       nivel: data.nivel,
       estado: data.estado,
+      numeroApariciones: data.numeroApariciones,
+      prioridadAparicion: data.prioridadAparicion
     });
   });
   return dataTemp;
