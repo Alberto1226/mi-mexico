@@ -121,7 +121,7 @@ export function Login({ setRefreshCheckLogin }) {
         <div class="container">
           <div class="menu">
             <img src={img} alt="" className="imglogin" />
-            <label>
+            <label className="lblDesLogin">
               Únete a la plataforma de videos que promueve los destinos y
               cultura de México para el mundo
             </label>
@@ -152,10 +152,9 @@ export function Login({ setRefreshCheckLogin }) {
                     onClick={togglePasswordVisiblity}
                   />
                 </div>
-                <label>Ingresar con Google / Facebook</label>
+                <label>Ingresar con Google</label>
                 
-                  <Row>
-                    <Col>
+                  <div className="loginGoogle">
                       <GoogleOAuthProvider clientId="1088263342718-afnae66cqjekqmlbne7sri3l12gih38f.apps.googleusercontent.com">
                         <div>
                           <GoogleLogin
@@ -172,8 +171,8 @@ export function Login({ setRefreshCheckLogin }) {
                           />
                         </div>
                       </GoogleOAuthProvider>
-                    </Col>
-                    <Col>
+                    </div>
+                    {/** <Col>
                       <LoginSocialFacebook
                         appId="1332917397360640"
                         onResolve={(response) => {
@@ -186,7 +185,8 @@ export function Login({ setRefreshCheckLogin }) {
                         <FacebookLoginButton />
                       </LoginSocialFacebook>
                     </Col>
-                  </Row>
+                    */}
+                  
                 
                 <label>
                   ¿Olvidaste la contraseña?

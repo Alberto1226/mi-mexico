@@ -1,7 +1,7 @@
 
 .info p {
     text-align: center;
-    color: #999;
+    color: #e2e2e2;
     text-transform: none;
     font-weight: 600;
     font-size: 15px;
@@ -73,9 +73,9 @@
     left: 0;
     width: 100%;
     height: 900px;
-    background: #ffb649;
+    background: #444443;
     z-index: 2;
-    overflow: hidden;
+    overflow: auto;
   }
   
   .container {
@@ -108,9 +108,7 @@
     padding-bottom: 3px;
     border-bottom: 3px solid #1161ee;
   }
-  a:not(.active) {
-    cursor: inherit;
-  }
+  
   .menu .active h2 {
     border-bottom: 0 solid #1161ee;
     color: #aeaeae;
@@ -150,8 +148,9 @@
     padding: 5px 10px;
     font-size: 15px;
     font-weight: 600;
-    color: #000000;
+    color: #ffffff;
     text-align: center;
+    font-size: 12px;
   }
   
   input {
@@ -176,16 +175,16 @@
     padding: 10px;
     font-size: 17px;
     font-weight: 700;
-    color: #3afa00;
+    color: #55acee;
     opacity: 1;
     background-color: #252525;
     
-    border: 2px solid #00fa70;
+    border: 2px solid #55acee;
     cursor: pointer;
   }
   
   input.submit:hover{
-      background-color: #00fa60;
+      background-color: #55acee;
       color: #252525;
   }
   
@@ -245,6 +244,7 @@
   }
   .a{
       color: #fa00d9;
+      cursor: pointer;
   }
   .lblRecPass{
     text-align: center;
@@ -254,4 +254,17 @@
   .imglogin{
     width: 100%;
     height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+
+  .loginGoogle{
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    padding: 0 10vh 0 12vh;
+  }
+  .lblDesLogin{
+    font-size: 12px;
   }

@@ -2,6 +2,7 @@
     position: relative;
     display: inline-block;
     
+    
   }
   
   .item-3:hover .body-item {
@@ -52,4 +53,16 @@
 
   .description{
     font-size: 10px;
+  }
+
+
+  /*MOVIL*/
+  @media (max-width: 500px) {
+    .item-3 {
+      position: relative;
+      display: inline-block;
+      width: 85px;
+      height: 150px;
+      
+    }
   }

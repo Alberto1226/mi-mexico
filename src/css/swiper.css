@@ -193,10 +193,18 @@ body {
     background-color: #222;
     color: #ccc;
     border-radius: 2vw;
+    
   }
 
   .swiper-slide img {
     border-radius: 2vw;
+    
   }
 
+  .swiper-pagination-bullet {
+    display: none;
+    
+  }
+
+  
 }

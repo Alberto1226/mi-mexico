@@ -945,3 +945,85 @@ font-family: 'Titillium Web', sans-serif;
   margin-left: 30vw;
   
 }
+
+
+/* Estilo base para los botones de traducción */
+
+
+/* Estilo para el botón de idioma */
+.btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Estilo para el icono de idioma (FontAwesome) */
+.fa-language {
+  margin-right: 5px;
+}
+
+/* Estilo para el ícono de flecha hacia abajo (FontAwesome) */
+.fa-caret-down {
+  margin-left: 5px;
+}
+
+/* Estilo para el contenedor del menú desplegable */
+.language-dropdown {
+  display: inline-block;
+  position: fixed;
+  z-index: 3000;
+  margin-top: 12px;
+  margin-left: 10px;
+}
+
+/* Estilo para el contenido del menú desplegable */
+.language-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Estilo para los botones dentro del menú desplegable */
+.language-dropdown-content button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  text-align: left;
+  border: none;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+/* Cambia el color del botón de idioma cuando está activo (seleccionado) */
+.active {
+  background-color: #0056b3;
+}
+
+/* Muestra el menú desplegable cuando el botón de idioma se enfoca */
+.language-dropdown:focus-within .language-dropdown-content {
+  display: block;
+}
+
+/* Añade un espacio entre los botones en el menú desplegable */
+.language-dropdown-content button:not(:last-child) {
+  margin-bottom: 5px;
+}
+
+.iconTrad{
+  
+  border-radius: 2vw;
+  color: #b6b4b4;
+  font-size: 30px;
+}
+
+#languageDropdownButton{
+  background-color: transparent;
+  border-color: transparent;
+}

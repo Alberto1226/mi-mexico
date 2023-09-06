@@ -45,6 +45,7 @@ import { googleLogout } from "@react-oauth/google";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import BottomNavigation from "../../componentes/navBar/navMovil";
+import Traduction from "../../componentes/traduccion/traduccion";
 
 export function Home2() {
   const [listarDocumentales, setListDocumentales] = useState([]);
@@ -167,8 +168,10 @@ export function Home2() {
   };
   return (
     <>
+    
       <div>
         <ToastContainer />
+        <Traduction/>
         <div>
           {userData && (
             <div className="user-profile">

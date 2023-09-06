@@ -66,7 +66,7 @@ export function SwiperPatrocinadores(props) {
     let slidesToShow = 10; // Número predeterminado de slides a mostrar
 
     if (screenWidth < 768) {
-      slidesToShow = 6; // Si el ancho de la pantalla es menor a 768px, muestra solo 1 slide
+      slidesToShow = 5; // Si el ancho de la pantalla es menor a 768px, muestra solo 1 slide
     } else if (screenWidth < 1024) {
       slidesToShow = 8; // Si el ancho de la pantalla es menor a 1024px, muestra 2 slides
     }
