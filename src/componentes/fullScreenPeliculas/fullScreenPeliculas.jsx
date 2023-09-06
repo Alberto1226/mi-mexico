@@ -16,9 +16,9 @@ import Modal from "react-bootstrap/Modal";
 import Button from 'react-bootstrap/Button';
 import { SwiperPatrocinadores } from "../swiperPatrocinadores/swPatrocinadores";
 import { FooterApp } from "../footer/footer";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { listarPatrocinadoresPrioridad, actualizarPatrocinadores, obtenerPatrocinador } from "../../api/patrocinadores";
 
 SwiperCore.use([Pagination, Autoplay]);
 export function FullPeliculas(props) {
@@ -26,6 +26,7 @@ export function FullPeliculas(props) {
   const history = useNavigate();
   const [listarPel, setListPeliculas] = useState([{ id: "", urlVideo: "", titulo: "", sinopsis: "", duracion: "" }]);
   const [matchedIndex, setMatchedIndex] = useState(0);
+  const [contadorActual, setContadorActual] = useState(0);
   const { id } = queryString.parse(locations.search);
 
   const { location } = props;
@@ -168,8 +169,115 @@ export function FullPeliculas(props) {
 
   useEffect(() => {
     obtenerPelicula();
-  }, [location]);
+  }, []);
   console.log(matchedIndex)
+
+  const totalVistas = listarPel.reduce((amount, item) => (amount + parseInt(item.contador)), 0);
+  const media = totalVistas / listarPel.length;
+  function redondearDecimal(numero) {
+    return numero < 0.5 ? Math.floor(numero) : Math.ceil(numero);
+  }
+  console.log(media)
+  console.log(redondearDecimal(media))
+  console.log(totalVistas)
+  console.log(contadorActual)
+  console.log(listarPel[matchedIndex].id)
+
+  useEffect(() => {
+    obtenerPelicula();
+  }, []);
+
+  const [listarPatrocinadores, setListPatrocinadores] = useState([]);
+
+  const obtenerPatrocinadoresPrioritarios = () => {
+    try {
+      listarPatrocinadoresPrioridad("1")
+        .then((response) => {
+          const { data } = response;
+
+          if (!listarPatrocinadores && data) {
+            setListPatrocinadores(formatModelPatrocinadores(data));
+          } else {
+            const datosPel = formatModelPatrocinadores(data);
+            setListPatrocinadores(datosPel);
+          }
+        })
+        .catch((e) => { });
+    } catch (e) { }
+  };
+
+  const obtenerPatrocinadoresNoPrioritarios = () => {
+    try {
+      listarPatrocinadoresPrioridad("0")
+        .then((response) => {
+          const { data } = response;
+
+          if (!listarPatrocinadores && data) {
+            setListPatrocinadores(formatModelPatrocinadores(data));
+          } else {
+            const datosPel = formatModelPatrocinadores(data);
+            setListPatrocinadores(datosPel);
+          }
+        })
+        .catch((e) => { });
+    } catch (e) { }
+  };
+
+  useEffect(() => {
+    if (contadorActual >= redondearDecimal(media)) {
+      obtenerPatrocinadoresPrioritarios()
+    } 
+    else {
+      obtenerPatrocinadoresNoPrioritarios()
+    }
+  }, [media]);
+
+  console.log(listarPatrocinadores)
+
+  const patrocinadoresPagados = listarPatrocinadores.filter(patrocinador => parseInt(patrocinador.numeroApariciones) >= 0);
+
+  console.log(patrocinadoresPagados)
+
+  function generarNumeroAleatorio(minimo, maximo) {
+    // Genera un número aleatorio entre 0 y 1 (no incluido)
+    return Math.floor(Math.random() * (maximo - minimo)) + minimo;
+
+    // Redondea el número si es necesario (opcional)
+    // const numeroRedondeado = Math.round(numeroEnRango);
+  }
+
+  console.log(patrocinadoresPagados.length)
+
+  // Ejemplo de uso:
+  let numeroAleatorio = 0;
+  numeroAleatorio = generarNumeroAleatorio(0, patrocinadoresPagados.length); // Genera un número entre 1 y 10 (incluyendo 1, excluyendo 10)
+  console.log(numeroAleatorio);
+
+  const disminuirCantidadApariciones = () => {
+    try {
+      // console.log(data)
+      obtenerPatrocinador(patrocinadoresPagados[numeroAleatorio]?.id).then(response => {
+        const { data } = response;
+        console.log(data)
+        const dataTemp = {
+          numeroApariciones: parseInt(data.numeroApariciones) - 1
+        }
+        actualizarPatrocinadores(patrocinadoresPagados[numeroAleatorio]?.id, dataTemp).then(response => {
+          // console.log(response)
+        }).catch(e => {
+          console.log(e)
+        })
+
+      }).catch(e => {
+        console.log(e)
+      })
+        .catch((e) => { });
+    } catch (e) { }
+  };
+
+  useEffect(() => {
+    disminuirCantidadApariciones();
+  }, [numeroAleatorio]);
 
   const registrarHistorial = () => {
     try {
@@ -177,6 +285,7 @@ export function FullPeliculas(props) {
       obtenerPeliculas(id).then(response => {
         const { data } = response;
         console.log(data)
+        setContadorActual(parseInt(data.contador));
         const dataTemp = {
           id_usuario: obtenidusuarioLogueado(getTokenApi()),
           id_reproduccion: data._id,
@@ -199,7 +308,7 @@ export function FullPeliculas(props) {
 
   useEffect(() => {
     registrarHistorial();
-  }, [location]);
+  }, []);
 
   const [slides, setSlides] = useState(5); // Número inicial de slides a mostrar
 
@@ -292,9 +401,9 @@ export function FullPeliculas(props) {
                   <h2>Patrocinador oficial</h2>
                   <img
                     src={
-                      listarPel[matchedIndex].patrocinadorPortada === undefined
+                      patrocinadoresPagados[numeroAleatorio]?.urlImagen == undefined
                         ? ''
-                        : listarPel[matchedIndex].patrocinadorPortada
+                        : patrocinadoresPagados[numeroAleatorio]?.urlImagen
                     }
                     alt="Patrocinador"
                     style={{ maxWidth: '100%', height: 'auto' }}
@@ -333,6 +442,26 @@ function formatModelPeliculas(data) {
       estado: data.estado,
       patrocinador: data.patrocinador,
       patrocinadorPortada: data.patrocinadorPortada,
+    });
+  });
+  return dataTemp;
+}
+
+function formatModelPatrocinadores(data) {
+  const dataTemp = [];
+  data.forEach((data) => {
+    dataTemp.push({
+      id: data._id,
+      nombre: data.nombre,
+      urlImagen: data.urlImagen,
+      urlWeb: data.urlWeb,
+      urlFacebook: data.urlFacebook,
+      urlInstagram: data.urlInstagram,
+      urlTwitter: data.urlTwitter,
+      nivel: data.nivel,
+      estado: data.estado,
+      numeroApariciones: data.numeroApariciones,
+      prioridadAparicion: data.prioridadAparicion
     });
   });
   return dataTemp;

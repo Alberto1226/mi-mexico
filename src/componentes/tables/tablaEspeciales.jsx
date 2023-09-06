@@ -169,14 +169,6 @@ function TblEspeciales(props) {
       },
     },
     {
-      name: "patrocinador",
-      label: "PATROCINADOR",
-    },
-    {
-      name: "patrocinadorPortada",
-      label: "PORTADA DEL PATROCINADOR",
-    },
-    {
       name: "Acciones",
       options: {
         filter: false,

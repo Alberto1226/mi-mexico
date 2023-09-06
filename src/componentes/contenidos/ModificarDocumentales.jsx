@@ -294,17 +294,6 @@ export default function ModificarDocumentales({ data, setShow, history }) {
             name="anio"
             defaultValue={formData.anio}
           />
-          <Form.Control
-            id="patrocinador"
-            as="select"
-            name="patrocinador"
-            defaultValue={formData.patrocinador}
-          >
-            <option>Elige un patrocinador</option>
-            {map(listarPatrocinadoress, (cat, index) => (
-              <option key={index} value={cat?.id + "," + cat?.urlImagen} selected={cat?.id + "," + cat?.urlImagen == formData.patrocinador}>{cat?.nombre}</option>
-            ))}
-          </Form.Control>
           <br />
           <hr />
           <Badge bg="secondary" className="tituloFormularioDetalles">

@@ -60,6 +60,7 @@ export function Dashboard() {
   const [listarPelicula, setListPelicula] = useState([]);
   const [listarDocumentales, setListDocumentales] = useState([]);
   const [listarSerEsp, setListSeriesEspeciales] = useState([]);
+  const [listarEspeciales, setListEspeciales] = useState([]);
 
   const [activeMenu, setActiveMenu] = useState("home");
   const [showComponent, setShowComponent] = useState(false);
@@ -179,6 +180,7 @@ export function Dashboard() {
             {loading && <Load />}
             <NavPrincipal
               listarDocumentales={listarDocumentales}
+              listarEspeciales={listarEspeciales}
               listarPeliculas={listarPelicula}
               listarSeries={listarSer}
               listarSeriesEspeciales={listarSerEsp}

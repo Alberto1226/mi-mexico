@@ -28,7 +28,6 @@ export async function obtenerPeliculas(id) {
     return await axios.get(API_HOST + ENDPOINTObtenerPelicula + `/${id}`, config);
 }
 
-
 export async function actualizarContadorPeliculas(id, data) {
 
     const config = {

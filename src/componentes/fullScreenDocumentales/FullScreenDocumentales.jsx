@@ -11,18 +11,18 @@ import "../../css/swiper.css";
 import "../../css/cardHeader.css";
 import { registraHistorialUsuario } from "../../api/historialUsuarios";
 import { getTokenApi, obtenidusuarioLogueado } from "../../api/auth";
-import {FullNav} from "../navcompleto/navCompleto";
-import Modal from "react-bootstrap/Modal";
-import { SwiperPatrocinadores } from "../swiperPatrocinadores/swPatrocinadores";
+import { FullNav } from "../navcompleto/navCompleto";
 import { FooterApp } from "../footer/footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { listarPatrocinadoresPrioridad, actualizarPatrocinadores, obtenerPatrocinador } from "../../api/patrocinadores";
 
 SwiperCore.use([Pagination, Autoplay]);
 export function FullDocumentales(props) {
   const locations = useLocation();
-  const [listarPel, setListPeliculas] = useState([{id: "", urlVideo: "", titulo: "", sinopsis: "", duracion: ""}]);
+  const [listarPel, setListPeliculas] = useState([{ id: "", urlVideo: "", titulo: "", sinopsis: "", duracion: "" }]);
   const [matchedIndex, setMatchedIndex] = useState(0);
+  const [contadorActual, setContadorActual] = useState(0);
   const { id } = queryString.parse(locations.search);
 
   const { location } = props;
@@ -100,17 +100,16 @@ export function FullDocumentales(props) {
       listarPeliculas("documentales")
         .then((response) => {
           const { data } = response;
-  
+
           if (!listarPel && data) {
             setListPeliculas(formatModelPeliculas(data));
           } else {
             const datosPel = formatModelPeliculas(data);
-  
+
             // Check if there is a match in the filtered data
             if (datosPel.length > 0) {
               // Get the index of the first match in the filtered data
               const matchIndex = datosPel.findIndex((data) => data.id === id);
-  
               // Store the index in a variable (e.g., matchedIndex)
               // You need to declare the state variable for matchedIndex using useState before using it here.
               setMatchedIndex(matchIndex);
@@ -118,7 +117,7 @@ export function FullDocumentales(props) {
               // No match found
               setMatchedIndex(-1);
             }
-  
+
             // Update the state with the filtered data
             setListPeliculas(datosPel);
           }
@@ -131,9 +130,112 @@ export function FullDocumentales(props) {
     }
   };
 
+  const totalVistas = listarPel.reduce((amount, item) => (amount + parseInt(item.contador)), 0);
+  const media = totalVistas / listarPel.length;
+  function redondearDecimal(numero) {
+    return numero < 0.5 ? Math.floor(numero) : Math.ceil(numero);
+  }
+  console.log(media)
+  console.log(redondearDecimal(media))
+  console.log(totalVistas)
+  console.log(contadorActual)
+  console.log(listarPel[matchedIndex].id)
+
   useEffect(() => {
     obtenerPelicula();
-  }, [location]);
+  }, []);
+
+  const [listarPatrocinadores, setListPatrocinadores] = useState([]);
+
+  const obtenerPatrocinadoresPrioritarios = () => {
+    try {
+      listarPatrocinadoresPrioridad("1")
+        .then((response) => {
+          const { data } = response;
+
+          if (!listarPatrocinadores && data) {
+            setListPatrocinadores(formatModelPatrocinadores(data));
+          } else {
+            const datosPel = formatModelPatrocinadores(data);
+            setListPatrocinadores(datosPel);
+          }
+        })
+        .catch((e) => { });
+    } catch (e) { }
+  };
+
+  const obtenerPatrocinadoresNoPrioritarios = () => {
+    try {
+      listarPatrocinadoresPrioridad("0")
+        .then((response) => {
+          const { data } = response;
+
+          if (!listarPatrocinadores && data) {
+            setListPatrocinadores(formatModelPatrocinadores(data));
+          } else {
+            const datosPel = formatModelPatrocinadores(data);
+            setListPatrocinadores(datosPel);
+          }
+        })
+        .catch((e) => { });
+    } catch (e) { }
+  };
+
+  useEffect(() => {
+    if (contadorActual >= redondearDecimal(media)) {
+      obtenerPatrocinadoresPrioritarios()
+    } 
+    else {
+      obtenerPatrocinadoresNoPrioritarios()
+    }
+  }, [media]);
+
+  console.log(listarPatrocinadores)
+
+  const patrocinadoresPagados = listarPatrocinadores.filter(patrocinador => parseInt(patrocinador.numeroApariciones) >= 0);
+
+  console.log(patrocinadoresPagados)
+
+  function generarNumeroAleatorio(minimo, maximo) {
+    // Genera un número aleatorio entre 0 y 1 (no incluido)
+    return Math.floor(Math.random() * (maximo - minimo)) + minimo;
+
+    // Redondea el número si es necesario (opcional)
+    // const numeroRedondeado = Math.round(numeroEnRango);
+  }
+
+  console.log(patrocinadoresPagados.length)
+
+  // Ejemplo de uso:
+  let numeroAleatorio = 0;
+  numeroAleatorio = generarNumeroAleatorio(0, patrocinadoresPagados.length); // Genera un número entre 1 y 10 (incluyendo 1, excluyendo 10)
+  console.log(numeroAleatorio);
+
+  const disminuirCantidadApariciones = () => {
+    try {
+      // console.log(data)
+      obtenerPatrocinador(patrocinadoresPagados[numeroAleatorio]?.id).then(response => {
+        const { data } = response;
+        console.log(data)
+        const dataTemp = {
+          numeroApariciones: parseInt(data.numeroApariciones) - 1
+        }
+        actualizarPatrocinadores(patrocinadoresPagados[numeroAleatorio]?.id, dataTemp).then(response => {
+          // console.log(response)
+        }).catch(e => {
+          console.log(e)
+        })
+
+      }).catch(e => {
+        console.log(e)
+      })
+        .catch((e) => { });
+    } catch (e) { }
+  };
+
+  useEffect(() => {
+    disminuirCantidadApariciones();
+  }, [numeroAleatorio]);
 
   const registrarHistorial = () => {
     try {
@@ -141,6 +243,7 @@ export function FullDocumentales(props) {
       obtenerPeliculas(id).then(response => {
         const { data } = response;
         console.log(data)
+        setContadorActual(parseInt(data.contador));
         const dataTemp = {
           id_usuario: obtenidusuarioLogueado(getTokenApi()),
           id_reproduccion: data._id,
@@ -163,7 +266,7 @@ export function FullDocumentales(props) {
 
   useEffect(() => {
     registrarHistorial();
-  }, [location]);
+  }, []);
 
   const [slides, setSlides] = useState(5); // Número inicial de slides a mostrar
 
@@ -193,20 +296,11 @@ export function FullDocumentales(props) {
     setMatchedIndex((prevIndex) => (prevIndex + 1) % listarPel.length);
   };
 
-
-  //modal
-  const [isModalOpen, setIsModalOpen] = useState(true);
-
   const [show, setShow] = useState(true);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
 
   useEffect(() => {
     window.scrollTo(0, 0); // Mueve la página al inicio
   }, []);
-
-
 
   //const [show, setShow] = useState(true); // Cambiado a true para que esté abierta por defecto
 
@@ -220,13 +314,13 @@ export function FullDocumentales(props) {
       {listarPel.length > 0 && (
         <div key={listarPel[matchedIndex].id ?? ""}>
           <video ref={videoRef} id="videofull" src={listarPel[matchedIndex].urlVideo == undefined ? "" : listarPel[matchedIndex].urlVideo} autoPlay controls width={"100%"} height={"100%"}></video>
-        {/**<button onClick={handleNextVideo} className="nextvideo">Next Video</button> */}
+          {/**<button onClick={handleNextVideo} className="nextvideo">Next Video</button> */}
           <div className="informacionserie">
             <h6 className="tituloSerie">{listarPel[matchedIndex].titulo == undefined ? "" : listarPel[matchedIndex].titulo}<button onClick={handleNextVideo} className="nextvideo2">Next Video <FontAwesomeIcon icon={faArrowRight} /></button></h6>
             <h6 className="sinopsis">{listarPel[matchedIndex].sinopsis == undefined ? "" : listarPel[matchedIndex].sinopsis}</h6>
             <h6 className="añoserie">{listarPel[matchedIndex].duracion == undefined ? "" : listarPel[matchedIndex].duracion}</h6>
           </div>
-         {/**  <Modal show={show} onHide={handleClose}>
+          {/**  <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Patrocinador oficial</Modal.Title>
         </Modal.Header>
@@ -235,58 +329,58 @@ export function FullDocumentales(props) {
       </Modal>*/}
 
 
-<div>
-      {show && (
-        <div
-          style={{
-            position: 'fixed',
-            bottom: '20px',
-            right: '20px',
-            borderRadius: '10px',
-            backgroundColor: 'white',
-            border: '1px solid #ccc',
-            width: '200px', // Ancho deseado del recuadro
-            boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
-            zIndex: 9999,
-          }}
-        >
-          <button
-            style={{
-              position: 'absolute',
-              top: '5px',
-              right: '5px',
-              cursor: 'pointer',
-              backgroundColor: 'transparent',
-              border: 'none',
-            }}
-            onClick={cerrarVentanaFlotante}
-          >
-            X
-          </button>
-          <div style={{ padding: '10px' }}>
-            <h2>Patrocinador oficial</h2>
-            <img
-              src={
-                listarPel[matchedIndex].patrocinadorPortada === undefined
-                  ? ''
-                  : listarPel[matchedIndex].patrocinadorPortada
-              }
-              alt="Patrocinador"
-              style={{ maxWidth: '100%', height: 'auto' }}
-            />
+          <div>
+            {show && (
+              <div
+                style={{
+                  position: 'fixed',
+                  bottom: '20px',
+                  right: '20px',
+                  borderRadius: '10px',
+                  backgroundColor: 'white',
+                  border: '1px solid #ccc',
+                  width: '200px', // Ancho deseado del recuadro
+                  boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
+                  zIndex: 9999,
+                }}
+              >
+                <button
+                  style={{
+                    position: 'absolute',
+                    top: '5px',
+                    right: '5px',
+                    cursor: 'pointer',
+                    backgroundColor: 'transparent',
+                    border: 'none',
+                  }}
+                  onClick={cerrarVentanaFlotante}
+                >
+                  X
+                </button>
+                <div style={{ padding: '10px' }}>
+                  <h2>Patrocinador oficial</h2>
+                  <img
+                    src={
+                      patrocinadoresPagados[numeroAleatorio]?.urlImagen == undefined
+                        ? ''
+                        : patrocinadoresPagados[numeroAleatorio]?.urlImagen
+                    }
+                    alt="Patrocinador"
+                    style={{ maxWidth: '100%', height: 'auto' }}
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
-    </div>
-        </div>
-      )}
 
 
 
-       {/**footer */}
-       
+      {/**footer */}
 
-        <FooterApp />
+
+      <FooterApp />
     </>
   );
 }
@@ -310,11 +404,32 @@ function formatModelPeliculas(data) {
       masVisto: data.masVisto,
       recomendado: data.recomendado,
       urlVideo: data.urlVideo,
+      contador: data.contador,
       urlPortada: data.urlPortada,
       seccion: data.seccion,
       estado: data.estado,
       patrocinador: data.patrocinador,
       patrocinadorPortada: data.patrocinadorPortada,
+    });
+  });
+  return dataTemp;
+}
+
+function formatModelPatrocinadores(data) {
+  const dataTemp = [];
+  data.forEach((data) => {
+    dataTemp.push({
+      id: data._id,
+      nombre: data.nombre,
+      urlImagen: data.urlImagen,
+      urlWeb: data.urlWeb,
+      urlFacebook: data.urlFacebook,
+      urlInstagram: data.urlInstagram,
+      urlTwitter: data.urlTwitter,
+      nivel: data.nivel,
+      estado: data.estado,
+      numeroApariciones: data.numeroApariciones,
+      prioridadAparicion: data.prioridadAparicion
     });
   });
   return dataTemp;

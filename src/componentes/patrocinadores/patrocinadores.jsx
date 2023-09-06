@@ -95,10 +95,6 @@ function Patorcinadores({ history }) {
         <Button variant="primary" onClick={handleShow} className="btnadd">
           <FontAwesomeIcon icon={faPlus} />
         </Button>
-        <div>
-          <button onClick={notify}>Notify!</button>
-          <ToastContainer />
-        </div>
         <h1 class="text-center">Listado de Patrocinador</h1>
         <TblPatrocinadores />
       </div>

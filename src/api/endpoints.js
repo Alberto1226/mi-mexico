@@ -61,8 +61,10 @@ export const ENDPOINTEliminarCapitulosSeries = "/capitulosSeries/eliminar";
 
 // Patrocinadores
 export const ENDPOINTListarPatrocinadores = "/patrocinadores/listar";
+export const ENDPOINTListarPatrocinadoresPrioridad = "/patrocinadores/listarPorPrioridad";
 export const ENDPOINTRegistrarPatrocinadores = "/patrocinadores/registro";
 export const ENDPOINTModificarPatrocinadores = "/patrocinadores/actualizar";
 export const ENDPOINTEliminarPatrocinadores = "/patrocinadores/eliminar";
+export const ENDPOINTObtenerPatrocinadores = "/patrocinadores/obtenerPatrocinador";
 
 

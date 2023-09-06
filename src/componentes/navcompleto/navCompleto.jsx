@@ -27,6 +27,29 @@ export function FullNav() {
     obtenerDocumentales();
   }, []);
 
+  const [listarEspeciales, setListEspeciales] = useState([]);
+
+  const obtenerEspeciales = () => {
+    try {
+      listarPeliculas("especiales")
+        .then((response) => {
+          const { data } = response;
+
+          if (!listarEspeciales && data) {
+            setListEspeciales(formatModelPeliculas(data));
+          } else {
+            const datosDoc = formatModelPeliculas(data);
+            setListEspeciales(datosDoc);
+          }
+        })
+        .catch((e) => {});
+    } catch (e) {}
+  };
+
+  useEffect(() => {
+    obtenerEspeciales();
+  }, []);
+
   const [listarPelicula, setListPelicula] = useState([]);
 
   const obtenerPeliculas = () => {
@@ -102,6 +125,7 @@ export function FullNav() {
     <>
       <NavPrincipal
         listarDocumentales={listarDocumentales}
+        listarEspeciales={listarEspeciales}
         listarPeliculas={listarPelicula}
         listarSeries={listarSer}
         listarSeriesEspeciales={listarSerEsp}

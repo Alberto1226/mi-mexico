@@ -646,17 +646,6 @@ function SeriesEspeciales({ history }) {
                 name="urlTrailer"
                 defaultValue={formData.urlTrailer}
               />
-              <Form.Control
-                id="patrocinador"
-                as="select"
-                name="patrocinador"
-                defaultValue={formData.patrocinador}
-              >
-                <option>Elige un patrocinador</option>
-                {map(listarPatrocinadoress, (cat, index) => (
-                  <option key={index} value={cat?.id + "," + cat?.urlImagen}>{cat?.nombre}</option>
-                ))}
-              </Form.Control>
               <hr />
               <Badge bg="secondary" className="tituloFormularioDetalles">
                 <h4>A continuación, especifica las categorias</h4>

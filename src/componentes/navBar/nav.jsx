@@ -36,8 +36,8 @@ import { googleLogout } from "@react-oauth/google";
 
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
-export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales, listarSeriesEspeciales }) {
-  const listaMultimedia = listarSeries.concat(listarPeliculas, listarDocumentales, listarSeriesEspeciales);
+export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales, listarSeriesEspeciales, listarEspeciales }) {
+  const listaMultimedia = listarSeries.concat(listarPeliculas, listarDocumentales, listarSeriesEspeciales, listarEspeciales);
   console.log(listaMultimedia)
   const [isInputOpen, setIsInputOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
