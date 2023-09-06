@@ -837,8 +837,8 @@ font-family: 'Titillium Web', sans-serif;
 }
 
 /* Estilos para el contenido del modal */
-.modal-dialog {
-  max-width: 90%;
+.mdlCategorias {
+  max-width: 100%;
 }
 
 /* Agregar un borde personalizado */

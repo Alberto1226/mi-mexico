@@ -231,6 +231,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
                 dialogClassName="modal-90w"
                 backdrop="static"
                 keyboard={false}
+                className="mdlCategorias"
               >
                 <Modal.Header closeButton className="modalcategory">
 

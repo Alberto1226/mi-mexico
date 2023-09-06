@@ -79,7 +79,7 @@ export function CardsUser(props) {
       {/**Modal */}
       <Modal show={show} onHide={handleClose} size="lg">
         <Modal.Body class="modalBackgound">
-          <div class="card__modal-content">
+          <div class="card__modal-contentPel">
             <div class="video-background">
               <div class="video-foreground">
                 <ReactPlayer
