@@ -28,6 +28,8 @@ function Documentales({ history }) {
 
   //Para almacenar la imagen del producto que se guardara a la bd
   const [imagenPortadaPelicula, setImagenPortadaPelicula] = useState(null);
+  //Para almacenar la imagen del producto que se guardara a la bd
+  const [imagenPortadaPeliculaMovil, setImagenPortadaPeliculaMovil] = useState(null);
 
   const [listarCat, setListCategorias] = useState([]);
   const [listarCategoria, setListarCategoria] = useState([]);
@@ -106,6 +108,50 @@ function Documentales({ history }) {
     }, 500);
   }, []);
 
+  const [linkImagen1, setLinkImagen1] = useState("");
+
+  const cargarImagen1 = () => {
+    try {
+      subeArchivosCloudinary(imagenPortadaPelicula, "portadasDocumentales").then(response => {
+        const { data } = response;
+        // console.log(data)
+        const { secure_url } = data;
+        setLinkImagen1(secure_url)
+      }).catch(e => {
+        console.log(e)
+      })
+    } catch (e) {
+      console.log(e)
+
+    }
+  }
+
+  useEffect(() => {
+    cargarImagen1();
+  }, [imagenPortadaPelicula]);
+
+  const [linkImagen2, setLinkImagen2] = useState("");
+
+  const cargarImagen2 = () => {
+    try {
+      subeArchivosCloudinary(imagenPortadaPeliculaMovil, "portadasDocumentales").then(response => {
+        const { data } = response;
+        // console.log(data)
+        const { secure_url } = data;
+        setLinkImagen2(secure_url)
+      }).catch(e => {
+        console.log(e)
+      })
+    } catch (e) {
+      console.log(e)
+
+    }
+  }
+
+  useEffect(() => {
+    cargarImagen2();
+  }, [imagenPortadaPeliculaMovil]);
+
   //insert
   const onSubmit = (e) => {
     e.preventDefault();
@@ -114,50 +160,44 @@ function Documentales({ history }) {
       toast.warning("Completa el formulario");
     } else {
       try {
-        subeArchivosCloudinary(imagenPortadaPelicula, "portadasDocumentales")
-          .then((response) => {
-            const { data } = response;
-            setLoading(true);
-            // Sube a cloudinary la imagen principal del producto
-            const data2 = formData.patrocinador.split(",")
-            const dataTemp = {
-              titulo: formData.nombre,
-              categorias: listarCat,
-              actores: formData.actores,
-              director: formData.director,
-              duracion: formData.duracion,
-              tipo: "",
-              sinopsis: formData.sinopsis,
-              calificacion: "",
-              año: formData.anio,
-              disponibilidad: "",
-              masVisto: "",
-              tipo: "documentales",
-              recomendado: formData.recomendado,
-              urlVideo: formData.archPelicula,
-              contador: "0",
-              urlPortada: data.secure_url,
-              seccion: "",
-              estado: "true",
-              patrocinador: data2[0],
-              patrocinadorPortada: data2[1]
-            };
-            registraPeliculas(dataTemp).then((response) => {
-              const { data } = response;
-              //notificacion
+        setLoading(true);
+        // Sube a cloudinary la imagen principal del producto
+        const data2 = formData.patrocinador.split(",")
+        const dataTemp = {
+          titulo: formData.nombre,
+          categorias: listarCat,
+          actores: formData.actores,
+          director: formData.director,
+          duracion: formData.duracion,
+          tipo: "",
+          sinopsis: formData.sinopsis,
+          calificacion: "",
+          año: formData.anio,
+          disponibilidad: "",
+          masVisto: "",
+          tipo: "documentales",
+          recomendado: formData.recomendado,
+          urlVideo: formData.archPelicula,
+          contador: "0",
+          urlPortada: linkImagen1,
+          seccion: "",
+          estado: "true",
+          patrocinador: data2[0],
+          patrocinadorPortada: data2[1],
+          urlPortadaMovil: linkImagen2
+        };
+        registraPeliculas(dataTemp).then((response) => {
+          const { data } = response;
+          //notificacion
 
-              toast.success(data.mensaje);
-              history({
-                search: queryString.stringify(""),
-              });
-              setLoading(false);
-              setShow(false);
-              //cancelarRegistro()
-            });
-          })
-          .then((e) => {
-            console.log(e);
+          toast.success(data.mensaje);
+          history({
+            search: queryString.stringify(""),
           });
+          setLoading(false);
+          setShow(false);
+          //cancelarRegistro()
+        });
       } catch (e) {
         console.log(e);
       }
@@ -203,6 +243,8 @@ function Documentales({ history }) {
     setListCategorias([...newArray]);
   }
 
+
+
   return (
     <>
       {loading && <Load />}
@@ -235,6 +277,17 @@ function Documentales({ history }) {
                   className="imagenPortadaPelicula"
                 >
                   <Dropzone setImagenFile={setImagenPortadaPelicula} />
+                </div>
+              </div>
+              <br />
+
+              <div className="imagenPrincipal">
+                <h4 className="textoImagenPrincipal">Sube tu imagen para movil</h4>
+                <div
+                  title="Seleccionar imagen de la categoría"
+                  className="imagenPortadaPelicula"
+                >
+                  <Dropzone setImagenFile={setImagenPortadaPeliculaMovil} />
                 </div>
               </div>
               <br />

@@ -303,6 +303,7 @@ function formatModelSeries(data) {
       masVisto: data.masVisto,
       recomendado: data.recomendado,
       urlPortada: data.urlPortada,
+      contador: data.contador,
       urlTrailer: data.urlTrailer,
       seccion: data.seccion,
       estado: data.estado,

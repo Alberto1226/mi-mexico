@@ -243,6 +243,7 @@ function formatModelSeries(data) {
       disponibilidad: data.disponibilidad,
       masVisto: data.masVisto,
       recomendado: data.recomendado,
+      contador: data.contador,
       urlPortada: data.urlPortada,
       urlTrailer: data.urlTrailer,
       seccion: data.seccion,

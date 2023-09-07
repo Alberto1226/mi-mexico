@@ -169,6 +169,10 @@ function TblEspeciales(props) {
       },
     },
     {
+      name: "urlPortadaMovil",
+      label: "URL PORTADA MOVIL",
+    },
+    {
       name: "Acciones",
       options: {
         filter: false,
@@ -265,6 +269,7 @@ function formatModelPeliculas(data) {
       estado: data.estado,
       patrocinador: data.patrocinador,
       patrocinadorPortada: data.patrocinadorPortada,
+      urlPortadaMovil: data.urlPortadaMovil,
     });
   });
   return dataTemp;

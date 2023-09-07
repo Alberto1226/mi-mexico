@@ -18,7 +18,7 @@ import queryString from "query-string";
 import { listarPatrocinadores } from "../../api/patrocinadores";
 
 export default function ModificarDocumentales({ data, setShow, history }) {
-
+console.log(data)
   const idDocumental = data[0];
 
   const dataTemp = {
@@ -37,6 +37,8 @@ export default function ModificarDocumentales({ data, setShow, history }) {
 
   //Para almacenar la imagen del producto que se guardara a la bd
   const [imagenPortadaPelicula, setImagenPortadaPelicula] = useState(data[13]);
+  //Para almacenar la imagen del producto que se guardara a la bd
+  const [imagenPortadaPeliculaMovil, setImagenPortadaPeliculaMovil] = useState(data[15]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -118,6 +120,49 @@ export default function ModificarDocumentales({ data, setShow, history }) {
       });
   };
 
+  const [linkImagen1, setLinkImagen1] = useState("");
+
+  const cargarImagen1 = () => {
+    try {
+      subeArchivosCloudinary(imagenPortadaPelicula, "portadasDocumentales").then(response => {
+        const { data } = response;
+        // console.log(data)
+        const { secure_url } = data;
+        setLinkImagen1(secure_url)
+      }).catch(e => {
+        console.log(e)
+      })
+    } catch (e) {
+      console.log(e)
+
+    }
+  }
+
+  useEffect(() => {
+    cargarImagen1();
+  }, [imagenPortadaPelicula]);
+
+  const [linkImagen2, setLinkImagen2] = useState("");
+
+  const cargarImagen2 = () => {
+    try {
+      subeArchivosCloudinary(imagenPortadaPeliculaMovil, "portadasDocumentales").then(response => {
+        const { data } = response;
+        // console.log(data)
+        const { secure_url } = data;
+        setLinkImagen2(secure_url)
+      }).catch(e => {
+        console.log(e)
+      })
+    } catch (e) {
+      console.log(e)
+
+    }
+  }
+
+  useEffect(() => {
+    cargarImagen2();
+  }, [imagenPortadaPeliculaMovil]);
 
   //insert
   const onSubmit = (e) => {
@@ -127,9 +172,6 @@ export default function ModificarDocumentales({ data, setShow, history }) {
       toast.warning("Completa el formulario");
     } else {
       try {
-        subeArchivosCloudinary(imagenPortadaPelicula, "portadasDocumentales")
-          .then((response) => {
-            const { data } = response;
             setLoading(true);
             // Sube a cloudinary la imagen principal del producto
             const data2 = formData.patrocinador.split(",")
@@ -146,10 +188,11 @@ export default function ModificarDocumentales({ data, setShow, history }) {
               masVisto: "",
               recomendado: "",
               urlVideo: formData.archPelicula,
-              urlPortada: data.secure_url,
+              urlPortada: linkImagen1,
               seccion: "",
               patrocinador: data2[0],
-              patrocinadorPortada: data2[1]
+              patrocinadorPortada: data2[1],
+              urlPortadaMovil: linkImagen2
             };
             actualizarPeliculas(idDocumental, dataTemp).then((response) => {
               const { data } = response;
@@ -164,10 +207,6 @@ export default function ModificarDocumentales({ data, setShow, history }) {
               setShow(false);
               //cancelarRegistro()
             });
-          })
-          .then((e) => {
-            console.log(e);
-          });
       } catch (e) {
         console.log(e);
       }
@@ -227,6 +266,19 @@ export default function ModificarDocumentales({ data, setShow, history }) {
               <Dropzone
                 setImagenFile={setImagenPortadaPelicula}
                 imagenProductoBD={data[13]} />
+            </div>
+          </div>
+          <br />
+
+          <div className="imagenPrincipal">
+            <h4 className="textoImagenPrincipal">Sube tu imagen para movil</h4>
+            <div
+              title="Seleccionar imagen de la categoría"
+              className="imagenPortadaPelicula"
+            >
+              <Dropzone
+                setImagenFile={setImagenPortadaPeliculaMovil}
+                imagenProductoBD={data[15]} />
             </div>
           </div>
           <br />

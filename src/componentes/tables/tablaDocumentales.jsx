@@ -141,7 +141,6 @@ function TblDocumentales(props) {
       name: "urlPortada",
       label: "URL PORTADA",
     },
-
     {
       name: "estado",
       label: "STATUS",
@@ -167,6 +166,10 @@ function TblDocumentales(props) {
           );
         },
       },
+    },
+    {
+      name: "urlPortadaMovil",
+      label: "URL PORTADA MOVIL",
     },
     {
       name: "Acciones",
@@ -264,7 +267,8 @@ function formatModelPeliculas(data) {
       seccion: data.seccion,
       estado: data.estado,
       patrocinador: data.patrocinador,
-      patrocinadorPortada: data.patrocinadorPortada
+      patrocinadorPortada: data.patrocinadorPortada,
+      urlPortadaMovil: data.urlPortadaMovil,
     });
   });
   return dataTemp;

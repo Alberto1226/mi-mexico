@@ -205,6 +205,10 @@ function TblSeries(props) {
       },
     },
     {
+      name: "urlPortadaMovil",
+      label: "URL PORTADA MOVIL",
+    },
+    {
       name: "Acciones",
       options: {
         filter: false,
@@ -337,7 +341,8 @@ function formatModelSeries(data) {
       seccion: data.seccion,
       estado: data.estado,
       patrocinador: data.patrocinador,
-      patrocinadorPortada: data.patrocinadorPortada
+      patrocinadorPortada: data.patrocinadorPortada,
+      urlPortadaMovil: data.urlPortadaMovil,
     });
   });
   return dataTemp;

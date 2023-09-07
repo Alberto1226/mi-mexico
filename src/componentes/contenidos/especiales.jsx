@@ -33,6 +33,13 @@ function Especiales({ history }) {
   const [imagenPortadaPelicula4, setImagenPortadaPelicula4] = useState(null);
   const [imagenPortadaPelicula5, setImagenPortadaPelicula5] = useState(null);
 
+  //Para almacenar la imagen del producto que se guardara a la bd
+  const [imagenPortadaPeliculaMovil1, setImagenPortadaPeliculaMovil1] = useState(null);
+  const [imagenPortadaPeliculaMovil2, setImagenPortadaPeliculaMovil2] = useState(null);
+  const [imagenPortadaPeliculaMovil3, setImagenPortadaPeliculaMovil3] = useState(null);
+  const [imagenPortadaPeliculaMovil4, setImagenPortadaPeliculaMovil4] = useState(null);
+  const [imagenPortadaPeliculaMovil5, setImagenPortadaPeliculaMovil5] = useState(null);
+
   const [listarCat, setListCategorias] = useState([]);
   const [listarCategoria, setListarCategoria] = useState([]);
 
@@ -197,6 +204,116 @@ function Especiales({ history }) {
     cargarImagen5();
   }, [imagenPortadaPelicula5]);
 
+  const [linkImagenMovil1, setLinkImagenMovil1] = useState("");
+
+  const cargarImagenMovil1 = () => {
+    try {
+      subeArchivosCloudinary(imagenPortadaPeliculaMovil1, "portadasSeries").then(response => {
+        const { data } = response;
+        // console.log(data)
+        const { secure_url } = data;
+        setLinkImagenMovil1(secure_url)
+      }).catch(e => {
+        console.log(e)
+      })
+    } catch (e) {
+      console.log(e)
+
+    }
+  }
+
+  useEffect(() => {
+    cargarImagenMovil1();
+  }, [imagenPortadaPeliculaMovil1]);
+
+  const [linkImagenMovil2, setLinkImagenMovil2] = useState("");
+
+  const cargarImagenMovil2 = () => {
+    try {
+      subeArchivosCloudinary(imagenPortadaPeliculaMovil2, "portadasSeries").then(response => {
+        const { data } = response;
+        // console.log(data)
+        const { secure_url } = data;
+        setLinkImagenMovil2(secure_url)
+      }).catch(e => {
+        console.log(e)
+      })
+    } catch (e) {
+      console.log(e)
+
+    }
+  }
+
+  useEffect(() => {
+    cargarImagenMovil2();
+  }, [imagenPortadaPeliculaMovil2]);
+
+  const [linkImagenMovil3, setLinkImagenMovil3] = useState("");
+
+  const cargarImagenMovil3 = () => {
+    try {
+      subeArchivosCloudinary(imagenPortadaPeliculaMovil3, "portadasSeries").then(response => {
+        const { data } = response;
+        // console.log(data)
+        const { secure_url } = data;
+        setLinkImagenMovil3(secure_url)
+      }).catch(e => {
+        console.log(e)
+      })
+    } catch (e) {
+      console.log(e)
+
+    }
+  }
+
+  useEffect(() => {
+    cargarImagenMovil3();
+  }, [imagenPortadaPeliculaMovil3]);
+
+  const [linkImagenMovil4, setLinkImagenMovil4] = useState("");
+
+  const cargarImagenMovil4 = () => {
+    try {
+      subeArchivosCloudinary(imagenPortadaPeliculaMovil4, "portadasSeries").then(response => {
+        const { data } = response;
+        // console.log(data)
+        const { secure_url } = data;
+        setLinkImagenMovil4(secure_url)
+      }).catch(e => {
+        console.log(e)
+      })
+    } catch (e) {
+      console.log(e)
+
+    }
+  }
+
+  useEffect(() => {
+    cargarImagenMovil4();
+  }, [imagenPortadaPeliculaMovil4]);
+
+  const [linkImagenMovil5, setLinkImagenMovil5] = useState("");
+
+  const cargarImagenMovil5 = () => {
+    try {
+      subeArchivosCloudinary(imagenPortadaPeliculaMovil5, "portadasSeries").then(response => {
+        const { data } = response;
+        // console.log(data)
+        const { secure_url } = data;
+        setLinkImagenMovil5(secure_url)
+      }).catch(e => {
+        console.log(e)
+      })
+    } catch (e) {
+      console.log(e)
+
+    }
+  }
+
+  useEffect(() => {
+    cargarImagenMovil5();
+  }, [imagenPortadaPeliculaMovil5]);
+
   const [listarPatrocinadoress, setListarPatrocinadores] = useState([]);
 
   const obtenerPatrocinadoress = () => {
@@ -251,7 +368,8 @@ function Especiales({ history }) {
           seccion: "",
           estado: "true",
           patrocinador: data2[0],
-          patrocinadorPortada: data2[1]
+          patrocinadorPortada: data2[1],
+          urlPortadaMovil: linkImagenMovil1
         },
         {
           titulo: formData.nombre,
@@ -273,7 +391,8 @@ function Especiales({ history }) {
           seccion: "",
           estado: "true",
           patrocinador: data2[0],
-          patrocinadorPortada: data2[1]
+          patrocinadorPortada: data2[1],
+          urlPortadaMovil: linkImagenMovil2
         },
         {
           titulo: formData.nombre,
@@ -295,7 +414,8 @@ function Especiales({ history }) {
           seccion: "",
           estado: "true",
           patrocinador: data2[0],
-          patrocinadorPortada: data2[1]
+          patrocinadorPortada: data2[1],
+          urlPortadaMovil: linkImagenMovil3
         },
         {
           titulo: formData.nombre,
@@ -317,7 +437,8 @@ function Especiales({ history }) {
           seccion: "",
           estado: "true",
           patrocinador: data2[0],
-          patrocinadorPortada: data2[1]
+          patrocinadorPortada: data2[1],
+          urlPortadaMovil: linkImagenMovil4
         },
         {
           titulo: formData.nombre,
@@ -339,7 +460,8 @@ function Especiales({ history }) {
           seccion: "",
           estado: "true",
           patrocinador: data2[0],
-          patrocinadorPortada: data2[1]
+          patrocinadorPortada: data2[1],
+          urlPortadaMovil: linkImagenMovil5
         }];
 
         map(dataTemp, (registro, index) => (
@@ -480,6 +602,61 @@ function Especiales({ history }) {
                   className="imagenPortadaPelicula"
                 >
                   <Dropzone setImagenFile={setImagenPortadaPelicula5} />
+                </div>
+              </div>
+              <br />
+
+              <div className="imagenPrincipal">
+                <h4 className="textoImagenPrincipal">Imagen para movil 1</h4>
+                <div
+                  title="Seleccionar imagen de la categoría"
+                  className="imagenPortadaPelicula"
+                >
+                  <Dropzone setImagenFile={setImagenPortadaPeliculaMovil1} />
+                </div>
+              </div>
+              <br />
+
+              <div className="imagenPrincipal">
+                <h4 className="textoImagenPrincipal">Imagen para movil 2</h4>
+                <div
+                  title="Seleccionar imagen de la categoría"
+                  className="imagenPortadaPelicula"
+                >
+                  <Dropzone setImagenFile={setImagenPortadaPeliculaMovil2} />
+                </div>
+              </div>
+              <br />
+
+              <div className="imagenPrincipal">
+                <h4 className="textoImagenPrincipal">Imagen para movil 3</h4>
+                <div
+                  title="Seleccionar imagen de la categoría"
+                  className="imagenPortadaPelicula"
+                >
+                  <Dropzone setImagenFile={setImagenPortadaPeliculaMovil3} />
+                </div>
+              </div>
+              <br />
+
+              <div className="imagenPrincipal">
+                <h4 className="textoImagenPrincipal">Imagen para movil 4</h4>
+                <div
+                  title="Seleccionar imagen de la categoría"
+                  className="imagenPortadaPelicula"
+                >
+                  <Dropzone setImagenFile={setImagenPortadaPeliculaMovil4} />
+                </div>
+              </div>
+              <br />
+
+              <div className="imagenPrincipal">
+                <h4 className="textoImagenPrincipal">Imagen para movil 5</h4>
+                <div
+                  title="Seleccionar imagen de la categoría"
+                  className="imagenPortadaPelicula"
+                >
+                  <Dropzone setImagenFile={setImagenPortadaPeliculaMovil5} />
                 </div>
               </div>
               <br />

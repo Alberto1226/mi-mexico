@@ -129,6 +129,10 @@ export default function TblCapitulosSeries(props) {
         },
       },
     },
+    {
+      name: "urlPortadaMovil",
+      label: "URL PORTADA MOVIL",
+    },
   ];
 
   const options = {
@@ -162,6 +166,7 @@ function formatModelSeries(data) {
       duracion: data.duracion,
       descripcion: data.descripcion,
       estado: data.estado,
+      urlPortadaMovil: data.urlPortadaMovil
     });
   });
   return dataTemp;

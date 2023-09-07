@@ -60,8 +60,8 @@ function TblSeriesEspeciales(props) {
             setListSeries(datosSer);
           }
         })
-        .catch((e) => {});
-    } catch (e) {}
+        .catch((e) => { });
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -183,18 +183,18 @@ function TblSeriesEspeciales(props) {
       options: {
         customBodyRender: (value) => {
           const estado = value;
-    
+
           let estiloTexto = "";
           let estadoTexto = "";
-    
-          if (estado=="true") {
-            estiloTexto = "activo"; 
+
+          if (estado == "true") {
+            estiloTexto = "activo";
             estadoTexto = "Activo";
           } else {
-            estiloTexto = "inhabilitado"; 
+            estiloTexto = "inhabilitado";
             estadoTexto = "Inhabilitado";
           }
-    
+
           return (
             <div className={estiloTexto}>
               {estadoTexto}
@@ -218,6 +218,26 @@ function TblSeriesEspeciales(props) {
     {
       name: "urlPortada5",
       label: "URL PORTADA 5",
+    },
+    {
+      name: "urlPortadaMovil",
+      label: "URL PORTADA MOVIL",
+    },
+    {
+      name: "urlPortadaMovil2",
+      label: "URL PORTADA MOVIL 2",
+    },
+    {
+      name: "urlPortadaMovil3",
+      label: "URL PORTADA MOVIL 3",
+    },
+    {
+      name: "urlPortadaMovil4",
+      label: "URL PORTADA MOVIL 4",
+    },
+    {
+      name: "urlPortadaMovil5",
+      label: "URL PORTADA MOVIL 5",
     },
     {
       name: "Acciones",
@@ -263,7 +283,7 @@ function TblSeriesEspeciales(props) {
                     <Modal.Title>Eliminar Serie Especial</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <EliminarSeriesEspeciales data={selectedRowData} history={history} setShow={setShow2}/>
+                    <EliminarSeriesEspeciales data={selectedRowData} history={history} setShow={setShow2} />
                   </Modal.Body>
                 </Modal>
               </button>
@@ -302,7 +322,7 @@ function TblSeriesEspeciales(props) {
                     <Modal.Title>Lista de los capitulos de la serie</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <TblCapitulosSeries data={selectedRowData}/>
+                    <TblCapitulosSeries data={selectedRowData} />
                   </Modal.Body>
                 </Modal>
               </button>
@@ -357,6 +377,11 @@ function formatModelSeries(data) {
       urlPortada5: data.urlPortada5,
       patrocinador: data.patrocinador,
       patrocinadorPortada: data.patrocinadorPortada,
+      urlPortadaMovil: data.urlPortadaMovil,
+      urlPortadaMovil2: data.urlPortadaMovil2,
+      urlPortadaMovil3: data.urlPortadaMovil3,
+      urlPortadaMovil4: data.urlPortadaMovil4,
+      urlPortadaMovil5: data.urlPortadaMovil5,
     });
   });
   return dataTemp;

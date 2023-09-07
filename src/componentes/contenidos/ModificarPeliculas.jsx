@@ -18,7 +18,7 @@ import queryString from "query-string";
 import { listarPatrocinadores } from "../../api/patrocinadores";
 
 export default function ModificarPeliculas({ data, history, setShow }) {
-
+console.log(data)
   const idPelicula = data[0];
 
   // Para cancelar el registro
@@ -42,6 +42,8 @@ export default function ModificarPeliculas({ data, history, setShow }) {
 
   //Para almacenar la imagen del producto que se guardara a la bd
   const [imagenPortadaPelicula, setImagenPortadaPelicula] = useState(data[13]);
+  //Para almacenar la imagen del producto que se guardara a la bd
+  const [imagenPortadaPeliculaMovil, setImagenPortadaPeliculaMovil] = useState(data[15]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -123,6 +125,51 @@ export default function ModificarPeliculas({ data, history, setShow }) {
     }, 500);
   }, []);
 
+  const [linkImagen1, setLinkImagen1] = useState("");
+
+  const cargarImagen1 = () => {
+    try {
+      subeArchivosCloudinary(imagenPortadaPelicula, "portadasPeliculas").then(response => {
+        const { data } = response;
+        // console.log(data)
+        const { secure_url } = data;
+        setLinkImagen1(secure_url)
+      }).catch(e => {
+        console.log(e)
+      })
+    } catch (e) {
+      console.log(e)
+
+    }
+  }
+
+  useEffect(() => {
+    cargarImagen1();
+  }, [imagenPortadaPelicula]);
+
+  const [linkImagen2, setLinkImagen2] = useState("");
+
+  const cargarImagen2 = () => {
+    try {
+      subeArchivosCloudinary(imagenPortadaPeliculaMovil, "portadasPeliculas").then(response => {
+        const { data } = response;
+        // console.log(data)
+        const { secure_url } = data;
+        setLinkImagen2(secure_url)
+      }).catch(e => {
+        console.log(e)
+      })
+    } catch (e) {
+      console.log(e)
+
+    }
+  }
+
+  useEffect(() => {
+    cargarImagen2();
+  }, [imagenPortadaPeliculaMovil]);
+
+
   //insert
   const onSubmit = (e) => {
     e.preventDefault();
@@ -131,48 +178,41 @@ export default function ModificarPeliculas({ data, history, setShow }) {
       toast.warning("Completa el formulario");
     } else {
       try {
-        subeArchivosCloudinary(imagenPortadaPelicula, "portadasPeliculas")
-          .then((response) => {
-            const { data } = response;
-            setLoading(true);
-            // Sube a cloudinary la imagen principal del producto
-            const data2 = formData.patrocinador.split(",")
-            const dataTemp = {
-              titulo: formData.nombre,
-              categorias: listarCat,
-              actores: formData.actores,
-              director: formData.director,
-              duracion: formData.duracion,
-              sinopsis: formData.sinopsis,
-              calificacion: "",
-              año: formData.anio,
-              disponibilidad: "",
-              masVisto: "",
-              recomendado: "",
-              urlVideo: formData.archPelicula,
-              urlPortada: data.secure_url,
-              seccion: "",
-              estado: "true",
-              patrocinador: data2[0],
-              patrocinadorPortada: data2[1]
-            };
-            actualizarPeliculas(idPelicula, dataTemp).then((response) => {
-              const { data } = response;
-              //notificacion
+        setLoading(true);
+        // Sube a cloudinary la imagen principal del producto
+        const data2 = formData.patrocinador.split(",")
+        const dataTemp = {
+          titulo: formData.nombre,
+          categorias: listarCat,
+          actores: formData.actores,
+          director: formData.director,
+          duracion: formData.duracion,
+          sinopsis: formData.sinopsis,
+          calificacion: "",
+          año: formData.anio,
+          disponibilidad: "",
+          masVisto: "",
+          recomendado: "",
+          urlVideo: formData.archPelicula,
+          urlPortada: linkImagen1,
+          seccion: "",
+          patrocinador: data2[0],
+          patrocinadorPortada: data2[1],
+          urlPortadaMovil: linkImagen2
+        };
+        actualizarPeliculas(idPelicula, dataTemp).then((response) => {
+          const { data } = response;
+          //notificacion
 
-              toast.success(data.mensaje);
-              history({
-                search: queryString.stringify(""),
-              });
-              setLoading(false);
-              cancelarRegistro();
-              //window.location.reload();
-              //cancelarRegistro()
-            });
-          })
-          .then((e) => {
-            console.log(e);
+          toast.success(data.mensaje);
+          history({
+            search: queryString.stringify(""),
           });
+          setLoading(false);
+          cancelarRegistro();
+          //window.location.reload();
+          //cancelarRegistro()
+        });
       } catch (e) {
         console.log(e);
       }
@@ -235,6 +275,19 @@ export default function ModificarPeliculas({ data, history, setShow }) {
               />
             </div>
           </div>
+          <br />
+          <div className="imagenPrincipal">
+            <h4 className="textoImagenPrincipal">Sube tu imagen para movil</h4>
+            <div
+              title="Seleccionar imagen de la categoría"
+              className="imagenPortadaPelicula"
+            >
+              <Dropzone
+                setImagenFile={setImagenPortadaPeliculaMovil}
+                imagenProductoBD={data[15]} />
+            </div>
+          </div>
+          <br />
 
           <Col xs={12} md={8}>
             <Form.Control

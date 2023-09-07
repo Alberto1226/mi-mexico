@@ -32,7 +32,8 @@ export default function ModificarSeries({ data, history, setShow }) {
 
   //Para almacenar la imagen del producto que se guardara a la bd
   const [imagenPortadaPelicula, setImagenPortadaPelicula] = useState(data[12]);
-  console.log(imagenPortadaPelicula)
+  //Para almacenar la imagen del producto que se guardara a la bd
+  const [imagenPortadaPeliculaMovil, setImagenPortadaPeliculaMovil] = useState(15);
 
   //modal
   const [formData, setFormData] = useState(initialFormValue(dataTemp));
@@ -170,6 +171,50 @@ export default function ModificarSeries({ data, history, setShow }) {
 
   const renglon = listSeriesCargados.length + 1;
 
+  const [linkImagen1, setLinkImagen1] = useState("");
+
+  const cargarImagen1 = () => {
+    try {
+      subeArchivosCloudinary(imagenPortadaPelicula, "portadasSeries").then(response => {
+        const { data } = response;
+        // console.log(data)
+        const { secure_url } = data;
+        setLinkImagen1(secure_url)
+      }).catch(e => {
+        console.log(e)
+      })
+    } catch (e) {
+      console.log(e)
+
+    }
+  }
+
+  useEffect(() => {
+    cargarImagen1();
+  }, [imagenPortadaPelicula]);
+
+  const [linkImagen2, setLinkImagen2] = useState("");
+
+  const cargarImagen2 = () => {
+    try {
+      subeArchivosCloudinary(imagenPortadaPeliculaMovil, "portadasSeries").then(response => {
+        const { data } = response;
+        // console.log(data)
+        const { secure_url } = data;
+        setLinkImagen2(secure_url)
+      }).catch(e => {
+        console.log(e)
+      })
+    } catch (e) {
+      console.log(e)
+
+    }
+  }
+
+  useEffect(() => {
+    cargarImagen2();
+  }, [imagenPortadaPeliculaMovil]);
+
   //insert
   const onSubmit = (e) => {
     e.preventDefault();
@@ -178,9 +223,6 @@ export default function ModificarSeries({ data, history, setShow }) {
       toast.warning("Completa el formulario");
     } else {
       try {
-        subeArchivosCloudinary(imagenPortadaPelicula, "portadasSeries")
-          .then((response) => {
-            const { data } = response;
             setLoading(true);
             console.log(data.secure_url)
             // Sube a cloudinary la imagen principal del producto
@@ -196,12 +238,13 @@ export default function ModificarSeries({ data, history, setShow }) {
               datosTemporada: listSeriesCargados,
               año: formData.anio,
               disponibilidad: "",
-              urlPortada: data.secure_url,
+              urlPortada: linkImagen1,
               masVisto: "",
               recomendado: "",
               seccion: "",
               patrocinador: data2[0],
-              patrocinadorPortada: data2[1]
+              patrocinadorPortada: data2[1],
+              urlPortadaMovil: linkImagen2
             };
             actualizarSeries(idSerie, dataTemp).then((response) => {
               const { data } = response;
@@ -216,10 +259,6 @@ export default function ModificarSeries({ data, history, setShow }) {
               setShow(false);
               //cancelarRegistro()
             });
-          })
-          .then((e) => {
-            console.log(e);
-          });
       } catch (e) {
         console.log(e);
       }
@@ -279,6 +318,19 @@ export default function ModificarSeries({ data, history, setShow }) {
               <Dropzone
                 setImagenFile={setImagenPortadaPelicula}
                 imagenProductoBD={data[12]} />
+            </div>
+          </div>
+          <br />
+          <div className="imagenPrincipal">
+            <h4 className="textoImagenPrincipal">Sube tu imagen para movil</h4>
+            <div
+              title="Seleccionar imagen de la categoría"
+              className="imagenPortadaPelicula"
+            >
+              <Dropzone
+                setImagenFile={setImagenPortadaPeliculaMovil}
+                imagenProductoBD={data[15]}
+              />
             </div>
           </div>
           <br />

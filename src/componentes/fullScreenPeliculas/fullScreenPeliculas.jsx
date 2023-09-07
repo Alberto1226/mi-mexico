@@ -437,6 +437,7 @@ function formatModelPeliculas(data) {
       masVisto: data.masVisto,
       recomendado: data.recomendado,
       urlVideo: data.urlVideo,
+      contador: data.contador,
       urlPortada: data.urlPortada,
       seccion: data.seccion,
       estado: data.estado,

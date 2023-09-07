@@ -29,6 +29,9 @@ export default function InsertarCapitulosSerie({ data }) {
 
     //Para almacenar la imagen del producto que se guardara a la bd
     const [imagenProducto, setImagenProducto] = useState(null);
+    const [imagenPortadaPelicula, setImagenPortadaPelicula] = useState(null);
+    //Para almacenar la imagen del producto que se guardara a la bd
+    const [imagenPortadaPeliculaMovil, setImagenPortadaPeliculaMovil] = useState(null);
 
     useEffect(() => {
         // Simula una carga de datos
@@ -58,6 +61,50 @@ export default function InsertarCapitulosSerie({ data }) {
             });
     };
 
+    const [linkImagen1, setLinkImagen1] = useState("");
+
+    const cargarImagen1 = () => {
+        try {
+            subeArchivosCloudinary(imagenPortadaPelicula, "portadasCapitulosSeries").then(response => {
+                const { data } = response;
+                // console.log(data)
+                const { secure_url } = data;
+                setLinkImagen1(secure_url)
+            }).catch(e => {
+                console.log(e)
+            })
+        } catch (e) {
+            console.log(e)
+
+        }
+    }
+
+    useEffect(() => {
+        cargarImagen1();
+    }, [imagenPortadaPelicula]);
+
+    const [linkImagen2, setLinkImagen2] = useState("");
+
+    const cargarImagen2 = () => {
+        try {
+            subeArchivosCloudinary(imagenPortadaPeliculaMovil, "portadasCapitulosSeries").then(response => {
+                const { data } = response;
+                // console.log(data)
+                const { secure_url } = data;
+                setLinkImagen2(secure_url)
+            }).catch(e => {
+                console.log(e)
+            })
+        } catch (e) {
+            console.log(e)
+
+        }
+    }
+
+    useEffect(() => {
+        cargarImagen2();
+    }, [imagenPortadaPeliculaMovil]);
+
     //insert
     const onSubmit = (e) => {
         e.preventDefault();
@@ -68,31 +115,27 @@ export default function InsertarCapitulosSerie({ data }) {
             try {
                 setLoading(true);
                 // Sube a cloudinary la imagen principal del producto
-                subeArchivosCloudinary(imagenProducto, "portadasCapitulosSeries").then(response => {
+
+                const dataTemp = {
+                    serie: serie,
+                    temporada: formData.temporada,
+                    nombre: formData.nombre,
+                    urlCapitulo: formData.urlCapitulo,
+                    urlPortada: linkImagen1,
+                    duracion: formData.duracion,
+                    descripcion: formData.descripcion,
+                    estado: "true",
+                    urlPortadaMovil: linkImagen2
+                };
+                registraCapitulosSeries(dataTemp).then((response) => {
                     const { data } = response;
+                    //notificacion
 
-                    const dataTemp = {
-                        serie: serie,
-                        temporada: formData.temporada,
-                        nombre: formData.nombre,
-                        urlCapitulo: formData.urlCapitulo,
-                        urlPortada: data.secure_url,
-                        duracion: formData.duracion,
-                        descripcion: formData.descripcion,
-                        estado: "true",
-                    };
-                    registraCapitulosSeries(dataTemp).then((response) => {
-                        const { data } = response;
-                        //notificacion
+                    toast.success(data.mensaje);
 
-                        toast.success(data.mensaje);
-
-                        window.location.reload();
-                        //cancelarRegistro()
-                    });
-                }).then(e => {
-                    console.log(e)
-                })
+                    window.location.reload();
+                    //cancelarRegistro()
+                });
             } catch (e) {
                 console.log(e);
             }
@@ -111,10 +154,20 @@ export default function InsertarCapitulosSerie({ data }) {
                         <h4 className="textoImagenPrincipal">Sube tu imagen</h4>
                         <div title="Seleccionar imagen de la categoría" className="imagenProducto">
                             <Dropzone
-                                setImagenFile={setImagenProducto}
+                                setImagenFile={setImagenPortadaPelicula}
                             />
                         </div>
                     </div>
+                    <br/>
+                    <div className="imagenPrincipal">
+                        <h4 className="textoImagenPrincipal">Sube tu imagen para movil</h4>
+                        <div title="Seleccionar imagen de la categoría" className="imagenProducto">
+                            <Dropzone
+                                setImagenFile={setImagenPortadaPeliculaMovil}
+                            />
+                        </div>
+                    </div>
+                    <br/>
 
                     <Col xs={9} md={6}>
                         <Form.Control
