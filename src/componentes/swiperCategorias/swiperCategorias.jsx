@@ -30,6 +30,23 @@ export function SwiperCategorias(props) {
   const [listarSeriesEsp, setListSeriesEsp] = useState([]);
   const [listarSeries, setListSeries] = useState([]);
 
+  const [screenResolution, setScreenResolution] = useState(window.innerWidth);
+
+  // Función para actualizar la resolución cuando cambia el tamaño de la ventana
+  const updateScreenResolution = () => {
+    setScreenResolution(window.innerWidth);
+  };
+
+  // Agregar un event listener para actualizar la resolución cuando cambia el tamaño de la ventana
+  useEffect(() => {
+    window.addEventListener('resize', updateScreenResolution);
+
+    // Limpieza del event listener cuando se desmonta el componente
+    return () => {
+      window.removeEventListener('resize', updateScreenResolution);
+    };
+  }, []);
+
   const obtenerPeliculas = () => {
     try {
       listarDetallesCategoriasPeliculas("peliculas")
@@ -230,23 +247,23 @@ export function SwiperCategorias(props) {
                           className="swiper-slide-categorias">
                           {objeto.tipo === 'peliculas' ? (
                             <Link to={`/fullPel?id=${objeto.id}&titulo=${objeto.titulo}`}><a className="icon">
-                              <MasVistos className="imgcatlis" img1={objeto.urlPortada} />
+                              <MasVistos className="imgcatlis" img1={screenResolution > 750 ? objeto.urlPortada : objeto.urlPortadaMovil} />
                             </a></Link>
                           ) : objeto.tipo === 'documentales' ? (
                             <Link to={`/fullDoc?id=${objeto.id}&titulo=${objeto.titulo}&id2=${objeto.id}`}><a className="icon">
-                              <MasVistos className="imgcatlis" img1={objeto.urlPortada} />
+                              <MasVistos className="imgcatlis" img1={screenResolution > 750 ? objeto.urlPortada : objeto.urlPortadaMovil} />
                             </a></Link>
                           ) : objeto.tipo === 'especiales' ? (
                             <Link to={`/fullEsp?id=${objeto.id}&titulo=${objeto.titulo}`}><a className="icon">
-                              <MasVistos className="imgcatlis" img1={objeto.urlPortada} />
+                              <MasVistos className="imgcatlis" img1={screenResolution > 750 ? objeto.urlPortada : objeto.urlPortadaMovil} />
                             </a></Link>
                           ) : objeto.tipo === "series" ? (
                             <Link to={`/full?id=${objeto.id}&titulo=${objeto.titulo}`}><a className="icon">
-                              <MasVistos className="imgcatlis" img1={objeto.urlPortada} />
+                              <MasVistos className="imgcatlis" img1={screenResolution > 750 ? objeto.urlPortada : objeto.urlPortadaMovil} />
                             </a></Link>
                           ) : (
                             <Link to={`/fullSeriesEspeciales?id=${objeto.id}&titulo=${objeto.titulo}`}><a className="icon">
-                              <MasVistos className="imgcatlis" img1={objeto.urlPortada} />
+                              <MasVistos className="imgcatlis" img1={screenResolution > 750 ? objeto.urlPortada : objeto.urlPortadaMovil} />
                             </a></Link>
                           )}
                         </SwiperSlide>
@@ -257,9 +274,6 @@ export function SwiperCategorias(props) {
               </Swiper>
             </div>
           </div>
-
-
-
         </div>
       </section>
 
@@ -275,6 +289,7 @@ function formatModelPeliculas(data) {
       titulo: data.titulo,
       categoria: data.categoria,
       urlPortada: data.urlPortada,
+      urlPortadaMovil: data.urlPortadaMovil,
       urlVideo: data.urlVideo,
       tipo: "peliculas"
     });
@@ -290,6 +305,7 @@ function formatModelDocumentales(data) {
       titulo: data.titulo,
       categoria: data.categoria,
       urlPortada: data.urlPortada,
+      urlPortadaMovil: data.urlPortadaMovil,
       urlVideo: data.urlVideo,
       tipo: "documentales"
     });
@@ -305,6 +321,7 @@ function formatModelEspeciales(data) {
       titulo: data.titulo,
       categoria: data.categoria,
       urlPortada: data.urlPortada,
+      urlPortadaMovil: data.urlPortadaMovil,
       urlVideo: data.urlVideo,
       tipo: "especiales"
     });
@@ -320,6 +337,7 @@ function formatModelSeries(data) {
       titulo: data.titulo,
       categoria: data.categoria,
       urlPortada: data.urlPortada,
+      urlPortadaMovil: data.urlPortadaMovil,
       urlVideo: data.urlVideo,
       tipo: "series"
     });
@@ -335,6 +353,7 @@ function formatModelSeriesEspeciales(data) {
       titulo: data.titulo,
       categoria: data.categoria,
       urlPortada: data.urlPortada,
+      urlPortadaMovil: data.urlPortadaMovil,
       urlVideo: data.urlVideo,
       tipo: "seriesEspeciales"
     });

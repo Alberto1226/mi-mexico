@@ -16,6 +16,23 @@ export function SwiperMasVistosSer(props) {
   const { location } = props;
   const [listarSer, setListSeries] = useState([]);
 
+  const [screenResolution, setScreenResolution] = useState(window.innerWidth);
+
+  // Función para actualizar la resolución cuando cambia el tamaño de la ventana
+  const updateScreenResolution = () => {
+    setScreenResolution(window.innerWidth);
+  };
+
+  // Agregar un event listener para actualizar la resolución cuando cambia el tamaño de la ventana
+  useEffect(() => {
+    window.addEventListener('resize', updateScreenResolution);
+
+    // Limpieza del event listener cuando se desmonta el componente
+    return () => {
+      window.removeEventListener('resize', updateScreenResolution);
+    };
+  }, []);
+
   const obtenerSeries = () => {
     try {
         listarSeriesMasVistas()
@@ -88,7 +105,7 @@ export function SwiperMasVistosSer(props) {
                   >
                     <Link to={`/full?id=${serie.id}&titulo=${serie.titulo}`} >
                     <MasVistos
-                      img1={serie.urlPortada}
+                      img1={screenResolution > 750 ? serie.urlPortada : serie.urlPortadaMovil}
                       nombre={serie.titulo}
                       duracion={serie.duracion}
                       des={serie.sinopsis}
@@ -125,6 +142,7 @@ function formatModelSeries(data) {
         urlPortada: data.urlPortada,
         seccion: data.seccion,
         estado: data.estado,
+        urlPortadaMovil: data.urlPortadaMovil
       });
     });
     return dataTemp;

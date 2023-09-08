@@ -18,6 +18,23 @@ export function SwiperEspeciales(props) {
   const { location } = props;
   const [listarPel, setListPeliculas] = useState(null);
 
+  const [screenResolution, setScreenResolution] = useState(window.innerWidth);
+
+  // Función para actualizar la resolución cuando cambia el tamaño de la ventana
+  const updateScreenResolution = () => {
+    setScreenResolution(window.innerWidth);
+  };
+
+  // Agregar un event listener para actualizar la resolución cuando cambia el tamaño de la ventana
+  useEffect(() => {
+    window.addEventListener('resize', updateScreenResolution);
+
+    // Limpieza del event listener cuando se desmonta el componente
+    return () => {
+      window.removeEventListener('resize', updateScreenResolution);
+    };
+  }, []);
+
   const obtenerPeliculas = () => {
     try {
       listarUltimosCincoEspeciales("especiales")
@@ -30,7 +47,7 @@ export function SwiperEspeciales(props) {
           } else {
             const datosPel = formatModelPeliculas(data);
             setListPeliculas(datosPel);
-            console.log("especiales"+datosPel);
+            console.log("especiales" + datosPel);
           }
         })
         .catch((e) => { });
@@ -90,10 +107,10 @@ export function SwiperEspeciales(props) {
                   >
                     <Link to={`/epecialguela?id=${peliculas.id}`}>
                       <MasVistos
-                        img1={peliculas.urlPortada}
+                        img1={screenResolution > 750 ? peliculas.urlPortada : peliculas.urlPortadaMovil}
                         nombre={peliculas.titulo}
                         duracion={peliculas.duracion}
-                        //des={peliculas.sinopsis}
+                      //des={peliculas.sinopsis}
                       />
                     </Link>
                   </SwiperSlide>
@@ -128,6 +145,7 @@ function formatModelPeliculas(data) {
       urlPortada: data.urlPortada,
       seccion: data.seccion,
       estado: data.estado,
+      urlPortadaMovil: data.urlPortadaMovil
     });
   });
   return dataTemp;

@@ -15,6 +15,23 @@ export function SwiperPeliculas(props) {
   const { location } = props;
   const [listarPel, setListPeliculas] = useState(null);
 
+  const [screenResolution, setScreenResolution] = useState(window.innerWidth);
+
+  // Función para actualizar la resolución cuando cambia el tamaño de la ventana
+  const updateScreenResolution = () => {
+    setScreenResolution(window.innerWidth);
+  };
+
+  // Agregar un event listener para actualizar la resolución cuando cambia el tamaño de la ventana
+  useEffect(() => {
+    window.addEventListener('resize', updateScreenResolution);
+
+    // Limpieza del event listener cuando se desmonta el componente
+    return () => {
+      window.removeEventListener('resize', updateScreenResolution);
+    };
+  }, []);
+
   const obtenerPeliculas = () => {
     try {
       listarPeliculas("peliculas")
@@ -78,7 +95,7 @@ export function SwiperPeliculas(props) {
                 <SwiperSlide className="swiper-slide" key={pelicula.id}>
                   <CardsUser
                     id={pelicula.id}
-                    img1={pelicula.urlPortada}
+                    img1={screenResolution > 750 ? pelicula.urlPortada : pelicula.urlPortadaMovil}
                     urlVideo={pelicula.urlVideo}
                     actores={pelicula.actores}
                     anio={pelicula.año}
@@ -121,6 +138,7 @@ function formatModelPeliculas(data) {
       urlPortada: data.urlPortada,
       seccion: data.seccion,
       estado: data.estado,
+      urlPortadaMovil: data.urlPortadaMovil
     });
   });
   return dataTemp;

@@ -25,6 +25,23 @@ export function SwiperEstrenos(props) {
   const [listarSeriesEsp, setListSeriesEsp] = useState([]);
   const [listarSeries, setListSeries] = useState([]);
 
+  const [screenResolution, setScreenResolution] = useState(window.innerWidth);
+
+  // Función para actualizar la resolución cuando cambia el tamaño de la ventana
+  const updateScreenResolution = () => {
+    setScreenResolution(window.innerWidth);
+  };
+
+  // Agregar un event listener para actualizar la resolución cuando cambia el tamaño de la ventana
+  useEffect(() => {
+    window.addEventListener('resize', updateScreenResolution);
+
+    // Limpieza del event listener cuando se desmonta el componente
+    return () => {
+      window.removeEventListener('resize', updateScreenResolution);
+    };
+  }, []);
+
   const obtenerPeliculas = () => {
     try {
       listarUltimaPelicula("peliculas")
@@ -169,31 +186,31 @@ export function SwiperEstrenos(props) {
                     {peli.tipo === "especiales" ? (
                       <Link to={`/epecialguela?id=${peli.id}&titulo=${peli.titulo}`}>
                         <a>
-                          <MasVistos className="imgcatlis" img1={peli.urlPortada} />
+                          <MasVistos className="imgcatlis" img1={screenResolution > 750 ? peli.urlPortada : peli.urlPortadaMovil} />
                         </a>
                       </Link>
                     ) : peli.tipo === 'documentales' ? (
                       <Link to={`/fullDoc?id=${peli.id}&titulo=${peli.titulo}&id2=${peli.id}`}>
                         <a>
-                          <MasVistos className="imgcatlis" img1={peli.urlPortada} />
+                          <MasVistos className="imgcatlis" img1={screenResolution > 750 ? peli.urlPortada : peli.urlPortadaMovil} />
                         </a>
                       </Link>
                     ) : peli.tipo === "peliculas" ? (
                       <Link to={`/fullPel?id=${peli.id}&titulo=${peli.titulo}`}>
                         <a>
-                          <MasVistos className="imgcatlis" img1={peli.urlPortada} />
+                          <MasVistos className="imgcatlis" img1={screenResolution > 750 ? peli.urlPortada : peli.urlPortadaMovil} />
                         </a>
                       </Link>
                     ) : peli.tipo === "series" ? (
                       <Link to={`/full?id=${peli.id}&titulo=${peli.titulo}`}>
                         <a>
-                          <MasVistos className="imgcatlis" img1={peli.urlPortada} />
+                          <MasVistos className="imgcatlis" img1={screenResolution > 750 ? peli.urlPortada : peli.urlPortadaMovil} />
                         </a>
                       </Link>
                     ) : (
                       <Link to={`/fullSeriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}>
                         <a>
-                          <MasVistos className="imgcatlis" img1={peli.urlPortada} />
+                          <MasVistos className="imgcatlis" img1={screenResolution > 750 ? peli.urlPortada : peli.urlPortadaMovil} />
                         </a>
                       </Link>
                     )}
@@ -230,6 +247,7 @@ function formatModelPeliculas(data) {
       urlPortada: data.urlPortada,
       seccion: data.seccion,
       estado: data.estado,
+      urlPortadaMovil: data.urlPortadaMovil
     });
   });
   return dataTemp;

@@ -18,6 +18,23 @@ export function SwiperMasVistos(props) {
   const { location } = props;
   const [listarPel, setListPeliculas] = useState(null);
 
+  const [screenResolution, setScreenResolution] = useState(window.innerWidth);
+
+  // Función para actualizar la resolución cuando cambia el tamaño de la ventana
+  const updateScreenResolution = () => {
+    setScreenResolution(window.innerWidth);
+  };
+
+  // Agregar un event listener para actualizar la resolución cuando cambia el tamaño de la ventana
+  useEffect(() => {
+    window.addEventListener('resize', updateScreenResolution);
+
+    // Limpieza del event listener cuando se desmonta el componente
+    return () => {
+      window.removeEventListener('resize', updateScreenResolution);
+    };
+  }, []);
+
   const obtenerPeliculas = () => {
     try {
       listarPeliculasMasVista("peliculas")
@@ -88,7 +105,7 @@ export function SwiperMasVistos(props) {
                   >
                      <Link to={`/fullPel?id=${peli.id}&titulo=${peli.titulo}`}>
                     <MasVistos
-                      img1={peli.urlPortada}
+                      img1={screenResolution > 750 ? peli.urlPortada : peli.urlPortadaMovil}
                       nombre={peli.titulo}
                       duracion={peli.duracion}
                       des={peli.sinopsis}
@@ -126,6 +143,7 @@ function formatModelPeliculas(data) {
       urlPortada: data.urlPortada,
       seccion: data.seccion,
       estado: data.estado,
+      urlPortadaMovil: data.urlPortadaMovil
     });
   });
   return dataTemp;

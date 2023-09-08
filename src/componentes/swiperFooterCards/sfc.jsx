@@ -16,6 +16,24 @@ export function SwiperFooterCards(props) {
   const { location } = props;
   const [listarPel, setListPeliculas] = useState([]);
 
+  const [screenResolution, setScreenResolution] = useState(window.innerWidth);
+
+  // Función para actualizar la resolución cuando cambia el tamaño de la ventana
+  const updateScreenResolution = () => {
+    setScreenResolution(window.innerWidth);
+  };
+
+  // Agregar un event listener para actualizar la resolución cuando cambia el tamaño de la ventana
+  useEffect(() => {
+    window.addEventListener('resize', updateScreenResolution);
+
+    // Limpieza del event listener cuando se desmonta el componente
+    return () => {
+      window.removeEventListener('resize', updateScreenResolution);
+    };
+  }, []);
+
+
   const obtenerPeliculas = () => {
     try {
       listarPeliculas("documentales")
@@ -151,7 +169,7 @@ export function SwiperFooterCards(props) {
           >
             <SwiperSlide className="swiper-slide-header">
               <CardsUser
-                img1={listarPel[0]?.urlPortada ?? ""}
+                img1={screenResolution > 750 ? listarPel[0]?.urlPortada ?? "" : listarPel[0]?.urlPortadaMovil ?? ""}
                 titulo={listarPel[0]?.titulo ?? ""}
                 director={listarPel[0]?.director ?? ""}
                 anio={listarPel[0]?.año ?? ""}
@@ -162,7 +180,7 @@ export function SwiperFooterCards(props) {
             </SwiperSlide>
             <SwiperSlide className="swiper-slide-header">
               <CardsUser
-                img1={listarPel[1]?.urlPortada ?? ""}
+                img1={screenResolution > 750 ? listarPel[1]?.urlPortada ?? "" : listarPel[1]?.urlPortadaMovil ?? ""}
                 titulo={listarPel[1]?.titulo ?? ""}
                 director={listarPel[1]?.director ?? ""}
                 anio={listarPel[1]?.año ?? ""}
@@ -173,7 +191,7 @@ export function SwiperFooterCards(props) {
             </SwiperSlide>
             <SwiperSlide className="swiper-slide-header">
               <CardsUser
-                img1={listarPel[2]?.urlPortada ?? ""}
+                img1={screenResolution > 750 ? listarPel[2]?.urlPortada ?? "" : listarPel[2]?.urlPortadaMovil ?? ""}
                 titulo={listarPel[2]?.titulo ?? ""}
                 director={listarPel[2]?.director ?? ""}
                 anio={listarPel[2]?.año ?? ""}
@@ -184,7 +202,7 @@ export function SwiperFooterCards(props) {
             </SwiperSlide>
             <SwiperSlide className="swiper-slide-header">
               <CardsUser
-                img1={listarPel[3]?.urlPortada ?? ""}
+                img1={screenResolution > 750 ? listarPel[3]?.urlPortada ?? "" : listarPel[3]?.urlPortadaMovil ?? ""}
                 titulo={listarPel[3]?.titulo ?? ""}
                 director={listarPel[3]?.director ?? ""}
                 anio={listarPel[3]?.año ?? ""}
@@ -195,7 +213,7 @@ export function SwiperFooterCards(props) {
             </SwiperSlide>
             <SwiperSlide className="swiper-slide-header">
               <CardsUser
-                img1={listarPel[4]?.urlPortada ?? ""}
+                img1={screenResolution > 750 ? listarPel[4]?.urlPortada ?? "" : listarPel[4]?.urlPortadaMovil ?? ""}
                 titulo={listarPel[4]?.titulo ?? ""}
                 director={listarPel[4]?.director ?? ""}
                 anio={listarPel[4]?.año ?? ""}
@@ -206,7 +224,7 @@ export function SwiperFooterCards(props) {
             </SwiperSlide>
             <SwiperSlide className="swiper-slide-header">
               <CardsUser
-                img1={listarPel[5]?.urlPortada ?? ""}
+                img1={screenResolution > 750 ? listarPel[5]?.urlPortada ?? "" : listarPel[5]?.urlPortadaMovil ?? ""}
                 titulo={listarPel[5]?.titulo ?? ""}
                 director={listarPel[5]?.director ?? ""}
                 anio={listarPel[5]?.año ?? ""}
@@ -217,7 +235,7 @@ export function SwiperFooterCards(props) {
             </SwiperSlide>
             <SwiperSlide className="swiper-slide-header">
               <CardsUser
-                img1={listarPel[6]?.urlPortada ?? ""}
+                img1={screenResolution > 750 ? listarPel[6]?.urlPortada ?? "" : listarPel[6]?.urlPortadaMovil ?? ""}
                 titulo={listarPel[6]?.titulo ?? ""}
                 director={listarPel[6]?.director ?? ""}
                 anio={listarPel[6]?.año ?? ""}
@@ -254,6 +272,7 @@ function formatModelPeliculas(data) {
       urlPortada: data.urlPortada,
       seccion: data.seccion,
       estado: data.estado,
+      urlPortadaMovil: data.urlPortadaMovil
     });
   });
   return dataTemp;
