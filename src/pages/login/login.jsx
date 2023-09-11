@@ -19,9 +19,12 @@ import jwt_decode from "jwt-decode";
 import { LoginSocialFacebook } from "reactjs-social-login";
 import { FacebookLoginButton } from "react-social-login-buttons";
 //bootstrap
+//login apple
+
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import MyAppleSigninButton from "./buttonApple";
 
 export function Login({ setRefreshCheckLogin }) {
   const [formData, setFormData] = useState(initialFormValue);
@@ -115,6 +118,10 @@ export function Login({ setRefreshCheckLogin }) {
   /**facebook */
 
   /**fin facebook */
+
+
+  /**apple */
+
   return (
     <>
       <div class="content">
@@ -171,6 +178,10 @@ export function Login({ setRefreshCheckLogin }) {
                           />
                         </div>
                       </GoogleOAuthProvider>
+                    </div>
+                    
+                    <div className="loginGoogle">
+                        <MyAppleSigninButton/>
                     </div>
                     {/** <Col>
                       <LoginSocialFacebook

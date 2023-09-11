@@ -8124,6 +8124,11 @@ react-app-polyfill@^3.0.0:
     regenerator-runtime "^0.13.9"
     whatwg-fetch "^3.6.2"
 
+react-apple-signin-auth@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/react-apple-signin-auth/-/react-apple-signin-auth-1.0.9.tgz#38bf82b8ea16f882a259f029b563e0767882cd3d"
+  integrity sha512-uePq8NySsq46zwH8Brx13qG1NrXx7lOU+pD03ajPaROnYQ6hbZBdvuZ/6HmjoBF4T03s4TCaVywneaS4V8bsCA==
+
 react-bootstrap@^2.7.4:
   version "2.7.4"
   resolved "https://registry.npmjs.org/react-bootstrap/-/react-bootstrap-2.7.4.tgz"

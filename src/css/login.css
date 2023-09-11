@@ -84,7 +84,7 @@
     width: 530px;
     height: 720px;
     margin: auto;
-    margin-top: 20px;
+    margin-top: 10px;
     box-shadow: 1px 5px 10px 1px #333;
     overflow: hidden;
     background-color: rgba(137, 237, 255, 0.904);
@@ -99,7 +99,10 @@
   
   .menu {
     position: relative;
-    padding: 0% 13% 0 13%;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+    text-align: center;
   }
   
   .menu h2 {
@@ -252,8 +255,8 @@
   }
 
   .imglogin{
-    width: 100%;
-    height: 100%;
+    width: 50%;
+    height: 50%;
     margin: 0;
     padding: 0;
   }
@@ -264,6 +267,7 @@
     align-items: center;
     text-align: center;
     padding: 0 10vh 0 12vh;
+    margin-bottom: 5px;
   }
   .lblDesLogin{
     font-size: 12px;
