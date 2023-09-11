@@ -274,6 +274,7 @@ function formatModelDocumentales(data) {
       urlPortada: data.urlPortada,
       seccion: data.seccion,
       estado: data.estado,
+      urlPortadaMovil: data.urlPortadaMovil
     });
   });
   return dataTemp;
@@ -300,6 +301,7 @@ function formatModelEspeciales(data) {
       urlPortada: data.urlPortada,
       seccion: data.seccion,
       estado: data.estado,
+      urlPortadaMovil: data.urlPortadaMovil
     });
   });
   return dataTemp;
@@ -326,6 +328,7 @@ function formatModelSeries(data) {
       urlPortada: data.urlPortada,
       seccion: data.seccion,
       estado: data.estado,
+      urlPortadaMovil: data.urlPortadaMovil
     });
   });
   return dataTemp;
@@ -352,6 +355,7 @@ function formatModelSeriesEspeciales(data) {
       urlPortada: data.urlPortada,
       seccion: data.seccion,
       estado: data.estado,
+      urlPortadaMovil: data.urlPortadaMovil
     });
   });
   return dataTemp;
