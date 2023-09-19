@@ -141,7 +141,7 @@ export function FullPeliculas(props) {
             setListPeliculas(formatModelPeliculas(data));
           } else {
             const datosPel = formatModelPeliculas(data);
-
+            console.log(datosPel)
             // Check if there is a match in the filtered data
             if (datosPel.length > 0) {
               // Get the index of the first match in the filtered data
