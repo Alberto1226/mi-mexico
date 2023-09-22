@@ -362,7 +362,7 @@ export function FullPeliculas(props) {
       <FullNav />
       {listarPel.length > 0 && (
         <div key={listarPel[matchedIndex].id ?? ""}>
-          <video onClick={toggleFullScreen} ref={videoRef} id="videofull" src={listarPel[matchedIndex].urlVideo == undefined ? "" : listarPel[matchedIndex].urlVideo} controls width={"100%"} height={"100%"} ></video>
+          <video onClick={toggleFullScreen} ref={videoRef} id="videofull" src={listarPel[matchedIndex].urlVideo == undefined ? "" : listarPel[matchedIndex].urlVideo} autoPlay controls width={"100%"} height={"100%"} ></video>
 
           <div className="informacionserie">
             <h6 className="tituloSerie">{listarPel[matchedIndex].titulo == undefined ? "" : listarPel[matchedIndex].titulo}<button onClick={handleNextVideo} className="nextvideo2">Next Video <FontAwesomeIcon icon={faArrowRight} /></button></h6>
