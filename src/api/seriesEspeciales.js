@@ -7,6 +7,7 @@ import {
     ENDPOINTObtenerSerieEspeciales,
     ENDPOINTListarSeriesMasVistasEspeciales,
     ENDPOINTListarUltimosCincoSeriesEspeciales,
+    ENDPOINTListarPrimerosCincoSeriesEspeciales,
     ENDPOINTDetallesCategoriasSeriesEspeciales,
     ENDPOINTListarUltimaSerieEspecial
 } from './endpoints';
@@ -133,4 +134,15 @@ export async function listarUltimosCincoSeriesEspeciales() {
         }
     };
     return await axios.get(API_HOST + ENDPOINTListarUltimosCincoSeriesEspeciales, config);
+}
+
+export async function listarPrimerosCincoSeriesEspeciales() {
+    const config = {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+
+        }
+    };
+    return await axios.get(API_HOST + ENDPOINTListarPrimerosCincoSeriesEspeciales, config);
 }

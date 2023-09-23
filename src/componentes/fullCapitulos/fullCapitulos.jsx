@@ -11,9 +11,9 @@ import "swiper/css/pagination";
 import "../../css/swiper.css";
 import "../../css/cardHeader.css";
 import { CardHeader } from "../cardsHeader/cardsHeader";
-import { listarCapitulosSeries } from "../../api/capitulosSeries";
+import { listarCapitulosSeries, actualizarContadorCapitulos, obtenerCapitulosSeries } from "../../api/capitulosSeries";
 import { Link } from "react-router-dom";
-
+import { listarPatrocinadoresPrioridad, actualizarPatrocinadores, obtenerPatrocinador } from "../../api/patrocinadores";
 import { FullNav } from "../navcompleto/navCompleto";
 import { SwiperPatrocinadores } from "../swiperPatrocinadores/swPatrocinadores";
 import { FooterApp } from "../footer/footer";
@@ -24,8 +24,35 @@ export function FullCapitulos(props) {
   const { id } = queryString.parse(locations.search);
   const { temporada } = queryString.parse(locations.search);
   const { capitulo } = queryString.parse(locations.search); //igual al id de la serie
+  const [contadorActual, setContadorActual] = useState(0);
 
   const { location } = props;
+
+  const aumentarContador = () => {
+    try {
+      // console.log(data)
+      obtenerCapitulosSeries(id).then(response => {
+        const { data } = response;
+        console.log(data)
+        const dataTemp = {
+          contador: parseInt(data.contador) + 1
+        }
+        actualizarContadorCapitulos(id, dataTemp).then(response => {
+          // console.log(response)
+        }).catch(e => {
+          console.log(e)
+        })
+
+      }).catch(e => {
+        console.log(e)
+      })
+        .catch((e) => { });
+    } catch (e) { }
+  };
+
+  useEffect(() => {
+    aumentarContador();
+  }, [location]);
 
   const videoRef = useRef(null);
   const [showNextButton, setShowNextButton] = useState(false);
@@ -205,10 +232,117 @@ export function FullCapitulos(props) {
     setMatchedIndex((prevIndex) => (prevIndex + 1) % listarCap2.length);
   };
 
+  const totalVistas = listarCap.reduce((amount, item) => (amount + parseInt(item.contador)), 0);
+  const media = totalVistas / listarCap.length;
+  function redondearDecimal(numero) {
+    return numero < 0.5 ? Math.floor(numero) : Math.ceil(numero);
+  }
+
+  console.log(media)
+  console.log(redondearDecimal(media))
+  console.log(totalVistas)
+  console.log(contadorActual)
+
+  const [listarPatrocinadores, setListPatrocinadores] = useState([]);
+
+  const obtenerPatrocinadoresPrioritarios = () => {
+    try {
+      listarPatrocinadoresPrioridad("1")
+        .then((response) => {
+          const { data } = response;
+
+          if (!listarPatrocinadores && data) {
+            setListPatrocinadores(formatModelPatrocinadores(data));
+          } else {
+            const datosPel = formatModelPatrocinadores(data);
+            setListPatrocinadores(datosPel);
+          }
+        })
+        .catch((e) => { });
+    } catch (e) { }
+  };
+
+  const obtenerPatrocinadoresNoPrioritarios = () => {
+    try {
+      listarPatrocinadoresPrioridad("0")
+        .then((response) => {
+          const { data } = response;
+
+          if (!listarPatrocinadores && data) {
+            setListPatrocinadores(formatModelPatrocinadores(data));
+          } else {
+            const datosPel = formatModelPatrocinadores(data);
+            setListPatrocinadores(datosPel);
+          }
+        })
+        .catch((e) => { });
+    } catch (e) { }
+  };
+
+  useEffect(() => {
+    if (contadorActual >= redondearDecimal(media)) {
+      obtenerPatrocinadoresPrioritarios()
+    }
+    else {
+      obtenerPatrocinadoresNoPrioritarios()
+    }
+  }, [media]);
+
+  const patrocinadoresPagados = listarPatrocinadores.filter(patrocinador => parseInt(patrocinador.numeroApariciones) >= 0);
+
+  console.log(patrocinadoresPagados)
+
+  function generarNumeroAleatorio(minimo, maximo) {
+    // Genera un número aleatorio entre 0 y 1 (no incluido)
+    return Math.floor(Math.random() * (maximo - minimo)) + minimo;
+
+    // Redondea el número si es necesario (opcional)
+    // const numeroRedondeado = Math.round(numeroEnRango);
+  }
+
+  console.log(patrocinadoresPagados.length)
+
+  // Ejemplo de uso:
+  let numeroAleatorio = 0;
+  numeroAleatorio = generarNumeroAleatorio(0, patrocinadoresPagados.length); // Genera un número entre 1 y 10 (incluyendo 1, excluyendo 10)
+  console.log(numeroAleatorio);
+
+  const disminuirCantidadApariciones = () => {
+    try {
+      // console.log(data)
+      obtenerPatrocinador(patrocinadoresPagados[numeroAleatorio]?.id).then(response => {
+        const { data } = response;
+        console.log(data)
+        const dataTemp = {
+          numeroApariciones: parseInt(data.numeroApariciones) - 1
+        }
+        actualizarPatrocinadores(patrocinadoresPagados[numeroAleatorio]?.id, dataTemp).then(response => {
+          // console.log(response)
+        }).catch(e => {
+          console.log(e)
+        })
+
+      }).catch(e => {
+        console.log(e)
+      })
+        .catch((e) => { });
+    } catch (e) { }
+  };
+
+  useEffect(() => {
+    disminuirCantidadApariciones();
+  }, [numeroAleatorio]);
+
 
   useEffect(() => {
     window.scrollTo(0, 0); // Mueve la página al inicio
   }, []);
+
+  const [show, setShow] = useState(true);
+
+  const cerrarVentanaFlotante = () => {
+    setShow(false);
+  };
   return (
     <>
       <FullNav />
@@ -227,7 +361,51 @@ export function FullCapitulos(props) {
             controls
             width={"100%"} height={"100%"}
           ></video>
-          
+
+          <div>
+            {show && (
+              <div
+                style={{
+                  position: 'fixed',
+                  bottom: '20px',
+                  right: '20px',
+                  borderRadius: '10px',
+                  backgroundColor: 'white',
+                  border: '1px solid #ccc',
+                  width: '200px', // Ancho deseado del recuadro
+                  boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
+                  zIndex: 9999,
+                }}
+              >
+                <button
+                  style={{
+                    position: 'absolute',
+                    top: '5px',
+                    right: '5px',
+                    cursor: 'pointer',
+                    backgroundColor: 'transparent',
+                    border: 'none',
+                  }}
+                  onClick={cerrarVentanaFlotante}
+                >
+                  X
+                </button>
+                <div style={{ padding: '10px' }}>
+                  <h2>Patrocinador oficial</h2>
+                  <img
+                    src={
+                      patrocinadoresPagados[numeroAleatorio]?.urlImagen == undefined
+                        ? ''
+                        : patrocinadoresPagados[numeroAleatorio]?.urlImagen
+                    }
+                    alt="Patrocinador"
+                    style={{ maxWidth: '100%', height: 'auto' }}
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+
           <div className="informacionserie">
             <h6 className="tituloSerie"><button onClick={handleNextVideo} className="nextvideo2">Next Video <FontAwesomeIcon icon={faArrowRight} /></button>
               {listarCap2[matchedIndex].nombre == undefined
@@ -248,6 +426,7 @@ export function FullCapitulos(props) {
 
         </div>
       )}
+
       <Swiper
         spaceBetween={20}
         slidesPerView={slides}
@@ -255,6 +434,7 @@ export function FullCapitulos(props) {
         pagination={{ clickable: true }}
         className="mySwiper"
       >
+
         {listarCap &&
           listarCap.map((tem) => (
             <SwiperSlide
@@ -271,7 +451,7 @@ export function FullCapitulos(props) {
                   img1={tem.urlPortada}
                   //nombre={tem.nombre}
                   duracion={tem.duracion}
-                  //des={tem.descripcion}
+                //des={tem.descripcion}
                 />
               </Link>
             </SwiperSlide>
@@ -279,7 +459,7 @@ export function FullCapitulos(props) {
       </Swiper>
 
       {/**footer */}
-        <FooterApp />
+      <FooterApp />
     </>
   );
 }
@@ -297,6 +477,26 @@ function formatModelCapitulos(data) {
       duracion: data.duracion,
       descripcion: data.descripcion,
       estado: data.estado,
+    });
+  });
+  return dataTemp;
+}
+
+function formatModelPatrocinadores(data) {
+  const dataTemp = [];
+  data.forEach((data) => {
+    dataTemp.push({
+      id: data._id,
+      nombre: data.nombre,
+      urlImagen: data.urlImagen,
+      urlWeb: data.urlWeb,
+      urlFacebook: data.urlFacebook,
+      urlInstagram: data.urlInstagram,
+      urlTwitter: data.urlTwitter,
+      nivel: data.nivel,
+      estado: data.estado,
+      numeroApariciones: data.numeroApariciones,
+      prioridadAparicion: data.prioridadAparicion
     });
   });
   return dataTemp;

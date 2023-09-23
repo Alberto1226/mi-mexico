@@ -50,6 +50,7 @@ export const ENDPOINTActualizarContadorEspeciales = "/seriesEspeciales/actualiza
 export const ENDPOINTObtenerSerieEspeciales = "/seriesEspeciales/obtenerSerie";
 export const ENDPOINTListarSeriesMasVistasEspeciales = "/seriesEspeciales/listarSeriesMasVistas";
 export const ENDPOINTListarUltimosCincoSeriesEspeciales = "/seriesEspeciales/listarUltimosCincoEspeciales";
+export const ENDPOINTListarPrimerosCincoSeriesEspeciales = "/seriesEspeciales/listarPrimerosCincoEspeciales";
 export const ENDPOINTDetallesCategoriasSeriesEspeciales = "/seriesEspeciales/listarDetallesCategoria";
 export const ENDPOINTListarUltimaSerieEspecial = "/seriesEspeciales/listarUltimo";
 
@@ -58,6 +59,8 @@ export const ENDPOINTListarCapitulosSeries = "/capitulosSeries/listar";
 export const ENDPOINTRegistrarCapitulosSeries = "/capitulosSeries/registro";
 export const ENDPOINTModificarCapitulosSeries = "/capitulosSeries/actualizar";
 export const ENDPOINTEliminarCapitulosSeries = "/capitulosSeries/eliminar";
+export const ENDPOINTActualizarContadorCapitulosSeries = "/capitulosSeries/actualizarContador";
+export const ENDPOINTObtenerCapitulosSeries = "/capitulosSeries/obtenerCapitulos";
 
 // Patrocinadores
 export const ENDPOINTListarPatrocinadores = "/patrocinadores/listar";
