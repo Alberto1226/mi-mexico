@@ -46,6 +46,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import BottomNavigation from "../../componentes/navBar/navMovil";
 import Traduction from "../../componentes/traduccion/traduccion";
+import { SwiperGuanajuato } from "../../componentes/swiperEspecialesultimos/swultimoscinco";
 
 export function Home2() {
   const [listarDocumentales, setListDocumentales] = useState([]);
@@ -230,8 +231,9 @@ export function Home2() {
           />
         </div>
         <SwiperEstrenos titulo={"Estrenos"} />
-        {/*<img src={portada2} alt="" className="especialespor"/>*/}
-        <SwiperEspeciales titulo={"Especiales"} />
+        {/*<img src={portada2} alt="" className="especialespor"/>
+        <SwiperEspeciales  />*/}
+        <SwiperGuanajuato titulo={"Especiales"}/>
         <SwiperCervantino titulo={""} />
         <hr />
         {/*<Especiales3 titulo={"Series"} />*/}

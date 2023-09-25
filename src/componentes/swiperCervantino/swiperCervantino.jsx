@@ -88,7 +88,7 @@ export function SwiperCervantino(props) {
 
           <div className="swiper-container">
             <Swiper
-              spaceBetween={30}
+              spaceBetween={10}
               slidesPerView={slides}
               navigation
               pagination={{

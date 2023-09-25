@@ -6,7 +6,7 @@ import "swiper/swiper.min.css";
 import "swiper/css";
 import "swiper/css/pagination";
 import "../../css/cardVermas.css";
-import { listarUltimosCincoEspeciales } from "../../api/peliculasListar";
+import { listarPrimerosCincoSeriesEspeciales } from "../../api/seriesEspeciales";
 import { Link } from "react-router-dom";
 //import { listarPeliculas } from "../../api/peliculasListar";
 //import imgPel from "../../assets/img/2.jpg";
@@ -14,7 +14,7 @@ import de1 from "../../assets/img/ber.jpeg";
 
 SwiperCore.use([Navigation, Pagination]);
 
-export function SwiperEspeciales(props) {
+export function SwiperGuanajuato(props) {
   const { location } = props;
   const [listarPel, setListPeliculas] = useState(null);
 
@@ -37,7 +37,7 @@ export function SwiperEspeciales(props) {
 
   const obtenerPeliculas = () => {
     try {
-      listarUltimosCincoEspeciales("especiales")
+        listarPrimerosCincoSeriesEspeciales()
         .then((response) => {
           const { data } = response;
           console.log(data);
@@ -47,7 +47,6 @@ export function SwiperEspeciales(props) {
           } else {
             const datosPel = formatModelPeliculas(data);
             setListPeliculas(datosPel);
-            console.log("especiales" + datosPel);
           }
         })
         .catch((e) => { });
@@ -96,26 +95,71 @@ export function SwiperEspeciales(props) {
                 clickable: true,
               }}
             >
-              {/* Agrega tus SwiperSlides aquí */}
               {listarPel &&
-                listarPel.map((peliculas, index) => (
-                  <SwiperSlide
-                    className="swiper-slide"
-                    //descomentarear para var el indice
-                    //data-slide-number={index + 1}
-                    key={peliculas.id}
-                  >
-                    <Link to={`/epecialguela?id=${peliculas.id}`}>
-                      <MasVistos
-                        img1={screenResolution > 750 ? peliculas.urlPortada : peliculas.urlPortadaMovil}
-                        nombre={peliculas.titulo}
-                        duracion={peliculas.duracion}
-                      //des={peliculas.sinopsis}
-                      />
-                    </Link>
-                  </SwiperSlide>
+                listarPel.map((peli, index) => (
+                  <>
+                    <SwiperSlide
+                      className="swiper-slide"
+                    >
+                      <Link to={`/fullSeriesEspeciales?id=${peli?.id}&titulo=${peli?.titulo}`}>
+                        <MasVistos
+                          img1={screenResolution > 750 ? peli.urlPortada5 : peli.urlPortadaMovil5}
+                          nombre={peli.titulo}
+                          duracion={peli.duracion}
+                        //des={peli.sinopsis} 
+                        />
+                      </Link>
+                    </SwiperSlide>
+                    <SwiperSlide
+                      className="swiper-slide"
+                    >
+                      <Link to={`/fullSeriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}>
+                        <MasVistos
+                          img1={screenResolution > 750 ? peli.urlPortada4 : peli.urlPortadaMovil4}
+                          nombre={peli.titulo}
+                          duracion={peli.duracion}
+                        //des={peli.sinopsis}
+                        />
+                      </Link>
+                    </SwiperSlide>
+                    <SwiperSlide
+                      className="swiper-slide"
+                    >
+                      <Link to={`/fullSeriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}>
+                        <MasVistos
+                          img1={screenResolution > 750 ? peli.urlPortada3 : peli.urlPortadaMovil3}
+                          nombre={peli.titulo}
+                          duracion={peli.duracion}
+                        //des={peli.sinopsis}
+                        />
+                      </Link>
+                    </SwiperSlide>
+                    <SwiperSlide
+                      className="swiper-slide"
+                    >
+                      <Link to={`/fullSeriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}>
+                        <MasVistos
+                          img1={screenResolution > 750 ? peli.urlPortada2 : peli.urlPortadaMovil2}
+                          nombre={peli.titulo}
+                          duracion={peli.duracion}
+                        //des={peli.sinopsis}
+                        />
+                      </Link>
+                    </SwiperSlide>
+                    <SwiperSlide
+                      className="swiper-slide"
+                    >
+                      <Link to={`/fullSeriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}>
+                        <MasVistos
+                          img1={screenResolution > 750 ? peli.urlPortada : peli.urlPortadaMovil}
+                          nombre={peli.titulo}
+                          duracion={peli.duracion}
+                        //des={peli.sinopsis}
+                        />
+                      </Link>
+                    </SwiperSlide>
+                  </>
                 ))}
-              {/* ... Agrega el resto de los slides */}
             </Swiper>
           </div>
         </div>
@@ -134,18 +178,28 @@ function formatModelPeliculas(data) {
       actores: data.actores,
       director: data.director,
       duracion: data.duracion,
-      tipo: data.tipo,
       sinopsis: data.sinopsis,
-      calificacion: data.calificacion,
+      calificacion: data.clasificacion,
+      datosTemporada: data.datosTemporada,
       año: data.año,
       disponibilidad: data.disponibilidad,
       masVisto: data.masVisto,
+      header: data.header,
       recomendado: data.recomendado,
-      urlVideo: data.urlVideo,
       urlPortada: data.urlPortada,
+      urlTrailer: data.urlTrailer,
+      contador: data.contador,
       seccion: data.seccion,
       estado: data.estado,
-      urlPortadaMovil: data.urlPortadaMovil
+      urlPortada2: data.urlPortada2,
+      urlPortada3: data.urlPortada3,
+      urlPortada4: data.urlPortada4,
+      urlPortada5: data.urlPortada5,
+      urlPortadaMovil: data.urlPortadaMovil,
+      urlPortadaMovil2: data.urlPortadaMovil2,
+      urlPortadaMovil3: data.urlPortadaMovil3,
+      urlPortadaMovil4: data.urlPortadaMovil4,
+      urlPortadaMovil5: data.urlPortadaMovil5,
     });
   });
   return dataTemp;
