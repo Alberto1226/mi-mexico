@@ -350,11 +350,11 @@ footer{
 }
 
 .buscar {
-  width: 70%;
+  width: 78%;
   align-items: center;
   text-align: justify;
   
-  margin-left: 5vw;
+  margin-left: 0;
   position: relative;
   
 }
@@ -1028,4 +1028,27 @@ font-family: 'Titillium Web', sans-serif;
 #languageDropdownButton{
   background-color: transparent;
   border-color: transparent;
+}
+
+
+/*lista*/
+/* En tu hoja de estilos CSS */
+.selected-suggestion {
+  background-color: #f0f0f0; /* Cambia el color de fondo según tus preferencias */
+  border: 2px solid #007bff; /* Cambia el estilo de borde según tus preferencias */
+  /* Otros estilos de resaltado */
+}
+
+
+#navbarScroll{
+  padding: 0;
+  margin-left: 0;
+  float: left;
+  align-items: 0;
+}
+.barrabuscar{
+  align-items: center;
+  text-align: center;
+  justify-items: center;
+
 }

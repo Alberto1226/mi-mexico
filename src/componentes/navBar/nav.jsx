@@ -7,7 +7,7 @@ import {
   faSearch
 } from "@fortawesome/free-solid-svg-icons";
 import { Form, Badge } from "react-bootstrap"
-import { Link } from "react-router-dom";
+import { Link, useHistory  } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -43,7 +43,8 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
   const [searchValue, setSearchValue] = useState("");
   const [sugerencias, setSugerencias] = useState([]);
   const [selectedSuggestion, setSelectedSuggestion] = useState(null);
-
+  const navigate = useNavigate();
+  //const inputRef = useRef(null);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -111,10 +112,24 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
   const handleSugerenciaSeleccionada = (sugerencia) => {
     // Llenar el campo de búsqueda con la sugerencia seleccionada
     setSearchValue(sugerencia.titulo);
-
+    setSelectedSuggestion(sugerencia);
     // Limpiar la lista de sugerencias y restablecer la selección
-    setSugerencias([]);
-    setSelectedSuggestion(null);
+    //setSugerencias([]);
+    //setSelectedSuggestion(null);
+
+    toast.info("Haga clic nuevamente en la sugerencia para buscar.");
+    if  (tipo === "series") {
+      navigate(`/full?id=${id}&titulo=${sugerencia.titulo}`);
+    } else if (tipo === "seriesEspeciales") {
+      navigate(`/fullSeriesEspeciales?id=${id}&titulo=${sugerencia.titulo}`);
+    } else if (tipo === "peliculas") {
+      navigate(`/fullPel?id=${id}&titulo=${sugerencia.titulo}`);
+    } else if (tipo === "especiales") {
+      navigate(`/fullEsp?id=${id}&titulo=${sugerencia.titulo}`);
+    } else if (tipo === "documentales") {
+      navigate(`/fullDoc?id=${id}&titulo=${sugerencia.titulo}&id2=${id}`);
+    }
+    
   };
 
   const handleInputBlur = () => {
@@ -160,7 +175,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
   /**
    * CERRAR SESION GOOGLE
    */
-  const navigate = useNavigate();
+  
   const handleLogoutSuccess = () => {
     googleLogout();
     console.log("Sesión de Google cerrada correctamente");
@@ -168,8 +183,41 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
     navigate("/");
   };
 
+
+  const handleSearch = () => {
+    // Supongamos que tienes acceso a las variables tipo, id y titulo aquí
+    //const navigate1 = useNavigate();
+    
+
+    // Limpiar la lista de sugerencias y restablecer la selección
+    //setSugerencias([]);
+    //setSearchValue(sugerencia.titulo);
+    // Aplicar la clase CSS a la sugerencia seleccionada y eliminarla de sugerencias previas
+    //setSelectedSuggestion(sugerencia);
+
+    
+    
+    //setSelectedSuggestion(null);
+    
+    if  (tipo === "series") {
+      navigate(`/full?id=${id}&titulo=${titulo}`);
+    } else if (tipo === "seriesEspeciales") {
+      navigate(`/fullSeriesEspeciales?id=${id}&titulo=${titulo}`);
+    } else if (tipo === "peliculas") {
+      navigate(`/fullPel?id=${id}&titulo=${titulo}`);
+    } else if (tipo === "especiales") {
+      navigate(`/fullEsp?id=${id}&titulo=${titulo}`);
+    } else if (tipo === "documentales") {
+      navigate(`/fullDoc?id=${id}&titulo=${titulo}&id2=${id}`);
+    }
+    //setSearchValue(sugerencia.titulo);
+   //console.log("click"+sugerencia.titulo);
+  };
+  
+
   return (
     <>
+    <ToastContainer />
       <Navbar bg="link" expand="xl" sticky="top" className="navboostrap sticky-top">
 
         <Container fluid>
@@ -188,14 +236,19 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
               navbarScroll
             >
             </Nav>
-            <div className="position-relative buscar">
-              <div >
+            <div className="position-relative items-center buscar">
+              <div className="">
                 <div className="flex items-center mb-1">
                   <input
                     type="text"
                     value={searchValue}
                     onChange={handleInputChange}
-                    autoFocus
+                    onKeyPress={(event) => {
+                      if (event.key === 'Enter') {
+                        handleSearch (); // Llama a tu función de búsqueda aquí
+                      }
+                    }}
+                    //autoFocus
                     className="inputbuscar"
                     placeholder="Buscar..."
                   />
@@ -206,10 +259,14 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
                   <ul className="list-group">
                     {sugerencias.map((sugerencia) => (
                       <li
+                        //value={searchValue}
                         key={sugerencia.id}
-                        className={`list-group-item ${sugerencia === selectedSuggestion ? 'active' : ''
-                          }`}
+                        className={`list-group-item ${sugerencia === selectedSuggestion ? 'selected-suggestion' : ''}`}
                         onClick={() => handleSugerenciaSeleccionada(sugerencia)}
+                        //onClick={() => handleSearch (sugerencia) // Llama a tu función de búsqueda aquí
+                          
+                        //}
+                        title="Haga clic nuevamente para buscar"
                       >
                         {sugerencia.titulo}
                       </li>
@@ -250,7 +307,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
 
                 </a>
               </Link>*/}
-              {
+           {/**    {
                 tipo == "" &&
                 (
                   <>
@@ -345,6 +402,8 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
                   </>
                 )
               }
+
+              */}
 
               <Link to={"/home2"}>
                 <a className="icon">
