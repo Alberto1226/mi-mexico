@@ -466,17 +466,20 @@ function Especiales({ history }) {
 
         map(dataTemp, (registro, index) => (
 
-          registraPeliculas(registro).then((response) => {
-            const { data } = response;
-            //notificacion
-
-            toast.success(data.mensaje);
-            history({
-              search: queryString.stringify(""),
-            });
-            //setLoading(false);
-            //setShow(false);
-          })
+          setTimeout(() => {
+            registraPeliculas(registro).then((response) => {
+              const { data } = response;
+              //notificacion
+  
+              toast.success(data.mensaje);
+              history({
+                search: queryString.stringify(""),
+              });
+              //setLoading(false);
+              //setShow(false);
+            })
+          }, 500)
+          
         ));
         setLoading(false);
         setShow(false);
