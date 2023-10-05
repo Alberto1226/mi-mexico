@@ -19,6 +19,7 @@ import { FooterApp } from "../footer/footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { listarPatrocinadoresPrioridad, actualizarPatrocinadores, obtenerPatrocinador } from "../../api/patrocinadores";
+import { RecomendadosCat } from "../swiperCategoria/swCategoriaRecomendada";
 
 SwiperCore.use([Pagination, Autoplay]);
 export function FullPeliculas(props) {
@@ -414,6 +415,9 @@ export function FullPeliculas(props) {
           </div>
         </div>
       )}
+
+      {/**<h6>Recomendados</h6>
+       <RecomendadosCat/>*/}
       <FooterApp />
     </>
   );

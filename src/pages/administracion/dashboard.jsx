@@ -200,7 +200,7 @@ export function Dashboard() {
                 <hr />
                 <Nav className="flex-column">
                   <Nav.Item className="listNav">
-                    <Nav.Link className="aa" eventKey="home" active={activeMenu === "home"}>
+                    <Nav.Link className="aa" eventKey="home" active={activeMenu === "user"}>
                       <Link to="/">Inicio</Link>
                     </Nav.Link>
                   </Nav.Item>
@@ -247,7 +247,7 @@ export function Dashboard() {
                 </Nav>
               </div>
               <div class="main bg-light">
-                <div class="barra"></div>
+                
 
                 {showComponent && (
                   <div>

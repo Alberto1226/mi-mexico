@@ -128,14 +128,15 @@ export function SwiperEstrenos(props) {
   };
 
   useEffect(() => {
+    obtenerSeriesEspeciales();
+    obtenerSeries();
     obtenerPeliculas();
     obtenerDocumentales();
     obtenerEspeciales();
-    obtenerSeriesEspeciales();
-    obtenerSeries();
+    
   }, [location]);
 
-  const listaMultimedia = listarPel.concat(listarDoc, listarEsp, listarSeriesEsp, listarSeries);
+  const listaMultimedia = listarPel.concat(listarSeriesEsp, listarSeries, listarDoc, listarEsp );
 
   const [slides, setSlides] = useState(5); // Número inicial de slides a mostrar
 
@@ -189,6 +190,13 @@ export function SwiperEstrenos(props) {
                           <MasVistos className="imgcatlis" img1={screenResolution > 750 ? peli.urlPortada : peli.urlPortadaMovil} />
                         </a>
                       </Link>
+                      
+                    ) :peli.tipo === "series" ? (
+                      <Link to={`/full?id=${peli.id}&titulo=${peli.titulo}`}>
+                        <a>
+                          <MasVistos className="imgcatlis" img1={screenResolution > 750 ? peli.urlPortada : peli.urlPortadaMovil} />
+                        </a>
+                      </Link>
                     ) : peli.tipo === 'documentales' ? (
                       <Link to={`/fullDoc?id=${peli.id}&titulo=${peli.titulo}&id2=${peli.id}`}>
                         <a>
@@ -197,12 +205,6 @@ export function SwiperEstrenos(props) {
                       </Link>
                     ) : peli.tipo === "peliculas" ? (
                       <Link to={`/fullPel?id=${peli.id}&titulo=${peli.titulo}`}>
-                        <a>
-                          <MasVistos className="imgcatlis" img1={screenResolution > 750 ? peli.urlPortada : peli.urlPortadaMovil} />
-                        </a>
-                      </Link>
-                    ) : peli.tipo === "series" ? (
-                      <Link to={`/full?id=${peli.id}&titulo=${peli.titulo}`}>
                         <a>
                           <MasVistos className="imgcatlis" img1={screenResolution > 750 ? peli.urlPortada : peli.urlPortadaMovil} />
                         </a>

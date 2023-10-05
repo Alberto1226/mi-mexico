@@ -169,57 +169,60 @@ export function FullScreanSeriesEspeciales(props) {
     <FullNav/>
         {/**nuevo */}
         {listarSer &&
-        listarSer.map((series) => (
-          <div key={series.id}>
-            <video id="videofull" src={series.urlTrailer} autoPlay loop controls width={"100%"} height={"100%"}></video>
-            <div className="informacionserie">
-              <h6 className="tituloSerie">{series.titulo}</h6>
-              <div className="fuentecervantino" dangerouslySetInnerHTML={{ __html: series.sinopsis || "" }} />
-              {/**<h6 className="sinopsis">{series.sinopsis}</h6> */}
-
-              <h6 className="añoserie">Año de lanzamineto: {series.año}</h6>
-
-            </div>
-            <hr />
-            {Array.isArray(series.datosTemporada) &&
-              series.datosTemporada.map((temporada) => (
-                <div key={temporada.temporada} className="temporadasslide">
-                  <h6 className="añoserie">Temporada {temporada.temporada}</h6>
-                  {Array.isArray(listarCap) && listarCap.length > 0 ? (
-                    <Swiper
-                      spaceBetween={10}
-                      slidesPerView={slides}
-                      navigation
-                      pagination={{ clickable: true }}
-                      className="mySwiper"
-                    >
-                      {listarCap
-                        .filter(
-                          (capitulo) =>
-                            capitulo.temporada === temporada.temporada
-                        )
-                        .map((capitulo) => (
-                          <a key={capitulo.nombre} img={"datos"}>
-                         
-                            <Link to={`/fullCap?id=${capitulo.id}&capitulo=${capitulo.serie}&temporada=${capitulo.temporada}`} img={"datos"}>
+  listarSer.map((series) => (
+    <div key={series.id}>
+      <video id="videofull" src={series.urlTrailer} autoPlay loop controls width={"100%"} height={"100%"}></video>
+      <div className="informacionserie">
+        <h6 className="tituloSerie">{series.titulo}</h6>
+        <div className="fuentecervantino" dangerouslySetInnerHTML={{ __html: series.sinopsis || "" }} />
+        <h6 className="añoserie">Año de lanzamineto: {series.año}</h6>
+      </div>
+      <hr />
+      {Array.isArray(series.datosTemporada) &&
+        series.datosTemporada.map((temporada) => {
+          // Filtrar las temporadas que tienen capítulos
+          const capitulosTemporada = listarCap.filter(
+            (capitulo) => capitulo.temporada === temporada.temporada
+          );
+          if (capitulosTemporada.length > 0) {
+            return (
+              <div key={temporada.temporada} className="temporadasslide">
+                <h6 className="añoserie">Temporada {temporada.temporada}</h6>
+                {Array.isArray(listarCap) && listarCap.length > 0 ? (
+                  <Swiper
+                    spaceBetween={10}
+                    slidesPerView={slides}
+                    navigation
+                    pagination={{ clickable: true }}
+                    className="mySwiper"
+                  >
+                    {listarCap
+                      .filter(
+                        (capitulo) =>
+                          capitulo.temporada === temporada.temporada
+                      )
+                      .map((capitulo) => (
+                        <a key={capitulo.nombre} img={"datos"}>
+                          <Link to={`/fullCap?id=${capitulo.id}&capitulo=${capitulo.serie}&temporada=${capitulo.temporada}`} img={"datos"}>
                             <img
                               className="imgVermas"
                               src={capitulo.urlPortada}
                               alt=""
-
                             />
-                            </Link>
-                            </a>
-                        ))}
-                        
-                    </Swiper>
-                  ) : (
-                    <p>No hay capítulos disponibles</p>
-                  )}
-                </div>
-              ))}
-          </div>
-        ))}
+                          </Link>
+                        </a>
+                      ))}
+                  </Swiper>
+                ) : (
+                  <p>No hay capítulos disponibles</p>
+                )}
+              </div>
+            );
+          }
+          return null; // No se renderiza si no hay capítulos
+        })}
+    </div>
+  ))}
 {/**<iframe width="100%" height="700px" src="https://www.youtube.com/embed/Bg01tyI0rWs?si=kzUCiL7HjwQcaQHo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> */}
         <FooterApp />
     </>

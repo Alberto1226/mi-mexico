@@ -22,7 +22,7 @@ import { VerMas } from "../vermas/vermas";
 
 SwiperCore.use([Navigation, Pagination]);
 
-export function SwiperCategorias(props) {
+export function RecomendadosCat(props) {
   const { location } = props;
   const [listarPel, setListPeliculas] = useState([]);
   const [listarDoc, setListDocumentales] = useState([]);
@@ -139,12 +139,13 @@ export function SwiperCategorias(props) {
       listarCategorias()
         .then((response) => {
           const { data } = response;
-
-          if (!listarCat && data) {
-            setListCategorias(formatModelCategorias(data));
-          } else {
-            const datosCat = formatModelCategorias(data);
-            setListCategorias(datosCat);
+  
+          if (data) {
+            const categoriaViajes = data.find((categoria) => categoria.nombre === "Viajes y Turismo");
+  
+            if (categoriaViajes) {
+              setListCategorias([categoriaViajes]);
+            }
           }
         })
         .catch((e) => { });
@@ -208,7 +209,7 @@ export function SwiperCategorias(props) {
 
 
 
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("Viajes y Turismo");
 
   return (
     <>
@@ -216,18 +217,7 @@ export function SwiperCategorias(props) {
         <div className="location" id="home">
 
           <div className="">
-            <ul className="categories-list">
-              {groupedCategories.map(group => (
-                <li
-                  key={group.categoria}
-                  className="category-item"
-                  onClick={() => setSelectedCategory(group.categoria)}
-                >
-                  <span className="category-name">{group.categoria}</span>
-                  <FontAwesomeIcon icon={faChevronDown} className="expand-icon" />
-                </li>
-              ))}
-            </ul>
+            
 
             <br/>
             <div className="cards-container">

@@ -116,6 +116,15 @@ function TblEspeciales(props) {
     {
       name: "sinopsis",
       label: "SINOPCIS",
+      options: {
+        customBodyRender: (value) => {
+          if (value.length <= 20) {
+            return value;
+          } else {
+            return value.substr(0, 20) + '...';
+          }
+        }
+      }
     },
     {
       name: "calificacion",
