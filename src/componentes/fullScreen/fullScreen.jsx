@@ -392,12 +392,12 @@ export function FullScrean(props) {
 
         ))}
 
-      {/**footer */}
+      {/**footer 
       <section class="link">
         <div class="patrocinadores">
           <SwiperPatrocinadores />
         </div>
-      </section>
+      </section>*/}
 
       <FooterApp />
     </>
