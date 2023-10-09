@@ -73,6 +73,7 @@
 
 .card__image:hover::before {
   opacity: 1;
+  
 }
 
 .card__image h3 {
@@ -122,6 +123,7 @@
 }
 
 .card:hover > .panel {
+  
   display: block;
   animation: fadeIn 0.45s;
 }
@@ -159,7 +161,7 @@
   background-color: whitesmoke;
   box-shadow: 0 0 0 2px #fff;
   border-radius: 20px;
-  position: relative;
+  
   cursor: pointer;
   font-size: 21px;
 }

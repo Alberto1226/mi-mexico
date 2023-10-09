@@ -89,6 +89,7 @@ export function CardsUser(props) {
                 volume="0.3"
                 width="100%"
                 height="100%"
+                Autoplay
                 />
                 
               </div>
@@ -105,11 +106,12 @@ export function CardsUser(props) {
                 <b>{props.duracion}</b>
                 <span class="quality">HD</span>
               </div>
-              <span className="sinopsis">{props.sinopsis}</span><br/>
+              <div className="sinopsis" dangerouslySetInnerHTML={{ __html: props.sinopsis || "" }}/>
+              
               <span class="actor"> {props.actores}</span>
               <span class="director"> {props.director}</span>
               <div className="footerCard">
-                <SwiperFooterCards />
+                
               </div>
             </div>
           </div>

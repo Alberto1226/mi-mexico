@@ -45,6 +45,7 @@ import { googleLogout } from "@react-oauth/google";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { SwiperGuanajuato } from "../../componentes/swiperEspecialesultimos/swultimoscinco";
+import { SwiperHeaderSel } from "../../componentes/swiperSiHeadre/SwiperListarSeriesHeader";
 
 export function Home() {
   const [listarDocumentales, setListDocumentales] = useState([]);
@@ -227,7 +228,12 @@ export function Home() {
             videoh={"https://www.mxtvmas.com:8443/mimexico/peliculas/cerro.mp4"}
           />
         </div>
+
+        <SwiperHeaderSel titulo={"Recomendados"}/>
+        {/** <SwiperPeliculasRecomendadas  />*/}
+        <hr/>
         <SwiperEstrenos titulo={"Estrenos"} />
+        <hr/>
         {/*<img src={portada2} alt="" className="especialespor"/>
         <SwiperEspeciales  />*/}
         <SwiperGuanajuato titulo={"Especiales"}/>

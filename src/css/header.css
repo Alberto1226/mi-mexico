@@ -732,13 +732,14 @@ h4 {
 .componentes-container {
   opacity: 0;
   max-height: 0;
-  overflow: hidden;
+  overflow: scroll;
   transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 .componentes-container.mostrar {
   opacity: 1;
-  max-height: 1000px; /* Ajusta esta altura según tus necesidades */
+  max-height: 70vh; /* Ajusta esta altura según tus necesidades */
+
 }
 
 /*button ver mas*/
@@ -1057,4 +1058,8 @@ font-family: 'Titillium Web', sans-serif;
 
 .sinopsis p{
   color: #222;
+}
+
+.sinopsisCard{
+  color: #ccc;
 }
