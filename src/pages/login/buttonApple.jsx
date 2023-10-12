@@ -6,9 +6,9 @@ const MyAppleSigninButton = ({ ...rest }) => (
     <AppleSignin
       /** Auth options passed to AppleID.auth.init() */
       authOptions={{
-        clientId: '8Q8QFV2KLW.com.mimexico.com',
+        clientId: 'com.mimexico.com',
         scope: 'email name',
-        redirectURI: 'https://mimexivcotv.com',
+        redirectURI: 'https://mimexicotv.com',
         state: '',
         nonce: 'nonce',
         usePopup: true,
