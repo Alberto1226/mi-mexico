@@ -31,7 +31,7 @@ export function VerDirecto(props) {
     obtenerDirectos();
 
     // Establece un intervalo para actualizar los directos cada 5 minutos (300,000 milisegundos)
-    const interval = setInterval(obtenerDirectos, 10000);
+    const interval = setInterval(obtenerDirectos, 100000);
 
     // Limpia el intervalo cuando el componente se desmonta o cuando la ubicación cambia
     return () => clearInterval(interval);
