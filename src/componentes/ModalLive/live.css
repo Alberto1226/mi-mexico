@@ -86,3 +86,34 @@
     margin: 0;
     padding: 0;
   }
+
+  .btnVerMAs{
+    position: fixed;
+    z-index: 3000;
+    background-color: transparent;
+    right: 2.5rem;
+    top: 1rem;
+    display: flex;
+    
+  }
+  .btnVerMAs button{
+    background-color: brown;
+    border-radius: 1vw;
+    padding: 1vw;
+    border: none;
+    color: #fff;
+
+  }
+
+  @media (max-width: 768px) {
+    .btnVerMAs {
+      right: 5%;
+      top: 5%;
+    }
+    
+    .btnVerMAs button {
+      border-radius: 4vw;
+      padding: 4vw;
+      font-size: 2vw;
+    }
+  }

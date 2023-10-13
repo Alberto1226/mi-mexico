@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 
+
 import { listarDirectos } from "../../api/directos";
 import "./live.css";
+import { Link } from "react-router-dom";
 
 export function VerDirecto(props) {
   const { location } = props;
@@ -47,15 +49,20 @@ export function VerDirecto(props) {
     height: "100%",
     zIndex: 1000,
   };
-
+  const handleClick = () => {
+    console.log("¡Clic en el botón!");
+  }
   return (
     <>
+    
       {listarDir.map((dir) => (
         <div key={dir.id}>
             
           <div id="vidtop-content">
           
             <div className="vid-info">
+            
+              
             <iframe
                 src={dir.codigo}
                 className="envivo"
@@ -63,8 +70,15 @@ export function VerDirecto(props) {
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowfullscreen
               ></iframe>
+              <div className="btnVerMAs">
+              <Link to={`/fullheader?url=${dir.codigo}`}>
+              <button onClick={handleClick}>Ver pantalla Completa</button>
+          </Link>
+              </div>
+              
             </div>
           </div>
+          
         </div>
       ))}
     </>
