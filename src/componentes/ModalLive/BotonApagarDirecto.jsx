@@ -9,7 +9,7 @@ import { listarDirectos } from "../../api/directos";
 import ModificarDirectos from "./ModificarDirectos";
 
 
-export function BtnApagarDirecto(props) {
+function BtnApagarDirecto(props) {
   const [listDir, setListDir] = useState([]);
   const [loading, setLoading] = useState(true);
   const { location, history } = props;
@@ -153,3 +153,5 @@ function formatModelDir(data) {
   });
   return dataTemp;
 }
+
+export default withRouter(BtnApagarDirecto);

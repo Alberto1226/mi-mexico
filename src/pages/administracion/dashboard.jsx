@@ -30,7 +30,7 @@ import {
 } from "../../api/auth";
 import { NavPrincipal } from "../../componentes/navBar/nav";
 import { Error } from "../error/error404";
-import { BtnApagarDirecto } from "../../componentes/ModalLive/BotonApagarDirecto";
+import BtnApagarDirecto from "../../componentes/ModalLive/BotonApagarDirecto";
 
 
 export function Dashboard() {
