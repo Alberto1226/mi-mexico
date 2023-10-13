@@ -196,7 +196,7 @@ export function Home2() {
     
       <div>
         <ToastContainer />
-        <Traduction/>
+        {/** <Traduction/>*/}
         <div>
           {userData && (
             <div className="user-profile">

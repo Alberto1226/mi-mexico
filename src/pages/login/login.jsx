@@ -180,9 +180,9 @@ export function Login({ setRefreshCheckLogin }) {
                       </GoogleOAuthProvider>
                     </div>
                     
-                    <div className="loginGoogle">
+                  {/** <div className="loginGoogle">
                         <MyAppleSigninButton/>
-                    </div>
+                    </div> */}
                     {/** <Col>
                       <LoginSocialFacebook
                         appId="1332917397360640"

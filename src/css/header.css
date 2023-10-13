@@ -110,6 +110,7 @@
   padding: 10px 20px 10px;
   background-color: #ffffff;
   color: rgb(0, 0, 0);
+  
 }
 
 #videoheader.show-poster {
@@ -174,7 +175,7 @@ footer {
 .imgVermas {
   border-radius: 1vw;
   margin: 9px;
-  width: 18vw;
+  width: 36vh;
   -webkit-box-shadow: 10px 5px 33px -9px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 10px 5px 33px -9px rgba(0, 0, 0, 0.75);
   box-shadow: 10px 5px 33px -9px rgba(0, 0, 0, 0.75);
@@ -732,14 +733,14 @@ h4 {
 .componentes-container {
   opacity: 0;
   max-height: 0;
-  overflow: scroll;
+  
   transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 .componentes-container.mostrar {
   opacity: 1;
-  max-height: 70vh; /* Ajusta esta altura según tus necesidades */
-
+  max-height: 100vh; /* Ajusta esta altura según tus necesidades */
+  overflow: auto;
 }
 
 /*button ver mas*/

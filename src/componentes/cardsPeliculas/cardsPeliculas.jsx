@@ -69,7 +69,7 @@ export function CardsUser(props) {
           <div class="panel__row info">
           
             <span class="year">Año: {props.anio}</span>
-            <b>Durcaión: {props.duracion}</b>
+            {/** <b>Durcaión: {props.duracion}</b>*/}
             
           </div>
           <div class="panel__row genres">{props.genero}</div>

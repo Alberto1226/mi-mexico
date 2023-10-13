@@ -71,7 +71,7 @@ export const ENDPOINTEliminarPatrocinadores = "/patrocinadores/eliminar";
 export const ENDPOINTObtenerPatrocinadores = "/patrocinadores/obtenerPatrocinador";
 
 // Categorias
-export const ENDPOINTRegistraDirectos = "/directos/registro";
+export const ENDPOINTRegistrarDirectos = "/directos/registro";
 export const ENDPOINTObtenerDirectos = "/directos/listar";
 export const ENDPOINTActualizarDirectos = "/directos/actualizar";
 export const ENDPOINTEliminarDirectos = "/directos/eliminar";

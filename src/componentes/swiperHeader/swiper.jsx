@@ -8,6 +8,7 @@ import "../../css/cardHeader.css";
 //imagenes
 import de1 from "../../assets/img/51FIC01.jpg";
 import { Link } from "react-router-dom";
+import { VerDirecto } from "../ModalLive/ModalLive";
 
 SwiperCore.use([Pagination, Autoplay]);
 
@@ -114,6 +115,7 @@ export function SwiperHeader(props) {
             <img src={de1} alt="Poster" style={posterStyle} />
             </Link>
           </div>
+          <VerDirecto/>
         </SwiperSlide>
         ))}
       </Swiper>
