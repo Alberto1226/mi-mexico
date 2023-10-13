@@ -30,6 +30,7 @@ import {
 } from "../../api/auth";
 import { NavPrincipal } from "../../componentes/navBar/nav";
 import { Error } from "../error/error404";
+import { BtnApagarDirecto } from "../../componentes/ModalLive/BotonApagarDirecto";
 
 
 export function Dashboard() {
@@ -71,6 +72,7 @@ export function Dashboard() {
   const [showComponent5, setShowComponent5] = useState(false);
   const [showComponent6, setShowComponent6] = useState(false);
   const [showComponent7, setShowComponent7] = useState(false);
+  const [showComponent8, setShowComponent8] = useState(false);
 
   const handleClick = () => {
     setShowComponent(true);
@@ -81,6 +83,7 @@ export function Dashboard() {
     setShowComponent5(false);
     setShowComponent6(false);
     setShowComponent7(false);
+    setShowComponent8(false);
   };
   const handleClick1 = () => {
     setShowComponent(false);
@@ -90,6 +93,7 @@ export function Dashboard() {
     setShowComponent4(false);
     setShowComponent5(false);
     setShowComponent6(false);
+    setShowComponent8(false);
     setShowComponent7(false);
   };
   const handleClick2 = () => {
@@ -100,6 +104,7 @@ export function Dashboard() {
     setShowComponent4(false);
     setShowComponent5(false);
     setShowComponent6(false);
+    setShowComponent8(false);
     setShowComponent7(false);
   };
   const handleClick3 = () => {
@@ -110,6 +115,7 @@ export function Dashboard() {
     setShowComponent4(false);
     setShowComponent5(false);
     setShowComponent6(false);
+    setShowComponent8(false);
     setShowComponent7(false);
   };
   const handleClick4 = () => {
@@ -120,6 +126,7 @@ export function Dashboard() {
     setShowComponent4(true);
     setShowComponent5(false);
     setShowComponent6(false);
+    setShowComponent8(false);
     setShowComponent7(false);
   };
 
@@ -131,6 +138,7 @@ export function Dashboard() {
     setShowComponent4(false);
     setShowComponent5(true);
     setShowComponent6(false);
+    setShowComponent8(false);
     setShowComponent7(false);
   };
 
@@ -142,6 +150,7 @@ export function Dashboard() {
     setShowComponent4(false);
     setShowComponent5(false);
     setShowComponent6(true);
+    setShowComponent8(false);
     setShowComponent7(false);
   };
 
@@ -154,8 +163,22 @@ export function Dashboard() {
     setShowComponent5(false);
     setShowComponent6(false);
     setShowComponent7(true);
+    setShowComponent8(false);
+
   };
 
+  const handleClick8 = () => {
+    setShowComponent(false);
+    setShowComponent1(false);
+    setShowComponent2(false);
+    setShowComponent3(false);
+    setShowComponent4(false);
+    setShowComponent5(false);
+    setShowComponent6(false);
+    setShowComponent7(false);
+    setShowComponent8(true);
+
+  };
   //menu
 
   const handleMenuSelect = (menu) => {
@@ -244,6 +267,11 @@ export function Dashboard() {
                       Series Especiales
                     </Nav.Link>
                   </Nav.Item>
+                  <Nav.Item className="listNav" onClick={handleClick8}>
+                    <Nav.Link className="aa" eventKey="news" active={activeMenu === "news"}>
+                      Lives
+                    </Nav.Link>
+                  </Nav.Item>
                 </Nav>
               </div>
               <div class="main bg-light">
@@ -287,6 +315,11 @@ export function Dashboard() {
                 {showComponent7 && (
                   <div>
                     <SeriesEspeciales />
+                  </div>
+                )}
+                {showComponent8 && (
+                  <div>
+                    <BtnApagarDirecto />
                   </div>
                 )}
               </div>
