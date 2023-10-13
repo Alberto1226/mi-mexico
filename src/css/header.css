@@ -733,14 +733,14 @@ h4 {
 .componentes-container {
   opacity: 0;
   max-height: 0;
-  
+  overflow: auto;
   transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 .componentes-container.mostrar {
   opacity: 1;
   max-height: 100vh; /* Ajusta esta altura según tus necesidades */
-  overflow: auto;
+  
 }
 
 /*button ver mas*/
