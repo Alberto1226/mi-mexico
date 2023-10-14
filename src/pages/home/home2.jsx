@@ -37,6 +37,7 @@ import { SwiperEstrenos } from "../../componentes/swiperEstrenos/swEstrenos";
 //imagenes
 import portada2 from "../../assets/img/PORTADA2.jpg";
 import { Especiales3 } from "../../componentes/especiales3/especiales3";
+import android from "../../assets/img/android.jpg";
 
 //GOOGLE
 import { googleLogout } from "@react-oauth/google";
@@ -312,6 +313,9 @@ export function Home2() {
           </div>
         </section>
 
+        <div className="imgGPlay">
+        <img src={android} alt="" />
+        </div>
         <FooterApp />
         
       </div>

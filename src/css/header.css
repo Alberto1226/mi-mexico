@@ -649,6 +649,9 @@ h4 {
 
 /* Móvil */
 @media screen and (max-width: 767px) {
+  .imgGPlay img{
+    display: none;
+  }
   .nextvideo2 {
     left: 85%;
     
@@ -1063,4 +1066,19 @@ font-family: 'Titillium Web', sans-serif;
 
 .sinopsisCard{
   color: #ccc;
+}
+
+
+
+.imgGPlay{
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.imgGPlay img{
+  align-items: center;
+  width: 80%;
 }
