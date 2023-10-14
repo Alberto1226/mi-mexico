@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {listarPeliculas} from "../../api/peliculasListar";
+import {listarPeliculasMasVista} from "../../api/peliculasListar";
 import { Link } from "react-router-dom";
 import { FullScrean } from "../fullScreen/fullScreen";
 export function CardsVermasPeliculas(props) {
@@ -10,7 +10,7 @@ export function CardsVermasPeliculas(props) {
 
   const obtenerPeliculas = () => {
     try {
-      listarPeliculas("peliculas")
+      listarPeliculasMasVista("peliculas")
         .then((response) => {
           const { data } = response;
 

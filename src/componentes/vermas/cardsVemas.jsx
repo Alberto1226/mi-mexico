@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { listarSeries } from "../../api/series";
+import { listarUltimasVeionteSeries } from "../../api/series";
 import { Link } from "react-router-dom";
 import { FullScrean } from "../fullScreen/fullScreen";
 export function CardsVermas(props) {
@@ -8,7 +8,7 @@ export function CardsVermas(props) {
 
   const obtenerSeries = () => {
     try {
-      listarSeries()
+      listarUltimasVeionteSeries()
         .then((response) => {
           const { data } = response;
 

@@ -739,7 +739,7 @@ h4 {
 
 .componentes-container.mostrar {
   opacity: 1;
-  max-height: 100vh; /* Ajusta esta altura según tus necesidades */
+  max-height: 130vh; /* Ajusta esta altura según tus necesidades */
   
 }
 
