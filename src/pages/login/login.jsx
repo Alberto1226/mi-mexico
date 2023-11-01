@@ -159,6 +159,8 @@ export function Login({ setRefreshCheckLogin }) {
                     onClick={togglePasswordVisiblity}
                   />
                 </div>
+
+                {/** 
                 <label>Ingresar con Google</label>
                 
                   <div className="loginGoogle">
@@ -179,7 +181,7 @@ export function Login({ setRefreshCheckLogin }) {
                         </div>
                       </GoogleOAuthProvider>
                     </div>
-                    
+                    */}
                   {/** <div className="loginGoogle">
                         <MyAppleSigninButton/>
                     </div> */}
