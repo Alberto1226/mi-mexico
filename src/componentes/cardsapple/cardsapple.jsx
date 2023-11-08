@@ -132,7 +132,7 @@ for (const m of marquees) new Marquee({ el: m });
     <>
       
         <section className="marquees__wrapper">
-        <center><h4 id="home">{props.titulo}</h4></center>
+        <center><h1 id="home">{props.titulo}</h1></center>
           <div className="marquee" data-duration="5" data-reverse="true">
           <div className="marquee__group">
               {/* ... (Marquee content for the first marquee) */}

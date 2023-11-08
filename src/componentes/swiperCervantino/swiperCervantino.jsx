@@ -84,7 +84,7 @@ export function SwiperCervantino(props) {
     <>
       <section className="main-container">
         <div className="location" id="home">
-          <h4 id="home">{props.titulo}</h4>
+          <h1 id="home">{props.titulo}</h1>
 
           <div className="swiper-container">
             <Swiper

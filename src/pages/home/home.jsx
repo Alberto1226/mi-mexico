@@ -256,7 +256,7 @@ export function Home() {
         {/*<Especiales3 titulo={"Series"}/>
         <hr/>
         <div className="margindiv">
-        <h4>Series +</h4>
+        <h1>Series +</h1>
         </div>
         <VerMas />
         <hr />*/}
@@ -280,12 +280,12 @@ export function Home() {
         <hr />
         <div>
           <div className="margindiv">
-            <h4>
+            <h1>
               Ver mas
               <button className="ver-mas-button" onClick={toggleComponentes}>
             +
           </button>
-            </h4>
+            </h1>
           </div>
           <div
             className={`componentes-container ${

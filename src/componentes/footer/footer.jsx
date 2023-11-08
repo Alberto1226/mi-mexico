@@ -14,7 +14,7 @@ export function FooterApp(props) {
           </div>
         </section>
         <section>
-          <center><h4>Disfruta tu contenido estés donde estés.</h4></center>
+          <center><h1>Disfruta tu contenido estés donde estés.</h1></center>
           <div class="center-container">
           <div class="grid-containerfoo">
           <img src={des} alt="" />

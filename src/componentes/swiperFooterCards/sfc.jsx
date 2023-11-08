@@ -159,7 +159,7 @@ export function SwiperFooterCards(props) {
     <>
       <div className="footerCard">
         <div className="areaswiperFooter">
-          <h4 id="home">Sugerencias</h4>
+          <h1 id="home">Sugerencias</h1>
           <Swiper
             spaceBetween={10}
             slidesPerView={slides}

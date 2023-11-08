@@ -13,10 +13,9 @@
   }
   
   h1 {
-    text-align: center;
-    color: #666;
-    text-shadow: 1px 1px 0px #e97272;
-    margin: 50px 0px 0px 0px;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 30px;
+    margin-top: 5px;
   }
   
   h2 {
