@@ -311,7 +311,7 @@ export function Home() {
           </div>
         </section>
         <div className="imgGPlay">
-        <img src={android} alt="" />
+        <img src={android} alt="Android" />
         </div>
         <FooterApp />
       </div>

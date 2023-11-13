@@ -23,18 +23,18 @@ export function CardsSeries(props) {
   };
   return (
     <>
-      <div class="card">
-        <div class="card__image">
-          <img src={props.img1} alt="" />
+      <div className="card">
+        <div className="card__image">
+          <img src={props.img1} alt="Turismo Méxicano - {props.titulo}" />
           <h3 className="titulomovil">{props.titulo}</h3>
-          <div class="card__heading-sub">
+          <div className="card__heading-sub">
           
             {/**<span class="actor">{props.director}</span> */}
           </div>
         </div>
-        <div class="panel">
-          <div class="panel__row panel__buttons">
-            <div class="panel__icons">
+        <div className="panel">
+          <div className="panel__row panel__buttons">
+            <div className="panel__icons">
               <Button
                 variant="link"
               >
@@ -54,10 +54,10 @@ export function CardsSeries(props) {
             </div>
 
             {/**Button card */}
-            <div class="panel__icons">
+            <div className="panel__icons">
               <Button variant="link" onClick={handleShow}>
                 <a>
-                  <i class="">
+                  <i className="">
                     <FontAwesomeIcon icon={faCircleInfo} />
                   </i>
                 </a>
@@ -66,22 +66,22 @@ export function CardsSeries(props) {
             
             {/** Fin Button card */}
           </div>
-          <div class="panel__row info">
+          <div className="panel__row info">
           
-            <span class="year">Año: {props.anio}</span>
+            <span className="year">Año: {props.anio}</span>
             {/** <b>Durcaión: {props.duracion}</b>*/}
             
           </div>
-          <div class="panel__row genres">{props.genero}</div>
+          <div className="panel__row genres">{props.genero}</div>
         </div>
       </div>
 
       {/**Modal */}
       <Modal show={show} onHide={handleClose} size="lg">
-        <Modal.Body class="modalBackgound">
-          <div class="card__modal-contentPel">
-            <div class="video-background">
-              <div class="video-foreground">
+        <Modal.Body className="modalBackgound">
+          <div className="card__modal-contentPel">
+            <div className="video-background">
+              <div className="video-foreground">
                 <ReactPlayer
                 id="video"
                 url={props.urlVideo}
@@ -94,24 +94,24 @@ export function CardsSeries(props) {
                 
               </div>
             </div>
-            <div class="video-description">
-              <div class="video-description__header">
+            <div className="video-description">
+              <div className="video-description__header">
                 <h3>{props.titulo}</h3>
               </div>
             </div>
-            <div class="card__modal-container">
-              <div class="video-description__headline-sub">
-                <span class="year">{props.anio}</span>
-                <span class="age">18+</span>
+            <div className="card__modal-container">
+              <div className="video-description__headline-sub">
+                <span className="year">{props.anio}</span>
+                <span className="age">18+</span>
                 <b>{props.duracion}</b>
-                <span class="quality">HD</span>
+                <span className="quality">HD</span>
               </div>
               <div className="sinopsisCard" dangerouslySetInnerHTML={{ __html: props.sinopsis || "" }}/>
               
-              <span class="actor"> {props.actores}</span>
-              <span class="director"> {props.director}</span>
+              <span className="actor"> {props.actores}</span>
+              <span className="director"> {props.director}</span>
               <div className="footerCard">
-              <div class="d-flex justify-content-end align-items-center">
+              <div className="d-flex justify-content-end align-items-center">
                 <Link to={`/full?id=${props.id}`} className="btn btn-primary">
                     <i className="mr-2">
                     <FontAwesomeIcon icon={faCirclePlay} />

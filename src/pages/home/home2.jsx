@@ -307,14 +307,14 @@ export function Home2() {
             <SwiperPatrocinadoresN3 />
           </div>
         </section>*/}
-        <section class="link">
-          <div class="patrocinadores">
+        <section className="link">
+          <div className="patrocinadores">
             <SwiperPatrocinadores />
           </div>
         </section>
 
         <div className="imgGPlay">
-        <img src={android} alt="" />
+        <img src={android} alt="Android" />
         </div>
         <FooterApp />
         

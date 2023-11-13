@@ -254,6 +254,7 @@ b {
 }
 .card__modal-container {
   position: relative;
+  
 }
 
 .card__modal-close {
@@ -403,7 +404,8 @@ b {
 .modalBackgound {
   background-color: #0f2027;
   max-width: 50rem;
-  border-radius: 1vw;
+  border-radius: 0 0 1vw 1vw;
+  padding: 0;
 }
 
 #video{

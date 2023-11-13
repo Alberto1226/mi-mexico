@@ -124,9 +124,9 @@ export function Login({ setRefreshCheckLogin }) {
 
   return (
     <>
-      <div class="content">
-        <div class="container">
-          <div class="menu">
+      <div className="content">
+        <div className="container">
+          <div className="menu">
             <img src={img} alt="" className="imglogin" />
             <label className="lblDesLogin">
               Únete a la plataforma de videos que promueve los destinos y
@@ -134,7 +134,7 @@ export function Login({ setRefreshCheckLogin }) {
             </label>
           </div>
 
-          <div class="connexion">
+          <div className="connexion">
             <Form onSubmit={onSubmit} onChange={onChange}>
               <div class="contact-form">
                 <label>Inicio de sesión</label>
@@ -204,27 +204,27 @@ export function Login({ setRefreshCheckLogin }) {
                 <label>
                   ¿Olvidaste la contraseña?
                   <Link to="/recuperarPass">
-                    <a class="a">Haz click aquí</a>
+                    <a className="a">Haz click aquí</a>
                   </Link>
                 </label>
-                <input class="submit" value="Entrar" type="submit" />
+                <input className="submit" value="Entrar" type="submit" />
                 <label>
                   Al pulsar ''Entrar'' usted confirma que es mayor de 18 años y
                   que acepta los
                 </label>
-                <a class="a">Términos de Uso </a>|
-                <Link to={`/politicaPrivacidad`}><a class="a" > Política de Privacidad</a></Link>
+                <a className="a">Términos de Uso </a>|
+                <Link to={`/politicaPrivacidad`}><a className="a" > Política de Privacidad</a></Link>
               </div>
 
               <hr />
               <div>
                 <h3>¿Todavía sin cuenta?</h3>
                 <Link to="/registro">
-                  <input class="submit" value="Crear tu cuenta" type="submit" />
+                  <input className="submit" value="Crear tu cuenta" type="submit" />
                 </Link>
 
                 <Link to="/home2">
-                  <input class="submit" value="Home" type="submit" />
+                  <input className="submit" value="Home" type="submit" />
                 </Link>
                 <label>
                   © 2022-2023 Todos los Derechos Reservados por miMéxico®

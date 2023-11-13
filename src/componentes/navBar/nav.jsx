@@ -224,7 +224,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
           <Link to={`/home2`}>
             <Navbar.Brand href="#home" className="mexicoLogo" id="logo">
               <a href="">
-                <img src={logo} alt="" className="logomx" />
+                <img src={logo} alt="Mi MéxicoTV" className="logomx" />
               </a>
             </Navbar.Brand>
           </Link>
