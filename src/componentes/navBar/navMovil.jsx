@@ -40,7 +40,7 @@ function BottomNavigation() {
   return (
     
     <div className="navMovil">
-      <Link to="/home2">
+      <Link to="/home">
         <div  id="elementosnav">
 
           <FontAwesomeIcon icon={faHome} className="iconNavMovil" />

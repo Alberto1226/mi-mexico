@@ -49,6 +49,7 @@ import BottomNavigation from "../../componentes/navBar/navMovil";
 import Traduction from "../../componentes/traduccion/traduccion";
 import { SwiperGuanajuato } from "../../componentes/swiperEspecialesultimos/swultimoscinco";
 import { SwiperHeaderSel } from "../../componentes/swiperSiHeadre/SwiperListarSeriesHeader";
+import { Helmet } from "react-helmet";
 
 export function Home2() {
   const [listarDocumentales, setListDocumentales] = useState([]);
@@ -183,7 +184,7 @@ export function Home2() {
     googleLogout();
     console.log("Sesión de Google cerrada correctamente");
     toast.success("Sesión de Google cerrada correctamente");
-    navigate("/home2");
+    navigate("/home");
   };
 
   //ver mas
@@ -194,7 +195,11 @@ export function Home2() {
   };
   return (
     <>
-    
+    <Helmet>
+        <meta  name="Streaming México" content="General"/>
+        <title>Inicio</title>
+        <link rel="canonical" href="https://mimexicotv.com/" />
+      </Helmet>
       <div>
         <ToastContainer />
         {/** <Traduction/>*/}

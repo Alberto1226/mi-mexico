@@ -185,32 +185,32 @@ export function SwiperEstrenos(props) {
                     //data-slide-number={index + 1}
                   >
                     {peli.tipo === "especiales" ? (
-                      <Link to={`/epecialguela?id=${peli.id}&titulo=${peli.titulo}`}>
+                      <Link to={`/epecialGuelaguetza?id=${peli.id}&titulo=${peli.titulo}`}>
                         <a>
                           <MasVistos className="imgcatlis" img1={screenResolution > 750 ? peli.urlPortada : peli.urlPortadaMovil} />
                         </a>
                       </Link>
                       
                     ) :peli.tipo === "series" ? (
-                      <Link to={`/full?id=${peli.id}&titulo=${peli.titulo}`}>
+                      <Link to={`/series?id=${peli.id}&titulo=${peli.titulo}`}>
                         <a>
                           <MasVistos className="imgcatlis" img1={screenResolution > 750 ? peli.urlPortada : peli.urlPortadaMovil} />
                         </a>
                       </Link>
                     ) : peli.tipo === 'documentales' ? (
-                      <Link to={`/fullDoc?id=${peli.id}&titulo=${peli.titulo}&id2=${peli.id}`}>
+                      <Link to={`/documentales?id=${peli.id}&titulo=${peli.titulo}&id2=${peli.id}`}>
                         <a>
                           <MasVistos className="imgcatlis" img1={screenResolution > 750 ? peli.urlPortada : peli.urlPortadaMovil} />
                         </a>
                       </Link>
                     ) : peli.tipo === "peliculas" ? (
-                      <Link to={`/fullPel?id=${peli.id}&titulo=${peli.titulo}`}>
+                      <Link to={`/peliculas?id=${peli.id}&titulo=${peli.titulo}`}>
                         <a>
                           <MasVistos className="imgcatlis" img1={screenResolution > 750 ? peli.urlPortada : peli.urlPortadaMovil} />
                         </a>
                       </Link>
                     ) : (
-                      <Link to={`/fullSeriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}>
+                      <Link to={`/seriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}>
                         <a>
                           <MasVistos className="imgcatlis" img1={screenResolution > 750 ? peli.urlPortada : peli.urlPortadaMovil} />
                         </a>

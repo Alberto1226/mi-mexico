@@ -18,6 +18,7 @@ import { FooterApp } from "../footer/footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { listarPatrocinadoresPrioridad, actualizarPatrocinadores, obtenerPatrocinador } from "../../api/patrocinadores";
+import { Helmet } from "react-helmet";
 
 SwiperCore.use([Pagination, Autoplay]);
 export function FullEspeciales(props) {
@@ -316,6 +317,10 @@ export function FullEspeciales(props) {
   };
   return (
     <>
+    <Helmet>
+        <title>Especiales</title>
+        <link rel="canonical" href="https://mimexicotv.com/" />
+      </Helmet>
       <FullNav />
       {listarPel.length > 0 && (
         <div key={listarPel[matchedIndex].id ?? ""}>

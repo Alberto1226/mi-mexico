@@ -25,6 +25,7 @@ import { FacebookLoginButton } from "react-social-login-buttons";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import MyAppleSigninButton from "./buttonApple";
+import { Helmet } from "react-helmet";
 
 export function Login({ setRefreshCheckLogin }) {
   const [formData, setFormData] = useState(initialFormValue);
@@ -39,7 +40,7 @@ export function Login({ setRefreshCheckLogin }) {
   const enrutamiento = useNavigate();
 
   const cancelarRegistro = () => {
-    enrutamiento("/home2");
+    enrutamiento("/home");
   };
 
   const cancelarRegistroAdmin = () => {
@@ -124,6 +125,11 @@ export function Login({ setRefreshCheckLogin }) {
 
   return (
     <>
+    <Helmet>
+        <title>Inicio de Sesión</title>
+        <meta name="description" content="Inicia sesión en la plataforma de streaming Turismo Méxicano para acceder a contenido exclusivo sobre destinos turísticos de México. Disfruta de una experiencia personalizada y descubre todo lo que nuestro país tiene para ofrecer." />
+        <link rel="canonical" href="https://mimexicotv.com/" />
+      </Helmet>
       <div className="content">
         <div className="container">
           <div className="menu">
@@ -172,7 +178,7 @@ export function Login({ setRefreshCheckLogin }) {
                                 credentialResponse.credential
                               );
                               console.log(decoded);
-                              navigate("/home2", { state: { userData: decoded } });
+                              navigate("/inicio", { state: { userData: decoded } });
                             }}
                             onError={() => {
                               console.log("Login Failed");
@@ -223,7 +229,7 @@ export function Login({ setRefreshCheckLogin }) {
                   <input className="submit" value="Crear tu cuenta" type="submit" />
                 </Link>
 
-                <Link to="/home2">
+                <Link to="/home">
                   <input className="submit" value="Home" type="submit" />
                 </Link>
                 <label>

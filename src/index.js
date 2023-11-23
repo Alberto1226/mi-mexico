@@ -32,7 +32,7 @@ const router = createBrowserRouter([
     errorElement: <Error />,
   },
   {
-    path: "home2",
+    path: "home",
     element: <Home2 />,
     errorElement: <Error />,
   },
@@ -44,11 +44,6 @@ const router = createBrowserRouter([
   {
     path: "/politicaPrivacidad",
     element: <PoliticaPrivacidad />,
-    errorElement: <Error />,
-  },
-  {
-    path: "/dashboard",
-    element: <Dashboard />,
     errorElement: <Error />,
   },
   {
@@ -80,32 +75,32 @@ const router = createBrowserRouter([
     errorElement: <Error />,
   },
   {
-    path: "/full",
+    path: "/series",
     element: <FullScrean />,
     errorElement: <Error />,
   },
   {
-    path: "/fullSeriesEspeciales",
+    path: "/seriesEspeciales",
     element: <FullScreanSeriesEspeciales />,
     errorElement: <Error />,
   },
   {
-    path: "/fullCap",
+    path: "/capitulos",
     element: <FullCapitulos />,
     errorElement: <Error />,
   },
   {
-    path: "/fullPel",
+    path: "/peliculas",
     element: <FullPeliculas />,
     errorElement: <Error />,
   },
   {
-    path: "/fullDoc",
+    path: "/documentales",
     element: <FullDocumentales />,
     errorElement: <Error />,
   },
   {
-    path: "/fullEsp",
+    path: "/eventosEspeciales",
     element: <FullEspeciales />,
     errorElement: <Error />,
   },
@@ -116,12 +111,12 @@ const router = createBrowserRouter([
   },
   ,
   {
-    path: "/epecialguela",
+    path: "/epecialGuelaguetzaguetza",
     element: <GuelaguetzaFull/>,
     errorElement: <Error />,
   },
   {
-    path: "/fullheader",
+    path: "/enVivo",
     element: <FullVideoHeader/>,
     errorElement: <Error />,
   },

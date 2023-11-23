@@ -2,6 +2,7 @@ import "../../css/registro.css";
 import React, { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 
 export function Registro() {
@@ -21,6 +22,11 @@ export function Registro() {
   };
   return (
     <>
+    <Helmet>
+    <title>Registro - miMéxicoTV</title>
+        <meta name="description" content="Regístrate en Turismo Méxicano y descubre un mundo de posibilidades para explorar los destinos turísticos más fascinantes de México. Obtén acceso exclusivo a contenido, planifica tus viajes y disfruta de una experiencia única con nuestra plataforma de streaming." />
+        <link rel="canonical" href="https://mimexicotv.com/" />
+      </Helmet>
       <div class="content">
         <div class="container">
 

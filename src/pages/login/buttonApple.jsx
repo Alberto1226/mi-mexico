@@ -8,7 +8,7 @@ const MyAppleSigninButton = ({ ...rest }) => (
       authOptions={{
         clientId: 'com.mimexico.com',
         scope: 'email name',
-        redirectURI: 'https://mimexicotv.com/home2',
+        redirectURI: 'https://mimexicotv.com/home',
         state: '',
         nonce: 'nonce',
         usePopup: true,

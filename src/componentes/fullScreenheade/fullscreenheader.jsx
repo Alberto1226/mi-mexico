@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import queryString from "query-string";
 import {FullNav} from "../navcompleto/navCompleto";
 import { listarDirectos } from "../../api/directos";
+import { Helmet } from "react-helmet";
 
 export function FullVideoHeader(props) {
     const locations = useLocation();
@@ -53,6 +54,11 @@ export function FullVideoHeader(props) {
     };
   return (
     <>
+    <Helmet>
+    <title>Transmisiones en Vivo - Turismo Méxicano</title>
+        <meta name="description" content="Sumérgete en las transmisiones en vivo de Turismo Méxicano y vive experiencias únicas desde diferentes destinos turísticos de México. Disfruta de contenido en tiempo real, eventos especiales y descubre la riqueza cultural y natural del país desde la comodidad de tu hogar." />
+        <link rel="canonical" href="https://mimexicotv.com/" />
+      </Helmet>
       {listarDir.map((dir) => (
         <div key={dir.id}>
             

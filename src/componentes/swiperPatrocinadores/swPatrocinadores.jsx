@@ -18,6 +18,7 @@ import www from "../../assets/img/www.png";
 import facebook from "../../assets/img/facebook.png";
 import twitter from "../../assets/img/gorjeo.png";
 import instagram from "../../assets/img/instagram.png";
+import { Helmet } from "react-helmet";
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
@@ -76,7 +77,11 @@ export function SwiperPatrocinadores(props) {
 
   return (
     <>
-      
+      <Helmet>
+        <title>Nuestros Patrocinadores - miMéxicoTV</title>
+        <meta name="description" content="Descubre y conoce a los patrocinadores que hacen posible la experiencia en Turismo Méxicano. Nuestros colaboradores son parte fundamental de la promoción de destinos turísticos en México, contribuyendo a enriquecer la oferta de contenido y experiencias para nuestros usuarios." />
+        <link rel="canonical" href="https://mimexicotv.com/patrocinadores" />
+      </Helmet>
       <div className="location" id="home">
         <Swiper
           spaceBetween={10}
@@ -100,23 +105,23 @@ export function SwiperPatrocinadores(props) {
                   <Row className="gx-0">
                     <Col>
                       <a href={patrocinadores.urlWeb} target="_blank">
-                        <img src={www} alt="" />
+                        <img src={www} alt={`Web de ${patrocinadores.nombre}`} />
                       </a>
                     </Col>
                     <Col>
                       <a href={patrocinadores.urlFacebook} target="_blank">
-                        <img src={facebook} alt="" />
+                        <img src={facebook} alt={`Facebook de ${patrocinadores.nombre}`} />
                       </a>
                     </Col>
                     <Col>
                       <a href={patrocinadores.urlTwitter} target="_blank">
-                        <img src={twitter} alt="" />
+                        <img src={twitter} alt={`X de ${patrocinadores.nombre}`} />
                       </a>
                     </Col>
                     <Col>
                       {" "}
                       <a href={patrocinadores.urlInstagram} target="_blank">
-                        <img src={instagram} alt="" />
+                        <img src={instagram} alt={`Instagram de ${patrocinadores.nombre}`} />
                       </a>
                     </Col>
                   </Row>

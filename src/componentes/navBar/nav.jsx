@@ -119,15 +119,15 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
 
     toast.info("Haga clic nuevamente en la sugerencia para buscar.");
     if  (tipo === "series") {
-      navigate(`/full?id=${id}&titulo=${sugerencia.titulo}`);
+      navigate(`/series?id=${id}&titulo=${sugerencia.titulo}`);
     } else if (tipo === "seriesEspeciales") {
-      navigate(`/fullSeriesEspeciales?id=${id}&titulo=${sugerencia.titulo}`);
+      navigate(`/seriesEspeciales?id=${id}&titulo=${sugerencia.titulo}`);
     } else if (tipo === "peliculas") {
-      navigate(`/fullPel?id=${id}&titulo=${sugerencia.titulo}`);
+      navigate(`/peliculas?id=${id}&titulo=${sugerencia.titulo}`);
     } else if (tipo === "especiales") {
-      navigate(`/fullEsp?id=${id}&titulo=${sugerencia.titulo}`);
+      navigate(`/eventosEspeciales?id=${id}&titulo=${sugerencia.titulo}`);
     } else if (tipo === "documentales") {
-      navigate(`/fullDoc?id=${id}&titulo=${sugerencia.titulo}&id2=${id}`);
+      navigate(`/documentales?id=${id}&titulo=${sugerencia.titulo}&id2=${id}`);
     }
     
   };
@@ -200,15 +200,15 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
     //setSelectedSuggestion(null);
     
     if  (tipo === "series") {
-      navigate(`/full?id=${id}&titulo=${titulo}`);
+      navigate(`/series?id=${id}&titulo=${titulo}`);
     } else if (tipo === "seriesEspeciales") {
-      navigate(`/fullSeriesEspeciales?id=${id}&titulo=${titulo}`);
+      navigate(`/seriesEspeciales?id=${id}&titulo=${titulo}`);
     } else if (tipo === "peliculas") {
-      navigate(`/fullPel?id=${id}&titulo=${titulo}`);
+      navigate(`/peliculas?id=${id}&titulo=${titulo}`);
     } else if (tipo === "especiales") {
-      navigate(`/fullEsp?id=${id}&titulo=${titulo}`);
+      navigate(`/eventosEspeciales?id=${id}&titulo=${titulo}`);
     } else if (tipo === "documentales") {
-      navigate(`/fullDoc?id=${id}&titulo=${titulo}&id2=${id}`);
+      navigate(`/documentales?id=${id}&titulo=${titulo}&id2=${id}`);
     }
     //setSearchValue(sugerencia.titulo);
    //console.log("click"+sugerencia.titulo);
@@ -221,7 +221,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
       <Navbar bg="link" expand="xl" sticky="top" className="navboostrap sticky-top">
 
         <Container fluid>
-          <Link to={`/home2`}>
+          <Link to={`/home`}>
             <Navbar.Brand href="#home" className="mexicoLogo" id="logo">
               <a href="">
                 <img src={logo} alt="Mi MéxicoTV" className="logomx" />
@@ -313,7 +313,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
                   <>
                     <Link>
 
-                      <Link to={`/home2`}><a className="icon">
+                      <Link to={`/inicio`}><a className="icon">
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                       </a></Link>
 
@@ -329,7 +329,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
                   <>
                     <Link>
 
-                      <Link to={`/full?id=${id}&titulo=${titulo}`}><a className="icon">
+                      <Link to={`/series?id=${id}&titulo=${titulo}`}><a className="icon">
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                       </a></Link>
 
@@ -345,7 +345,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
                   <>
                     <Link>
 
-                      <Link to={`/fullSeriesEspeciales?id=${id}&titulo=${titulo}`}><a className="icon">
+                      <Link to={`/seriesEspeciales?id=${id}&titulo=${titulo}`}><a className="icon">
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                       </a></Link>
 
@@ -361,7 +361,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
                   <>
                     <Link>
 
-                      <Link to={`/fullPel?id=${id}&titulo=${titulo}`}><a className="icon">
+                      <Link to={`/peliculas?id=${id}&titulo=${titulo}`}><a className="icon">
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                       </a></Link>
 
@@ -377,7 +377,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
                   <>
                     <Link>
 
-                      <Link to={`/fullEsp?id=${id}&titulo=${titulo}`}><a className="icon">
+                      <Link to={`/eventosEspeciales?id=${id}&titulo=${titulo}`}><a className="icon">
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                       </a></Link>
 
@@ -393,7 +393,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
                   <>
                     <Link>
 
-                      <Link to={`/fullDoc?id=${id}&titulo=${titulo}&id2=${id}`}><a className="icon">
+                      <Link to={`/documentales?id=${id}&titulo=${titulo}&id2=${id}`}><a className="icon">
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                       </a></Link>
 
@@ -405,7 +405,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
 
               */}
 
-              <Link to={"/home2"}>
+              <Link to={"/home"}>
                 <a className="icon">
                   <FontAwesomeIcon icon={faHouse} />
                 </a>

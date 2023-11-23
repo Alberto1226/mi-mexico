@@ -34,7 +34,7 @@ export function CardsVermas(props) {
         listarSer.map((series) => (
           <a key={series.id} img={"datos"}>
 
-            <Link to={`/full?id=${series.id}`} img={"datos"}>
+            <Link to={`/series?id=${series.id}`} img={"datos"}>
               <img
                 className="imgVermas"
                 src={series.urlPortada}

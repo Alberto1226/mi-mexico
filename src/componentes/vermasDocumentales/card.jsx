@@ -36,7 +36,7 @@ export function CardsVermasDocumentales(props) {
         listarPel.map((documentales) => (
           <a key={documentales.id} img={"datos"}>
 
-            <Link to={`/fullDoc?id=${documentales.id}`} img={"datos"}>
+            <Link to={`/documentales?id=${documentales.id}`} img={"datos"}>
               <img
                 className="imgVermas"
                 src={documentales.urlPortada}

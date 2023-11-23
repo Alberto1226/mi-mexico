@@ -101,7 +101,7 @@ export function SwiperCervantino(props) {
                     <SwiperSlide
                       className="swiper-slide"
                     >
-                      <Link to={`/fullSeriesEspeciales?id=${peli?.id}&titulo=${peli?.titulo}`}>
+                      <Link to={`/seriesEspeciales?id=${peli?.id}&titulo=${peli?.titulo}`}>
                         <MasVistos
                           img1={screenResolution > 750 ? peli.urlPortada5 : peli.urlPortadaMovil5}
                           nombre={peli.titulo}
@@ -113,7 +113,7 @@ export function SwiperCervantino(props) {
                     <SwiperSlide
                       className="swiper-slide"
                     >
-                      <Link to={`/fullSeriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}>
+                      <Link to={`/seriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}>
                         <MasVistos
                           img1={screenResolution > 750 ? peli.urlPortada4 : peli.urlPortadaMovil4}
                           nombre={peli.titulo}
@@ -125,7 +125,7 @@ export function SwiperCervantino(props) {
                     <SwiperSlide
                       className="swiper-slide"
                     >
-                      <Link to={`/fullSeriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}>
+                      <Link to={`/seriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}>
                         <MasVistos
                           img1={screenResolution > 750 ? peli.urlPortada3 : peli.urlPortadaMovil3}
                           nombre={peli.titulo}
@@ -137,7 +137,7 @@ export function SwiperCervantino(props) {
                     <SwiperSlide
                       className="swiper-slide"
                     >
-                      <Link to={`/fullSeriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}>
+                      <Link to={`/seriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}>
                         <MasVistos
                           img1={screenResolution > 750 ? peli.urlPortada2 : peli.urlPortadaMovil2}
                           nombre={peli.titulo}
@@ -149,7 +149,7 @@ export function SwiperCervantino(props) {
                     <SwiperSlide
                       className="swiper-slide"
                     >
-                      <Link to={`/fullSeriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}>
+                      <Link to={`/seriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}>
                         <MasVistos
                           img1={screenResolution > 750 ? peli.urlPortada : peli.urlPortadaMovil}
                           nombre={peli.titulo}

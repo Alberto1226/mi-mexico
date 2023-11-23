@@ -18,6 +18,7 @@ import { FullNav } from "../navcompleto/navCompleto";
 import { SwiperPatrocinadores } from "../swiperPatrocinadores/swPatrocinadores";
 import { FooterApp } from "../footer/footer";
 import { listarPatrocinadoresPrioridad, actualizarPatrocinadores, obtenerPatrocinador } from "../../api/patrocinadores";
+import { Helmet } from "react-helmet";
 
 SwiperCore.use([Pagination, Autoplay]);
 export function FullScrean(props) {
@@ -280,6 +281,10 @@ export function FullScrean(props) {
   };
   return (
     <>
+    <Helmet>
+        <title>Series</title>
+        <link rel="canonical" href="https://mimexicotv.com/" />
+      </Helmet>
       <FullNav />
       {listarSer &&
         listarSer.map((series) => (
@@ -370,7 +375,7 @@ export function FullScrean(props) {
                       )
                       .map((capitulo) => (
                         <a key={capitulo.nombre} img={"datos"}>
-                          <Link to={`/fullCap?id=${capitulo.id}&capitulo=${capitulo.serie}&temporada=${capitulo.temporada}`} img={"datos"}>
+                          <Link to={`/capitulos?id=${capitulo.id}&capitulo=${capitulo.serie}&temporada=${capitulo.temporada}`} img={"datos"}>
                             <img
                               className="imgVermas"
                               src={capitulo.urlPortada}

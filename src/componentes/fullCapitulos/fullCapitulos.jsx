@@ -17,6 +17,7 @@ import { listarPatrocinadoresPrioridad, actualizarPatrocinadores, obtenerPatroci
 import { FullNav } from "../navcompleto/navCompleto";
 import { SwiperPatrocinadores } from "../swiperPatrocinadores/swPatrocinadores";
 import { FooterApp } from "../footer/footer";
+import { Helmet } from "react-helmet";
 
 SwiperCore.use([Pagination, Autoplay]);
 export function FullCapitulos(props) {
@@ -345,6 +346,10 @@ export function FullCapitulos(props) {
   };
   return (
     <>
+    <Helmet>
+        <title>Capitulos</title>
+        <link rel="canonical" href="https://mimexicotv.com/" />
+      </Helmet>
       <FullNav />
       {listarCap2 && (
         <div key={listarCap2[matchedIndex].id ?? ""}>
@@ -443,7 +448,7 @@ export function FullCapitulos(props) {
               onClick={miFuncion}
             >
               <Link
-                to={`/fullCap?id=${tem.id}&capitulo=${tem.serie}&temporada=${tem.temporada}`}
+                to={`/capitulos?id=${tem.id}&capitulo=${tem.serie}&temporada=${tem.temporada}`}
                 img={"datos"}
                 onClick={() => setCapituloSeleccionado(tem.capitulo)}
               >

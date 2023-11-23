@@ -139,7 +139,7 @@ for (const m of marquees) new Marquee({ el: m });
               {listarPel &&
               listarPel.map((pelicula) => (
               <div class="item">
-                <Link to={`/fullPel?id=${pelicula.id}`} >
+                <Link to={`/peliculas?id=${pelicula.id}`} >
                 <CardHeader img1={pelicula.urlPortada}/>
                 </Link>
                </div>
@@ -153,7 +153,7 @@ for (const m of marquees) new Marquee({ el: m });
               {listarPel &&
               listarPel.map((pelicula) => (
               <div class="item">
-                <Link to={`/fullPel?id=${pelicula.id}`} >
+                <Link to={`/peliculas?id=${pelicula.id}`} >
                 <CardHeader img1={pelicula.urlPortada}/>
                 </Link>
                </div>

@@ -47,6 +47,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { SwiperGuanajuato } from "../../componentes/swiperEspecialesultimos/swultimoscinco";
 import { SwiperHeaderSel } from "../../componentes/swiperSiHeadre/SwiperListarSeriesHeader";
+import { Helmet } from "react-helmet";
 
 export function Home() {
   const [listarDocumentales, setListDocumentales] = useState([]);
@@ -181,7 +182,7 @@ export function Home() {
     googleLogout();
     console.log("Sesión de Google cerrada correctamente");
     toast.success("Sesión de Google cerrada correctamente");
-    navigate("/home2");
+    navigate("/home");
   };
 
   //ver mas
@@ -192,6 +193,11 @@ export function Home() {
   };
   return (
     <>
+      <Helmet>
+        <title>Turismo Méxicano</title>
+        <meta name="description" content="Una plataforma de streaming dedicada a la promoción de los destinos turísticos más destacados de México, ofreciendo una experiencia inmersiva para descubrir la riqueza cultural, paisajes naturales y atracciones del país." />
+        <link rel="canonical" href="https://mimexicotv.com/" />
+      </Helmet>
       <LoadVideo />
       <div>
         <ToastContainer />
@@ -230,14 +236,14 @@ export function Home() {
           />
         </div>
 
-        <SwiperHeaderSel titulo={"Recomendados"}/>
+        <SwiperHeaderSel titulo={"Recomendados"} />
         {/** <SwiperPeliculasRecomendadas  />*/}
-        <hr/>
+        <hr />
         <SwiperEstrenos titulo={"Estrenos"} />
-        <hr/>
+        <hr />
         {/*<img src={portada2} alt="" className="especialespor"/>
         <SwiperEspeciales  />*/}
-        <SwiperGuanajuato titulo={"Especiales"}/>
+        <SwiperGuanajuato titulo={"Especiales"} />
         <SwiperCervantino titulo={""} />
         <hr />
         {/*<Especiales3 titulo={"Series"} />*/}
@@ -252,7 +258,7 @@ export function Home() {
         {/**<SwiperPeliculasRecomendadas titulo={"Recomendados"} /> */}
 
         <SwiperPeliculas titulo={"Peliculas"} />
-        
+
         {/*<Especiales3 titulo={"Series"}/>
         <hr/>
         <div className="margindiv">
@@ -283,8 +289,8 @@ export function Home() {
             <h1>
               Ver mas
               <button className="ver-mas-button" onClick={toggleComponentes}>
-            +
-          </button>
+                +
+              </button>
             </h1>
           </div>
           <div
@@ -298,7 +304,6 @@ export function Home() {
             <hr />
           </div>
         </div>
-        
 
         {/** <section class="link">
           <div class="patrocinadores">
@@ -311,7 +316,7 @@ export function Home() {
           </div>
         </section>
         <div className="imgGPlay">
-        <img src={android} alt="Android" />
+          <img src={android} alt="Android" />
         </div>
         <FooterApp />
       </div>

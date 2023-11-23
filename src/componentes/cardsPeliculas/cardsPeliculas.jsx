@@ -38,7 +38,7 @@ export function CardsUser(props) {
               <Button
                 variant="link"
               >
-              <Link to={`/fullPel?id=${props.id}`} >
+              <Link to={`/peliculas?id=${props.id}`} >
                 <a>
                   <i className="">
                     <FontAwesomeIcon icon={faCirclePlay} />

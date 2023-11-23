@@ -38,7 +38,7 @@ export function CardsSeries(props) {
               <Button
                 variant="link"
               >
-              <Link to={`/full?id=${props.id}`} >
+              <Link to={`/series?id=${props.id}`} >
                 <a>
                   <i className="">
                     <FontAwesomeIcon icon={faCirclePlay} />
@@ -112,7 +112,7 @@ export function CardsSeries(props) {
               <span className="director"> {props.director}</span>
               <div className="footerCard">
               <div className="d-flex justify-content-end align-items-center">
-                <Link to={`/full?id=${props.id}`} className="btn btn-primary">
+                <Link to={`/series?id=${props.id}`} className="btn btn-primary">
                     <i className="mr-2">
                     <FontAwesomeIcon icon={faCirclePlay} />
                     </i>

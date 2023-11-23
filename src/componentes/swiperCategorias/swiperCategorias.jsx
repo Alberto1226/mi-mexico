@@ -246,23 +246,23 @@ export function SwiperCategorias(props) {
                           key={objeto.id}
                           className="swiper-slide-categorias">
                           {objeto.tipo === 'peliculas' ? (
-                            <Link to={`/fullPel?id=${objeto.id}&titulo=${objeto.titulo}`}><a className="">
+                            <Link to={`/peliculas?id=${objeto.id}&titulo=${objeto.titulo}`}><a className="">
                               <MasVistos className="imgcatlis" img1={screenResolution > 750 ? objeto.urlPortada : objeto.urlPortadaMovil} />
                             </a></Link>
                           ) : objeto.tipo === 'documentales' ? (
-                            <Link to={`/fullDoc?id=${objeto.id}&titulo=${objeto.titulo}&id2=${objeto.id}`}><a className="">
+                            <Link to={`/documentales?id=${objeto.id}&titulo=${objeto.titulo}&id2=${objeto.id}`}><a className="">
                               <MasVistos className="imgcatlis" img1={screenResolution > 750 ? objeto.urlPortada : objeto.urlPortadaMovil} />
                             </a></Link>
                           ) : objeto.tipo === 'especiales' ? (
-                            <Link to={`/fullEsp?id=${objeto.id}&titulo=${objeto.titulo}`}><a className="">
+                            <Link to={`/eventosEspeciales?id=${objeto.id}&titulo=${objeto.titulo}`}><a className="">
                               <MasVistos className="imgcatlis" img1={screenResolution > 750 ? objeto.urlPortada : objeto.urlPortadaMovil} />
                             </a></Link>
                           ) : objeto.tipo === "series" ? (
-                            <Link to={`/full?id=${objeto.id}&titulo=${objeto.titulo}`}><a className="">
+                            <Link to={`/series?id=${objeto.id}&titulo=${objeto.titulo}`}><a className="">
                               <MasVistos className="imgcatlis" img1={screenResolution > 750 ? objeto.urlPortada : objeto.urlPortadaMovil} />
                             </a></Link>
                           ) : (
-                            <Link to={`/fullSeriesEspeciales?id=${objeto.id}&titulo=${objeto.titulo}`}><a className="">
+                            <Link to={`/seriesEspeciales?id=${objeto.id}&titulo=${objeto.titulo}`}><a className="">
                               <MasVistos className="imgcatlis" img1={screenResolution > 750 ? objeto.urlPortada : objeto.urlPortadaMovil} />
                             </a></Link>
                           )}

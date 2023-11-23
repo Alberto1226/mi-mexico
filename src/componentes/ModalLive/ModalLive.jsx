@@ -71,7 +71,7 @@ export function VerDirecto(props) {
                 allowfullscreen
               ></iframe>
               <div className="btnVerMAs">
-              <Link to={`/fullheader?url=${dir.codigo}`}>
+              <Link to={`/enVivo?url=${dir.codigo}`}>
               <button onClick={handleClick}>Ver pantalla Completa</button>
           </Link>
               </div>

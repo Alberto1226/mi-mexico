@@ -103,7 +103,7 @@ export function SwiperMasVistosSer(props) {
                     //data-slide-number={index + 1}
                     key={serie.id}
                   >
-                    <Link to={`/full?id=${serie.id}&titulo=${serie.titulo}`} >
+                    <Link to={`/series?id=${serie.id}&titulo=${serie.titulo}`} >
                     <MasVistos
                       img1={screenResolution > 750 ? serie.urlPortada : serie.urlPortadaMovil}
                       nombre={serie.titulo}
