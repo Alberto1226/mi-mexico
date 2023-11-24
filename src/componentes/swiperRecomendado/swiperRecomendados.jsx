@@ -8,6 +8,7 @@ import "swiper/css/pagination";
 import "../../css/swiperCards.css";
 import { listarPeliculas } from "../../api/peliculasListar";
 import imgPel from "../../assets/img/2.jpg";
+import { Helmet } from "react-helmet";
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -82,6 +83,20 @@ export function SwiperPeliculasRecomendadas(props) {
 
   return (
     <>
+    <div>
+      
+      <Helmet>
+      <meta name="description" content="Recomendadas en miMéxicoTv." />
+        {listarPel &&
+          listarPel.map((pelic, i) => (
+            <meta
+              key={i}
+              name={`Recomendaciones_${i}`}
+              content={pelic.titulo}
+            />
+          ))}
+      </Helmet>
+    </div>
       <section className="main-container">
         <div className="location" id="home">
           <h1 id="home">{props.titulo}</h1>

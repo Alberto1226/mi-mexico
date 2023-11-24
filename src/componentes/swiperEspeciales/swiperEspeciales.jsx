@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 //import { listarPeliculas } from "../../api/peliculasListar";
 //import imgPel from "../../assets/img/2.jpg";
 import de1 from "../../assets/img/ber.jpeg";
+import { Helmet } from "react-helmet";
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -83,6 +84,17 @@ export function SwiperEspeciales(props) {
 
   return (
     <>
+    <Helmet>
+        <meta name="description" content="Especiales miMécioTV." />
+          {listarPel &&
+            listarPel.map((pel, i) => (
+              <meta
+                key={i}
+                name={`Especial_${i}`}
+                content={pel.titulo}
+              />
+            ))}
+        </Helmet>
       <section className="main-container">
         <div className="location" id="home">
           <h1 id="home">{props.titulo}</h1>

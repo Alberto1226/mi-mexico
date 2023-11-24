@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { listarUltimasVeionteSeries } from "../../api/series";
 import { Link } from "react-router-dom";
 import { FullScrean } from "../fullScreen/fullScreen";
+import { Helmet } from "react-helmet";
 export function CardsVermas(props) {
   const { location } = props;
   const [listarSer, setListSeries] = useState([]);
@@ -30,6 +31,20 @@ export function CardsVermas(props) {
 
   return (
     <>
+    <div>
+      
+      <Helmet>
+      <meta name="description" content="Descubre las series de miMéxicoTV." />
+        {listarSer &&
+          listarSer.map((pelicula, i) => (
+            <meta
+              key={i}
+              name={`Series_${i}`}
+              content={pelicula.titulo}
+            />
+          ))}
+      </Helmet>
+    </div>
       {listarSer &&
         listarSer.map((series) => (
           <a key={series.id} img={"datos"}>

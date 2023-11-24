@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 //import { listarPeliculas } from "../../api/peliculasListar";
 //import imgPel from "../../assets/img/2.jpg";
 import de1 from "../../assets/img/ber.jpeg";
+import { Helmet } from "react-helmet";
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -27,11 +28,11 @@ export function SwiperCervantino(props) {
 
   // Agregar un event listener para actualizar la resolución cuando cambia el tamaño de la ventana
   useEffect(() => {
-    window.addEventListener('resize', updateScreenResolution);
+    window.addEventListener("resize", updateScreenResolution);
 
     // Limpieza del event listener cuando se desmonta el componente
     return () => {
-      window.removeEventListener('resize', updateScreenResolution);
+      window.removeEventListener("resize", updateScreenResolution);
     };
   }, []);
 
@@ -49,8 +50,8 @@ export function SwiperCervantino(props) {
             setListPeliculas(datosPel);
           }
         })
-        .catch((e) => { });
-    } catch (e) { }
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -82,6 +83,21 @@ export function SwiperCervantino(props) {
 
   return (
     <>
+      <div>
+      
+        <Helmet>
+        <meta name="description" content="Descubre y conoce a el cervantino." />
+          {listarPel &&
+            listarPel.map((pelicula, i) => (
+              <meta
+                key={i}
+                name={`Especial_${i}`}
+                content={pelicula.titulo}
+              />
+            ))}
+        </Helmet>
+      </div>
+
       <section className="main-container">
         <div className="location" id="home">
           <h1 id="home">{props.titulo}</h1>
@@ -98,63 +114,83 @@ export function SwiperCervantino(props) {
               {listarPel &&
                 listarPel.map((peli, index) => (
                   <>
-                    <SwiperSlide
-                      className="swiper-slide"
-                    >
-                      <Link to={`/seriesEspeciales?id=${peli?.id}&titulo=${peli?.titulo}`}>
+                    <SwiperSlide className="swiper-slide">
+                      <Link
+                        to={`/seriesEspeciales?id=${peli?.id}&titulo=${peli?.titulo}`}
+                      >
                         <MasVistos
-                          img1={screenResolution > 750 ? peli.urlPortada5 : peli.urlPortadaMovil5}
+                          img1={
+                            screenResolution > 750
+                              ? peli.urlPortada5
+                              : peli.urlPortadaMovil5
+                          }
                           nombre={peli.titulo}
                           duracion={peli.duracion}
-                        //des={peli.sinopsis} 
+                          //des={peli.sinopsis}
                         />
                       </Link>
                     </SwiperSlide>
-                    <SwiperSlide
-                      className="swiper-slide"
-                    >
-                      <Link to={`/seriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}>
+                    <SwiperSlide className="swiper-slide">
+                      <Link
+                        to={`/seriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}
+                      >
                         <MasVistos
-                          img1={screenResolution > 750 ? peli.urlPortada4 : peli.urlPortadaMovil4}
+                          img1={
+                            screenResolution > 750
+                              ? peli.urlPortada4
+                              : peli.urlPortadaMovil4
+                          }
                           nombre={peli.titulo}
                           duracion={peli.duracion}
-                        //des={peli.sinopsis}
+                          //des={peli.sinopsis}
                         />
                       </Link>
                     </SwiperSlide>
-                    <SwiperSlide
-                      className="swiper-slide"
-                    >
-                      <Link to={`/seriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}>
+                    <SwiperSlide className="swiper-slide">
+                      <Link
+                        to={`/seriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}
+                      >
                         <MasVistos
-                          img1={screenResolution > 750 ? peli.urlPortada3 : peli.urlPortadaMovil3}
+                          img1={
+                            screenResolution > 750
+                              ? peli.urlPortada3
+                              : peli.urlPortadaMovil3
+                          }
                           nombre={peli.titulo}
                           duracion={peli.duracion}
-                        //des={peli.sinopsis}
+                          //des={peli.sinopsis}
                         />
                       </Link>
                     </SwiperSlide>
-                    <SwiperSlide
-                      className="swiper-slide"
-                    >
-                      <Link to={`/seriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}>
+                    <SwiperSlide className="swiper-slide">
+                      <Link
+                        to={`/seriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}
+                      >
                         <MasVistos
-                          img1={screenResolution > 750 ? peli.urlPortada2 : peli.urlPortadaMovil2}
+                          img1={
+                            screenResolution > 750
+                              ? peli.urlPortada2
+                              : peli.urlPortadaMovil2
+                          }
                           nombre={peli.titulo}
                           duracion={peli.duracion}
-                        //des={peli.sinopsis}
+                          //des={peli.sinopsis}
                         />
                       </Link>
                     </SwiperSlide>
-                    <SwiperSlide
-                      className="swiper-slide"
-                    >
-                      <Link to={`/seriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}>
+                    <SwiperSlide className="swiper-slide">
+                      <Link
+                        to={`/seriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}
+                      >
                         <MasVistos
-                          img1={screenResolution > 750 ? peli.urlPortada : peli.urlPortadaMovil}
+                          img1={
+                            screenResolution > 750
+                              ? peli.urlPortada
+                              : peli.urlPortadaMovil
+                          }
                           nombre={peli.titulo}
                           duracion={peli.duracion}
-                        //des={peli.sinopsis}
+                          //des={peli.sinopsis}
                         />
                       </Link>
                     </SwiperSlide>
