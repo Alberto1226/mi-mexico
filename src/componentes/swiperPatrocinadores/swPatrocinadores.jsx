@@ -78,9 +78,19 @@ export function SwiperPatrocinadores(props) {
   return (
     <>
       <Helmet>
-        <title>Nuestros Patrocinadores - miMéxicoTV</title>
-        <meta name="description" content="Descubre y conoce a los patrocinadores que hacen posible la experiencia en Turismo Méxicano. Nuestros colaboradores son parte fundamental de la promoción de destinos turísticos en México, contribuyendo a enriquecer la oferta de contenido y experiencias para nuestros usuarios." />
+        <title></title>
         
+        
+      </Helmet>
+      <Helmet>
+      <meta name="description" content="Descubre y conoce a los patrocinadores que hacen posible la experiencia en Turismo Méxicano. Nuestros colaboradores son parte fundamental de la promoción de destinos turísticos en México, contribuyendo a enriquecer la oferta de contenido y experiencias para nuestros usuarios." />
+        {listarPatro.map((patrocinador, index) => (
+          <meta
+            key={index}
+            name={`sponsor_${index}`} // Nombre único para cada patrocinador
+            content={patrocinador.nombre} // Contenido del metadato
+          />
+        ))}
       </Helmet>
       <div className="location" id="home">
         <Swiper
