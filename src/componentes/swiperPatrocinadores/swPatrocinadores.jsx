@@ -106,6 +106,7 @@ export function SwiperPatrocinadores(props) {
                 <CardPatrocinadores
                   imgpa={patrocinadores.urlImagen}
                   className="cardPatrocinadores"
+                  name={patrocinadores.nombre}
                 /> 
                 <Container fluid className="footerCardPatro">
                   <Row className="gx-0">
