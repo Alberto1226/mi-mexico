@@ -97,7 +97,7 @@ export function SwiperHeader(props) {
         {currentSlides.map((slide, index) => (
         <SwiperSlide className="swiper-slide-header2">
           <div className="headerVideo">
-            
+          <Link to={`/videoHeader`}>
               
             <video
               id="videoheader"
@@ -113,7 +113,7 @@ export function SwiperHeader(props) {
             
            
             <img src={de1} alt="Poster" style={posterStyle} />
-            
+            </Link>
           </div>
           <VerDirecto/>
         </SwiperSlide>

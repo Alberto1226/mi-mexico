@@ -24,6 +24,7 @@ import { GuelaguetzaFull } from "./componentes/fullGuela/fullGuela";
 import { Home2 } from "./pages/home/home2";
 import { FullVideoHeader } from "./componentes/fullScreenheade/fullscreenheader";
 import { PoliticaPrivacidad } from "./pages/registro/politicaPrivcidad";
+import VideoHeader from "./componentes/VideoHeader/VideoHeader";
 
 const router = createBrowserRouter([
   {
@@ -118,6 +119,11 @@ const router = createBrowserRouter([
   {
     path: "/enVivo",
     element: <FullVideoHeader/>,
+    errorElement: <Error />,
+  },
+  {
+    path: "/videoHeader",
+    element: <VideoHeader/>,
     errorElement: <Error />,
   },
   
