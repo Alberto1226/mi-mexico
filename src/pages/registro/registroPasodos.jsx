@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { registraUsuarios } from "../../api/usuarios";
 import { useNavigate } from "react-router-dom";
 import img from "../../assets/img/MXtvMas.png";
+import { ToastContainer } from "react-toastify";
 export function RegistroPasodos() {
 
   const [formData, setFormData] = useState(initialFormValue());
@@ -42,6 +43,19 @@ export function RegistroPasodos() {
             const { data } = response;
             toast.success(data.mensaje);
             cancelarRegistro()
+          }).catch(e => {
+            console.log(e)
+            if (e.message === 'Network Error') {
+              //console.log("No hay internet")
+              toast.error("Conexión al servidor no disponible");
+              setLoading(false);
+            } else {
+              if (e.response && e.response.status === 401) {
+                const { mensaje } = e.response.data;
+                toast.error(mensaje);
+                setLoading(false);
+              }
+            }
           })
         } catch (e) {
           console.log(e)
@@ -61,7 +75,7 @@ export function RegistroPasodos() {
       <div className="content">
         <div className="container">
           <div className="menu">
-          <img src={img} alt="" className="imglogin" />
+            <img src={img} alt="" className="imglogin" />
             <label>
               Únete a la plataforma de videos que promueve los destinos y
               cultura de México para el mundo
@@ -114,12 +128,23 @@ export function RegistroPasodos() {
                 <input className="submit" value="Regresar" type="submit" />
               </Link>
               <label>
-                  © 2022-2023 Todos los Derechos Reservados por miMéxico®
+                © 2022-2023 Todos los Derechos Reservados por miMéxico®
               </label>
             </div>
           </div>
         </div>
       </div>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnVisibilityChange
+        draggable
+        pauseOnHover
+      />
     </>
   );
 }
