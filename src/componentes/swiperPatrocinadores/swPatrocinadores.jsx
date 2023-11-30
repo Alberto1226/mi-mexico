@@ -86,6 +86,27 @@ export function SwiperPatrocinadores(props) {
             name={`sponsor_${index}`} // Nombre único para cada patrocinador
             content={patrocinador.nombre} // Contenido del metadato
           />
+        
+        ))}
+      </Helmet>
+      <Helmet>
+      {listarPatro.map((patrocinador, index) => (
+          <meta
+          key={index}
+          property="og:image" // Etiqueta Open Graph para la imagen
+          content={patrocinador.urlImagen} // URL de la imagen
+        />
+        
+        ))}
+      </Helmet>
+      <Helmet>
+      {listarPatro.map((patrocinador, index) => (
+         <meta
+         key={`image_${index}_alt`} // Usar una clave única para el atributo alt
+         property="og:image:alt" // Atributo alt para la imagen
+         content={patrocinador.nombre} // Nombre o descripción de la imagen
+       />
+        
         ))}
       </Helmet>
       <div className="location" id="home">
