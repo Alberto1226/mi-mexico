@@ -4,7 +4,8 @@ import {
   faHouse,
   faUser,
   faArrowDown,
-  faSearch
+  faSearch,
+  faPersonCircleMinus
 } from "@fortawesome/free-solid-svg-icons";
 import { Form, Badge } from "react-bootstrap"
 import { Link, useHistory } from "react-router-dom";
@@ -306,9 +307,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
               {tipoUsuario == "false" && (
                 <>
                   <a className="icon" onClick={() => handleShow2()}>
-                    <FontAwesomeIcon
-                      icon={faArrowDown}
-                    />
+                  <FontAwesomeIcon icon={faPersonCircleMinus} />
                   </a>
                   <Modal
                     size="xl"

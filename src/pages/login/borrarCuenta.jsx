@@ -42,35 +42,34 @@ export function BorrarCuenta() {
         obtenerDatosUsuario();
     }, []);
 
-    const onSubmit = (e) => {
-        e.preventDefault();
+    //const [confirmDelete, setConfirmDelete] = useState(false);
+
+    const confirmDelete = () => {
+        const result = window.confirm('¿Estás seguro de que quieres eliminar la cuenta?');
     
-          try {
-            setLoading(true);
-            // Sube a cloudinary la imagen principal del producto
-    
-            eliminarUsuario(formData._id).then((response) => {
-              const { data } = response;
-              //notificacion
-    
-              toast.success(data.mensaje);
-    
-              
-              setLoading(false);
-              //setShow(false);
-              window.location.reload();
-              //cancelarRegistro()
-            });
-          } catch (e) {
-            console.log(e);
-          }
+        if (result) {
+          handleDelete();
+        }
+      };
+
+    const handleDelete = async () => {
+        try {
+          setLoading(true);
+          const response = await eliminarUsuario(formData._id);
+          const { data } = response;
+          alert(data.mensaje); // Puedes cambiar esto por un mensaje más personalizado si lo deseas
+          setLoading(false);
+          window.location.reload();
+        } catch (error) {
+          console.error(error);
+        }
       };
 
     return (
         <>
             {loading && <Load />}
             <div className="contact-form">
-                <Form onSubmit={onSubmit}>
+                <Form >
                     <br />
                     <Form.Control
                         placeholder="Nombre"
@@ -109,7 +108,7 @@ export function BorrarCuenta() {
                     />
 
                     <label></label>
-                    <input className="submit" value="Enviar" type="submit" />
+                    <input className="submit" onClick={confirmDelete} value="Eliminar cuenta" type="submit" />
                 </Form>
             </div>
         </>
