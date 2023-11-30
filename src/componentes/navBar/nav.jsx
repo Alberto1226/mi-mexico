@@ -7,7 +7,7 @@ import {
   faSearch
 } from "@fortawesome/free-solid-svg-icons";
 import { Form, Badge } from "react-bootstrap"
-import { Link, useHistory  } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -27,8 +27,8 @@ import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 import { map } from "lodash"
 import { SwiperCategorias } from "../swiperCategorias/swiperCategorias";
+import { BorrarCuenta } from "../../pages/login/borrarCuenta";
 
-import UserProfile from './perfil';
 //GOOGLE
 import { googleLogout } from "@react-oauth/google";
 
@@ -52,8 +52,11 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
     setShow(true);
   };
 
-
-
+  const [show2, setShow2] = useState(false);
+  const handleClose2 = () => setShow2(false);
+  const handleShow2 = () => {
+    setShow2(true);
+  };
 
   const redirecciona = useNavigate();
 
@@ -66,12 +69,14 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
   }
 
   const [idUsuario, setIdeUsuario] = useState("");
+  const [tipoUsuario, setTipoUsuario] = useState("");
 
   const obtenerDatosUsuario = () => {
     try {
       obtenerUsuario(obtenidusuarioLogueado(getTokenApi())).then(response => {
         const { data } = response;
         setIdeUsuario(data._id);
+        setTipoUsuario(data.admin);
       }).catch((e) => {
         if (e.message === 'Network Error') {
           //console.log("No hay internet")
@@ -118,7 +123,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
     //setSelectedSuggestion(null);
 
     toast.info("Haga clic nuevamente en la sugerencia para buscar.");
-    if  (tipo === "series") {
+    if (tipo === "series") {
       navigate(`/series?id=${id}&titulo=${sugerencia.titulo}`);
     } else if (tipo === "seriesEspeciales") {
       navigate(`/seriesEspeciales?id=${id}&titulo=${sugerencia.titulo}`);
@@ -129,7 +134,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
     } else if (tipo === "documentales") {
       navigate(`/documentales?id=${id}&titulo=${sugerencia.titulo}&id2=${id}`);
     }
-    
+
   };
 
   const handleInputBlur = () => {
@@ -175,7 +180,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
   /**
    * CERRAR SESION GOOGLE
    */
-  
+
   const handleLogoutSuccess = () => {
     googleLogout();
     console.log("Sesión de Google cerrada correctamente");
@@ -187,7 +192,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
   const handleSearch = () => {
     // Supongamos que tienes acceso a las variables tipo, id y titulo aquí
     //const navigate1 = useNavigate();
-    
+
 
     // Limpiar la lista de sugerencias y restablecer la selección
     //setSugerencias([]);
@@ -195,11 +200,11 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
     // Aplicar la clase CSS a la sugerencia seleccionada y eliminarla de sugerencias previas
     //setSelectedSuggestion(sugerencia);
 
-    
-    
+
+
     //setSelectedSuggestion(null);
-    
-    if  (tipo === "series") {
+
+    if (tipo === "series") {
       navigate(`/series?id=${id}&titulo=${titulo}`);
     } else if (tipo === "seriesEspeciales") {
       navigate(`/seriesEspeciales?id=${id}&titulo=${titulo}`);
@@ -211,13 +216,13 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
       navigate(`/documentales?id=${id}&titulo=${titulo}&id2=${id}`);
     }
     //setSearchValue(sugerencia.titulo);
-   //console.log("click"+sugerencia.titulo);
+    //console.log("click"+sugerencia.titulo);
   };
-  
+
 
   return (
     <>
-    <ToastContainer />
+      <ToastContainer />
       <Navbar bg="link" expand="xl" sticky="top" className="navboostrap sticky-top">
 
         <Container fluid>
@@ -245,7 +250,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
                     onChange={handleInputChange}
                     onKeyPress={(event) => {
                       if (event.key === 'Enter') {
-                        handleSearch (); // Llama a tu función de búsqueda aquí
+                        handleSearch(); // Llama a tu función de búsqueda aquí
                       }
                     }}
                     //autoFocus
@@ -264,7 +269,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
                         className={`list-group-item ${sugerencia === selectedSuggestion ? 'selected-suggestion' : ''}`}
                         onClick={() => handleSugerenciaSeleccionada(sugerencia)}
                         //onClick={() => handleSearch (sugerencia) // Llama a tu función de búsqueda aquí
-                          
+
                         //}
                         title="Haga clic nuevamente para buscar"
                       >
@@ -298,112 +303,31 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
                 </Modal.Body>
               </Modal>
 
+              {tipoUsuario == "false" && (
+                <>
+                  <a className="icon" onClick={() => handleShow2()}>
+                    <FontAwesomeIcon
+                      icon={faArrowDown}
+                    />
+                  </a>
+                  <Modal
+                    size="xl"
+                    show={show2}
+                    onHide={handleClose2}
+                    dialogClassName="modal-90w"
+                    backdrop="static"
+                    keyboard={false}
+                    className="mdlCategorias"
+                  >
+                    <Modal.Header closeButton className="modalcategory">
 
-              {/**  <Link>
-                <a className="icon" >
-                  <Link to={`/`}><a className="icon">
-                    <FontAwesomeIcon icon={faArrowDown} />
-                  </a></Link>
-
-                </a>
-              </Link>*/}
-           {/**    {
-                tipo == "" &&
-                (
-                  <>
-                    <Link>
-
-                      <Link to={`/inicio`}><a className="icon">
-                        <FontAwesomeIcon icon={faMagnifyingGlass} />
-                      </a></Link>
-
-
-                    </Link>
-                  </>
-                )
-              }
-
-              {
-                tipo == "series" &&
-                (
-                  <>
-                    <Link>
-
-                      <Link to={`/series?id=${id}&titulo=${titulo}`}><a className="icon">
-                        <FontAwesomeIcon icon={faMagnifyingGlass} />
-                      </a></Link>
-
-
-                    </Link>
-                  </>
-                )
-              }
-
-              {
-                tipo == "seriesEspeciales" &&
-                (
-                  <>
-                    <Link>
-
-                      <Link to={`/seriesEspeciales?id=${id}&titulo=${titulo}`}><a className="icon">
-                        <FontAwesomeIcon icon={faMagnifyingGlass} />
-                      </a></Link>
-
-
-                    </Link>
-                  </>
-                )
-              }
-
-              {
-                tipo == "peliculas" &&
-                (
-                  <>
-                    <Link>
-
-                      <Link to={`/peliculas?id=${id}&titulo=${titulo}`}><a className="icon">
-                        <FontAwesomeIcon icon={faMagnifyingGlass} />
-                      </a></Link>
-
-
-                    </Link>
-                  </>
-                )
-              }
-
-              {
-                tipo == "especiales" &&
-                (
-                  <>
-                    <Link>
-
-                      <Link to={`/eventosEspeciales?id=${id}&titulo=${titulo}`}><a className="icon">
-                        <FontAwesomeIcon icon={faMagnifyingGlass} />
-                      </a></Link>
-
-
-                    </Link>
-                  </>
-                )
-              }
-
-              {
-                tipo == "documentales" &&
-                (
-                  <>
-                    <Link>
-
-                      <Link to={`/documentales?id=${id}&titulo=${titulo}&id2=${id}`}><a className="icon">
-                        <FontAwesomeIcon icon={faMagnifyingGlass} />
-                      </a></Link>
-
-
-                    </Link>
-                  </>
-                )
-              }
-
-              */}
+                    </Modal.Header>
+                    <Modal.Body>
+                      <BorrarCuenta />
+                    </Modal.Body>
+                  </Modal>
+                </>
+              )}
 
               <Link to={"/home"}>
                 <a className="icon">

@@ -49,24 +49,6 @@ export default function EliminarDocumentales({ data, history, setShow }) {
         setLoading(true);
         // Sube a cloudinary la imagen principal del producto
 
-        const dataTemp = {
-          titulo: formData.nombre,
-          categorias: "",
-          actores: formData.actores,
-          director: formData.director,
-          duracion: formData.duracion,
-          tipo: "",
-          sinopsis: formData.sinopsis,
-          calificacion: "",
-          año: formData.anio,
-          disponibilidad: "",
-          masVisto: "",
-          recomendado: "",
-          urlVideo: formData.archPelicula,
-          urlPortada: "",
-          seccion: "",
-          estado: "true"
-        };
         eliminarPeliculas(idDocumental).then((response) => {
           const { data } = response;
           //notificacion

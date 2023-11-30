@@ -6,6 +6,7 @@ export const ENDPOINTListarUsuario = "/usuarios/listar";
 export const ENDPOINTRegistrarUsuario = "/usuarios/registro";
 export const ENDPOINTObtenerUsuarios = "/usuarios/obtenerUsuario";
 export const ENDPOINTObtenerUsuariosPorCorreo = "/usuarios/obtenerPorCorreo";
+export const ENDPOINTEliminarUsuario = "/usuarios/eliminar";
 export const ENDPOINTActualizarContraseña = "/usuarios/actualizarContrasena";
 
 // historialUsuarios

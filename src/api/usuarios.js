@@ -4,7 +4,8 @@ import {
     ENDPOINTObtenerUsuarios,
     ENDPOINTObtenerUsuariosPorCorreo,
     ENDPOINTActualizarContraseña,
-    ENDPOINTListarUsuario
+    ENDPOINTListarUsuario,
+    ENDPOINTEliminarUsuario
 } from "./endpoints";
 import axios from 'axios';
 
@@ -68,4 +69,17 @@ export async function actualizarContraseña(id, data) {
     };
 
     return await axios.put(API_HOST + ENDPOINTActualizarContraseña + `/${id}`, data, config);
+}
+
+export async function eliminarUsuario(id, data) {
+
+    const config = {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            //Authorization: `Bearer ${getTokenApi()}`
+        }
+    };
+
+    return await axios.delete(API_HOST + ENDPOINTEliminarUsuario + `/${id}`, data, config);
 }

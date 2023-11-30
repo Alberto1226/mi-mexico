@@ -6,6 +6,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from "react";
 import { Load } from "../load/load";
 import { TblUsers } from "../tables/tableUsuarios";
+
 export function TablaUsuarios() {
   const [show, setShow] = useState(false);
 
