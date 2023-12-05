@@ -15,6 +15,7 @@ import { NavPrincipal } from "../navBar/nav";
 import { FullNav } from "../navcompleto/navCompleto";
 import { Link } from "react-router-dom";
 import Regresar from "../regresar/Regresar";
+import { Load } from "../load/load";
 
 
 
@@ -69,9 +70,19 @@ const ListaRecomendados = (props) => {
    * fin listar
    */
 
+//load
+const [loading, setLoading] = useState(true);
+
+useEffect(() => {
+  // Simula una carga de datos
+  setTimeout(() => {
+    setLoading(false);
+  }, 2000);
+}, []);
  
   return (
     <>
+    {loading && <Load />}
       <FullNav />
       <section class="main-containernet">
         <div class="location" id="home">

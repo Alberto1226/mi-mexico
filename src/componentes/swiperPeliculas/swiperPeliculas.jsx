@@ -70,9 +70,9 @@ export function SwiperPeliculas(props) {
     let slidesToShow = 5; // Número predeterminado de slides a mostrar
 
     if (screenWidth < 768) {
-      slidesToShow = 3; // Si el ancho de la pantalla es menor a 768px, muestra solo 1 slide
+      slidesToShow = 4; // Si el ancho de la pantalla es menor a 768px, muestra solo 1 slide
     } else if (screenWidth < 1024) {
-      slidesToShow = 3; // Si el ancho de la pantalla es menor a 1024px, muestra 2 slides
+      slidesToShow = 4; // Si el ancho de la pantalla es menor a 1024px, muestra 2 slides
     }
 
     setSlides(slidesToShow);
@@ -99,7 +99,7 @@ export function SwiperPeliculas(props) {
           <h1 id="home">{props.titulo}</h1>
 
           <Swiper
-            spaceBetween={20}
+            spaceBetween={10}
             slidesPerView={slides}
             navigation
             pagination={{ clickable: true }}
