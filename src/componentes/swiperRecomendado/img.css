@@ -1,0 +1,43 @@
+/* MAIN CONTIANER */
+.main-containernet {
+    padding: 50px;
+  }
+  
+  .boxnet {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(5, minmax(100px, 1fr));
+  }
+  
+  .boxnet a {
+    transition: transform .3s;  
+  }
+  
+  .boxnet a:hover {
+    transition: transform .3s;
+    -ms-transform: scale(1.4);
+    -webkit-transform: scale(1.4);  
+    transform: scale(1.4);
+  }
+  
+  .boxnet .imgnet {
+    border-radius: 1vw;
+  }
+
+  .imgnet {
+    max-width: 100%;
+  }
+
+
+  
+
+  @media (max-width: 768px) { /* Cambia el tamaño a tu necesidad */
+    .boxnet {
+        grid-gap: 10px;
+      grid-template-columns: repeat(4, minmax(60px, 0.5fr));
+    }
+
+    .main-containernet {
+        padding: 10px;
+      }
+  }

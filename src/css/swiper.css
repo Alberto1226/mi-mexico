@@ -182,6 +182,28 @@ body {
 }
 
 
+.swiper-button-prev::after,
+.swiper-button-next::after{
+  color: #f7f7f7;
+  font-size: 2vw;
+  height: 250%;
+  padding-top: 1.5vw;
+  position: absolute;
+  text-shadow: 4px 0px 2px rgba(255,255,255,0.63);
+ 
+  
+  
+}
+
+.div.swiper-button-prev{
+  height: 100%;
+  
+  top: 0;
+
+}
+
+
+
 @media (max-width: 500px) {
 
   .swiper{

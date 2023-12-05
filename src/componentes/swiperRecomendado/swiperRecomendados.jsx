@@ -1,21 +1,32 @@
 import React, { useEffect, useState } from "react";
-import SwiperCore, { Navigation, Pagination } from "swiper";
+import SwiperCore, { Virtual, Navigation, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { CardsUser } from "../cardsPeliculas/cardsPeliculas";
-import "swiper/swiper.min.css";
+//import "swiper/swiper.min.css";
 import "swiper/css";
 import "swiper/css/pagination";
+import "swiper/css/navigation";
 import "../../css/swiperCards.css";
 import { listarPeliculas } from "../../api/peliculasListar";
-import imgPel from "../../assets/img/2.jpg";
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowRight,
+  faHouse,
+  faUser,
+  faArrowDown,
+  faSearch,
+  faPersonCircleMinus,
+} from "@fortawesome/free-solid-svg-icons";
+import { Button } from "react-bootstrap";
 
 SwiperCore.use([Navigation, Pagination]);
 
 export function SwiperPeliculasRecomendadas(props) {
   const { location } = props;
   const [listarPel, setListPeliculas] = useState(null);
-
+  const [swiperRef, setSwiperRef] = useState(null);
   const [screenResolution, setScreenResolution] = useState(window.innerWidth);
 
   // Función para actualizar la resolución cuando cambia el tamaño de la ventana
@@ -25,11 +36,11 @@ export function SwiperPeliculasRecomendadas(props) {
 
   // Agregar un event listener para actualizar la resolución cuando cambia el tamaño de la ventana
   useEffect(() => {
-    window.addEventListener('resize', updateScreenResolution);
+    window.addEventListener("resize", updateScreenResolution);
 
     // Limpieza del event listener cuando se desmonta el componente
     return () => {
-      window.removeEventListener('resize', updateScreenResolution);
+      window.removeEventListener("resize", updateScreenResolution);
     };
   }, []);
 
@@ -45,8 +56,8 @@ export function SwiperPeliculasRecomendadas(props) {
           } else {
             const datosPel = formatModelPeliculas(data);
             const filteredPel = datosPel.filter(
-                (data) => data.recomendado === "1"
-              );
+              (data) => data.recomendado === "1"
+            );
             setListPeliculas(datosPel);
           }
         })
@@ -83,36 +94,54 @@ export function SwiperPeliculasRecomendadas(props) {
 
   return (
     <>
-    <div>
-      
-      <Helmet>
-      <meta name="description" content="Recomendadas en miMéxicoTv." />
-        {listarPel &&
-          listarPel.map((pelic, i) => (
-            <meta
-              key={i}
-              name={`Recomendaciones_${i}`}
-              content={pelic.titulo}
-            />
-          ))}
-      </Helmet>
-    </div>
+      <div>
+        <Helmet>
+          <meta name="description" content="Recomendadas en miMéxicoTv." />
+          {listarPel &&
+            listarPel.map((pelic, i) => (
+              <meta
+                key={i}
+                name={`Recomendaciones_${i}`}
+                content={pelic.titulo}
+              />
+            ))}
+        </Helmet>
+      </div>
       <section className="main-container">
         <div className="location" id="home">
-          <h1 id="home">{props.titulo}</h1>
+          <a href="/recomendadosMiMexico">
+            
+          </a>
+         
+          <h1 id="home">{props.titulo}
+            <button className="ver-mas-button">
+           
+              +
+              </button>
+            </h1>
+          
 
           <Swiper
             spaceBetween={20}
             slidesPerView={slides}
-            navigation
-            pagination={{ clickable: true }}
+            navigation={true}
+            virtual
+            onSwiper={setSwiperRef}
+            pagination={{
+              type: "fraction",
+            }}
+            modules={[Virtual, Navigation, Pagination]}
             className="mySwiper"
           >
             {listarPel &&
               listarPel.map((pelicula) => (
                 <SwiperSlide className="swiper-slide" key={pelicula.id}>
                   <CardsUser
-                    img1={screenResolution > 750 ? pelicula.urlPortada : pelicula.urlPortadaMovil}
+                    img1={
+                      screenResolution > 750
+                        ? pelicula.urlPortada
+                        : pelicula.urlPortadaMovil
+                    }
                     urlVideo={pelicula.urlVideo}
                     actores={pelicula.actores}
                     anio={pelicula.año}
@@ -155,7 +184,7 @@ function formatModelPeliculas(data) {
       urlPortada: data.urlPortada,
       seccion: data.seccion,
       estado: data.estado,
-      urlPortadaMovil: data.urlPortadaMovil
+      urlPortadaMovil: data.urlPortadaMovil,
     });
   });
   return dataTemp;

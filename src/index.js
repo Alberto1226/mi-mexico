@@ -25,6 +25,8 @@ import { Home2 } from "./pages/home/home2";
 import { FullVideoHeader } from "./componentes/fullScreenheade/fullscreenheader";
 import { PoliticaPrivacidad } from "./pages/registro/politicaPrivcidad";
 import VideoHeader from "./componentes/VideoHeader/VideoHeader";
+import { BorrarCuenta } from "./pages/login/borrarCuenta";
+import ListaRecomendados from "./componentes/swiperRecomendado/ListaRecomendados";
 
 const router = createBrowserRouter([
   {
@@ -124,6 +126,16 @@ const router = createBrowserRouter([
   {
     path: "/videoHeader",
     element: <VideoHeader/>,
+    errorElement: <Error />,
+  },
+  {
+    path: "/deleteUser",
+    element: <BorrarCuenta/>,
+    errorElement: <Login />,
+  },
+  {
+    path: "/recomendadosMiMexico",
+    element: <ListaRecomendados/>,
     errorElement: <Error />,
   },
   
