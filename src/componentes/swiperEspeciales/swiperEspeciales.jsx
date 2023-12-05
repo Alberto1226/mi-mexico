@@ -95,6 +95,18 @@ export function SwiperEspeciales(props) {
               />
             ))}
         </Helmet>
+        <Helmet>
+        
+          {listarPel &&
+            listarPel.map((pel, i) => (
+              <meta
+                key={i}
+                name={pel.titulo}
+                content={pel.sinopsis}
+              />
+            ))}
+        </Helmet>
+        
       <section className="main-container">
         <div className="location" id="home">
           <h1 id="home">{props.titulo}</h1>

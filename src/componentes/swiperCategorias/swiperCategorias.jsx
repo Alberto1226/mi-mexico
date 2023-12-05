@@ -19,6 +19,7 @@ import { map } from "lodash"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { VerMas } from "../vermas/vermas";
+import { Helmet } from "react-helmet";
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -212,6 +213,7 @@ export function SwiperCategorias(props) {
 
   return (
     <>
+  
       <section className="main-container bodycategorias">
         <div className="location" id="home">
 

@@ -93,6 +93,17 @@ export function SwiperPeliculas(props) {
             />
           ))}
       </Helmet>
+      <Helmet>
+     
+        {listarPel &&
+          listarPel.map((pelic, i) => (
+            <meta
+              key={i}
+              name={pelic.titulo}
+              content={pelic.sinopsis}
+            />
+          ))}
+      </Helmet>
     </div>
       <section className="main-container">
         <div className="location" id="home">

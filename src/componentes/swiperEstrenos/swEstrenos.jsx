@@ -177,6 +177,17 @@ export function SwiperEstrenos(props) {
             />
           ))}
       </Helmet>
+      <Helmet>
+        
+          {listaMultimedia &&
+            listaMultimedia.map((pel, i) => (
+              <meta
+                key={i}
+                name={pel.titulo}
+                content={pel.sinopsis}
+              />
+            ))}
+        </Helmet>
     </div>
       <section className="main-container">
         <div className="location" id="home">

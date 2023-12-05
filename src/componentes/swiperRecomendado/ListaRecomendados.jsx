@@ -16,6 +16,7 @@ import { FullNav } from "../navcompleto/navCompleto";
 import { Link } from "react-router-dom";
 import Regresar from "../regresar/Regresar";
 import { Load } from "../load/load";
+import IraInicio from "../iraInicio/IraInicio";
 
 
 
@@ -82,6 +83,28 @@ useEffect(() => {
  
   return (
     <>
+    <Helmet>
+      <meta name="description" content="Descubre en miMéxicoTv." />
+        {listarSer &&
+          listarSer.map((pelic, i) => (
+            <meta
+              key={i}
+              name={`Recomendado_${i}`}
+              content={pelic.titulo}
+            />
+          ))}
+      </Helmet>
+      <Helmet>
+      <meta name="description" content="Descubre en miMéxicoTv." />
+        {listarSer &&
+          listarSer.map((pelic, i) => (
+            <meta
+              key={i}
+              name={pelic.titulo}
+              content={pelic.sinopsis}
+            />
+          ))}
+      </Helmet>
     {loading && <Load />}
       <FullNav />
       <section class="main-containernet">
@@ -108,6 +131,7 @@ useEffect(() => {
           </div>
         </div>
       </section>
+      
     </>
   );
 };

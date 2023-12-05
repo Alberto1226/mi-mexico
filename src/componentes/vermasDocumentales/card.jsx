@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {listarPeliculasMasVista} from "../../api/peliculasListar";
 import { Link } from "react-router-dom";
 import { FullScrean } from "../fullScreen/fullScreen";
+import { Helmet } from "react-helmet";
 export function CardsVermasDocumentales(props) {
   const { location } = props;
 
@@ -32,6 +33,17 @@ export function CardsVermasDocumentales(props) {
 
   return (
     <>
+    <Helmet>
+      
+      {listarPel &&
+        listarPel.map((pel, i) => (
+          <meta
+            key={i}
+            name={pel.titulo}
+            content={pel.sinopsis}
+          />
+        ))}
+    </Helmet>
       {listarPel &&
         listarPel.map((documentales) => (
           <a key={documentales.id} img={"datos"}>

@@ -50,6 +50,7 @@ import Traduction from "../../componentes/traduccion/traduccion";
 import { SwiperGuanajuato } from "../../componentes/swiperEspecialesultimos/swultimoscinco";
 import { SwiperHeaderSel } from "../../componentes/swiperSiHeadre/SwiperListarSeriesHeader";
 import { Helmet } from "react-helmet";
+import IraInicio from "../../componentes/iraInicio/IraInicio";
 
 export function Home2() {
   const [listarDocumentales, setListDocumentales] = useState([]);
@@ -331,6 +332,7 @@ export function Home2() {
           <img src={android} alt="Android" />
         </div>
         <FooterApp />
+        <IraInicio/>
       </div>
     </>
   );

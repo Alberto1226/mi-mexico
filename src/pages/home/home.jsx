@@ -48,6 +48,7 @@ import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { SwiperGuanajuato } from "../../componentes/swiperEspecialesultimos/swultimoscinco";
 import { SwiperHeaderSel } from "../../componentes/swiperSiHeadre/SwiperListarSeriesHeader";
 import { Helmet } from "react-helmet";
+import IraInicio from "../../componentes/iraInicio/IraInicio";
 
 export function Home() {
   const [listarDocumentales, setListDocumentales] = useState([]);
@@ -311,6 +312,7 @@ export function Home() {
             <VerMas />
             <VerMasP />
             <VerMasD />
+
             <hr />
           </div>
         </div>
@@ -329,6 +331,7 @@ export function Home() {
           <img src={android} alt="Android" />
         </div>
         <FooterApp />
+        <IraInicio/>
       </div>
     </>
   );

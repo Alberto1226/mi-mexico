@@ -44,6 +44,18 @@ export function CardsVermas(props) {
             />
           ))}
       </Helmet>
+      <Helmet>
+      
+        {listarSer &&
+          listarSer.map((pel, i) => (
+            <meta
+              key={i}
+              name={pel.titulo}
+              content={pel.sinopsis}
+            />
+          ))}
+      </Helmet>
+      
     </div>
       {listarSer &&
         listarSer.map((series) => (

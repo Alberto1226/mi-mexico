@@ -90,6 +90,17 @@ export function SwiperPatrocinadores(props) {
         ))}
       </Helmet>
       <Helmet>
+     
+     {listarPatro &&
+       listarPatro.map((pelic, i) => (
+         <meta
+           key={i}
+           name={pelic.nombre}
+           content={pelic.urlImagen}
+         />
+       ))}
+   </Helmet>
+      <Helmet>
       {listarPatro.map((patrocinador, index) => (
           <meta
           key={index}
