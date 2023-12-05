@@ -5,6 +5,7 @@ import queryString from "query-string";
 import {FullNav} from "../navcompleto/navCompleto";
 import { listarDirectos } from "../../api/directos";
 import { Helmet } from "react-helmet";
+import Regresar from "../regresar/Regresar";
 
 export function FullVideoHeader(props) {
     const locations = useLocation();
@@ -78,7 +79,7 @@ export function FullVideoHeader(props) {
         </div>
       ))}
       
-       
+       <Regresar/>
     </>
   );
 }

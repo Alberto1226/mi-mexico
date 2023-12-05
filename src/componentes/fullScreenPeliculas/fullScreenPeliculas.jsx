@@ -23,6 +23,7 @@ import { RecomendadosCat } from "../swiperCategoria/swCategoriaRecomendada";
 import { Helmet } from "react-helmet";
 import www from "../../assets/img/www.png";
 import facebook from "../../assets/img/facebook.png";
+import Regresar from "../regresar/Regresar";
 
 SwiperCore.use([Pagination, Autoplay]);
 export function FullPeliculas(props) {
@@ -525,6 +526,7 @@ export function FullPeliculas(props) {
       {/**<h6>Recomendados</h6>
        <RecomendadosCat/>*/}
       <FooterApp />
+      <Regresar/>
     </>
   );
 }

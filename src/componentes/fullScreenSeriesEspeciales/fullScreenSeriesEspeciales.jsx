@@ -18,6 +18,7 @@ import {FullNav} from "../navcompleto/navCompleto";
 import { SwiperPatrocinadores } from "../swiperPatrocinadores/swPatrocinadores";
 import { FooterApp } from "../footer/footer";
 import { Helmet } from "react-helmet";
+import Regresar from "../regresar/Regresar";
 
 SwiperCore.use([Pagination, Autoplay]);
 export function FullScreanSeriesEspeciales(props) {
@@ -230,6 +231,7 @@ export function FullScreanSeriesEspeciales(props) {
   ))}
 {/**<iframe width="100%" height="700px" src="https://www.youtube.com/embed/Bg01tyI0rWs?si=kzUCiL7HjwQcaQHo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> */}
         <FooterApp />
+        <Regresar/>
     </>
   );
 }

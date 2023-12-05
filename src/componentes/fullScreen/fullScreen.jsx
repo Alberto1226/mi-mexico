@@ -29,6 +29,7 @@ import {
 import { Helmet } from "react-helmet";
 import www from "../../assets/img/www.png";
 import facebook from "../../assets/img/facebook.png";
+import Regresar from "../regresar/Regresar";
 
 SwiperCore.use([Pagination, Autoplay]);
 export function FullScrean(props) {
@@ -531,7 +532,7 @@ export function FullScrean(props) {
           <SwiperPatrocinadores />
         </div>
       </section>*/}
-
+      <Regresar/>
       <FooterApp />
     </>
   );

@@ -21,6 +21,7 @@ import { listarPatrocinadoresPrioridad, actualizarPatrocinadores, obtenerPatroci
 import { Helmet } from "react-helmet";
 import www from "../../assets/img/www.png";
 import facebook from "../../assets/img/facebook.png";
+import Regresar from "../regresar/Regresar";
 
 SwiperCore.use([Pagination, Autoplay]);
 export function GuelaguetzaFull(props) {
@@ -484,7 +485,7 @@ export function GuelaguetzaFull(props) {
 
 
 
-
+      <Regresar/>                 
       <FooterApp />
     </>
   );

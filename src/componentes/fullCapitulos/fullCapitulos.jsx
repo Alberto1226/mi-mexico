@@ -18,6 +18,7 @@ import { FullNav } from "../navcompleto/navCompleto";
 import { SwiperPatrocinadores } from "../swiperPatrocinadores/swPatrocinadores";
 import { FooterApp } from "../footer/footer";
 import { Helmet } from "react-helmet";
+import Regresar from "../regresar/Regresar";
 
 SwiperCore.use([Pagination, Autoplay]);
 export function FullCapitulos(props) {
@@ -462,7 +463,7 @@ export function FullCapitulos(props) {
             </SwiperSlide>
           ))}
       </Swiper>
-
+      <Regresar/>
       {/**footer */}
       <FooterApp />
     </>

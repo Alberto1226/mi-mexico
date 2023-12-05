@@ -218,7 +218,7 @@ export function Login({ setRefreshCheckLogin }) {
                   Al pulsar ''Entrar'' usted confirma que es mayor de 18 años y
                   que acepta los
                 </label>
-                <a className="a">Términos de Uso </a>|
+                <a style={{textAlign:"center"}} className="a"></a>|
                 <Link to={`/politicaPrivacidad`}><a className="a" > Política de Privacidad</a></Link>
               </div>
 

@@ -1,3 +1,4 @@
+import Regresar from "../../componentes/regresar/Regresar";
 import "../../css/registro.css";
 export function PoliticaPrivacidad() {
     return (
@@ -40,6 +41,7 @@ export function PoliticaPrivacidad() {
 
                 </div>
             </div>
+            <Regresar/>
         </>
     );
 }
