@@ -21,6 +21,8 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { listarPatrocinadoresPrioridad, actualizarPatrocinadores, obtenerPatrocinador } from "../../api/patrocinadores";
 import { RecomendadosCat } from "../swiperCategoria/swCategoriaRecomendada";
 import { Helmet } from "react-helmet";
+import www from "../../assets/img/www.png";
+import facebook from "../../assets/img/facebook.png";
 
 SwiperCore.use([Pagination, Autoplay]);
 export function FullPeliculas(props) {
@@ -375,49 +377,148 @@ export function FullPeliculas(props) {
             <h6 className="sinopsis">{listarPel[matchedIndex].sinopsis == undefined ? "" : listarPel[matchedIndex].sinopsis}</h6>
             <h6 className="añoserie">{listarPel[matchedIndex].duracion == undefined ? "" : listarPel[matchedIndex].duracion}</h6>
           </div>
+          {/**patrocinador */}
           <div>
-            {show && (
-              <div
-                style={{
-                  position: 'fixed',
-                  bottom: '20px',
-                  right: '20px',
-                  borderRadius: '10px',
-                  backgroundColor: 'white',
-                  border: '1px solid #ccc',
-                  width: '200px', // Ancho deseado del recuadro
-                  boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
-                  zIndex: 9999,
-                }}
-              >
-                <button
+              {show && (
+                <div
                   style={{
-                    position: 'absolute',
-                    top: '5px',
-                    right: '5px',
-                    cursor: 'pointer',
-                    backgroundColor: 'transparent',
-                    border: 'none',
+                    position: "fixed",
+                    bottom: "20px",
+                    right: "20px",
+                    borderRadius: "10px",
+                    backgroundColor: "white",
+                    border: "1px solid #ccc",
+                    width: "200px", // Ancho deseado del recuadro
+                    boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+                    zIndex: 9999,
                   }}
-                  onClick={cerrarVentanaFlotante}
                 >
-                  X
-                </button>
-                <div style={{ padding: '10px' }}>
-                  <h2>Patrocinador oficial</h2>
-                  <img
-                    src={
-                      patrocinadoresPagados[numeroAleatorio]?.urlImagen == undefined
-                        ? ''
-                        : patrocinadoresPagados[numeroAleatorio]?.urlImagen
-                    }
-                    alt="Patrocinador"
-                    style={{ maxWidth: '100%', height: 'auto' }}
-                  />
+                  <button
+                    style={{
+                      position: "absolute",
+                      top: "5px",
+                      right: "5px",
+                      cursor: "pointer",
+                      backgroundColor: "transparent",
+                      border: "none",
+                    }}
+                    onClick={cerrarVentanaFlotante}
+                  >
+                    X
+                  </button>
+
+                  <div>
+                    <div style={{ padding: "10px" }}>
+                      <h6>Patrocinador oficial</h6>
+                      <img
+                        src={
+                          patrocinadoresPagados[numeroAleatorio]?.urlImagen ==
+                          undefined
+                            ? ""
+                            : patrocinadoresPagados[numeroAleatorio]?.urlImagen
+                        }
+                        alt="Patrocinador"
+                        style={{ maxWidth: "100%", height: "80%" }}
+                      />
+                    </div>
+                    <div
+                      style={{
+                        backgroundColor: "#FDB421",
+                        margin: 0,
+                        padding: "1vw 1vw 0 0",
+                        borderRadius: "2vw 2vw 0 0",
+                      }}
+                    >
+                      <p style={{ fontSize: "10px", textAlign: "center" }}>
+                        Redes sociales del patrocinador
+                      </p>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                          }}
+                        >
+                          <div
+                            style={{
+                              backgroundColor: "#fff",
+                              borderRadius: "50%",
+                              width: "35px",
+                              height: "35px",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              marginBottom: "5px",
+                              marginLeft: "1vw",
+                            }}
+                          >
+                            <a
+                              href={
+                                patrocinadoresPagados[numeroAleatorio]
+                                  ?.urlWeb == undefined
+                                  ? ""
+                                  : patrocinadoresPagados[numeroAleatorio]
+                                      ?.urlWeb
+                              }
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <img
+                                src={www}
+                                style={{ maxWidth: "100%", maxHeight: "100%" }}
+                              />
+                            </a>
+                          </div>
+                          <p style={{ fontSize: "10px" }}>Web</p>
+                        </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                          }}
+                        >
+                          <div
+                            style={{
+                              backgroundColor: "#fff",
+                              borderRadius: "50%",
+                              width: "35px",
+                              height: "35px",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              marginBottom: "5px",
+                            }}
+                          >
+                            <a
+                              href={
+                                patrocinadoresPagados[numeroAleatorio]
+                                  ?.urlFacebook == undefined
+                                  ? ""
+                                  : patrocinadoresPagados[numeroAleatorio]
+                                      ?.urlFacebook
+                              }
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <img src={facebook} />
+                            </a>
+                          </div>
+                          <p style={{ fontSize: "10px" }}>Facebook</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+            {/**fin patrocinador */}
         </div>
       )}
 

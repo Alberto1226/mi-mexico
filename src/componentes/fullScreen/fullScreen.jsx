@@ -3,7 +3,11 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
 import Modal from "react-bootstrap/Modal";
-import { listarSeries, obtenerSeries, actualizarContadorSeries } from "../../api/series";
+import {
+  listarSeries,
+  obtenerSeries,
+  actualizarContadorSeries,
+} from "../../api/series";
 import SwiperCore, { Pagination, Autoplay } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -17,14 +21,20 @@ import { Link } from "react-router-dom";
 import { FullNav } from "../navcompleto/navCompleto";
 import { SwiperPatrocinadores } from "../swiperPatrocinadores/swPatrocinadores";
 import { FooterApp } from "../footer/footer";
-import { listarPatrocinadoresPrioridad, actualizarPatrocinadores, obtenerPatrocinador } from "../../api/patrocinadores";
+import {
+  listarPatrocinadoresPrioridad,
+  actualizarPatrocinadores,
+  obtenerPatrocinador,
+} from "../../api/patrocinadores";
 import { Helmet } from "react-helmet";
+import www from "../../assets/img/www.png";
+import facebook from "../../assets/img/facebook.png";
 
 SwiperCore.use([Pagination, Autoplay]);
 export function FullScrean(props) {
   const locations = useLocation();
   const { id } = queryString.parse(locations.search);
-    const [contadorActual, setContadorActual] = useState(0);
+  const [contadorActual, setContadorActual] = useState(0);
 
   const { location } = props;
   const [listarSer, setListSeries] = useState([]);
@@ -32,23 +42,26 @@ export function FullScrean(props) {
   const aumentarContador = () => {
     try {
       // console.log(data)
-      obtenerSeries(id).then(response => {
-        const { data } = response;
-        console.log(data)
-        const dataTemp = {
-          contador: parseInt(data.contador) + 1
-        }
-        actualizarContadorSeries(id, dataTemp).then(response => {
-          // console.log(response)
-        }).catch(e => {
-          console.log(e)
+      obtenerSeries(id)
+        .then((response) => {
+          const { data } = response;
+          console.log(data);
+          const dataTemp = {
+            contador: parseInt(data.contador) + 1,
+          };
+          actualizarContadorSeries(id, dataTemp)
+            .then((response) => {
+              // console.log(response)
+            })
+            .catch((e) => {
+              console.log(e);
+            });
         })
-
-      }).catch(e => {
-        console.log(e)
-      })
-        .catch((e) => { });
-    } catch (e) { }
+        .catch((e) => {
+          console.log(e);
+        })
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -58,33 +71,35 @@ export function FullScrean(props) {
   const registrarHistorial = () => {
     try {
       // console.log(data)
-      obtenerSeries(id).then(response => {
-        const { data } = response;
-        console.log(data)
-        const dataTemp = {
-          id_usuario: obtenidusuarioLogueado(getTokenApi()),
-          id_reproduccion: data._id,
-          nombre_reproduccion: data.titulo,
-          tipo: "serie",
-          url_reproduccion: data.urlTrailer
-        }
-        registraHistorialUsuario(dataTemp).then(response => {
-          // console.log(response)
-        }).catch(e => {
-          console.log(e)
+      obtenerSeries(id)
+        .then((response) => {
+          const { data } = response;
+          console.log(data);
+          const dataTemp = {
+            id_usuario: obtenidusuarioLogueado(getTokenApi()),
+            id_reproduccion: data._id,
+            nombre_reproduccion: data.titulo,
+            tipo: "serie",
+            url_reproduccion: data.urlTrailer,
+          };
+          registraHistorialUsuario(dataTemp)
+            .then((response) => {
+              // console.log(response)
+            })
+            .catch((e) => {
+              console.log(e);
+            });
         })
-
-      }).catch(e => {
-        console.log(e)
-      })
-        .catch((e) => { });
-    } catch (e) { }
+        .catch((e) => {
+          console.log(e);
+        })
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {
     registrarHistorial();
   }, [location]);
-
 
   const obtenerSerie = () => {
     try {
@@ -105,24 +120,27 @@ export function FullScrean(props) {
             //console.log(filteredSer);
           }
         })
-        .catch((e) => { });
-    } catch (e) { }
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {
     obtenerSerie();
   }, [location]);
 
-  const totalVistas = listarSer.reduce((amount, item) => (amount + parseInt(item.contador)), 0);
+  const totalVistas = listarSer.reduce(
+    (amount, item) => amount + parseInt(item.contador),
+    0
+  );
   const media = totalVistas / listarSer.length;
   function redondearDecimal(numero) {
     return numero < 0.5 ? Math.floor(numero) : Math.ceil(numero);
   }
 
-  console.log(media)
-  console.log(redondearDecimal(media))
-  console.log(totalVistas)
-  console.log(contadorActual)
+  console.log(media);
+  console.log(redondearDecimal(media));
+  console.log(totalVistas);
+  console.log(contadorActual);
 
   const [listarPatrocinadores, setListPatrocinadores] = useState([]);
 
@@ -139,8 +157,8 @@ export function FullScrean(props) {
             setListPatrocinadores(datosPel);
           }
         })
-        .catch((e) => { });
-    } catch (e) { }
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   const obtenerPatrocinadoresNoPrioritarios = () => {
@@ -156,22 +174,23 @@ export function FullScrean(props) {
             setListPatrocinadores(datosPel);
           }
         })
-        .catch((e) => { });
-    } catch (e) { }
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {
     if (contadorActual >= redondearDecimal(media)) {
-      obtenerPatrocinadoresPrioritarios()
-    } 
-    else {
-      obtenerPatrocinadoresNoPrioritarios()
+      obtenerPatrocinadoresPrioritarios();
+    } else {
+      obtenerPatrocinadoresNoPrioritarios();
     }
   }, [media]);
 
-  const patrocinadoresPagados = listarPatrocinadores.filter(patrocinador => parseInt(patrocinador.numeroApariciones) >= 0);
+  const patrocinadoresPagados = listarPatrocinadores.filter(
+    (patrocinador) => parseInt(patrocinador.numeroApariciones) >= 0
+  );
 
-  console.log(patrocinadoresPagados)
+  console.log(patrocinadoresPagados);
 
   function generarNumeroAleatorio(minimo, maximo) {
     // Genera un número aleatorio entre 0 y 1 (no incluido)
@@ -181,7 +200,7 @@ export function FullScrean(props) {
     // const numeroRedondeado = Math.round(numeroEnRango);
   }
 
-  console.log(patrocinadoresPagados.length)
+  console.log(patrocinadoresPagados.length);
 
   // Ejemplo de uso:
   let numeroAleatorio = 0;
@@ -191,23 +210,29 @@ export function FullScrean(props) {
   const disminuirCantidadApariciones = () => {
     try {
       // console.log(data)
-      obtenerPatrocinador(patrocinadoresPagados[numeroAleatorio]?.id).then(response => {
-        const { data } = response;
-        console.log(data)
-        const dataTemp = {
-          numeroApariciones: parseInt(data.numeroApariciones) - 1
-        }
-        actualizarPatrocinadores(patrocinadoresPagados[numeroAleatorio]?.id, dataTemp).then(response => {
-          // console.log(response)
-        }).catch(e => {
-          console.log(e)
+      obtenerPatrocinador(patrocinadoresPagados[numeroAleatorio]?.id)
+        .then((response) => {
+          const { data } = response;
+          console.log(data);
+          const dataTemp = {
+            numeroApariciones: parseInt(data.numeroApariciones) - 1,
+          };
+          actualizarPatrocinadores(
+            patrocinadoresPagados[numeroAleatorio]?.id,
+            dataTemp
+          )
+            .then((response) => {
+              // console.log(response)
+            })
+            .catch((e) => {
+              console.log(e);
+            });
         })
-
-      }).catch(e => {
-        console.log(e)
-      })
-        .catch((e) => { });
-    } catch (e) { }
+        .catch((e) => {
+          console.log(e);
+        })
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -254,15 +279,13 @@ export function FullScrean(props) {
             console.log(datosCap);
           }
         })
-        .catch((e) => { });
-    } catch (e) { }
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {
     obtenerCapitulos();
   }, [location]);
-
-
 
   //modal
   const [isModalOpen, setIsModalOpen] = useState(true);
@@ -270,7 +293,6 @@ export function FullScrean(props) {
   const [show, setShow] = useState(true);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
 
   useEffect(() => {
     window.scrollTo(0, 0); // Mueve la página al inicio
@@ -281,7 +303,7 @@ export function FullScrean(props) {
   };
   return (
     <>
-    <Helmet>
+      <Helmet>
         <title>Series</title>
         <link rel="canonical" href="https://mimexicotv.com/" />
       </Helmet>
@@ -289,112 +311,218 @@ export function FullScrean(props) {
       {listarSer &&
         listarSer.map((series) => (
           <div key={series.id}>
-            <video id="videofull" src={series.urlTrailer} autoPlay loop controls width={"100%"} height={"100%"}></video>
+            <video
+              id="videofull"
+              src={series.urlTrailer}
+              autoPlay
+              loop
+              controls
+              width={"100%"}
+              height={"100%"}
+            ></video>
             <div className="informacionserie">
               <h6 className="tituloSerie">{series.titulo}</h6>
-              <h6 className="sinopsis" 
-              dangerouslySetInnerHTML={{
-                
-                __html:series.sinopsis
-                
-                
-              }}
+              <h6
+                className="sinopsis"
+                dangerouslySetInnerHTML={{
+                  __html: series.sinopsis,
+                }}
               ></h6>
 
               <h6 className="añoserie">{series.año}</h6>
-
             </div>
-
-
+            {/**patrocinador */}
             <div>
               {show && (
                 <div
                   style={{
-                    position: 'fixed',
-                    bottom: '20px',
-                    right: '20px',
-                    borderRadius: '10px',
-                    backgroundColor: 'white',
-                    border: '1px solid #ccc',
-                    width: '200px', // Ancho deseado del recuadro
-                    boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
+                    position: "fixed",
+                    bottom: "20px",
+                    right: "20px",
+                    borderRadius: "10px",
+                    backgroundColor: "white",
+                    border: "1px solid #ccc",
+                    width: "200px", // Ancho deseado del recuadro
+                    boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
                     zIndex: 9999,
                   }}
                 >
                   <button
                     style={{
-                      position: 'absolute',
-                      top: '5px',
-                      right: '5px',
-                      cursor: 'pointer',
-                      backgroundColor: 'transparent',
-                      border: 'none',
+                      position: "absolute",
+                      top: "5px",
+                      right: "5px",
+                      cursor: "pointer",
+                      backgroundColor: "transparent",
+                      border: "none",
                     }}
                     onClick={cerrarVentanaFlotante}
                   >
                     X
                   </button>
-                  <div style={{ padding: '10px' }}>
-                  <h2>Patrocinador oficial</h2>
-                  <img
-                    src={
-                      patrocinadoresPagados[numeroAleatorio]?.urlImagen == undefined
-                        ? ''
-                        : patrocinadoresPagados[numeroAleatorio]?.urlImagen
-                    }
-                    alt="Patrocinador"
-                    style={{ maxWidth: '100%', height: 'auto' }}
-                  />
-                </div>
+
+                  <div>
+                    <div style={{ padding: "10px" }}>
+                      <h6>Patrocinador oficial</h6>
+                      <img
+                        src={
+                          patrocinadoresPagados[numeroAleatorio]?.urlImagen ==
+                          undefined
+                            ? ""
+                            : patrocinadoresPagados[numeroAleatorio]?.urlImagen
+                        }
+                        alt="Patrocinador"
+                        style={{ maxWidth: "100%", height: "80%" }}
+                      />
+                    </div>
+                    <div
+                      style={{
+                        backgroundColor: "#FDB421",
+                        margin: 0,
+                        padding: "1vw 1vw 0 0",
+                        borderRadius: "2vw 2vw 0 0",
+                      }}
+                    >
+                      <p style={{ fontSize: "10px", textAlign: "center" }}>
+                        Redes sociales del patrocinador
+                      </p>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                          }}
+                        >
+                          <div
+                            style={{
+                              backgroundColor: "#fff",
+                              borderRadius: "50%",
+                              width: "35px",
+                              height: "35px",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              marginBottom: "5px",
+                              marginLeft: "1vw",
+                            }}
+                          >
+                            <a
+                              href={
+                                patrocinadoresPagados[numeroAleatorio]
+                                  ?.urlWeb == undefined
+                                  ? ""
+                                  : patrocinadoresPagados[numeroAleatorio]
+                                      ?.urlWeb
+                              }
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <img
+                                src={www}
+                                style={{ maxWidth: "100%", maxHeight: "100%" }}
+                              />
+                            </a>
+                          </div>
+                          <p style={{ fontSize: "10px" }}>Web</p>
+                        </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                          }}
+                        >
+                          <div
+                            style={{
+                              backgroundColor: "#fff",
+                              borderRadius: "50%",
+                              width: "35px",
+                              height: "35px",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              marginBottom: "5px",
+                            }}
+                          >
+                            <a
+                              href={
+                                patrocinadoresPagados[numeroAleatorio]
+                                  ?.urlFacebook == undefined
+                                  ? ""
+                                  : patrocinadoresPagados[numeroAleatorio]
+                                      ?.urlFacebook
+                              }
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <img src={facebook} />
+                            </a>
+                          </div>
+                          <p style={{ fontSize: "10px" }}>Facebook</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
+            {/**fin patrocinador */}
             <hr />
             {Array.isArray(series.datosTemporada) &&
-        series.datosTemporada.map((temporada) => {
-          // Filtrar las temporadas que tienen capítulos
-          const capitulosTemporada = listarCap.filter(
-            (capitulo) => capitulo.temporada === temporada.temporada
-          );
-          if (capitulosTemporada.length > 0) {
-            return (
-              <div key={temporada.temporada} className="temporadasslide">
-                <h6 className="añoserie">Temporada {temporada.temporada}</h6>
-                {Array.isArray(listarCap) && listarCap.length > 0 ? (
-                  <Swiper
-                    spaceBetween={10}
-                    slidesPerView={slides}
-                    navigation
-                    pagination={{ clickable: true }}
-                    className="mySwiper"
-                  >
-                    {listarCap
-                      .filter(
-                        (capitulo) =>
-                          capitulo.temporada === temporada.temporada
-                      )
-                      .map((capitulo) => (
-                        <a key={capitulo.nombre} img={"datos"}>
-                          <Link to={`/capitulos?id=${capitulo.id}&capitulo=${capitulo.serie}&temporada=${capitulo.temporada}`} img={"datos"}>
-                            <img
-                              className="imgVermas"
-                              src={capitulo.urlPortada}
-                              alt=""
-                            />
-                          </Link>
-                        </a>
-                      ))}
-                  </Swiper>
-                ) : (
-                  <p>No hay capítulos disponibles</p>
-                )}
-              </div>
-            );
-          }
-          return null; // No se renderiza si no hay capítulos
-        })}
+              series.datosTemporada.map((temporada) => {
+                // Filtrar las temporadas que tienen capítulos
+                const capitulosTemporada = listarCap.filter(
+                  (capitulo) => capitulo.temporada === temporada.temporada
+                );
+                if (capitulosTemporada.length > 0) {
+                  return (
+                    <div key={temporada.temporada} className="temporadasslide">
+                      <h6 className="añoserie">
+                        Temporada {temporada.temporada}
+                      </h6>
+                      {Array.isArray(listarCap) && listarCap.length > 0 ? (
+                        <Swiper
+                          spaceBetween={10}
+                          slidesPerView={slides}
+                          navigation
+                          pagination={{ clickable: true }}
+                          className="mySwiper"
+                        >
+                          {listarCap
+                            .filter(
+                              (capitulo) =>
+                                capitulo.temporada === temporada.temporada
+                            )
+                            .map((capitulo) => (
+                              <a key={capitulo.nombre} img={"datos"}>
+                                <Link
+                                  to={`/capitulos?id=${capitulo.id}&capitulo=${capitulo.serie}&temporada=${capitulo.temporada}`}
+                                  img={"datos"}
+                                >
+                                  <img
+                                    className="imgVermas"
+                                    src={capitulo.urlPortada}
+                                    alt=""
+                                  />
+                                </Link>
+                              </a>
+                            ))}
+                        </Swiper>
+                      ) : (
+                        <p>No hay capítulos disponibles</p>
+                      )}
+                    </div>
+                  );
+                }
+                return null; // No se renderiza si no hay capítulos
+              })}
           </div>
-
         ))}
 
       {/**footer 
@@ -433,7 +561,6 @@ function formatModelSeries(data) {
       estado: data.estado,
       patrocinador: data.patrocinador,
       patrocinadorPortada: data.patrocinadorPortada,
-
     });
   });
   return dataTemp;
@@ -471,7 +598,7 @@ function formatModelPatrocinadores(data) {
       nivel: data.nivel,
       estado: data.estado,
       numeroApariciones: data.numeroApariciones,
-      prioridadAparicion: data.prioridadAparicion
+      prioridadAparicion: data.prioridadAparicion,
     });
   });
   return dataTemp;

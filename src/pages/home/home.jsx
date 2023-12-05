@@ -25,7 +25,7 @@ import imgSwiper from "../../assets/img/1.png";
 import "../../css/header.css";
 import "../../css/cards.css";
 import "../../css/cardPatconiadores.css";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
