@@ -195,7 +195,10 @@ export function Home() {
     <>
       <Helmet>
         <title>Turismo Méxicano</title>
-        <meta name="description" content="Una plataforma de streaming dedicada a la promoción de los destinos turísticos más destacados de México, ofreciendo una experiencia inmersiva para descubrir la riqueza cultural, paisajes naturales y atracciones del país." />
+        <meta
+          name="description"
+          content="Una plataforma de streaming dedicada a la promoción de los destinos turísticos más destacados de México, ofreciendo una experiencia inmersiva para descubrir la riqueza cultural, paisajes naturales y atracciones del país."
+        />
         <link rel="canonical" href="https://mimexicotv.com/" />
       </Helmet>
       <LoadVideo />
@@ -235,8 +238,15 @@ export function Home() {
             videoh={"https://www.mxtvmas.com:8443/mimexico/peliculas/cerro.mp4"}
           />
         </div>
-
-        <SwiperHeaderSel titulo={"Recomendados"} />
+        <div className="margindiv">
+          <h1>
+            Recomendados
+            <Link to={`/recomendadosMiMexico`}>
+              <button className="ver-mas-button">+</button>
+            </Link>
+          </h1>
+        </div>
+        <SwiperHeaderSel />
         {/** <SwiperPeliculasRecomendadas  />*/}
         <hr />
         <SwiperEstrenos titulo={"Estrenos"} />

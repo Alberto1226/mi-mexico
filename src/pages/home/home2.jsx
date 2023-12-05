@@ -195,8 +195,8 @@ export function Home2() {
   };
   return (
     <>
-    <Helmet>
-        <meta  name="Streaming México" content="General"/>
+      <Helmet>
+        <meta name="Streaming México" content="General" />
         <title>Inicio</title>
         <link rel="canonical" href="https://mimexicotv.com/" />
       </Helmet>
@@ -238,27 +238,23 @@ export function Home2() {
           />
         </div>
 
-        
-          <div className="margindiv">
-            <h1>
-              Recomendados
-              <Link to={`/recomendadosMiMexico`}>
-              <button className="ver-mas-button">
-            +
-          </button>
-          </Link>
-            </h1>
-          </div>
-        
+        <div className="margindiv">
+          <h1>
+            Recomendados
+            <Link to={`/recomendadosMiMexico`}>
+              <button className="ver-mas-button">+</button>
+            </Link>
+          </h1>
+        </div>
 
         <SwiperHeaderSel />
         {/** <SwiperPeliculasRecomendadas  />*/}
-        <hr/>
+        <hr />
         <SwiperEstrenos titulo={"Estrenos"} />
-        <hr/>
+        <hr />
         {/*<img src={portada2} alt="" className="especialespor"/>
         <SwiperEspeciales  />*/}
-        <SwiperGuanajuato titulo={"Especiales"}/>
+        <SwiperGuanajuato titulo={"Especiales"} />
         <SwiperCervantino titulo={""} />
         <hr />
         {/*<Especiales3 titulo={"Series"} />*/}
@@ -273,7 +269,7 @@ export function Home2() {
         {/**<SwiperPeliculasRecomendadas titulo={"Recomendados"} /> */}
 
         <SwiperPeliculas titulo={"Peliculas"} />
-        
+
         {/*<Especiales3 titulo={"Series"}/>
         <hr/>
         <div className="margindiv">
@@ -304,8 +300,8 @@ export function Home2() {
             <h1>
               Ver mas
               <button className="ver-mas-button" onClick={toggleComponentes}>
-            +
-          </button>
+                +
+              </button>
             </h1>
           </div>
           <div
@@ -319,7 +315,6 @@ export function Home2() {
             <hr />
           </div>
         </div>
-        
 
         {/** <section class="link">
           <div class="patrocinadores">
@@ -333,10 +328,9 @@ export function Home2() {
         </section>
 
         <div className="imgGPlay">
-        <img src={android} alt="Android" />
+          <img src={android} alt="Android" />
         </div>
         <FooterApp />
-        
       </div>
     </>
   );
