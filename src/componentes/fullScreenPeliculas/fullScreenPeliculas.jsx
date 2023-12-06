@@ -375,7 +375,9 @@ export function FullPeliculas(props) {
 
           <div className="informacionserie">
             <h6 className="tituloSerie">{listarPel[matchedIndex].titulo == undefined ? "" : listarPel[matchedIndex].titulo}<button onClick={handleNextVideo} className="nextvideo2">Next Video <FontAwesomeIcon icon={faArrowRight} /></button></h6>
-            <h6 className="sinopsis">{listarPel[matchedIndex].sinopsis == undefined ? "" : listarPel[matchedIndex].sinopsis}</h6>
+            <h6 className="sinopsis" dangerouslySetInnerHTML={{ __html: listarPel[matchedIndex].sinopsis || "" }} />
+
+            
             <h6 className="añoserie">{listarPel[matchedIndex].duracion == undefined ? "" : listarPel[matchedIndex].duracion}</h6>
           </div>
           {/**patrocinador */}
