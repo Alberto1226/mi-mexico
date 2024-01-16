@@ -54,10 +54,12 @@ export function SwiperCategorias(props) {
         .then((response) => {
           const { data } = response;
           if (!listarPel && data) {
-            const datosPel = formatModelPeliculas(data);
+            const peliculasFiltradas = data.filter((pelicula) => pelicula.tipo === "peliculas");
+            const datosPel = formatModelPeliculas(peliculasFiltradas);
             setListPeliculas(datosPel);
           } else {
-            const datosPel = formatModelPeliculas(data);
+            const peliculasFiltradas = data.filter((pelicula) => pelicula.tipo === "peliculas");
+            const datosPel = formatModelPeliculas(peliculasFiltradas);
             setListPeliculas(datosPel);
           }
         })
@@ -88,10 +90,12 @@ export function SwiperCategorias(props) {
         .then((response) => {
           const { data } = response;
           if (!listarEsp && data) {
-            const datosPel = formatModelEspeciales(data);
+            const peliculasFiltradas = data.filter((pelicula) => pelicula.tipo === "especiales");
+            const datosPel = formatModelEspeciales(peliculasFiltradas);
             setListEspeciales(datosPel);
           } else {
-            const datosPel = formatModelPeliculas(data);
+            const peliculasFiltradas = data.filter((pelicula) => pelicula.tipo === "especiales");
+            const datosPel = formatModelPeliculas(peliculasFiltradas);
             setListEspeciales(datosPel);
           }
         })

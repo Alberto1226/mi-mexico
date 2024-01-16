@@ -361,7 +361,7 @@ footer{
 }
 
 .botonesnav {
-  margin-left: 30px;
+  margin-left: 20px;
   cursor: pointer;
 }
 
@@ -386,7 +386,7 @@ footer{
   background-color: #ffffff;
   opacity: 1;
   color: #222;
-  width: 100%
+  width: 90%
 }
 
 
@@ -424,12 +424,12 @@ footer{
     position: relative;
     background-color: #ffffff;
     opacity: 1;
-    width: 100%;
+    width: 800%;
     height: 35px;
   }
 
   .buscar{
-    width: 90%;
+    width: 80%;
     
   }
 
