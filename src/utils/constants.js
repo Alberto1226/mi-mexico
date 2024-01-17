@@ -1,5 +1,6 @@
 // Constante para desarrollo
-// export const API_HOST = "http://localhost:5050";
+ //export const API_HOST = "http://localhost:5050";
+ export const API_HOST2 = "http://localhost:5000";
 
 // Constantes para puesta en produccion
 export const API_HOST = "https://api-mi-mexico.vercel.app";

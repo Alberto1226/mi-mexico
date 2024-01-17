@@ -27,6 +27,7 @@ import { PoliticaPrivacidad } from "./pages/registro/politicaPrivcidad";
 import VideoHeader from "./componentes/VideoHeader/VideoHeader";
 import { BorrarCuenta } from "./pages/login/borrarCuenta";
 import ListaRecomendados from "./componentes/swiperRecomendado/ListaRecomendados";
+import FileUpload from "./componentes/upVideos/FileUpdate";
 
 const router = createBrowserRouter([
   {
@@ -136,6 +137,11 @@ const router = createBrowserRouter([
   {
     path: "/recomendadosMiMexico",
     element: <ListaRecomendados/>,
+    errorElement: <Error />,
+  },
+  {
+    path: "/fileUpdate",
+    element: <FileUpload/>,
     errorElement: <Error />,
   },
   

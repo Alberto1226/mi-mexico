@@ -39,7 +39,7 @@ import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
 export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales, listarSeriesEspeciales, listarEspeciales }) {
   const listaMultimedia = listarSeries.concat(listarPeliculas, listarDocumentales, listarSeriesEspeciales, listarEspeciales);
-  console.log(listaMultimedia)
+  //console.log(listaMultimedia)
   const [isInputOpen, setIsInputOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [sugerencias, setSugerencias] = useState([]);
@@ -93,7 +93,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
     obtenerDatosUsuario();
   }, []);
 
-  console.log(idUsuario);
+  //console.log(idUsuario);
 
   const handleButtonClick = () => {
     setIsInputOpen(true);
@@ -168,7 +168,7 @@ export function NavPrincipal({ listarSeries, listarPeliculas, listarDocumentales
     obtenerTotales();
   }, [searchValue]);
 
-  console.log(filteredItems)
+  //console.log(filteredItems)
 
 
   /**

@@ -46,7 +46,7 @@ export function FullScrean(props) {
       obtenerSeries(id)
         .then((response) => {
           const { data } = response;
-          console.log(data);
+          //console.log(data);
           const dataTemp = {
             contador: parseInt(data.contador) + 1,
           };
@@ -75,7 +75,7 @@ export function FullScrean(props) {
       obtenerSeries(id)
         .then((response) => {
           const { data } = response;
-          console.log(data);
+          //console.log(data);
           const dataTemp = {
             id_usuario: obtenidusuarioLogueado(getTokenApi()),
             id_reproduccion: data._id,
@@ -129,6 +129,8 @@ export function FullScrean(props) {
     obtenerSerie();
   }, [location]);
 
+
+
   const totalVistas = listarSer.reduce(
     (amount, item) => amount + parseInt(item.contador),
     0
@@ -138,10 +140,10 @@ export function FullScrean(props) {
     return numero < 0.5 ? Math.floor(numero) : Math.ceil(numero);
   }
 
-  console.log(media);
+  console.log("Media de vistas",media);
   console.log(redondearDecimal(media));
-  console.log(totalVistas);
-  console.log(contadorActual);
+  console.log("Total vistas",totalVistas);
+  console.log("actual ",contadorActual);
 
   const [listarPatrocinadores, setListPatrocinadores] = useState([]);
 
@@ -191,7 +193,7 @@ export function FullScrean(props) {
     (patrocinador) => parseInt(patrocinador.numeroApariciones) >= 0
   );
 
-  console.log(patrocinadoresPagados);
+  console.log("patpag",patrocinadoresPagados);
 
   function generarNumeroAleatorio(minimo, maximo) {
     // Genera un número aleatorio entre 0 y 1 (no incluido)
@@ -201,43 +203,57 @@ export function FullScrean(props) {
     // const numeroRedondeado = Math.round(numeroEnRango);
   }
 
-  console.log(patrocinadoresPagados.length);
+  console.log("length",patrocinadoresPagados.length);
 
   // Ejemplo de uso:
   let numeroAleatorio = 0;
   numeroAleatorio = generarNumeroAleatorio(0, patrocinadoresPagados.length); // Genera un número entre 1 y 10 (incluyendo 1, excluyendo 10)
-  console.log(numeroAleatorio);
+  console.log("aleatorio",numeroAleatorio);
 
-  const disminuirCantidadApariciones = () => {
+  const disminuirCantidadApariciones = async (numeroAleatorio) => {
     try {
-      // console.log(data)
-      obtenerPatrocinador(patrocinadoresPagados[numeroAleatorio]?.id)
-        .then((response) => {
-          const { data } = response;
-          console.log(data);
+      const patrocinadorId = patrocinadoresPagados[numeroAleatorio]?.id;
+      console.log("id patrocinador ", patrocinadorId);
+  
+      if (patrocinadorId) {
+        const response = await obtenerPatrocinador(patrocinadorId);
+        const { data } = response;
+  
+        console.log("Data patrocinador", data);
+  
+        if (data && data.numeroApariciones !== undefined) {
           const dataTemp = {
             numeroApariciones: parseInt(data.numeroApariciones) - 1,
           };
-          actualizarPatrocinadores(
-            patrocinadoresPagados[numeroAleatorio]?.id,
-            dataTemp
-          )
-            .then((response) => {
-              // console.log(response)
-            })
-            .catch((e) => {
-              console.log(e);
-            });
-        })
-        .catch((e) => {
-          console.log(e);
-        })
-        .catch((e) => {});
-    } catch (e) {}
+  
+          try {
+            const updateResponse = await actualizarPatrocinadores(patrocinadorId, dataTemp);
+            console.log("Patrocinador actualizado", updateResponse);
+          } catch (updateError) {
+            console.log("Error al actualizar patrocinador", updateError);
+          }
+        }
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
+  
+  
 
   useEffect(() => {
-    disminuirCantidadApariciones();
+    // Espera 2 segundos (o el tiempo que necesites)
+    const delay = 10000;
+  
+    const timerId = setTimeout(() => {
+      if (numeroAleatorio !== undefined) {
+        disminuirCantidadApariciones(numeroAleatorio);
+      }else{
+        disminuirCantidadApariciones(0)
+      }
+    }, delay);
+  
+    return () => clearTimeout(timerId); // Limpiar el temporizador en la limpieza del efecto
   }, [numeroAleatorio]);
 
   const [slides, setSlides] = useState(5); // Número inicial de slides a mostrar
@@ -273,11 +289,11 @@ export function FullScrean(props) {
 
           if (!listarCap && data) {
             setListCap(formatModelCapitulos(data));
-            console.log(data);
+            //console.log(data);
           } else {
             const datosCap = formatModelCapitulos(data);
             setListCap(datosCap);
-            console.log(datosCap);
+            //console.log(datosCap);
           }
         })
         .catch((e) => {});

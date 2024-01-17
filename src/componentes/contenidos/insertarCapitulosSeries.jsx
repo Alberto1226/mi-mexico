@@ -14,6 +14,7 @@ import Dropzone from "../Dropzone/Dropzone";
 import { map } from "lodash";
 import axios from "axios";
 import { API_HOST } from "../../utils/constants";
+import VideoUploader from "../upVideos/FileUpdate";
 
 export default function InsertarCapitulosSerie({ data }) {
     const serie = data[0];
@@ -120,7 +121,8 @@ export default function InsertarCapitulosSerie({ data }) {
                     serie: serie,
                     temporada: formData.temporada,
                     nombre: formData.nombre,
-                    urlCapitulo: formData.urlCapitulo,
+                    urlCapitulo: `https://www.mxtvmas.com:8443/mimexico/capitulos/${formDataURL.urlCapitulo}`,
+                    //urlCapitulo: formData.urlCapitulo,
                     urlPortada: linkImagen1,
                     duracion: formData.duracion,
                     descripcion: formData.descripcion,
@@ -146,6 +148,42 @@ export default function InsertarCapitulosSerie({ data }) {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+
+
+
+    /**
+   * url del video
+   */
+
+  const [formDataURL, setFormDataURL] = useState({
+    urlCapitulo: '',
+  });
+
+  // Función de retorno para la URL del video
+  const handleVideoPathChange = (videoPath) => {
+    // Actualiza el estado del formulario con la URL del video
+    setFormDataURL({
+      ...formDataURL,
+      urlCapitulo: videoPath,
+    });
+  };
+
+  // useEffect para manejar la carga del video
+  useEffect(() => {
+    const handleVideoLoad = () => {
+      // Actualiza el estado del formulario con la URL del video cuando el video termine de cargarse
+      setFormDataURL({
+        ...formDataURL,
+        urlCapitulo: videoPath,
+      });
+    };
+
+    return () => {
+      // No olvides limpiar los efectos secundarios si es necesario
+      // En este caso, no estamos utilizando nada que necesite ser limpiado
+    };
+  }, [videoPath, formDataURL]);
+
     return (
         <>
             <div className="contact-form">
@@ -169,14 +207,22 @@ export default function InsertarCapitulosSerie({ data }) {
                     </div>
                     <br/>
 
-                    <Col xs={9} md={6}>
-                        <Form.Control
-                            placeholder="URL Video"
-                            type="text"
-                            name="urlCapitulo"
-                            defaultValue={formData.urlCapitulo}
-                        />
-                    </Col>
+                    <Col xs={12} md={12}>
+        {/* Asegúrate de pasar las funciones correctamente */}
+        <VideoUploader contentType="episodes" setVideoPathCallback={handleVideoPathChange}  />
+      </Col>
+      <hr />
+      <Col xs={12} md={12}>
+        <Form.Control
+          placeholder="URL Video"
+          type="text"
+          name="urlCapitulo"
+          value={formDataURL.urlCapitulo}
+          readOnly
+        />
+      </Col>
+
+                   
 
                     {/*<br />
                     <input type="file" name="video" accept=".mp4" onChange={handleFileChange} />

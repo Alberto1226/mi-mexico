@@ -15,14 +15,17 @@ import queryString from "query-string";
 import Dropzone from "../Dropzone/Dropzone";
 import { subeArchivosCloudinary } from "../../api/cloudinary";
 import { listarPatrocinadores } from "../../api/patrocinadores";
+import VideoUploader from "../upVideos/FileUpdate";
 
 function Series({ history }) {
   //modal
   const [formData, setFormData] = useState(initialFormValue());
   const [imagenPortadaPelicula, setImagenPortadaPelicula] = useState(null);
   //Para almacenar la imagen del producto que se guardara a la bd
-  const [imagenPortadaPeliculaMovil, setImagenPortadaPeliculaMovil] = useState(null);
+  const [imagenPortadaPeliculaMovil, setImagenPortadaPeliculaMovil] =
+    useState(null);
   const [listSeriesCargados, setListSeriesCargados] = useState([]);
+  const [videoPath, setVideoPath] = useState("");
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -47,8 +50,8 @@ function Series({ history }) {
             setListarCategoria(datosCat);
           }
         })
-        .catch((e) => { });
-    } catch (e) { }
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -70,8 +73,8 @@ function Series({ history }) {
             setListarPatrocinadores(datosPat);
           }
         })
-        .catch((e) => { });
-    } catch (e) { }
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -112,9 +115,9 @@ function Series({ history }) {
   }, []);
 
   const addItems = () => {
-    const temporada = document.getElementById("temporada").value
-    const capitulos = document.getElementById("capitulos").value
-    const nombre = document.getElementById("nombre").value
+    const temporada = document.getElementById("temporada").value;
+    const capitulos = document.getElementById("capitulos").value;
+    const nombre = document.getElementById("nombre").value;
 
     if (!capitulos) {
       toast.warning("Completa la información del producto");
@@ -123,36 +126,37 @@ function Series({ history }) {
         temporada: temporada,
         nombre: nombre,
         capitulos: capitulos,
-      }
+      };
 
       //LogRegistroProductosOV(folioActual, cargaProductos.ID, cargaProductos.item, cantidad, um, precioUnitario, total, setListProductosCargados);
       // console.log(dataTemp)
 
-      setListSeriesCargados(
-        [...listSeriesCargados, dataTemp]
-      );
+      setListSeriesCargados([...listSeriesCargados, dataTemp]);
 
       //document.getElementById("descripcion").value = ""
-      document.getElementById("capitulos").value = ""
-      document.getElementById("nombre").value = ""
-      document.getElementById("temporada").value = ""
+      document.getElementById("capitulos").value = "";
+      document.getElementById("nombre").value = "";
+      document.getElementById("temporada").value = "";
     }
-  }
+  };
 
   // Para limpiar el formulario de detalles de producto
   const cancelarCargaProducto = () => {
     //document.getElementById("descripcion").value = ""
-    document.getElementById("capitulos").value = ""
-    document.getElementById("nombre").value = ""
-    document.getElementById("temporada").value = ""
-  }
+    document.getElementById("capitulos").value = "";
+    document.getElementById("nombre").value = "";
+    document.getElementById("temporada").value = "";
+  };
 
   // Para eliminar productos del listado
   const removeItem = (serie) => {
     let newArray = listSeriesCargados;
-    newArray.splice(newArray.findIndex(a => a.capitulos === serie.capitulos), 1);
+    newArray.splice(
+      newArray.findIndex((a) => a.capitulos === serie.capitulos),
+      1
+    );
     setListSeriesCargados([...newArray]);
-  }
+  };
 
   const renglon = listSeriesCargados.length + 1;
 
@@ -160,19 +164,20 @@ function Series({ history }) {
 
   const cargarImagen1 = () => {
     try {
-      subeArchivosCloudinary(imagenPortadaPelicula, "portadasSeries").then(response => {
-        const { data } = response;
-        // console.log(data)
-        const { secure_url } = data;
-        setLinkImagen1(secure_url)
-      }).catch(e => {
-        console.log(e)
-      })
+      subeArchivosCloudinary(imagenPortadaPelicula, "portadasSeries")
+        .then((response) => {
+          const { data } = response;
+          // console.log(data)
+          const { secure_url } = data;
+          setLinkImagen1(secure_url);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     } catch (e) {
-      console.log(e)
-
+      console.log(e);
     }
-  }
+  };
 
   useEffect(() => {
     cargarImagen1();
@@ -182,19 +187,20 @@ function Series({ history }) {
 
   const cargarImagen2 = () => {
     try {
-      subeArchivosCloudinary(imagenPortadaPeliculaMovil, "portadasSeries").then(response => {
-        const { data } = response;
-        // console.log(data)
-        const { secure_url } = data;
-        setLinkImagen2(secure_url)
-      }).catch(e => {
-        console.log(e)
-      })
+      subeArchivosCloudinary(imagenPortadaPeliculaMovil, "portadasSeries")
+        .then((response) => {
+          const { data } = response;
+          // console.log(data)
+          const { secure_url } = data;
+          setLinkImagen2(secure_url);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     } catch (e) {
-      console.log(e)
-
+      console.log(e);
     }
-  }
+  };
 
   useEffect(() => {
     cargarImagen2();
@@ -204,13 +210,19 @@ function Series({ history }) {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (!formData.nombre || !formData.actores || !formData.director || !formData.sinopsis || !formData.anio) {
+    if (
+      !formData.nombre ||
+      !formData.actores ||
+      !formData.director ||
+      !formData.sinopsis ||
+      !formData.anio
+    ) {
       toast.warning("Completa el formulario");
     } else {
       try {
         setLoading(true);
         // Sube a cloudinary la imagen principal del producto
-        const data2 = formData.patrocinador.split(",")
+        const data2 = formData.patrocinador.split(",");
         const dataTemp = {
           titulo: formData.nombre,
           categorias: listarCat,
@@ -227,39 +239,41 @@ function Series({ history }) {
           recomendado: "",
           contador: "0",
           urlPortada: linkImagen1,
-          urlTrailer: formData.urlTrailer,
+          urlTrailer: `https://www.mxtvmas.com:8443/mimexico/series/${formDataURL.urlTrailer}`,
           seccion: "",
           estado: "true",
           patrocinador: data2[0],
           patrocinadorPortada: data2[1],
           urlPortadaMovil: linkImagen2,
         };
-        registraSeries(dataTemp).then((response) => {
-          const { data } = response;
-          //notificacion
+        registraSeries(dataTemp)
+          .then((response) => {
+            const { data } = response;
+            //notificacion
 
-          toast.success(data.mensaje);
+            toast.success(data.mensaje);
 
-          history({
-            search: queryString.stringify(""),
-          });
-          setLoading(false);
-          setShow(false);
-          //cancelarRegistro()
-        }).catch(e => {
-          console.log(e)
-          if (e.message === 'Network Error') {
-            //console.log("No hay internet")
-            toast.error("Conexión al servidor no disponible");
+            history({
+              search: queryString.stringify(""),
+            });
             setLoading(false);
-          } else {
-            if (e.response && e.response.status === 401) {
-              const { mensaje } = e.response.data;
-              toast.error(mensaje);
+            setShow(false);
+            //cancelarRegistro()
+          })
+          .catch((e) => {
+            console.log(e);
+            if (e.message === "Network Error") {
+              //console.log("No hay internet")
+              toast.error("Conexión al servidor no disponible");
               setLoading(false);
+            } else {
+              if (e.response && e.response.status === 401) {
+                const { mensaje } = e.response.data;
+                toast.error(mensaje);
+                setLoading(false);
+              }
             }
-          }
-        });
+          });
       } catch (e) {
         console.log(e);
       }
@@ -271,39 +285,78 @@ function Series({ history }) {
   };
 
   const addItems2 = () => {
-    const categoria = document.getElementById("categoria").value
+    const categoria = document.getElementById("categoria").value;
 
     if (!categoria) {
       toast.warning("Completa la información de la categoria");
     } else {
       const dataTemp = {
-        categoria: categoria
-      }
+        categoria: categoria,
+      };
 
       //LogRegistroProductosOV(folioActual, cargaProductos.ID, cargaProductos.item, cantidad, um, precioUnitario, total, setListProductosCargados);
       // console.log(dataTemp)
 
-      setListCategorias(
-        [...listarCat, dataTemp]
-      );
+      setListCategorias([...listarCat, dataTemp]);
 
       //document.getElementById("descripcion").value = ""
-      document.getElementById("categoria").value = "Elige una opción"
+      document.getElementById("categoria").value = "Elige una opción";
     }
-  }
+  };
 
   // Para limpiar el formulario de detalles de producto
   const cancelarCargaProducto2 = () => {
     //document.getElementById("descripcion").value = ""
-    document.getElementById("categoria").value = "Elige una opción"
-  }
+    document.getElementById("categoria").value = "Elige una opción";
+  };
 
   // Para eliminar productos del listado
   const removeItem2 = (categoria) => {
     let newArray = listarCat;
-    newArray.splice(newArray.findIndex(a => a.nombre === categoria.categoria), 1);
+    newArray.splice(
+      newArray.findIndex((a) => a.nombre === categoria.categoria),
+      1
+    );
     setListCategorias([...newArray]);
-  }
+  };
+
+  /**
+   * subir video
+   */
+ 
+  /**
+   * url del video
+   */
+
+  const [formDataURL, setFormDataURL] = useState({
+    urlTrailer: "",
+  });
+
+  console.log("url video",formDataURL);
+  // Función de retorno para la URL del video
+  const handleVideoPathChange = (videoPath) => {
+    // Actualiza el estado del formulario con la URL del video
+    setFormDataURL({
+      ...formDataURL,
+      urlTrailer: videoPath,
+    });
+  };
+
+  // useEffect para manejar la carga del video
+  useEffect(() => {
+    const handleVideoLoad = () => {
+      // Actualiza el estado del formulario con la URL del video cuando el video termine de cargarse
+      setFormDataURL({
+        ...formDataURL,
+        urlTrailer: videoPath,
+      });
+    };
+
+    return () => {
+      // No olvides limpiar los efectos secundarios si es necesario
+      // En este caso, no estamos utilizando nada que necesite ser limpiado
+    };
+  }, [videoPath, formDataURL]);
 
   return (
     <>
@@ -341,7 +394,9 @@ function Series({ history }) {
               </div>
               <br />
               <div className="imagenPrincipal">
-                <h4 className="textoImagenPrincipal">Sube tu imagen para movil</h4>
+                <h4 className="textoImagenPrincipal">
+                  Sube tu imagen para movil
+                </h4>
                 <div
                   title="Seleccionar imagen de la categoría"
                   className="imagenPortadaPelicula"
@@ -388,17 +443,17 @@ function Series({ history }) {
               <br />
               <hr />
               <Badge bg="secondary" className="tituloFormularioDetalles">
-                <h4>A continuación, especifica los detalles de la temporada y agregala</h4>
+                <h4>
+                  A continuación, especifica los detalles de la temporada y
+                  agregala
+                </h4>
               </Badge>
               <br />
               <hr />
 
               <Row>
-
                 <Form.Group as={Col} controlId="formGridPorcentaje scrap">
-                  <Form.Label>
-                    Temporada
-                  </Form.Label>
+                  <Form.Label>Temporada</Form.Label>
                   <Form.Control
                     type="number"
                     id="temporada"
@@ -408,33 +463,23 @@ function Series({ history }) {
                 </Form.Group>
 
                 <Form.Group as={Col} controlId="formGridPorcentaje scrap">
-                  <Form.Label>
-                    Nombre
-                  </Form.Label>
-                  <Form.Control
-                    type="text"
-                    id="nombre"
-                    placeholder="Nombre"
-                  />
+                  <Form.Label>Nombre</Form.Label>
+                  <Form.Control type="text" id="nombre" placeholder="Nombre" />
                 </Form.Group>
 
                 <Form.Group as={Col}>
-                  <Form.Label>
-                    Capitulos
-                  </Form.Label>
+                  <Form.Label>Capitulos</Form.Label>
                   <Form.Control
                     id="capitulos"
                     type="text"
-                    placeholder='Capitulos'
+                    placeholder="Capitulos"
                     name="capitulos"
                   />
                 </Form.Group>
 
                 <Col sm="1">
                   <Form.Group as={Row} className="formGridCliente">
-                    <Form.Label>
-                      &nbsp;
-                    </Form.Label>
+                    <Form.Label>&nbsp;</Form.Label>
 
                     <Col>
                       <Button
@@ -442,10 +487,13 @@ function Series({ history }) {
                         title="Agregar el producto"
                         className="editar"
                         onClick={() => {
-                          addItems()
+                          addItems();
                         }}
                       >
-                        <FontAwesomeIcon icon={faCirclePlus} className="text-lg" />
+                        <FontAwesomeIcon
+                          icon={faCirclePlus}
+                          className="text-lg"
+                        />
                       </Button>
                     </Col>
                     <Col>
@@ -454,13 +502,12 @@ function Series({ history }) {
                         title="Cancelar el producto"
                         className="editar"
                         onClick={() => {
-                          cancelarCargaProducto()
+                          cancelarCargaProducto();
                         }}
                       >
                         <FontAwesomeIcon icon={faX} className="text-lg" />
                       </Button>
                     </Col>
-
                   </Form.Group>
                 </Col>
               </Row>
@@ -469,16 +516,17 @@ function Series({ history }) {
 
               {/* Listado de productos  */}
               <div className="tablaProductos">
-
                 {/* ID, item, cantidad, um, descripcion, orden de compra, observaciones */}
                 {/* Inicia tabla informativa  */}
-                <Badge bg="secondary" className="tituloListadoProductosSeleccionados">
+                <Badge
+                  bg="secondary"
+                  className="tituloListadoProductosSeleccionados"
+                >
                   <h4>Listado de temporadas</h4>
                 </Badge>
                 <br />
                 <hr />
-                <Table className="responsive-tableRegistroVentas"
-                >
+                <Table className="responsive-tableRegistroVentas">
                   <thead>
                     <tr>
                       <th scope="col">Temporada</th>
@@ -486,27 +534,20 @@ function Series({ history }) {
                       <th scope="col">Capitulos</th>
                     </tr>
                   </thead>
-                  <tfoot>
-                  </tfoot>
+                  <tfoot></tfoot>
                   <tbody>
                     {map(listSeriesCargados, (producto, index) => (
                       <tr key={index}>
-                        <td scope="row">
-                          {producto.temporada}
-                        </td>
-                        <td scope="row">
-                          {producto.nombre}
-                        </td>
-                        <td data-title="Descripcion">
-                          {producto.capitulos}
-                        </td>
+                        <td scope="row">{producto.temporada}</td>
+                        <td scope="row">{producto.nombre}</td>
+                        <td data-title="Descripcion">{producto.capitulos}</td>
                         <td data-title="Eliminar">
                           <Badge
                             bg="danger"
                             title="Eliminar"
                             className="eliminar"
                             onClick={() => {
-                              removeItem(producto)
+                              removeItem(producto);
                             }}
                           >
                             <FontAwesomeIcon icon={faX} className="text-lg" />
@@ -532,12 +573,22 @@ function Series({ history }) {
                 name="anio"
                 defaultValue={formData.anio}
               />
-              <Form.Control
-                placeholder="URL del trailer"
-                type="text"
-                name="urlTrailer"
-                defaultValue={formData.urlTrailer}
-              />
+
+              <Col xs={12} md={12}>
+                {/* Asegúrate de pasar las funciones correctamente */}
+                <VideoUploader contentType="series" setVideoPathCallback={handleVideoPathChange} />
+              </Col>
+              <hr />
+              <Col xs={12} md={12}>
+                <Form.Control
+                  placeholder="URL del trailer"
+                  type="text"
+                  name="urlTrailer"
+                  value={formDataURL.urlTrailer}
+                  readOnly
+                />
+              </Col>
+              
 
               <hr />
               <Badge bg="secondary" className="tituloFormularioDetalles">
@@ -547,12 +598,10 @@ function Series({ history }) {
               <hr />
 
               <Row>
-
                 <Form.Group as={Col} controlId="formGridPorcentaje scrap">
-                  <Form.Label>
-                    ITEM
-                  </Form.Label>
-                  <Form.Control type="number"
+                  <Form.Label>ITEM</Form.Label>
+                  <Form.Control
+                    type="number"
                     id="index"
                     value={renglon2}
                     name="index"
@@ -561,9 +610,7 @@ function Series({ history }) {
                 </Form.Group>
 
                 <Form.Group as={Col} controlId="formGridCliente">
-                  <Form.Label>
-                    Categoria
-                  </Form.Label>
+                  <Form.Label>Categoria</Form.Label>
                   <Form.Control
                     id="categoria"
                     as="select"
@@ -572,16 +619,16 @@ function Series({ history }) {
                   >
                     <option>Elige una opción</option>
                     {map(listarCategoria, (cat, index) => (
-                      <option key={index} value={cat?.nombre}>{cat?.nombre}</option>
+                      <option key={index} value={cat?.nombre}>
+                        {cat?.nombre}
+                      </option>
                     ))}
                   </Form.Control>
                 </Form.Group>
 
                 <Col sm="1">
                   <Form.Group as={Row} className="formGridCliente">
-                    <Form.Label>
-                      &nbsp;
-                    </Form.Label>
+                    <Form.Label>&nbsp;</Form.Label>
 
                     <Col>
                       <Button
@@ -589,10 +636,13 @@ function Series({ history }) {
                         title="Agregar el producto"
                         className="editar"
                         onClick={() => {
-                          addItems2()
+                          addItems2();
                         }}
                       >
-                        <FontAwesomeIcon icon={faCirclePlus} className="text-lg" />
+                        <FontAwesomeIcon
+                          icon={faCirclePlus}
+                          className="text-lg"
+                        />
                       </Button>
                     </Col>
                     <Col>
@@ -601,13 +651,12 @@ function Series({ history }) {
                         title="Cancelar el producto"
                         className="editar"
                         onClick={() => {
-                          cancelarCargaProducto2()
+                          cancelarCargaProducto2();
                         }}
                       >
                         <FontAwesomeIcon icon={faX} className="text-lg" />
                       </Button>
                     </Col>
-
                   </Form.Group>
                 </Col>
               </Row>
@@ -616,16 +665,17 @@ function Series({ history }) {
 
               {/* Listado de productos  */}
               <div className="tablaProductos">
-
                 {/* ID, item, cantidad, um, descripcion, orden de compra, observaciones */}
                 {/* Inicia tabla informativa  */}
-                <Badge bg="secondary" className="tituloListadoProductosSeleccionados">
+                <Badge
+                  bg="secondary"
+                  className="tituloListadoProductosSeleccionados"
+                >
                   <h4>Listado de categorias seleccionadas</h4>
                 </Badge>
                 <br />
                 <hr />
-                <Table className="responsive-tableRegistroVentas"
-                >
+                <Table className="responsive-tableRegistroVentas">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
@@ -633,24 +683,19 @@ function Series({ history }) {
                       <th scope="col"></th>
                     </tr>
                   </thead>
-                  <tfoot>
-                  </tfoot>
+                  <tfoot></tfoot>
                   <tbody>
                     {map(listarCat, (producto, index) => (
                       <tr key={index}>
-                        <td scope="row">
-                          {index + 1}
-                        </td>
-                        <td data-title="Descripcion">
-                          {producto.categoria}
-                        </td>
+                        <td scope="row">{index + 1}</td>
+                        <td data-title="Descripcion">{producto.categoria}</td>
                         <td data-title="Eliminar">
                           <Badge
                             bg="danger"
                             title="Eliminar"
                             className="eliminar"
                             onClick={() => {
-                              removeItem2(producto)
+                              removeItem2(producto);
                             }}
                           >
                             <FontAwesomeIcon icon={faX} className="text-lg" />

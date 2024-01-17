@@ -15,6 +15,7 @@ import queryString from "query-string";
 import Dropzone from "../Dropzone/Dropzone";
 import { subeArchivosCloudinary } from "../../api/cloudinary";
 import { listarPatrocinadores } from "../../api/patrocinadores";
+import VideoUploader from "../upVideos/FileUpdate";
 
 function SeriesEspeciales({ history }) {
   //modal
@@ -42,6 +43,7 @@ function SeriesEspeciales({ history }) {
 
   const [listarCat, setListCategorias] = useState([]);
   const [listarCategoria, setListarCategoria] = useState([]);
+  const [videoPath, setVideoPath] = useState("");
 
   const obtenerCategorias = () => {
     try {
@@ -411,7 +413,7 @@ function SeriesEspeciales({ history }) {
           recomendado: "",
           contador: "0",
           urlPortada: linkImagen1,
-          urlTrailer: formData.urlTrailer,
+          urlTrailer: `https://www.mxtvmas.com:8443/mimexico/series/${formDataURL.urlTrailer}`,
           seccion: "",
           estado: "true",
           urlPortada2: linkImagen2,
@@ -498,6 +500,39 @@ function SeriesEspeciales({ history }) {
   }
 
 
+
+  /**
+   * url del video
+   */
+
+  const [formDataURL, setFormDataURL] = useState({
+    urlTrailer: "",
+  });
+
+  // Función de retorno para la URL del video
+  const handleVideoPathChange = (videoPath) => {
+    // Actualiza el estado del formulario con la URL del video
+    setFormDataURL({
+      ...formDataURL,
+      urlTrailer: videoPath,
+    });
+  };
+
+  // useEffect para manejar la carga del video
+  useEffect(() => {
+    const handleVideoLoad = () => {
+      // Actualiza el estado del formulario con la URL del video cuando el video termine de cargarse
+      setFormDataURL({
+        ...formDataURL,
+        urlTrailer: videoPath,
+      });
+    };
+
+    return () => {
+      // No olvides limpiar los efectos secundarios si es necesario
+      // En este caso, no estamos utilizando nada que necesite ser limpiado
+    };
+  }, [videoPath, formDataURL]);
 
   return (
     <>
@@ -815,12 +850,20 @@ function SeriesEspeciales({ history }) {
                 name="anio"
                 defaultValue={formData.anio}
               />
-              <Form.Control
-                placeholder="URL del trailer"
-                type="text"
-                name="urlTrailer"
-                defaultValue={formData.urlTrailer}
-              />
+              <Col xs={12} md={12}>
+                {/* Asegúrate de pasar las funciones correctamente */}
+                <VideoUploader contentType="specialSeries" setVideoPathCallback={handleVideoPathChange} />
+              </Col>
+              <hr />
+              <Col xs={12} md={12}>
+                <Form.Control
+                  placeholder="URL del trailer"
+                  type="text"
+                  name="urlTrailer"
+                  value={formDataURL.urlTrailer}
+                  readOnly
+                />
+              </Col>
               <hr />
               <Badge bg="secondary" className="tituloFormularioDetalles">
                 <h4>A continuación, especifica las categorias</h4>
