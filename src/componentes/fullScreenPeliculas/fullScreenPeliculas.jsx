@@ -386,12 +386,12 @@ export function FullPeliculas(props) {
                 <div
                   style={{
                     position: "fixed",
-                    bottom: "20px",
+                    bottom: "5rem",
                     right: "20px",
                     borderRadius: "10px",
                     backgroundColor: "white",
                     border: "1px solid #ccc",
-                    width: "200px", // Ancho deseado del recuadro
+                    width: "12rem", // Ancho deseado del recuadro
                     boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
                     zIndex: 9999,
                   }}
@@ -421,7 +421,7 @@ export function FullPeliculas(props) {
                             : patrocinadoresPagados[numeroAleatorio]?.urlImagen
                         }
                         alt="Patrocinador"
-                        style={{ maxWidth: "100%", height: "80%" }}
+                        style={{ maxWidth: "11rem", height: "10rem" }}
                       />
                     </div>
                     <div

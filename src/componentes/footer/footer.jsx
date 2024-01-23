@@ -29,7 +29,7 @@ export function FooterApp(props) {
           <p>© 2022-2023 Todos los Derechos Reservados por miMéxico®</p>
           <img src={imgfooter} alt=""  className='imgfooter'/>
         </footer>
-        <BottomNavigation/>
+        {/** <BottomNavigation/> */}
       </>
     );
   }
