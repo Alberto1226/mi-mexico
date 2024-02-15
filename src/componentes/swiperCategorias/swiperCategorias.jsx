@@ -11,7 +11,7 @@ import { listarDetallesCategoriasEspeciales } from "../../api/seriesEspeciales";
 import { listarDetallesCategoriasPeliculas } from "../../api/peliculasListar";
 import { listarDetallesCategoriasSeries } from "../../api/series";
 import { listarCategorias } from "../../api/categorias";
-import { Link } from "react-router-dom";
+import { Link, useNavigate   } from "react-router-dom";
 //import { listarPeliculas } from "../../api/peliculasListar";
 //import imgPel from "../../assets/img/2.jpg";
 import de1 from "../../assets/img/ber.jpeg";
@@ -215,6 +215,27 @@ export function SwiperCategorias(props) {
 
   const [selectedCategory, setSelectedCategory] = useState(null);
 
+
+
+  // Estado para la ruta actual
+  const [ruta, setRuta] = useState('');
+
+  // Hook de React Router para manejar la navegación
+  const navigate = useNavigate();
+
+  const actualizarRuta = (nuevaRuta) => {
+    setRuta(nuevaRuta); // Actualiza el estado de la ruta
+    localStorage.setItem('nuevaRuta', nuevaRuta); // Almacena la nueva ruta en el almacenamiento local
+    
+    const nuevaRutaAlmacenada = localStorage.getItem('nuevaRuta');
+    if (nuevaRutaAlmacenada) {
+      localStorage.removeItem('nuevaRuta'); // Limpia la ruta almacenada
+      window.location.href = nuevaRutaAlmacenada; // Establece la nueva URL
+    }
+  };
+
+  
+
   return (
     <>
   
@@ -252,23 +273,23 @@ export function SwiperCategorias(props) {
                           key={objeto.id}
                           className="swiper-slide-categorias">
                           {objeto.tipo === 'peliculas' ? (
-                            <Link to={`/peliculas?id=${objeto.id}&titulo=${objeto.titulo}`}><a className="">
+                            <Link to={`/peliculas?id=${objeto.id}&titulo=${objeto.titulo}`} onClick={() => actualizarRuta('/peliculas')}><a className="">
                               <MasVistos className="imgcatlis" img1={screenResolution > 750 ? objeto.urlPortada : objeto.urlPortadaMovil} />
                             </a></Link>
                           ) : objeto.tipo === 'documentales' ? (
-                            <Link to={`/documentales?id=${objeto.id}&titulo=${objeto.titulo}&id2=${objeto.id}`}><a className="">
+                            <Link to={`/documentales?id=${objeto.id}&titulo=${objeto.titulo}&id2=${objeto.id}`} ><a className="">
                               <MasVistos className="imgcatlis" img1={screenResolution > 750 ? objeto.urlPortada : objeto.urlPortadaMovil} />
                             </a></Link>
                           ) : objeto.tipo === 'especiales' ? (
-                            <Link to={`/eventosEspeciales?id=${objeto.id}&titulo=${objeto.titulo}`}><a className="">
+                            <Link to={`/eventosEspeciales?id=${objeto.id}&titulo=${objeto.titulo}`} ><a className="">
                               <MasVistos className="imgcatlis" img1={screenResolution > 750 ? objeto.urlPortada : objeto.urlPortadaMovil} />
                             </a></Link>
                           ) : objeto.tipo === "series" ? (
-                            <Link to={`/series?id=${objeto.id}&titulo=${objeto.titulo}`}><a className="">
+                            <Link to={`/series?id=${objeto.id}&titulo=${objeto.titulo}`} onClick={() => actualizarRuta(`/series?id=${objeto.id}&titulo=${objeto.titulo}`)}><a className="">
                               <MasVistos className="imgcatlis" img1={screenResolution > 750 ? objeto.urlPortada : objeto.urlPortadaMovil} />
                             </a></Link>
                           ) : (
-                            <Link to={`/seriesEspeciales?id=${objeto.id}&titulo=${objeto.titulo}`}><a className="">
+                            <Link to={`/seriesEspeciales?id=${objeto.id}&titulo=${objeto.titulo}`} ><a className="">
                               <MasVistos className="imgcatlis" img1={screenResolution > 750 ? objeto.urlPortada : objeto.urlPortadaMovil} />
                             </a></Link>
                           )}

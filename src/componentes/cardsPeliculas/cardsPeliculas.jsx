@@ -26,11 +26,8 @@ export function CardsUser(props) {
       <div className="card">
         <div className="card__image">
           <img src={props.img1} alt="Turismo Méxicano - {props.titulo}" />
-          <h3 className="titulomovil">{props.titulo}</h3>
-          <div className="card__heading-sub">
           
-            {/**<span class="actor">{props.director}</span> */}
-          </div>
+          
         </div>
         <div className="panel">
           <div className="panel__row panel__buttons">
