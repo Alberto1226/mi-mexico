@@ -256,7 +256,7 @@ export function Home2() {
         {/*<img src={portada2} alt="" className="especialespor"/>
         <SwiperEspeciales  />*/}
         <SwiperGuanajuato titulo={"Especiales"} />
-        <SwiperCervantino titulo={""} />
+        {/**<SwiperCervantino titulo={""} /> */}
         <hr />
         {/*<Especiales3 titulo={"Series"} />*/}
         {/*userData && (

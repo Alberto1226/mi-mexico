@@ -31,7 +31,7 @@
 
 }
 .icon {
-  background-color: #f9b401;
+  background-color: #d11b03;
   border-radius: 2vw;
   height: 2vw;
   width: 2vw;
@@ -43,7 +43,7 @@
 }
 .icon:hover{
   transform: scale(1.2);
-  background-color: #6ec819;
+  background-color: #420101;
   
 }
 
@@ -62,7 +62,8 @@
 }
 
 .mexicoLogo img {
-  height: 35px;
+  width: 7rem;
+  height: 3rem;
   margin-left: 100px;
   transition: all 0.3s ease;
 }
@@ -167,8 +168,13 @@ footer {
   padding: 20px;
   text-align: center;
 
-  background-color: #6ec819;
-  color: white;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+}
+
+footer p{
+  color: black;
+  text-align: center;
 }
 
 /*ver mas*/

@@ -255,7 +255,7 @@ export function Home() {
         {/*<img src={portada2} alt="" className="especialespor"/>
         <SwiperEspeciales  />*/}
         <SwiperGuanajuato titulo={"Especiales"} />
-        <SwiperCervantino titulo={""} />
+        {/**<SwiperCervantino titulo={""} /> */}
         <hr />
         {/*<Especiales3 titulo={"Series"} />*/}
         {/*userData && (
@@ -294,7 +294,7 @@ export function Home() {
         {/** 
         <SwiperHeader img={imgSwiper} videoh={"https://www.mxtvmas.com:8443/mimexico/vinicio/teotihuacan.mp4"}/>
         */}
-        <hr />
+        
         <div>
           <div className="margindiv">
             <h1>

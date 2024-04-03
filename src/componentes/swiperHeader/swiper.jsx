@@ -36,7 +36,7 @@ export function SwiperHeader(props) {
 
   const videoStyle = {
     width: "100%",
-    height: "100%",
+    height: "100vh",
     position: "absolute",
     top: 0,
     left: 0,
@@ -47,10 +47,11 @@ export function SwiperHeader(props) {
     width: "100%",
     height: "100%",
     position: "absolute",
+    
     top: 0,
     left: 0,
     zIndex: 1,
-    opacity: showPoster ? 1 : 0, // Oculta la imagen de vista previa cuando showPoster es falso
+    opacity: showPoster ? 1 : 0, 
   };
 
   const randomSlides = [

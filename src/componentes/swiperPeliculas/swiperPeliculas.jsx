@@ -25,11 +25,11 @@ export function SwiperPeliculas(props) {
 
   // Agregar un event listener para actualizar la resolución cuando cambia el tamaño de la ventana
   useEffect(() => {
-    window.addEventListener('resize', updateScreenResolution);
+    window.addEventListener("resize", updateScreenResolution);
 
     // Limpieza del event listener cuando se desmonta el componente
     return () => {
-      window.removeEventListener('resize', updateScreenResolution);
+      window.removeEventListener("resize", updateScreenResolution);
     };
   }, []);
 
@@ -80,48 +80,42 @@ export function SwiperPeliculas(props) {
 
   return (
     <>
-    <div>
-      
-      <Helmet>
-      <meta name="description" content="Descubre en miMéxicoTv." />
-        {listarPel &&
-          listarPel.map((pelic, i) => (
-            <meta
-              key={i}
-              name={`Pelicula_${i}`}
-              content={pelic.titulo}
-            />
-          ))}
-      </Helmet>
-      <Helmet>
-     
-        {listarPel &&
-          listarPel.map((pelic, i) => (
-            <meta
-              key={i}
-              name={pelic.titulo}
-              content={pelic.sinopsis}
-            />
-          ))}
-      </Helmet>
-    </div>
-      <section className="main-container">
-        <div className="location" id="home">
-          <h1 id="home">{props.titulo}</h1>
+      {listarPel && listarPel.length > 0 && (
+        <div>
+          <Helmet>
+            <meta name="description" content="Descubre en miMéxicoTv." />
+            {listarPel.map((pelic, i) => (
+              <meta key={i} name={`Pelicula_${i}`} content={pelic.titulo} />
+            ))}
+          </Helmet>
+          <Helmet>
+            {listarPel.map((pelic, i) => (
+              <meta key={i} name={pelic.titulo} content={pelic.sinopsis} />
+            ))}
+          </Helmet>
+        </div>
+      )}
+      {listarPel && listarPel.length > 0 && (
+        <section className="main-container">
+          <div className="location" id="home">
+            <h1 id="home">{props.titulo}</h1>
 
-          <Swiper
-            spaceBetween={10}
-            slidesPerView={slides}
-            navigation
-            pagination={{ clickable: true }}
-            className="mySwiper"
-          >
-            {listarPel &&
-              listarPel.map((pelicula) => (
+            <Swiper
+              spaceBetween={10}
+              slidesPerView={slides}
+              navigation
+              pagination={{ clickable: true }}
+              className="mySwiper"
+            >
+              {listarPel.map((pelicula) => (
                 <SwiperSlide className="swiper-slide" key={pelicula.id}>
                   <CardsUser
                     id={pelicula.id}
-                    img1={screenResolution > 750 ? pelicula.urlPortada : pelicula.urlPortadaMovil}
+                    img1={
+                      screenResolution > 750
+                        ? pelicula.urlPortada
+                        : pelicula.urlPortadaMovil
+                    }
                     urlVideo={pelicula.urlVideo}
                     actores={pelicula.actores}
                     anio={pelicula.año}
@@ -136,9 +130,13 @@ export function SwiperPeliculas(props) {
                   />
                 </SwiperSlide>
               ))}
-          </Swiper>
-        </div>
-      </section>
+            </Swiper>
+          </div>
+          <hr />
+        </section>
+        
+      )}
+
     </>
   );
 }
@@ -164,7 +162,7 @@ function formatModelPeliculas(data) {
       urlPortada: data.urlPortada,
       seccion: data.seccion,
       estado: data.estado,
-      urlPortadaMovil: data.urlPortadaMovil
+      urlPortadaMovil: data.urlPortadaMovil,
     });
   });
   return dataTemp;

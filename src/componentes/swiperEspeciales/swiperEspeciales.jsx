@@ -132,8 +132,8 @@ export function SwiperEspeciales(props) {
                     <Link to={`/epecialGuelaguetza?id=${peliculas.id}`}>
                       <MasVistos
                         img1={screenResolution > 750 ? peliculas.urlPortada : peliculas.urlPortadaMovil}
-                        nombre={peliculas.titulo}
-                        duracion={peliculas.duracion}
+                        //nombre={peliculas.titulo}
+                        //duracion={peliculas.duracion}
                       //des={peliculas.sinopsis}
                       />
                     </Link>

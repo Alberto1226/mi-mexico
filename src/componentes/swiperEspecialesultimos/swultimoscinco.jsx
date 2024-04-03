@@ -27,17 +27,17 @@ export function SwiperGuanajuato(props) {
 
   // Agregar un event listener para actualizar la resolución cuando cambia el tamaño de la ventana
   useEffect(() => {
-    window.addEventListener('resize', updateScreenResolution);
+    window.addEventListener("resize", updateScreenResolution);
 
     // Limpieza del event listener cuando se desmonta el componente
     return () => {
-      window.removeEventListener('resize', updateScreenResolution);
+      window.removeEventListener("resize", updateScreenResolution);
     };
   }, []);
 
   const obtenerPeliculas = () => {
     try {
-        listarPrimerosCincoSeriesEspeciales()
+      listarPrimerosCincoSeriesEspeciales()
         .then((response) => {
           const { data } = response;
           console.log(data);
@@ -49,8 +49,8 @@ export function SwiperGuanajuato(props) {
             setListPeliculas(datosPel);
           }
         })
-        .catch((e) => { });
-    } catch (e) { }
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -98,63 +98,83 @@ export function SwiperGuanajuato(props) {
               {listarPel &&
                 listarPel.map((peli, index) => (
                   <>
-                    <SwiperSlide
-                      className="swiper-slide"
-                    >
-                      <Link to={`/seriesEspeciales?id=${peli?.id}&titulo=${peli?.titulo}`}>
+                    <SwiperSlide className="swiper-slide">
+                      <Link
+                        to={`/seriesEspeciales?id=${peli?.id}&titulo=${peli?.titulo}`}
+                      >
                         <MasVistos
-                          img1={screenResolution > 750 ? peli.urlPortada5 : peli.urlPortadaMovil5}
-                          nombre={peli.titulo}
-                          duracion={peli.duracion}
-                        //des={peli.sinopsis} 
+                          img1={
+                            screenResolution > 750
+                              ? peli.urlPortada5
+                              : peli.urlPortadaMovil5
+                          }
+                          //nombre={peli.titulo}
+                          //duracion={peli.duracion}
+                          //des={peli.sinopsis}
                         />
                       </Link>
                     </SwiperSlide>
-                    <SwiperSlide
-                      className="swiper-slide"
-                    >
-                      <Link to={`/seriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}>
+                    <SwiperSlide className="swiper-slide">
+                      <Link
+                        to={`/seriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}
+                      >
                         <MasVistos
-                          img1={screenResolution > 750 ? peli.urlPortada4 : peli.urlPortadaMovil4}
-                          nombre={peli.titulo}
-                          duracion={peli.duracion}
-                        //des={peli.sinopsis}
+                          img1={
+                            screenResolution > 750
+                              ? peli.urlPortada4
+                              : peli.urlPortadaMovil4
+                          }
+                          //nombre={peli.titulo}
+                          //duracion={peli.duracion}
+                          //des={peli.sinopsis}
                         />
                       </Link>
                     </SwiperSlide>
-                    <SwiperSlide
-                      className="swiper-slide"
-                    >
-                      <Link to={`/seriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}>
+                    <SwiperSlide className="swiper-slide">
+                      <Link
+                        to={`/seriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}
+                      >
                         <MasVistos
-                          img1={screenResolution > 750 ? peli.urlPortada3 : peli.urlPortadaMovil3}
-                          nombre={peli.titulo}
-                          duracion={peli.duracion}
-                        //des={peli.sinopsis}
+                          img1={
+                            screenResolution > 750
+                              ? peli.urlPortada3
+                              : peli.urlPortadaMovil3
+                          }
+                          //nombre={peli.titulo}
+                          //duracion={peli.duracion}
+                          //des={peli.sinopsis}
                         />
                       </Link>
                     </SwiperSlide>
-                    <SwiperSlide
-                      className="swiper-slide"
-                    >
-                      <Link to={`/seriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}>
+                    <SwiperSlide className="swiper-slide">
+                      <Link
+                        to={`/seriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}
+                      >
                         <MasVistos
-                          img1={screenResolution > 750 ? peli.urlPortada2 : peli.urlPortadaMovil2}
-                          nombre={peli.titulo}
-                          duracion={peli.duracion}
-                        //des={peli.sinopsis}
+                          img1={
+                            screenResolution > 750
+                              ? peli.urlPortada2
+                              : peli.urlPortadaMovil2
+                          }
+                          //nombre={peli.titulo}
+                          //duracion={peli.duracion}
+                          //des={peli.sinopsis}
                         />
                       </Link>
                     </SwiperSlide>
-                    <SwiperSlide
-                      className="swiper-slide"
-                    >
-                      <Link to={`/seriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}>
+                    <SwiperSlide className="swiper-slide">
+                      <Link
+                        to={`/seriesEspeciales?id=${peli.id}&titulo=${peli.titulo}`}
+                      >
                         <MasVistos
-                          img1={screenResolution > 750 ? peli.urlPortada : peli.urlPortadaMovil}
-                          nombre={peli.titulo}
-                          duracion={peli.duracion}
-                        //des={peli.sinopsis}
+                          img1={
+                            screenResolution > 750
+                              ? peli.urlPortada
+                              : peli.urlPortadaMovil
+                          }
+                          //nombre={peli.titulo}
+                          //duracion={peli.duracion}
+                          //des={peli.sinopsis}
                         />
                       </Link>
                     </SwiperSlide>
