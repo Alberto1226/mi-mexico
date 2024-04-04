@@ -56,7 +56,7 @@ export function SwiperHeader(props) {
 
   const randomSlides = [
     {
-      src: "https://www.mxtvmas.com:8443/mimexico/series/cervantino/Imperdibles.mp4",
+      src: "https://isotech.mx/videosmimexico/CANCUN.mp4",
       poster: randomImages[0],
     },
     /*{
@@ -78,7 +78,7 @@ export function SwiperHeader(props) {
     randomSlides.sort(() => Math.random() - 0.5)
   );
 
-  var urportada="https://www.mxtvmas.com:8443/mimexico/series/cervantino/Imperdibles.mp4";
+  var urportada="https://isotech.mx/videosmimexico/CANCUN.mp4";
 
   return (
     <>
