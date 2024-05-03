@@ -56,7 +56,7 @@ export function SwiperHeader(props) {
 
   const randomSlides = [
     {
-      src: "https://isotech.mx/videosmimexico/CANCUN.mp4",
+      src: "https://isotech.mx/videosmimexico/CANCUN200424.webm",
       poster: randomImages[0],
     },
     /*{
@@ -78,7 +78,7 @@ export function SwiperHeader(props) {
     randomSlides.sort(() => Math.random() - 0.5)
   );
 
-  var urportada="https://isotech.mx/videosmimexico/CANCUN.mp4";
+  var urportada="https://isotech.mx/videosmimexico/CANCUN200424.webm";
 
   return (
     <>
