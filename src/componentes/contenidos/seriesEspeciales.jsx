@@ -7,6 +7,7 @@ import React, { useState, useEffect } from "react";
 import { Load } from "../load/load";
 import TblSeriesEspeciales from "../tables/tablaSeriesEspeciales";
 import { registraSeriesEspeciales } from "../../api/seriesEspeciales";
+import { HolaPeliculas } from "../../api/peliculasListar";
 import { ToastContainer, toast } from "react-toastify";
 import { map } from "lodash";
 import { listarCategorias } from "../../api/categorias";
@@ -16,8 +17,40 @@ import Dropzone from "../Dropzone/Dropzone";
 import { subeArchivosCloudinary } from "../../api/cloudinary";
 import { listarPatrocinadores } from "../../api/patrocinadores";
 import VideoUploader from "../upVideos/FileUpdate";
-
+import { Spinner } from "react-bootstrap";
 function SeriesEspeciales({ history }) {
+  const [loading, setLoading] = useState(false);
+  const [file, setFile] = useState(null);
+  const [response, setResponse] = useState(null);
+  console.log("🚀 ~ SeriesEspeciales ~ response:", response);
+  const [error, setError] = useState(null);
+
+  const handleFileChange2 = (event) => {
+    const selectedFile = event.target.files[0];
+    setFile(selectedFile);
+  };
+
+  const handleUploadVideos = async () => {
+    setLoading(true);
+    try {
+      if (!file) {
+        alert("Por favor, selecciona un archivo de video.");
+        return;
+      }
+
+      const dataTemp = {
+        titulo: formData.nombre,
+      };
+
+      const response = await HolaPeliculas(file);
+      const { data } = response;
+      // Puedes manejar la respuesta según tus necesidades
+      setResponse(data);
+      setLoading(false);
+    } catch (err) {
+      setError(err.response ? err.response.data : err.message);
+    }
+  };
   //modal
   const [formData, setFormData] = useState(initialFormValue());
   //Para almacenar la imagen del producto que se guardara a la bd
@@ -28,11 +61,16 @@ function SeriesEspeciales({ history }) {
   const [imagenPortadaPelicula5, setImagenPortadaPelicula5] = useState(null);
   const [listSeriesCargados, setListSeriesCargados] = useState([]);
   //Para almacenar la imagen del producto que se guardara a la bd
-  const [imagenPortadaPeliculaMovil1, setImagenPortadaPeliculaMovil1] = useState(null);
-  const [imagenPortadaPeliculaMovil2, setImagenPortadaPeliculaMovil2] = useState(null);
-  const [imagenPortadaPeliculaMovil3, setImagenPortadaPeliculaMovil3] = useState(null);
-  const [imagenPortadaPeliculaMovil4, setImagenPortadaPeliculaMovil4] = useState(null);
-  const [imagenPortadaPeliculaMovil5, setImagenPortadaPeliculaMovil5] = useState(null);
+  const [imagenPortadaPeliculaMovil1, setImagenPortadaPeliculaMovil1] =
+    useState(null);
+  const [imagenPortadaPeliculaMovil2, setImagenPortadaPeliculaMovil2] =
+    useState(null);
+  const [imagenPortadaPeliculaMovil3, setImagenPortadaPeliculaMovil3] =
+    useState(null);
+  const [imagenPortadaPeliculaMovil4, setImagenPortadaPeliculaMovil4] =
+    useState(null);
+  const [imagenPortadaPeliculaMovil5, setImagenPortadaPeliculaMovil5] =
+    useState(null);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -44,6 +82,7 @@ function SeriesEspeciales({ history }) {
   const [listarCat, setListCategorias] = useState([]);
   const [listarCategoria, setListarCategoria] = useState([]);
   const [videoPath, setVideoPath] = useState("");
+ 
 
   const obtenerCategorias = () => {
     try {
@@ -58,8 +97,8 @@ function SeriesEspeciales({ history }) {
             setListarCategoria(datosCat);
           }
         })
-        .catch((e) => { });
-    } catch (e) { }
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -97,8 +136,8 @@ function SeriesEspeciales({ history }) {
             setListarPatrocinadores(datosPat);
           }
         })
-        .catch((e) => { });
-    } catch (e) { }
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -113,7 +152,7 @@ function SeriesEspeciales({ history }) {
   };
 
   //load
-  const [loading, setLoading] = useState(true);
+  
 
   useEffect(() => {
     // Simula una carga de datos
@@ -123,9 +162,9 @@ function SeriesEspeciales({ history }) {
   }, []);
 
   const addItems = () => {
-    const temporada = document.getElementById("temporada").value
-    const capitulos = document.getElementById("capitulos").value
-    const nombre = document.getElementById("nombre").value
+    const temporada = document.getElementById("temporada").value;
+    const capitulos = document.getElementById("capitulos").value;
+    const nombre = document.getElementById("nombre").value;
 
     if (!capitulos) {
       toast.warning("Completa la información del producto");
@@ -134,36 +173,37 @@ function SeriesEspeciales({ history }) {
         temporada: temporada,
         nombre: nombre,
         capitulos: capitulos,
-      }
+      };
 
       //LogRegistroProductosOV(folioActual, cargaProductos.ID, cargaProductos.item, cantidad, um, precioUnitario, total, setListProductosCargados);
       // console.log(dataTemp)
 
-      setListSeriesCargados(
-        [...listSeriesCargados, dataTemp]
-      );
+      setListSeriesCargados([...listSeriesCargados, dataTemp]);
 
       //document.getElementById("descripcion").value = ""
-      document.getElementById("capitulos").value = ""
-      document.getElementById("nombre").value = ""
-      document.getElementById("temporada").value = ""
+      document.getElementById("capitulos").value = "";
+      document.getElementById("nombre").value = "";
+      document.getElementById("temporada").value = "";
     }
-  }
+  };
 
   // Para limpiar el formulario de detalles de producto
   const cancelarCargaProducto = () => {
     //document.getElementById("descripcion").value = ""
-    document.getElementById("capitulos").value = ""
-    document.getElementById("nombre").value = ""
-    document.getElementById("temporada").value = ""
-  }
+    document.getElementById("capitulos").value = "";
+    document.getElementById("nombre").value = "";
+    document.getElementById("temporada").value = "";
+  };
 
   // Para eliminar productos del listado
   const removeItem = (serie) => {
     let newArray = listSeriesCargados;
-    newArray.splice(newArray.findIndex(a => a.capitulos === serie.capitulos), 1);
+    newArray.splice(
+      newArray.findIndex((a) => a.capitulos === serie.capitulos),
+      1
+    );
     setListSeriesCargados([...newArray]);
-  }
+  };
 
   const renglon = listSeriesCargados.length + 1;
 
@@ -171,19 +211,20 @@ function SeriesEspeciales({ history }) {
 
   const cargarImagen1 = () => {
     try {
-      subeArchivosCloudinary(imagenPortadaPelicula1, "portadasSeries").then(response => {
-        const { data } = response;
-        // console.log(data)
-        const { secure_url } = data;
-        setLinkImagen1(secure_url)
-      }).catch(e => {
-        console.log(e)
-      })
+      subeArchivosCloudinary(imagenPortadaPelicula1, "portadasSeries")
+        .then((response) => {
+          const { data } = response;
+          // console.log(data)
+          const { secure_url } = data;
+          setLinkImagen1(secure_url);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     } catch (e) {
-      console.log(e)
-
+      console.log(e);
     }
-  }
+  };
 
   useEffect(() => {
     cargarImagen1();
@@ -193,19 +234,20 @@ function SeriesEspeciales({ history }) {
 
   const cargarImagen2 = () => {
     try {
-      subeArchivosCloudinary(imagenPortadaPelicula2, "portadasSeries").then(response => {
-        const { data } = response;
-        // console.log(data)
-        const { secure_url } = data;
-        setLinkImagen2(secure_url)
-      }).catch(e => {
-        console.log(e)
-      })
+      subeArchivosCloudinary(imagenPortadaPelicula2, "portadasSeries")
+        .then((response) => {
+          const { data } = response;
+          // console.log(data)
+          const { secure_url } = data;
+          setLinkImagen2(secure_url);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     } catch (e) {
-      console.log(e)
-
+      console.log(e);
     }
-  }
+  };
 
   useEffect(() => {
     cargarImagen2();
@@ -215,19 +257,20 @@ function SeriesEspeciales({ history }) {
 
   const cargarImagen3 = () => {
     try {
-      subeArchivosCloudinary(imagenPortadaPelicula3, "portadasSeries").then(response => {
-        const { data } = response;
-        // console.log(data)
-        const { secure_url } = data;
-        setLinkImagen3(secure_url)
-      }).catch(e => {
-        console.log(e)
-      })
+      subeArchivosCloudinary(imagenPortadaPelicula3, "portadasSeries")
+        .then((response) => {
+          const { data } = response;
+          // console.log(data)
+          const { secure_url } = data;
+          setLinkImagen3(secure_url);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     } catch (e) {
-      console.log(e)
-
+      console.log(e);
     }
-  }
+  };
 
   useEffect(() => {
     cargarImagen3();
@@ -237,19 +280,20 @@ function SeriesEspeciales({ history }) {
 
   const cargarImagen4 = () => {
     try {
-      subeArchivosCloudinary(imagenPortadaPelicula4, "portadasSeries").then(response => {
-        const { data } = response;
-        // console.log(data)
-        const { secure_url } = data;
-        setLinkImagen4(secure_url)
-      }).catch(e => {
-        console.log(e)
-      })
+      subeArchivosCloudinary(imagenPortadaPelicula4, "portadasSeries")
+        .then((response) => {
+          const { data } = response;
+          // console.log(data)
+          const { secure_url } = data;
+          setLinkImagen4(secure_url);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     } catch (e) {
-      console.log(e)
-
+      console.log(e);
     }
-  }
+  };
 
   useEffect(() => {
     cargarImagen4();
@@ -259,19 +303,20 @@ function SeriesEspeciales({ history }) {
 
   const cargarImagen5 = () => {
     try {
-      subeArchivosCloudinary(imagenPortadaPelicula5, "portadasSeries").then(response => {
-        const { data } = response;
-        // console.log(data)
-        const { secure_url } = data;
-        setLinkImagen5(secure_url)
-      }).catch(e => {
-        console.log(e)
-      })
+      subeArchivosCloudinary(imagenPortadaPelicula5, "portadasSeries")
+        .then((response) => {
+          const { data } = response;
+          // console.log(data)
+          const { secure_url } = data;
+          setLinkImagen5(secure_url);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     } catch (e) {
-      console.log(e)
-
+      console.log(e);
     }
-  }
+  };
 
   useEffect(() => {
     cargarImagen5();
@@ -281,19 +326,20 @@ function SeriesEspeciales({ history }) {
 
   const cargarImagenMovil1 = () => {
     try {
-      subeArchivosCloudinary(imagenPortadaPeliculaMovil1, "portadasSeries").then(response => {
-        const { data } = response;
-        // console.log(data)
-        const { secure_url } = data;
-        setLinkImagenMovil1(secure_url)
-      }).catch(e => {
-        console.log(e)
-      })
+      subeArchivosCloudinary(imagenPortadaPeliculaMovil1, "portadasSeries")
+        .then((response) => {
+          const { data } = response;
+          // console.log(data)
+          const { secure_url } = data;
+          setLinkImagenMovil1(secure_url);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     } catch (e) {
-      console.log(e)
-
+      console.log(e);
     }
-  }
+  };
 
   useEffect(() => {
     cargarImagenMovil1();
@@ -303,19 +349,20 @@ function SeriesEspeciales({ history }) {
 
   const cargarImagenMovil2 = () => {
     try {
-      subeArchivosCloudinary(imagenPortadaPeliculaMovil2, "portadasSeries").then(response => {
-        const { data } = response;
-        // console.log(data)
-        const { secure_url } = data;
-        setLinkImagenMovil2(secure_url)
-      }).catch(e => {
-        console.log(e)
-      })
+      subeArchivosCloudinary(imagenPortadaPeliculaMovil2, "portadasSeries")
+        .then((response) => {
+          const { data } = response;
+          // console.log(data)
+          const { secure_url } = data;
+          setLinkImagenMovil2(secure_url);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     } catch (e) {
-      console.log(e)
-
+      console.log(e);
     }
-  }
+  };
 
   useEffect(() => {
     cargarImagenMovil2();
@@ -325,19 +372,20 @@ function SeriesEspeciales({ history }) {
 
   const cargarImagenMovil3 = () => {
     try {
-      subeArchivosCloudinary(imagenPortadaPeliculaMovil3, "portadasSeries").then(response => {
-        const { data } = response;
-        // console.log(data)
-        const { secure_url } = data;
-        setLinkImagenMovil3(secure_url)
-      }).catch(e => {
-        console.log(e)
-      })
+      subeArchivosCloudinary(imagenPortadaPeliculaMovil3, "portadasSeries")
+        .then((response) => {
+          const { data } = response;
+          // console.log(data)
+          const { secure_url } = data;
+          setLinkImagenMovil3(secure_url);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     } catch (e) {
-      console.log(e)
-
+      console.log(e);
     }
-  }
+  };
 
   useEffect(() => {
     cargarImagenMovil3();
@@ -347,19 +395,20 @@ function SeriesEspeciales({ history }) {
 
   const cargarImagenMovil4 = () => {
     try {
-      subeArchivosCloudinary(imagenPortadaPeliculaMovil4, "portadasSeries").then(response => {
-        const { data } = response;
-        // console.log(data)
-        const { secure_url } = data;
-        setLinkImagenMovil4(secure_url)
-      }).catch(e => {
-        console.log(e)
-      })
+      subeArchivosCloudinary(imagenPortadaPeliculaMovil4, "portadasSeries")
+        .then((response) => {
+          const { data } = response;
+          // console.log(data)
+          const { secure_url } = data;
+          setLinkImagenMovil4(secure_url);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     } catch (e) {
-      console.log(e)
-
+      console.log(e);
     }
-  }
+  };
 
   useEffect(() => {
     cargarImagenMovil4();
@@ -369,19 +418,20 @@ function SeriesEspeciales({ history }) {
 
   const cargarImagenMovil5 = () => {
     try {
-      subeArchivosCloudinary(imagenPortadaPeliculaMovil5, "portadasSeries").then(response => {
-        const { data } = response;
-        // console.log(data)
-        const { secure_url } = data;
-        setLinkImagenMovil5(secure_url)
-      }).catch(e => {
-        console.log(e)
-      })
+      subeArchivosCloudinary(imagenPortadaPeliculaMovil5, "portadasSeries")
+        .then((response) => {
+          const { data } = response;
+          // console.log(data)
+          const { secure_url } = data;
+          setLinkImagenMovil5(secure_url);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     } catch (e) {
-      console.log(e)
-
+      console.log(e);
     }
-  }
+  };
 
   useEffect(() => {
     cargarImagenMovil5();
@@ -390,13 +440,19 @@ function SeriesEspeciales({ history }) {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (!formData.nombre || !formData.actores || !formData.director || !formData.sinopsis || !formData.anio) {
+    if (
+      !formData.nombre ||
+      !formData.actores ||
+      !formData.director ||
+      !formData.sinopsis ||
+      !formData.anio
+    ) {
       toast.warning("Completa el formulario");
     } else {
       try {
         setLoading(true);
         // Sube a cloudinary la imagen principal del producto
-        const data2 = formData.patrocinador.split(",")
+        const data2 = formData.patrocinador.split(",");
         const dataTemp = {
           titulo: formData.nombre,
           categorias: listarCat,
@@ -413,7 +469,7 @@ function SeriesEspeciales({ history }) {
           recomendado: "",
           contador: "0",
           urlPortada: linkImagen1,
-          urlTrailer: `https://www.mxtvmas.com:8443/mimexico/series/${formDataURL.urlTrailer}`,
+          urlTrailer: response.url,
           seccion: "",
           estado: "true",
           urlPortada2: linkImagen2,
@@ -428,32 +484,34 @@ function SeriesEspeciales({ history }) {
           urlPortadaMovil4: linkImagenMovil4,
           urlPortadaMovil5: linkImagenMovil5,
         };
-        registraSeriesEspeciales(dataTemp).then((response) => {
-          const { data } = response;
-          //notificacion
+        registraSeriesEspeciales(dataTemp)
+          .then((response) => {
+            const { data } = response;
+            //notificacion
 
-          toast.success(data.mensaje);
+            toast.success(data.mensaje);
 
-          history({
-            search: queryString.stringify(""),
-          });
-          setLoading(false);
-          setShow(false);
-          //cancelarRegistro()
-        }).catch(e => {
-          console.log(e)
-          if (e.message === 'Network Error') {
-            //console.log("No hay internet")
-            toast.error("Conexión al servidor no disponible");
+            history({
+              search: queryString.stringify(""),
+            });
             setLoading(false);
-          } else {
-            if (e.response && e.response.status === 401) {
-              const { mensaje } = e.response.data;
-              toast.error(mensaje);
+            setShow(false);
+            //cancelarRegistro()
+          })
+          .catch((e) => {
+            console.log(e);
+            if (e.message === "Network Error") {
+              //console.log("No hay internet")
+              toast.error("Conexión al servidor no disponible");
               setLoading(false);
+            } else {
+              if (e.response && e.response.status === 401) {
+                const { mensaje } = e.response.data;
+                toast.error(mensaje);
+                setLoading(false);
+              }
             }
-          }
-        });
+          });
       } catch (e) {
         console.log(e);
       }
@@ -465,41 +523,40 @@ function SeriesEspeciales({ history }) {
   };
 
   const addItems2 = () => {
-    const categoria = document.getElementById("categoria").value
+    const categoria = document.getElementById("categoria").value;
 
     if (!categoria) {
       toast.warning("Completa la información de la categoria");
     } else {
       const dataTemp = {
-        categoria: categoria
-      }
+        categoria: categoria,
+      };
 
       //LogRegistroProductosOV(folioActual, cargaProductos.ID, cargaProductos.item, cantidad, um, precioUnitario, total, setListProductosCargados);
       // console.log(dataTemp)
 
-      setListCategorias(
-        [...listarCat, dataTemp]
-      );
+      setListCategorias([...listarCat, dataTemp]);
 
       //document.getElementById("descripcion").value = ""
-      document.getElementById("categoria").value = "Elige una opción"
+      document.getElementById("categoria").value = "Elige una opción";
     }
-  }
+  };
 
   // Para limpiar el formulario de detalles de producto
   const cancelarCargaProducto2 = () => {
     //document.getElementById("descripcion").value = ""
-    document.getElementById("categoria").value = "Elige una opción"
-  }
+    document.getElementById("categoria").value = "Elige una opción";
+  };
 
   // Para eliminar productos del listado
   const removeItem2 = (categoria) => {
     let newArray = listarCat;
-    newArray.splice(newArray.findIndex(a => a.nombre === categoria.categoria), 1);
+    newArray.splice(
+      newArray.findIndex((a) => a.nombre === categoria.categoria),
+      1
+    );
     setListCategorias([...newArray]);
-  }
-
-
+  };
 
   /**
    * url del video
@@ -706,17 +763,17 @@ function SeriesEspeciales({ history }) {
               <br />
               <hr />
               <Badge bg="secondary" className="tituloFormularioDetalles">
-                <h4>A continuación, especifica los detalles de la temporada y agregala</h4>
+                <h4>
+                  A continuación, especifica los detalles de la temporada y
+                  agregala
+                </h4>
               </Badge>
               <br />
               <hr />
 
               <Row>
-
                 <Form.Group as={Col} controlId="formGridPorcentaje scrap">
-                  <Form.Label>
-                    Temporada
-                  </Form.Label>
+                  <Form.Label>Temporada</Form.Label>
                   <Form.Control
                     type="number"
                     id="temporada"
@@ -726,33 +783,23 @@ function SeriesEspeciales({ history }) {
                 </Form.Group>
 
                 <Form.Group as={Col} controlId="formGridPorcentaje scrap">
-                  <Form.Label>
-                    Nombre
-                  </Form.Label>
-                  <Form.Control
-                    type="text"
-                    id="nombre"
-                    placeholder="Nombre"
-                  />
+                  <Form.Label>Nombre</Form.Label>
+                  <Form.Control type="text" id="nombre" placeholder="Nombre" />
                 </Form.Group>
 
                 <Form.Group as={Col}>
-                  <Form.Label>
-                    Capitulos
-                  </Form.Label>
+                  <Form.Label>Capitulos</Form.Label>
                   <Form.Control
                     id="capitulos"
                     type="text"
-                    placeholder='Capitulos'
+                    placeholder="Capitulos"
                     name="capitulos"
                   />
                 </Form.Group>
 
                 <Col sm="1">
                   <Form.Group as={Row} className="formGridCliente">
-                    <Form.Label>
-                      &nbsp;
-                    </Form.Label>
+                    <Form.Label>&nbsp;</Form.Label>
 
                     <Col>
                       <Button
@@ -760,10 +807,13 @@ function SeriesEspeciales({ history }) {
                         title="Agregar el producto"
                         className="editar"
                         onClick={() => {
-                          addItems()
+                          addItems();
                         }}
                       >
-                        <FontAwesomeIcon icon={faCirclePlus} className="text-lg" />
+                        <FontAwesomeIcon
+                          icon={faCirclePlus}
+                          className="text-lg"
+                        />
                       </Button>
                     </Col>
                     <Col>
@@ -772,13 +822,12 @@ function SeriesEspeciales({ history }) {
                         title="Cancelar el producto"
                         className="editar"
                         onClick={() => {
-                          cancelarCargaProducto()
+                          cancelarCargaProducto();
                         }}
                       >
                         <FontAwesomeIcon icon={faX} className="text-lg" />
                       </Button>
                     </Col>
-
                   </Form.Group>
                 </Col>
               </Row>
@@ -787,16 +836,17 @@ function SeriesEspeciales({ history }) {
 
               {/* Listado de productos  */}
               <div className="tablaProductos">
-
                 {/* ID, item, cantidad, um, descripcion, orden de compra, observaciones */}
                 {/* Inicia tabla informativa  */}
-                <Badge bg="secondary" className="tituloListadoProductosSeleccionados">
+                <Badge
+                  bg="secondary"
+                  className="tituloListadoProductosSeleccionados"
+                >
                   <h4>Listado de temporadas</h4>
                 </Badge>
                 <br />
                 <hr />
-                <Table className="responsive-tableRegistroVentas"
-                >
+                <Table className="responsive-tableRegistroVentas">
                   <thead>
                     <tr>
                       <th scope="col">Temporada</th>
@@ -804,27 +854,20 @@ function SeriesEspeciales({ history }) {
                       <th scope="col">Capitulos</th>
                     </tr>
                   </thead>
-                  <tfoot>
-                  </tfoot>
+                  <tfoot></tfoot>
                   <tbody>
                     {map(listSeriesCargados, (producto, index) => (
                       <tr key={index}>
-                        <td scope="row">
-                          {producto.temporada}
-                        </td>
-                        <td scope="row">
-                          {producto.nombre}
-                        </td>
-                        <td data-title="Descripcion">
-                          {producto.capitulos}
-                        </td>
+                        <td scope="row">{producto.temporada}</td>
+                        <td scope="row">{producto.nombre}</td>
+                        <td data-title="Descripcion">{producto.capitulos}</td>
                         <td data-title="Eliminar">
                           <Badge
                             bg="danger"
                             title="Eliminar"
                             className="eliminar"
                             onClick={() => {
-                              removeItem(producto)
+                              removeItem(producto);
                             }}
                           >
                             <FontAwesomeIcon icon={faX} className="text-lg" />
@@ -850,20 +893,60 @@ function SeriesEspeciales({ history }) {
                 name="anio"
                 defaultValue={formData.anio}
               />
-              <Col xs={12} md={12}>
-                {/* Asegúrate de pasar las funciones correctamente */}
-                <VideoUploader contentType="specialSeries" setVideoPathCallback={handleVideoPathChange} />
-              </Col>
-              <hr />
-              <Col xs={12} md={12}>
-                <Form.Control
-                  placeholder="URL del trailer"
-                  type="text"
-                  name="urlTrailer"
-                  value={formDataURL.urlTrailer}
-                  readOnly
+              <div>
+                <input
+                  type="file"
+                  accept="video/*"
+                  onChange={handleFileChange2}
                 />
-              </Col>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault(); // Evita la recarga de la página
+                    handleUploadVideos(); // Llama a la función de carga
+                  }}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <>
+                      <Spinner
+                        animation="border"
+                        role="status"
+                        size="sm"
+                        style={{ marginRight: "10px" }}
+                      >
+                        <span className="sr-only">Uploading...</span>
+                      </Spinner>
+                      Uploading...
+                    </>
+                  ) : (
+                    "Upload Video"
+                  )}
+                </button>
+
+                {loading && (
+                  <div style={{ marginTop: "10px" }}>
+                    <Spinner animation="border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </Spinner>
+                    <p>Loading... Please wait</p>
+                  </div>
+                )}
+                {response && <div>Media ID: {response.mediaId}</div>}
+                {error && <div>Error: {error.message}</div>}
+              </div>
+
+              <div>
+                <hr />
+                <Col xs={12} md={12}>
+                  <Form.Control
+                    placeholder="URL Video"
+                    type="text"
+                    name="archPelicula"
+                    value={response?.url || ""}
+                    readOnly
+                  />
+                </Col>
+              </div>
               <hr />
               <Badge bg="secondary" className="tituloFormularioDetalles">
                 <h4>A continuación, especifica las categorias</h4>
@@ -872,12 +955,10 @@ function SeriesEspeciales({ history }) {
               <hr />
 
               <Row>
-
                 <Form.Group as={Col} controlId="formGridPorcentaje scrap">
-                  <Form.Label>
-                    ITEM
-                  </Form.Label>
-                  <Form.Control type="number"
+                  <Form.Label>ITEM</Form.Label>
+                  <Form.Control
+                    type="number"
                     id="index"
                     value={renglon2}
                     name="index"
@@ -886,9 +967,7 @@ function SeriesEspeciales({ history }) {
                 </Form.Group>
 
                 <Form.Group as={Col} controlId="formGridCliente">
-                  <Form.Label>
-                    Categoria
-                  </Form.Label>
+                  <Form.Label>Categoria</Form.Label>
                   <Form.Control
                     id="categoria"
                     as="select"
@@ -897,16 +976,16 @@ function SeriesEspeciales({ history }) {
                   >
                     <option>Elige una opción</option>
                     {map(listarCategoria, (cat, index) => (
-                      <option key={index} value={cat?.nombre}>{cat?.nombre}</option>
+                      <option key={index} value={cat?.nombre}>
+                        {cat?.nombre}
+                      </option>
                     ))}
                   </Form.Control>
                 </Form.Group>
 
                 <Col sm="1">
                   <Form.Group as={Row} className="formGridCliente">
-                    <Form.Label>
-                      &nbsp;
-                    </Form.Label>
+                    <Form.Label>&nbsp;</Form.Label>
 
                     <Col>
                       <Button
@@ -914,10 +993,13 @@ function SeriesEspeciales({ history }) {
                         title="Agregar el producto"
                         className="editar"
                         onClick={() => {
-                          addItems2()
+                          addItems2();
                         }}
                       >
-                        <FontAwesomeIcon icon={faCirclePlus} className="text-lg" />
+                        <FontAwesomeIcon
+                          icon={faCirclePlus}
+                          className="text-lg"
+                        />
                       </Button>
                     </Col>
                     <Col>
@@ -926,13 +1008,12 @@ function SeriesEspeciales({ history }) {
                         title="Cancelar el producto"
                         className="editar"
                         onClick={() => {
-                          cancelarCargaProducto2()
+                          cancelarCargaProducto2();
                         }}
                       >
                         <FontAwesomeIcon icon={faX} className="text-lg" />
                       </Button>
                     </Col>
-
                   </Form.Group>
                 </Col>
               </Row>
@@ -941,16 +1022,17 @@ function SeriesEspeciales({ history }) {
 
               {/* Listado de productos  */}
               <div className="tablaProductos">
-
                 {/* ID, item, cantidad, um, descripcion, orden de compra, observaciones */}
                 {/* Inicia tabla informativa  */}
-                <Badge bg="secondary" className="tituloListadoProductosSeleccionados">
+                <Badge
+                  bg="secondary"
+                  className="tituloListadoProductosSeleccionados"
+                >
                   <h4>Listado de categorias seleccionadas</h4>
                 </Badge>
                 <br />
                 <hr />
-                <Table className="responsive-tableRegistroVentas"
-                >
+                <Table className="responsive-tableRegistroVentas">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
@@ -958,24 +1040,19 @@ function SeriesEspeciales({ history }) {
                       <th scope="col"></th>
                     </tr>
                   </thead>
-                  <tfoot>
-                  </tfoot>
+                  <tfoot></tfoot>
                   <tbody>
                     {map(listarCat, (producto, index) => (
                       <tr key={index}>
-                        <td scope="row">
-                          {index + 1}
-                        </td>
-                        <td data-title="Descripcion">
-                          {producto.categoria}
-                        </td>
+                        <td scope="row">{index + 1}</td>
+                        <td data-title="Descripcion">{producto.categoria}</td>
                         <td data-title="Eliminar">
                           <Badge
                             bg="danger"
                             title="Eliminar"
                             className="eliminar"
                             onClick={() => {
-                              removeItem2(producto)
+                              removeItem2(producto);
                             }}
                           >
                             <FontAwesomeIcon icon={faX} className="text-lg" />

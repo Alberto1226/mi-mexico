@@ -15,6 +15,8 @@ export const ENDPOINTRegistrarHistorialUsuario = "/historialUsuarios/registro/";
 // Peliculas
 export const ENDPOINTListarPeliculas = "/peliculas/listar";
 export const ENDPOINTRegistrarPeliculas = "/peliculas/registro";
+export const ENDPOINTHolaPeliculas = "/peliculas/hola";
+export const ENDPOINTApiUploadPeliculas = "/peliculas/uploadVideo";
 export const ENDPOINTModificarPeliculas = "/peliculas/actualizar";
 export const ENDPOINTEliminarPeliculas = "/peliculas/eliminar";
 export const ENDPOINTSubirVideo = "/peliculas/subirVideo";

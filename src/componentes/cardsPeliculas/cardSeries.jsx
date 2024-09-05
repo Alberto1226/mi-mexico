@@ -6,8 +6,9 @@ import Modal from "react-bootstrap/Modal";
 import { SwiperFooterCards } from "../swiperFooterCards/sfc";
 import ReactPlayer from "react-player";
 import { Link } from "react-router-dom";
+import { Stream } from "@cloudflare/stream-react";
 export function CardsSeries(props) {
-
+  console.log("🚀 ~ CardsSeries ~ props:", props)
   //console.log(props);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -35,15 +36,13 @@ export function CardsSeries(props) {
         <div className="panel">
           <div className="panel__row panel__buttons">
             <div className="panel__icons">
-              <Button
-                variant="link"
-              >
-              <Link to={`/series?id=${props.id}`} >
-                <a>
-                  <i className="">
-                    <FontAwesomeIcon icon={faCirclePlay} />
-                  </i>
-                </a>
+              <Button variant="link">
+                <Link to={`/series?id=${props.id}`}>
+                  <a>
+                    <i className="">
+                      <FontAwesomeIcon icon={faCirclePlay} />
+                    </i>
+                  </a>
                 </Link>
               </Button>
               {isFullScreenOpen && (
@@ -63,14 +62,12 @@ export function CardsSeries(props) {
                 </a>
               </Button>
             </div>
-            
+
             {/** Fin Button card */}
           </div>
           <div className="panel__row info">
-          
             <span className="year">Año: {props.anio}</span>
             {/** <b>Durcaión: {props.duracion}</b>*/}
-            
           </div>
           <div className="panel__row genres">{props.genero}</div>
         </div>
@@ -82,16 +79,17 @@ export function CardsSeries(props) {
           <div className="card__modal-contentPel">
             <div className="video-background">
               <div className="video-foreground">
-                <ReactPlayer
-                id="video"
-                url={props.urlVideo}
-                controls
-                volume="0.3"
-                width="100%"
-                height="100%"
-                Autoplay
-                />
-                
+              <Stream controls src={props.urlVideo}/>
+                {/* <ReactPlayer
+                  style={{ display: "none" }}
+                  id="video"
+                  url={props.urlVideo}
+                  controls
+                  volume="0.3"
+                  width="100%"
+                  height="100%"
+                  Autoplay
+                /> */}
               </div>
             </div>
             <div className="video-description">
@@ -106,18 +104,24 @@ export function CardsSeries(props) {
                 <b>{props.duracion}</b>
                 <span className="quality">HD</span>
               </div>
-              <div className="sinopsisCard" dangerouslySetInnerHTML={{ __html: props.sinopsis || "" }}/>
-              
+              <div
+                className="sinopsisCard"
+                dangerouslySetInnerHTML={{ __html: props.sinopsis || "" }}
+              />
+
               <span className="actor"> {props.actores}</span>
               <span className="director"> {props.director}</span>
               <div className="footerCard">
-              <div className="d-flex justify-content-end align-items-center">
-                <Link to={`/series?id=${props.id}`} className="btn btn-primary">
+                <div className="d-flex justify-content-end align-items-center">
+                  <Link
+                    to={`/series?id=${props.id}`}
+                    className="btn btn-primary"
+                  >
                     <i className="mr-2">
-                    <FontAwesomeIcon icon={faCirclePlay} />
+                      <FontAwesomeIcon icon={faCirclePlay} />
                     </i>
                     Ver Serie Completa
-                </Link>
+                  </Link>
                 </div>
               </div>
             </div>

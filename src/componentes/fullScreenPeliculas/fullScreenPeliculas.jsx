@@ -3,7 +3,11 @@ import React, { useEffect, useState, useRef } from "react";
 
 import { useLocation, useNavigate } from "react-router-dom";
 import queryString from "query-string";
-import { listarPeliculas, obtenerPeliculas, actualizarContadorPeliculas } from "../../api/peliculasListar";
+import {
+  listarPeliculas,
+  obtenerPeliculas,
+  actualizarContadorPeliculas,
+} from "../../api/peliculasListar";
 import SwiperCore, { Pagination, Autoplay } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -13,23 +17,30 @@ import { registraHistorialUsuario } from "../../api/historialUsuarios";
 import { getTokenApi, obtenidusuarioLogueado } from "../../api/auth";
 import { FullNav } from "../navcompleto/navCompleto";
 import Modal from "react-bootstrap/Modal";
-import Button from 'react-bootstrap/Button';
+import Button from "react-bootstrap/Button";
 import { SwiperPatrocinadores } from "../swiperPatrocinadores/swPatrocinadores";
 import { FooterApp } from "../footer/footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { listarPatrocinadoresPrioridad, actualizarPatrocinadores, obtenerPatrocinador } from "../../api/patrocinadores";
+import {
+  listarPatrocinadoresPrioridad,
+  actualizarPatrocinadores,
+  obtenerPatrocinador,
+} from "../../api/patrocinadores";
 import { RecomendadosCat } from "../swiperCategoria/swCategoriaRecomendada";
 import { Helmet } from "react-helmet";
 import www from "../../assets/img/www.png";
 import facebook from "../../assets/img/facebook.png";
 import Regresar from "../regresar/Regresar";
+import { Stream } from "@cloudflare/stream-react";
 
 SwiperCore.use([Pagination, Autoplay]);
 export function FullPeliculas(props) {
   const locations = useLocation();
   const history = useNavigate();
-  const [listarPel, setListPeliculas] = useState([{ id: "", urlVideo: "", titulo: "", sinopsis: "", duracion: "" }]);
+  const [listarPel, setListPeliculas] = useState([
+    { id: "", urlVideo: "", titulo: "", sinopsis: "", duracion: "" },
+  ]);
   const [matchedIndex, setMatchedIndex] = useState(0);
   const [contadorActual, setContadorActual] = useState(0);
   const { id } = queryString.parse(locations.search);
@@ -59,13 +70,13 @@ export function FullPeliculas(props) {
     const handleBackButton = (event) => {
       // Tu lógica de navegación aquí
       // Por ejemplo, puedes utilizar react-router o cambiar de ruta manualmente
-       history.push('/');
+      history.push("/");
     };
 
-    window.addEventListener('popstate', handleBackButton);
+    window.addEventListener("popstate", handleBackButton);
 
     return () => {
-      window.removeEventListener('popstate', handleBackButton);
+      window.removeEventListener("popstate", handleBackButton);
     };
   }, []);
   /**fin */
@@ -97,39 +108,45 @@ export function FullPeliculas(props) {
   useEffect(() => {
     const video = videoRef.current;
 
-    video.addEventListener('timeupdate', handleVideoTimeUpdate);
+    video.addEventListener("timeupdate", handleVideoTimeUpdate);
 
-    document.addEventListener('fullscreenchange', handleFullscreenChange);
-    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
 
     return () => {
-      video.removeEventListener('timeupdate', handleVideoTimeUpdate);
+      video.removeEventListener("timeupdate", handleVideoTimeUpdate);
 
-      document.removeEventListener('fullscreenchange', handleFullscreenChange);
-      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      document.removeEventListener(
+        "webkitfullscreenchange",
+        handleFullscreenChange
+      );
     };
   }, []);
 
   const aumentarContador = () => {
     try {
       // console.log(data)
-      obtenerPeliculas(id).then(response => {
-        const { data } = response;
-        console.log(data)
-        const dataTemp = {
-          contador: parseInt(data.contador) + 1
-        }
-        actualizarContadorPeliculas(id, dataTemp).then(response => {
-          // console.log(response)
-        }).catch(e => {
-          console.log(e)
+      obtenerPeliculas(id)
+        .then((response) => {
+          const { data } = response;
+          console.log(data);
+          const dataTemp = {
+            contador: parseInt(data.contador) + 1,
+          };
+          actualizarContadorPeliculas(id, dataTemp)
+            .then((response) => {
+              // console.log(response)
+            })
+            .catch((e) => {
+              console.log(e);
+            });
         })
-
-      }).catch(e => {
-        console.log(e)
-      })
-        .catch((e) => { });
-    } catch (e) { }
+        .catch((e) => {
+          console.log(e);
+        })
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -146,7 +163,7 @@ export function FullPeliculas(props) {
             setListPeliculas(formatModelPeliculas(data));
           } else {
             const datosPel = formatModelPeliculas(data);
-            console.log(datosPel)
+            console.log(datosPel);
             // Check if there is a match in the filtered data
             if (datosPel.length > 0) {
               // Get the index of the first match in the filtered data
@@ -175,18 +192,21 @@ export function FullPeliculas(props) {
   useEffect(() => {
     obtenerPelicula();
   }, []);
-  console.log(matchedIndex)
+  console.log(matchedIndex);
 
-  const totalVistas = listarPel.reduce((amount, item) => (amount + parseInt(item.contador)), 0);
+  const totalVistas = listarPel.reduce(
+    (amount, item) => amount + parseInt(item.contador),
+    0
+  );
   const media = totalVistas / listarPel.length;
   function redondearDecimal(numero) {
     return numero < 0.5 ? Math.floor(numero) : Math.ceil(numero);
   }
-  console.log(media)
-  console.log(redondearDecimal(media))
-  console.log(totalVistas)
-  console.log(contadorActual)
-  console.log(listarPel[matchedIndex].id)
+  console.log(media);
+  console.log(redondearDecimal(media));
+  console.log(totalVistas);
+  console.log(contadorActual);
+  console.log(listarPel[matchedIndex].id);
 
   useEffect(() => {
     obtenerPelicula();
@@ -207,8 +227,8 @@ export function FullPeliculas(props) {
             setListPatrocinadores(datosPel);
           }
         })
-        .catch((e) => { });
-    } catch (e) { }
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   const obtenerPatrocinadoresNoPrioritarios = () => {
@@ -224,24 +244,25 @@ export function FullPeliculas(props) {
             setListPatrocinadores(datosPel);
           }
         })
-        .catch((e) => { });
-    } catch (e) { }
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {
     if (contadorActual >= redondearDecimal(media)) {
-      obtenerPatrocinadoresPrioritarios()
-    } 
-    else {
-      obtenerPatrocinadoresNoPrioritarios()
+      obtenerPatrocinadoresPrioritarios();
+    } else {
+      obtenerPatrocinadoresNoPrioritarios();
     }
   }, [media]);
 
-  console.log(listarPatrocinadores)
+  console.log(listarPatrocinadores);
 
-  const patrocinadoresPagados = listarPatrocinadores.filter(patrocinador => parseInt(patrocinador.numeroApariciones) >= 0);
+  const patrocinadoresPagados = listarPatrocinadores.filter(
+    (patrocinador) => parseInt(patrocinador.numeroApariciones) >= 0
+  );
 
-  console.log(patrocinadoresPagados)
+  console.log(patrocinadoresPagados);
 
   function generarNumeroAleatorio(minimo, maximo) {
     // Genera un número aleatorio entre 0 y 1 (no incluido)
@@ -251,7 +272,7 @@ export function FullPeliculas(props) {
     // const numeroRedondeado = Math.round(numeroEnRango);
   }
 
-  console.log(patrocinadoresPagados.length)
+  console.log(patrocinadoresPagados.length);
 
   // Ejemplo de uso:
   let numeroAleatorio = 0;
@@ -261,23 +282,29 @@ export function FullPeliculas(props) {
   const disminuirCantidadApariciones = () => {
     try {
       // console.log(data)
-      obtenerPatrocinador(patrocinadoresPagados[numeroAleatorio]?.id).then(response => {
-        const { data } = response;
-        console.log(data)
-        const dataTemp = {
-          numeroApariciones: parseInt(data.numeroApariciones) - 1
-        }
-        actualizarPatrocinadores(patrocinadoresPagados[numeroAleatorio]?.id, dataTemp).then(response => {
-          // console.log(response)
-        }).catch(e => {
-          console.log(e)
+      obtenerPatrocinador(patrocinadoresPagados[numeroAleatorio]?.id)
+        .then((response) => {
+          const { data } = response;
+          console.log(data);
+          const dataTemp = {
+            numeroApariciones: parseInt(data.numeroApariciones) - 1,
+          };
+          actualizarPatrocinadores(
+            patrocinadoresPagados[numeroAleatorio]?.id,
+            dataTemp
+          )
+            .then((response) => {
+              // console.log(response)
+            })
+            .catch((e) => {
+              console.log(e);
+            });
         })
-
-      }).catch(e => {
-        console.log(e)
-      })
-        .catch((e) => { });
-    } catch (e) { }
+        .catch((e) => {
+          console.log(e);
+        })
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -287,28 +314,31 @@ export function FullPeliculas(props) {
   const registrarHistorial = () => {
     try {
       // console.log(data)
-      obtenerPeliculas(id).then(response => {
-        const { data } = response;
-        console.log(data)
-        setContadorActual(parseInt(data.contador));
-        const dataTemp = {
-          id_usuario: obtenidusuarioLogueado(getTokenApi()),
-          id_reproduccion: data._id,
-          nombre_reproduccion: data.titulo,
-          tipo: "pelicula",
-          url_reproduccion: data.urlVideo
-        }
-        registraHistorialUsuario(dataTemp).then(response => {
-          // console.log(response)
-        }).catch(e => {
-          console.log(e)
+      obtenerPeliculas(id)
+        .then((response) => {
+          const { data } = response;
+          console.log(data);
+          setContadorActual(parseInt(data.contador));
+          const dataTemp = {
+            id_usuario: obtenidusuarioLogueado(getTokenApi()),
+            id_reproduccion: data._id,
+            nombre_reproduccion: data.titulo,
+            tipo: "pelicula",
+            url_reproduccion: data.urlVideo,
+          };
+          registraHistorialUsuario(dataTemp)
+            .then((response) => {
+              // console.log(response)
+            })
+            .catch((e) => {
+              console.log(e);
+            });
         })
-
-      }).catch(e => {
-        console.log(e)
-      })
-        .catch((e) => { });
-    } catch (e) { }
+        .catch((e) => {
+          console.log(e);
+        })
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -343,8 +373,6 @@ export function FullPeliculas(props) {
     setMatchedIndex((prevIndex) => (prevIndex + 1) % listarPel.length);
   };
 
-
-
   //modal
   const [isModalOpen, setIsModalOpen] = useState(true);
 
@@ -352,11 +380,9 @@ export function FullPeliculas(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-
   useEffect(() => {
     window.scrollTo(0, 0); // Mueve la página al inicio
   }, []);
-
 
   const cerrarVentanaFlotante = () => {
     setShow(false);
@@ -364,171 +390,210 @@ export function FullPeliculas(props) {
 
   return (
     <>
-    <Helmet>
+      <Helmet>
         <title>Peliculas</title>
         <link rel="canonical" href="https://mimexicotv.com/" />
       </Helmet>
       <FullNav />
       {listarPel.length > 0 && (
         <div key={listarPel[matchedIndex].id ?? ""}>
-          <video onClick={toggleFullScreen} ref={videoRef} id="videofull" src={listarPel[matchedIndex].urlVideo == undefined ? "" : listarPel[matchedIndex].urlVideo} autoPlay controls width={"100%"} height={"100%"} ></video>
+          <Stream
+            onClick={toggleFullScreen}
+            ref={videoRef}
+            id="videofull"
+            src={
+              listarPel[matchedIndex].urlVideo == undefined
+                ? ""
+                : listarPel[matchedIndex].urlVideo
+            }
+            controls
+          />
+          <video
+            style={{ display: "none" }}
+            onClick={toggleFullScreen}
+            ref={videoRef}
+            id="videofull"
+            src={
+              listarPel[matchedIndex].urlVideo == undefined
+                ? ""
+                : listarPel[matchedIndex].urlVideo
+            }
+            autoPlay
+            controls
+            width={"100%"}
+            height={"100%"}
+          ></video>
 
           <div className="informacionserie">
-            <h6 className="tituloSerie">{listarPel[matchedIndex].titulo == undefined ? "" : listarPel[matchedIndex].titulo}<button onClick={handleNextVideo} className="nextvideo2">Next Video <FontAwesomeIcon icon={faArrowRight} /></button></h6>
-            <h6 className="sinopsis" dangerouslySetInnerHTML={{ __html: listarPel[matchedIndex].sinopsis || "" }} />
+            <h6 className="tituloSerie">
+              {listarPel[matchedIndex].titulo == undefined
+                ? ""
+                : listarPel[matchedIndex].titulo}
+              <button onClick={handleNextVideo} className="nextvideo2">
+                Next Video <FontAwesomeIcon icon={faArrowRight} />
+              </button>
+            </h6>
+            <h6
+              className="sinopsis"
+              dangerouslySetInnerHTML={{
+                __html: listarPel[matchedIndex].sinopsis || "",
+              }}
+            />
 
-            
-            <h6 className="añoserie">{listarPel[matchedIndex].duracion == undefined ? "" : listarPel[matchedIndex].duracion}</h6>
+            <h6 className="añoserie">
+              {listarPel[matchedIndex].duracion == undefined
+                ? ""
+                : listarPel[matchedIndex].duracion}
+            </h6>
           </div>
           {/**patrocinador */}
           <div>
-              {show && (
-                <div
+            {show && (
+              <div
+                style={{
+                  position: "fixed",
+                  bottom: "5rem",
+                  right: "20px",
+                  borderRadius: "10px",
+                  backgroundColor: "white",
+                  border: "1px solid #ccc",
+                  width: "12rem", // Ancho deseado del recuadro
+                  boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+                  zIndex: 9999,
+                }}
+              >
+                <button
                   style={{
-                    position: "fixed",
-                    bottom: "5rem",
-                    right: "20px",
-                    borderRadius: "10px",
-                    backgroundColor: "white",
-                    border: "1px solid #ccc",
-                    width: "12rem", // Ancho deseado del recuadro
-                    boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
-                    zIndex: 9999,
+                    position: "absolute",
+                    top: "5px",
+                    right: "5px",
+                    cursor: "pointer",
+                    backgroundColor: "transparent",
+                    border: "none",
                   }}
+                  onClick={cerrarVentanaFlotante}
                 >
-                  <button
-                    style={{
-                      position: "absolute",
-                      top: "5px",
-                      right: "5px",
-                      cursor: "pointer",
-                      backgroundColor: "transparent",
-                      border: "none",
-                    }}
-                    onClick={cerrarVentanaFlotante}
-                  >
-                    X
-                  </button>
+                  X
+                </button>
 
-                  <div>
-                    <div style={{ padding: "10px" }}>
-                      <h6>Patrocinador oficial</h6>
-                      <img
-                        src={
-                          patrocinadoresPagados[numeroAleatorio]?.urlImagen ==
-                          undefined
-                            ? ""
-                            : patrocinadoresPagados[numeroAleatorio]?.urlImagen
-                        }
-                        alt="Patrocinador"
-                        style={{ maxWidth: "11rem", height: "10rem" }}
-                      />
-                    </div>
+                <div>
+                  <div style={{ padding: "10px" }}>
+                    <h6>Patrocinador oficial</h6>
+                    <img
+                      src={
+                        patrocinadoresPagados[numeroAleatorio]?.urlImagen ==
+                        undefined
+                          ? ""
+                          : patrocinadoresPagados[numeroAleatorio]?.urlImagen
+                      }
+                      alt="Patrocinador"
+                      style={{ maxWidth: "11rem", height: "10rem" }}
+                    />
+                  </div>
+                  <div
+                    style={{
+                      backgroundColor: "#FDB421",
+                      margin: 0,
+                      padding: "1vw 1vw 0 0",
+                      borderRadius: "2vw 2vw 0 0",
+                    }}
+                  >
+                    <p style={{ fontSize: "10px", textAlign: "center" }}>
+                      Redes sociales del patrocinador
+                    </p>
                     <div
                       style={{
-                        backgroundColor: "#FDB421",
-                        margin: 0,
-                        padding: "1vw 1vw 0 0",
-                        borderRadius: "2vw 2vw 0 0",
+                        display: "flex",
+                        justifyContent: "space-between",
                       }}
                     >
-                      <p style={{ fontSize: "10px", textAlign: "center" }}>
-                        Redes sociales del patrocinador
-                      </p>
                       <div
                         style={{
                           display: "flex",
-                          justifyContent: "space-between",
+                          flexDirection: "column",
+                          alignItems: "center",
                         }}
                       >
                         <div
                           style={{
+                            backgroundColor: "#fff",
+                            borderRadius: "50%",
+                            width: "35px",
+                            height: "35px",
                             display: "flex",
-                            flexDirection: "column",
+                            justifyContent: "center",
                             alignItems: "center",
+                            marginBottom: "5px",
+                            marginLeft: "1vw",
                           }}
                         >
-                          <div
-                            style={{
-                              backgroundColor: "#fff",
-                              borderRadius: "50%",
-                              width: "35px",
-                              height: "35px",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                              marginBottom: "5px",
-                              marginLeft: "1vw",
-                            }}
+                          <a
+                            href={
+                              patrocinadoresPagados[numeroAleatorio]?.urlWeb ==
+                              undefined
+                                ? ""
+                                : patrocinadoresPagados[numeroAleatorio]?.urlWeb
+                            }
+                            target="_blank"
+                            rel="noopener noreferrer"
                           >
-                            <a
-                              href={
-                                patrocinadoresPagados[numeroAleatorio]
-                                  ?.urlWeb == undefined
-                                  ? ""
-                                  : patrocinadoresPagados[numeroAleatorio]
-                                      ?.urlWeb
-                              }
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <img
-                                src={www}
-                                style={{ maxWidth: "100%", maxHeight: "100%" }}
-                              />
-                            </a>
-                          </div>
-                          <p style={{ fontSize: "10px" }}>Web</p>
+                            <img
+                              src={www}
+                              style={{ maxWidth: "100%", maxHeight: "100%" }}
+                            />
+                          </a>
                         </div>
+                        <p style={{ fontSize: "10px" }}>Web</p>
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                        }}
+                      >
                         <div
                           style={{
+                            backgroundColor: "#fff",
+                            borderRadius: "50%",
+                            width: "35px",
+                            height: "35px",
                             display: "flex",
-                            flexDirection: "column",
+                            justifyContent: "center",
                             alignItems: "center",
+                            marginBottom: "5px",
                           }}
                         >
-                          <div
-                            style={{
-                              backgroundColor: "#fff",
-                              borderRadius: "50%",
-                              width: "35px",
-                              height: "35px",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                              marginBottom: "5px",
-                            }}
+                          <a
+                            href={
+                              patrocinadoresPagados[numeroAleatorio]
+                                ?.urlFacebook == undefined
+                                ? ""
+                                : patrocinadoresPagados[numeroAleatorio]
+                                    ?.urlFacebook
+                            }
+                            target="_blank"
+                            rel="noopener noreferrer"
                           >
-                            <a
-                              href={
-                                patrocinadoresPagados[numeroAleatorio]
-                                  ?.urlFacebook == undefined
-                                  ? ""
-                                  : patrocinadoresPagados[numeroAleatorio]
-                                      ?.urlFacebook
-                              }
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <img src={facebook} />
-                            </a>
-                          </div>
-                          <p style={{ fontSize: "10px" }}>Facebook</p>
+                            <img src={facebook} />
+                          </a>
                         </div>
+                        <p style={{ fontSize: "10px" }}>Facebook</p>
                       </div>
                     </div>
                   </div>
                 </div>
-              )}
-            </div>
-            {/**fin patrocinador */}
+              </div>
+            )}
+          </div>
+          {/**fin patrocinador */}
         </div>
       )}
 
       {/**<h6>Recomendados</h6>
        <RecomendadosCat/>*/}
       <FooterApp />
-      <Regresar/>
+      <Regresar />
     </>
   );
 }
@@ -576,7 +641,7 @@ function formatModelPatrocinadores(data) {
       nivel: data.nivel,
       estado: data.estado,
       numeroApariciones: data.numeroApariciones,
-      prioridadAparicion: data.prioridadAparicion
+      prioridadAparicion: data.prioridadAparicion,
     });
   });
   return dataTemp;

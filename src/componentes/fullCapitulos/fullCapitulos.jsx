@@ -11,14 +11,23 @@ import "swiper/css/pagination";
 import "../../css/swiper.css";
 import "../../css/cardHeader.css";
 import { CardHeader } from "../cardsHeader/cardsHeader";
-import { listarCapitulosSeries, actualizarContadorCapitulos, obtenerCapitulosSeries } from "../../api/capitulosSeries";
+import {
+  listarCapitulosSeries,
+  actualizarContadorCapitulos,
+  obtenerCapitulosSeries,
+} from "../../api/capitulosSeries";
 import { Link } from "react-router-dom";
-import { listarPatrocinadoresPrioridad, actualizarPatrocinadores, obtenerPatrocinador } from "../../api/patrocinadores";
+import {
+  listarPatrocinadoresPrioridad,
+  actualizarPatrocinadores,
+  obtenerPatrocinador,
+} from "../../api/patrocinadores";
 import { FullNav } from "../navcompleto/navCompleto";
 import { SwiperPatrocinadores } from "../swiperPatrocinadores/swPatrocinadores";
 import { FooterApp } from "../footer/footer";
 import { Helmet } from "react-helmet";
 import Regresar from "../regresar/Regresar";
+import { Stream } from "@cloudflare/stream-react";
 
 SwiperCore.use([Pagination, Autoplay]);
 export function FullCapitulos(props) {
@@ -33,23 +42,26 @@ export function FullCapitulos(props) {
   const aumentarContador = () => {
     try {
       // console.log(data)
-      obtenerCapitulosSeries(id).then(response => {
-        const { data } = response;
-        console.log(data)
-        const dataTemp = {
-          contador: parseInt(data.contador) + 1
-        }
-        actualizarContadorCapitulos(id, dataTemp).then(response => {
-          // console.log(response)
-        }).catch(e => {
-          console.log(e)
+      obtenerCapitulosSeries(id)
+        .then((response) => {
+          const { data } = response;
+          console.log(data);
+          const dataTemp = {
+            contador: parseInt(data.contador) + 1,
+          };
+          actualizarContadorCapitulos(id, dataTemp)
+            .then((response) => {
+              // console.log(response)
+            })
+            .catch((e) => {
+              console.log(e);
+            });
         })
-
-      }).catch(e => {
-        console.log(e)
-      })
-        .catch((e) => { });
-    } catch (e) { }
+        .catch((e) => {
+          console.log(e);
+        })
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -83,16 +95,19 @@ export function FullCapitulos(props) {
   useEffect(() => {
     const video = videoRef.current;
 
-    video.addEventListener('timeupdate', handleVideoTimeUpdate);
+    video.addEventListener("timeupdate", handleVideoTimeUpdate);
 
-    document.addEventListener('fullscreenchange', handleFullscreenChange);
-    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
 
     return () => {
-      video.removeEventListener('timeupdate', handleVideoTimeUpdate);
+      video.removeEventListener("timeupdate", handleVideoTimeUpdate);
 
-      document.removeEventListener('fullscreenchange', handleFullscreenChange);
-      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      document.removeEventListener(
+        "webkitfullscreenchange",
+        handleFullscreenChange
+      );
     };
   }, []);
   //listar todos los capitulos de la teporada
@@ -118,8 +133,8 @@ export function FullCapitulos(props) {
             console.log(filteredCap);
           }
         })
-        .catch((e) => { });
-    } catch (e) { }
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -160,8 +175,8 @@ export function FullCapitulos(props) {
             setListCap2(datosCap2);
           }
         })
-        .catch((e) => { });
-    } catch (e) { }
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -221,8 +236,8 @@ export function FullCapitulos(props) {
             console.log(filteredCap3);
           }
         })
-        .catch((e) => { });
-    } catch (e) { }
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -234,16 +249,19 @@ export function FullCapitulos(props) {
     setMatchedIndex((prevIndex) => (prevIndex + 1) % listarCap2.length);
   };
 
-  const totalVistas = listarCap.reduce((amount, item) => (amount + parseInt(item.contador)), 0);
+  const totalVistas = listarCap.reduce(
+    (amount, item) => amount + parseInt(item.contador),
+    0
+  );
   const media = totalVistas / listarCap.length;
   function redondearDecimal(numero) {
     return numero < 0.5 ? Math.floor(numero) : Math.ceil(numero);
   }
 
-  console.log(media)
-  console.log(redondearDecimal(media))
-  console.log(totalVistas)
-  console.log(contadorActual)
+  console.log(media);
+  console.log(redondearDecimal(media));
+  console.log(totalVistas);
+  console.log(contadorActual);
 
   const [listarPatrocinadores, setListPatrocinadores] = useState([]);
 
@@ -260,8 +278,8 @@ export function FullCapitulos(props) {
             setListPatrocinadores(datosPel);
           }
         })
-        .catch((e) => { });
-    } catch (e) { }
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   const obtenerPatrocinadoresNoPrioritarios = () => {
@@ -277,22 +295,23 @@ export function FullCapitulos(props) {
             setListPatrocinadores(datosPel);
           }
         })
-        .catch((e) => { });
-    } catch (e) { }
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {
     if (contadorActual >= redondearDecimal(media)) {
-      obtenerPatrocinadoresPrioritarios()
-    }
-    else {
-      obtenerPatrocinadoresNoPrioritarios()
+      obtenerPatrocinadoresPrioritarios();
+    } else {
+      obtenerPatrocinadoresNoPrioritarios();
     }
   }, [media]);
 
-  const patrocinadoresPagados = listarPatrocinadores.filter(patrocinador => parseInt(patrocinador.numeroApariciones) >= 0);
+  const patrocinadoresPagados = listarPatrocinadores.filter(
+    (patrocinador) => parseInt(patrocinador.numeroApariciones) >= 0
+  );
 
-  console.log(patrocinadoresPagados)
+  console.log(patrocinadoresPagados);
 
   function generarNumeroAleatorio(minimo, maximo) {
     // Genera un número aleatorio entre 0 y 1 (no incluido)
@@ -302,7 +321,7 @@ export function FullCapitulos(props) {
     // const numeroRedondeado = Math.round(numeroEnRango);
   }
 
-  console.log(patrocinadoresPagados.length)
+  console.log(patrocinadoresPagados.length);
 
   // Ejemplo de uso:
   let numeroAleatorio = 0;
@@ -312,29 +331,34 @@ export function FullCapitulos(props) {
   const disminuirCantidadApariciones = () => {
     try {
       // console.log(data)
-      obtenerPatrocinador(patrocinadoresPagados[numeroAleatorio]?.id).then(response => {
-        const { data } = response;
-        console.log(data)
-        const dataTemp = {
-          numeroApariciones: parseInt(data.numeroApariciones) - 1
-        }
-        actualizarPatrocinadores(patrocinadoresPagados[numeroAleatorio]?.id, dataTemp).then(response => {
-          // console.log(response)
-        }).catch(e => {
-          console.log(e)
+      obtenerPatrocinador(patrocinadoresPagados[numeroAleatorio]?.id)
+        .then((response) => {
+          const { data } = response;
+          console.log(data);
+          const dataTemp = {
+            numeroApariciones: parseInt(data.numeroApariciones) - 1,
+          };
+          actualizarPatrocinadores(
+            patrocinadoresPagados[numeroAleatorio]?.id,
+            dataTemp
+          )
+            .then((response) => {
+              // console.log(response)
+            })
+            .catch((e) => {
+              console.log(e);
+            });
         })
-
-      }).catch(e => {
-        console.log(e)
-      })
-        .catch((e) => { });
-    } catch (e) { }
+        .catch((e) => {
+          console.log(e);
+        })
+        .catch((e) => {});
+    } catch (e) {}
   };
 
   useEffect(() => {
     disminuirCantidadApariciones();
   }, [numeroAleatorio]);
-
 
   useEffect(() => {
     window.scrollTo(0, 0); // Mueve la página al inicio
@@ -347,14 +371,25 @@ export function FullCapitulos(props) {
   };
   return (
     <>
-    <Helmet>
+      <Helmet>
         <title>Capitulos</title>
         <link rel="canonical" href="https://mimexicotv.com/" />
       </Helmet>
       <FullNav />
       {listarCap2 && (
         <div key={listarCap2[matchedIndex].id ?? ""}>
+          <Stream
+            ref={videoRef}
+            id="videofull"
+            src={
+              listarCap2[matchedIndex].urlCapitulo == undefined
+                ? ""
+                : listarCap2[matchedIndex].urlCapitulo
+            }
+            controls
+          />
           <video
+            style={{ display: "none" }}
             ref={videoRef}
             id="videofull"
             src={
@@ -363,9 +398,9 @@ export function FullCapitulos(props) {
                 : listarCap2[matchedIndex].urlCapitulo
             }
             autoPlay
-
             controls
-            width={"100%"} height={"100%"}
+            width={"100%"}
+            height={"100%"}
           ></video>
 
           <div>
@@ -373,35 +408,36 @@ export function FullCapitulos(props) {
               <div
                 style={{
                   position: "fixed",
-                    bottom: "5rem",
-                    right: "20px",
-                    borderRadius: "10px",
-                    backgroundColor: "white",
-                    border: "1px solid #ccc",
-                    width: "12rem", // Ancho deseado del recuadro
-                    boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
-                    zIndex: 9999,
+                  bottom: "5rem",
+                  right: "20px",
+                  borderRadius: "10px",
+                  backgroundColor: "white",
+                  border: "1px solid #ccc",
+                  width: "12rem", // Ancho deseado del recuadro
+                  boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+                  zIndex: 9999,
                 }}
               >
                 <button
                   style={{
-                    position: 'absolute',
-                    top: '5px',
-                    right: '5px',
-                    cursor: 'pointer',
-                    backgroundColor: 'transparent',
-                    border: 'none',
+                    position: "absolute",
+                    top: "5px",
+                    right: "5px",
+                    cursor: "pointer",
+                    backgroundColor: "transparent",
+                    border: "none",
                   }}
                   onClick={cerrarVentanaFlotante}
                 >
                   X
                 </button>
-                <div style={{ padding: '10px' }}>
+                <div style={{ padding: "10px" }}>
                   <h2>Patrocinador oficial</h2>
                   <img
                     src={
-                      patrocinadoresPagados[numeroAleatorio]?.urlImagen == undefined
-                        ? ''
+                      patrocinadoresPagados[numeroAleatorio]?.urlImagen ==
+                      undefined
+                        ? ""
                         : patrocinadoresPagados[numeroAleatorio]?.urlImagen
                     }
                     alt="Patrocinador"
@@ -413,7 +449,10 @@ export function FullCapitulos(props) {
           </div>
 
           <div className="informacionserie">
-            <h6 className="tituloSerie"><button onClick={handleNextVideo} className="nextvideo2">Next Video <FontAwesomeIcon icon={faArrowRight} /></button>
+            <h6 className="tituloSerie">
+              <button onClick={handleNextVideo} className="nextvideo2">
+                Next Video <FontAwesomeIcon icon={faArrowRight} />
+              </button>
               {listarCap2[matchedIndex].nombre == undefined
                 ? ""
                 : listarCap2[matchedIndex].nombre}
@@ -429,7 +468,6 @@ export function FullCapitulos(props) {
                 : listarCap2[matchedIndex].duracion}
             </h6>
           </div>
-
         </div>
       )}
 
@@ -440,7 +478,6 @@ export function FullCapitulos(props) {
         pagination={{ clickable: true }}
         className="mySwiper"
       >
-
         {listarCap &&
           listarCap.map((tem) => (
             <SwiperSlide
@@ -457,13 +494,13 @@ export function FullCapitulos(props) {
                   img1={tem.urlPortada}
                   //nombre={tem.nombre}
                   duracion={tem.duracion}
-                //des={tem.descripcion}
+                  //des={tem.descripcion}
                 />
               </Link>
             </SwiperSlide>
           ))}
       </Swiper>
-      <Regresar/>
+      <Regresar />
       {/**footer */}
       <FooterApp />
     </>
@@ -502,7 +539,7 @@ function formatModelPatrocinadores(data) {
       nivel: data.nivel,
       estado: data.estado,
       numeroApariciones: data.numeroApariciones,
-      prioridadAparicion: data.prioridadAparicion
+      prioridadAparicion: data.prioridadAparicion,
     });
   });
   return dataTemp;

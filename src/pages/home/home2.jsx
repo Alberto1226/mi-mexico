@@ -51,6 +51,7 @@ import { SwiperGuanajuato } from "../../componentes/swiperEspecialesultimos/swul
 import { SwiperHeaderSel } from "../../componentes/swiperSiHeadre/SwiperListarSeriesHeader";
 import { Helmet } from "react-helmet";
 import IraInicio from "../../componentes/iraInicio/IraInicio";
+import { Stream } from "@cloudflare/stream-react";
 
 export function Home2() {
   const [listarDocumentales, setListDocumentales] = useState([]);
@@ -232,13 +233,15 @@ export function Home2() {
           listarSeriesEspeciales={listarSerEsp}
         />
 
+       
+
         <div className="swvideoheader">
           <SwiperHeader
             img={imgSwiper}
             videoh={"https://www.mxtvmas.com:8443/mimexico/peliculas/cerro.mp4"}
           />
         </div>
-
+        
         <div className="margindiv">
           <h1>
             Recomendados

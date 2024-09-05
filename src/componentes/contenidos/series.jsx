@@ -7,6 +7,7 @@ import React, { useState, useEffect } from "react";
 import { Load } from "../load/load";
 import TblSeries from "../tables/tablaSeries";
 import { registraSeries } from "../../api/series";
+import { HolaPeliculas } from "../../api/peliculasListar";
 import { ToastContainer, toast } from "react-toastify";
 import { map } from "lodash";
 import { listarCategorias } from "../../api/categorias";
@@ -16,6 +17,7 @@ import Dropzone from "../Dropzone/Dropzone";
 import { subeArchivosCloudinary } from "../../api/cloudinary";
 import { listarPatrocinadores } from "../../api/patrocinadores";
 import VideoUploader from "../upVideos/FileUpdate";
+import { Spinner } from "react-bootstrap";
 
 function Series({ history }) {
   //modal
@@ -36,6 +38,36 @@ function Series({ history }) {
 
   const [listarCat, setListCategorias] = useState([]);
   const [listarCategoria, setListarCategoria] = useState([]);
+  const [file, setFile] = useState(null);
+  const [response, setResponse] = useState(null);
+  const [error, setError] = useState(null);
+
+  const handleFileChange2 = (event) => {
+    const selectedFile = event.target.files[0];
+    setFile(selectedFile);
+  };
+
+  const handleUploadVideos = async () => {
+    setLoading(true);
+    try {
+      if (!file) {
+        alert("Por favor, selecciona un archivo de video.");
+        return;
+      }
+
+      const dataTemp = {
+        titulo: formData.nombre,
+      };
+
+      const response = await HolaPeliculas(file);
+      const { data } = response;
+      // Puedes manejar la respuesta según tus necesidades
+      setResponse(data);
+      setLoading(false);
+    } catch (err) {
+      setError(err.response ? err.response.data : err.message);
+    }
+  };
 
   const obtenerCategorias = () => {
     try {
@@ -239,7 +271,7 @@ function Series({ history }) {
           recomendado: "",
           contador: "0",
           urlPortada: linkImagen1,
-          urlTrailer: `https://www.mxtvmas.com:8443/mimexico/series/${formDataURL.urlTrailer}`,
+          urlTrailer: response.url,
           seccion: "",
           estado: "true",
           patrocinador: data2[0],
@@ -323,7 +355,7 @@ function Series({ history }) {
   /**
    * subir video
    */
- 
+
   /**
    * url del video
    */
@@ -332,7 +364,7 @@ function Series({ history }) {
     urlTrailer: "",
   });
 
-  console.log("url video",formDataURL);
+  console.log("url video", formDataURL);
   // Función de retorno para la URL del video
   const handleVideoPathChange = (videoPath) => {
     // Actualiza el estado del formulario con la URL del video
@@ -574,21 +606,60 @@ function Series({ history }) {
                 defaultValue={formData.anio}
               />
 
-              <Col xs={12} md={12}>
-                {/* Asegúrate de pasar las funciones correctamente */}
-                <VideoUploader contentType="series" setVideoPathCallback={handleVideoPathChange} />
-              </Col>
-              <hr />
-              <Col xs={12} md={12}>
-                <Form.Control
-                  placeholder="URL del trailer"
-                  type="text"
-                  name="urlTrailer"
-                  value={formDataURL.urlTrailer}
-                  readOnly
+              <div>
+                <input
+                  type="file"
+                  accept="video/*"
+                  onChange={handleFileChange2}
                 />
-              </Col>
-              
+                <button
+                  onClick={(e) => {
+                    e.preventDefault(); // Evita la recarga de la página
+                    handleUploadVideos(); // Llama a la función de carga
+                  }}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <>
+                      <Spinner
+                        animation="border"
+                        role="status"
+                        size="sm"
+                        style={{ marginRight: "10px" }}
+                      >
+                        <span className="sr-only">Uploading...</span>
+                      </Spinner>
+                      Uploading...
+                    </>
+                  ) : (
+                    "Upload Video"
+                  )}
+                </button>
+
+                {loading && (
+                  <div style={{ marginTop: "10px" }}>
+                    <Spinner animation="border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </Spinner>
+                    <p>Loading... Please wait</p>
+                  </div>
+                )}
+                {response && <div>Media ID: {response.mediaId}</div>}
+                {error && <div>Error: {error.message}</div>}
+              </div>
+
+              <div>
+                <hr />
+                <Col xs={12} md={12}>
+                  <Form.Control
+                    placeholder="URL Video"
+                    type="text"
+                    name="archPelicula"
+                    value={response?.url || ""}
+                    readOnly
+                  />
+                </Col>
+              </div>
 
               <hr />
               <Badge bg="secondary" className="tituloFormularioDetalles">

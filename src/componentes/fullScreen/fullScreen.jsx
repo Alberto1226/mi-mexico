@@ -30,6 +30,7 @@ import { Helmet } from "react-helmet";
 import www from "../../assets/img/www.png";
 import facebook from "../../assets/img/facebook.png";
 import Regresar from "../regresar/Regresar";
+import { Stream } from "@cloudflare/stream-react";
 
 SwiperCore.use([Pagination, Autoplay]);
 export function FullScrean(props) {
@@ -39,6 +40,7 @@ export function FullScrean(props) {
 
   const { location } = props;
   const [listarSer, setListSeries] = useState([]);
+  console.log("🚀 ~ FullScrean ~ listarSer:", listarSer)
 
   const aumentarContador = () => {
     try {
@@ -107,14 +109,11 @@ export function FullScrean(props) {
       listarSeries()
         .then((response) => {
           const { data } = response;
-
           if (!listarSer && data) {
             setListSeries(formatModelSeries(data));
-
             // console.log(data);
           } else {
             const datosSer = formatModelSeries(data);
-
             //console.log(data);
             const filteredSer = datosSer.filter((data) => data.id === id);
             setListSeries(filteredSer);
@@ -129,8 +128,6 @@ export function FullScrean(props) {
     obtenerSerie();
   }, [location]);
 
-
-
   const totalVistas = listarSer.reduce(
     (amount, item) => amount + parseInt(item.contador),
     0
@@ -140,10 +137,10 @@ export function FullScrean(props) {
     return numero < 0.5 ? Math.floor(numero) : Math.ceil(numero);
   }
 
-  console.log("Media de vistas",media);
+  console.log("Media de vistas", media);
   console.log(redondearDecimal(media));
-  console.log("Total vistas",totalVistas);
-  console.log("actual ",contadorActual);
+  console.log("Total vistas", totalVistas);
+  console.log("actual ", contadorActual);
 
   const [listarPatrocinadores, setListPatrocinadores] = useState([]);
 
@@ -193,7 +190,7 @@ export function FullScrean(props) {
     (patrocinador) => parseInt(patrocinador.numeroApariciones) >= 0
   );
 
-  console.log("patpag",patrocinadoresPagados);
+  console.log("patpag", patrocinadoresPagados);
 
   function generarNumeroAleatorio(minimo, maximo) {
     // Genera un número aleatorio entre 0 y 1 (no incluido)
@@ -203,31 +200,34 @@ export function FullScrean(props) {
     // const numeroRedondeado = Math.round(numeroEnRango);
   }
 
-  console.log("length",patrocinadoresPagados.length);
+  console.log("length", patrocinadoresPagados.length);
 
   // Ejemplo de uso:
   let numeroAleatorio = 0;
   numeroAleatorio = generarNumeroAleatorio(0, patrocinadoresPagados.length); // Genera un número entre 1 y 10 (incluyendo 1, excluyendo 10)
-  console.log("aleatorio",numeroAleatorio);
+  console.log("aleatorio", numeroAleatorio);
 
   const disminuirCantidadApariciones = async (numeroAleatorio) => {
     try {
       const patrocinadorId = patrocinadoresPagados[numeroAleatorio]?.id;
       console.log("id patrocinador ", patrocinadorId);
-  
+
       if (patrocinadorId) {
         const response = await obtenerPatrocinador(patrocinadorId);
         const { data } = response;
-  
+
         console.log("Data patrocinador", data);
-  
+
         if (data && data.numeroApariciones !== undefined) {
           const dataTemp = {
             numeroApariciones: parseInt(data.numeroApariciones) - 1,
           };
-  
+
           try {
-            const updateResponse = await actualizarPatrocinadores(patrocinadorId, dataTemp);
+            const updateResponse = await actualizarPatrocinadores(
+              patrocinadorId,
+              dataTemp
+            );
             console.log("Patrocinador actualizado", updateResponse);
           } catch (updateError) {
             console.log("Error al actualizar patrocinador", updateError);
@@ -238,21 +238,19 @@ export function FullScrean(props) {
       console.log(e);
     }
   };
-  
-  
 
   useEffect(() => {
     // Espera 2 segundos (o el tiempo que necesites)
     const delay = 10000;
-  
+
     const timerId = setTimeout(() => {
       if (numeroAleatorio !== undefined) {
         disminuirCantidadApariciones(numeroAleatorio);
-      }else{
-        disminuirCantidadApariciones(0)
+      } else {
+        disminuirCantidadApariciones(0);
       }
     }, delay);
-  
+
     return () => clearTimeout(timerId); // Limpiar el temporizador en la limpieza del efecto
   }, [numeroAleatorio]);
 
@@ -328,7 +326,9 @@ export function FullScrean(props) {
       {listarSer &&
         listarSer.map((series) => (
           <div key={series.id}>
+            <Stream id="videofull" src={series.urlTrailer} controls />
             <video
+              style={{ display: "none" }}
               id="videofull"
               src={series.urlTrailer}
               autoPlay
@@ -548,7 +548,7 @@ export function FullScrean(props) {
           <SwiperPatrocinadores />
         </div>
       </section>*/}
-      <Regresar/>
+      <Regresar />
       <FooterApp />
     </>
   );

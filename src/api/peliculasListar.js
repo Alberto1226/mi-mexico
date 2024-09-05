@@ -10,7 +10,9 @@ import {
     ENDPOINTListarUltimosCincoEspeciales,
     ENDPOINTDetallesCategoriasPeliculas,
     ENDPOINTListarUltimaPelicula,
-    ENDPOINTListarUltimasCincoPeliculas 
+    ENDPOINTListarUltimasCincoPeliculas,
+    ENDPOINTApiUploadPeliculas,
+    ENDPOINTHolaPeliculas,
 } from './endpoints';
 import axios from 'axios';
 import { API_HOST } from '../utils/constants';
@@ -122,6 +124,39 @@ export async function registraPeliculas(data) {
     return await axios.post(API_HOST + ENDPOINTRegistrarPeliculas, data, config);
 }
 
+export async function HolaPeliculas(file) {
+    const formData = new FormData();
+    formData.append('file', file); // Agrega el archivo al FormData
+
+    const config = {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'multipart/form-data', // Cambia a multipart/form-data para enviar archivos
+            // Authorization: `Bearer ${getTokenApi()}` // Descomenta y usa el token si es necesario
+        }
+    };
+
+    return await axios.post(API_HOST + ENDPOINTHolaPeliculas, formData, config);
+}
+
+// export async function subirPeliculas(file) {
+//     const formData = new FormData();
+//     formData.append('data', JSON.stringify(data)); // Agrega los datos de la película
+//     if (file) {
+//         formData.append('file', file); // Agrega el archivo de video si está presente
+//     }
+
+//     const config = {
+//         headers: {
+//             'Accept': 'application/json',
+//             'Content-Type': 'multipart/form-data', // Cambia a multipart/form-data para enviar archivos
+//             // Authorization: `Bearer ${getTokenApi()}` // Descomenta y usa el token si es necesario
+//         }
+//     };
+
+//     return await axios.post(`${API_HOST}${ENDPOINTApiUploadPeliculas}/${id}`, formData, config);
+// }
+
 export async function actualizarPeliculas(id, data) {
 
     const config = {
@@ -132,7 +167,7 @@ export async function actualizarPeliculas(id, data) {
         }
     };
 
-    return await axios.put(API_HOST + ENDPOINTModificarPeliculas + `/${id}`, data, config);
+    return await axios.put(API_HOST + ENDPOINTApiUploadPeliculas + `/${id}`, data, config);
 }
 
 export async function eliminarPeliculas(id, data) {

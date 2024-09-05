@@ -6,7 +6,7 @@ import { faPlus, faX, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from "react";
 import { Load } from "../load/load";
 import TblPeliculas from "../tables/tablePeliculas";
-import { registraPeliculas } from "../../api/peliculasListar";
+import { HolaPeliculas, registraPeliculas } from "../../api/peliculasListar";
 import { ToastContainer, toast } from "react-toastify";
 import { listarCategorias } from "../../api/categorias";
 import { guardarVideo } from "../../api/peliculasListar";
@@ -20,11 +20,59 @@ import { withRouter } from "../../utils/withRouter";
 import queryString from "query-string";
 import { listarPatrocinadores } from "../../api/patrocinadores";
 import VideoUploader from "../upVideos/FileUpdate";
+import { Spinner } from "react-bootstrap";
 
 function Peliculas({ history }) {
   const [formData, setFormData] = useState(initialFormValue());
   const [show, setShow] = useState(false);
   const [videoPath, setVideoPath] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [file, setFile] = useState(null);
+  const [response, setResponse] = useState(null);
+  const [error, setError] = useState(null);
+
+  const handleFileChange2 = (event) => {
+    const selectedFile = event.target.files[0];
+    setFile(selectedFile);
+  };
+
+  const handleUploadVideos = async () => {
+    setLoading(true);
+    try {
+      if (!file) {
+        alert("Por favor, selecciona un archivo de video.");
+        return;
+      }
+
+      const dataTemp = {
+        titulo: formData.nombre,
+      };
+
+      const response = await HolaPeliculas(file);
+      const { data } = response;
+      // Puedes manejar la respuesta según tus necesidades
+      setResponse(data);
+      setLoading(false);
+    } catch (err) {
+      setError(err.response ? err.response.data : err.message);
+    }
+  };
+
+  // const obtenerHola = () => {
+  //   try {
+  //     HolaPeliculas()
+  //       .then((response) => {
+  //         console.log("🚀 ~ .then ~ response:", response)
+  //         const { data } = response;
+  //       })
+  //       .catch((e) => {});
+  //   } catch (e) {}
+  // };
+
+  // useEffect(() => {
+  //   console.log('hola')
+  //   HolaPeliculas();
+  // }, [])
 
   //Para almacenar la imagen del producto que se guardara a la bd
   const [imagenPortadaPelicula, setImagenPortadaPelicula] = useState(null);
@@ -85,7 +133,7 @@ function Peliculas({ history }) {
   const renglon = listarCat.length + 1;
 
   //load
-  const [loading, setLoading] = useState(true);
+  
 
   useEffect(() => {
     // Simula una carga de datos
@@ -191,7 +239,7 @@ function Peliculas({ history }) {
           masVisto: "",
           tipo: "peliculas",
           recomendado: formData.recomendado,
-          urlVideo: `https://www.mxtvmas.com:8443/mimexico/peliculas/${formDataURL.archPelicula}`,
+          urlVideo: response.url,
           contador: "0",
           urlPortada: linkImagen1,
           seccion: "",
@@ -200,6 +248,7 @@ function Peliculas({ history }) {
           patrocinadorPortada: data2[1],
           urlPortadaMovil: linkImagen2,
         };
+
         registraPeliculas(dataTemp)
           .then((response) => {
             const { data } = response;
@@ -281,7 +330,7 @@ function Peliculas({ history }) {
    */
 
   const [formDataURL, setFormDataURL] = useState({
-    archPelicula: '',
+    archPelicula: "",
   });
 
   // Función de retorno para la URL del video
@@ -333,7 +382,18 @@ function Peliculas({ history }) {
         </Modal.Header>
         <Modal.Body>
           <div className="contact-form">
-            <Form onSubmit={onSubmit} onChange={onChange}>
+            {/* <div>
+              <input
+                type="file"
+                accept="video/*"
+                onChange={handleFileChange2}
+              />
+              <button onClick={handleUploadVideos}>Upload Video</button>
+
+              {response && <div>Response: {JSON.stringify(response)}</div>}
+              {error && <div>Error: {error.message}</div>}
+            </div> */}
+            <Form  onSubmit={onSubmit} onChange={onChange}>
               <div className="imagenPrincipal">
                 <h4 className="textoImagenPrincipal">Sube tu imagen</h4>
                 <div
@@ -359,21 +419,59 @@ function Peliculas({ history }) {
               <br />
 
               <div>
-      <Col xs={12} md={12}>
-        {/* Asegúrate de pasar las funciones correctamente */}
-        <VideoUploader contentType="movies" setVideoPathCallback={handleVideoPathChange}  />
-      </Col>
-      <hr />
-      <Col xs={12} md={12}>
-        <Form.Control
-          placeholder="URL Video"
-          type="text"
-          name="archPelicula"
-          value={formDataURL.archPelicula}
-          readOnly
-        />
-      </Col>
-    </div>
+                <input
+                  type="file"
+                  accept="video/*"
+                  onChange={handleFileChange2}
+                />
+                <button
+                  onClick={(e) => {
+                    e.preventDefault(); // Evita la recarga de la página
+                    handleUploadVideos(); // Llama a la función de carga
+                  }}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <>
+                      <Spinner
+                        animation="border"
+                        role="status"
+                        size="sm"
+                        style={{ marginRight: "10px" }}
+                      >
+                        <span className="sr-only">Uploading...</span>
+                      </Spinner>
+                      Uploading...
+                    </>
+                  ) : (
+                    "Upload Video"
+                  )}
+                </button>
+
+                {loading && (
+                  <div style={{ marginTop: "10px" }}>
+                    <Spinner animation="border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </Spinner>
+                    <p>Loading... Please wait</p>
+                  </div>
+                )}
+                {response && <div>Media ID: {response.mediaId}</div>}
+                {error && <div>Error: {error.message}</div>}
+              </div>
+
+              <div>
+                <hr />
+                <Col xs={12} md={12}>
+                  <Form.Control
+                    placeholder="URL Video"
+                    type="text"
+                    name="archPelicula"
+                    value={response?.url || ""}
+                    readOnly
+                  />
+                </Col>
+              </div>
               <br />
 
               {/*<input type="file" name="video" accept=".mp4" onChange={handleFileChange} />

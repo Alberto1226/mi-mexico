@@ -9,6 +9,7 @@ import TblEspeciales from "../tables/tablaEspeciales";
 import { registraPeliculas } from "../../api/peliculasListar";
 import { ToastContainer, toast } from "react-toastify";
 import { listarCategorias } from "../../api/categorias";
+import { HolaPeliculas } from "../../api/peliculasListar";
 import { map } from "lodash";
 import Dropzone from "../Dropzone/Dropzone";
 import { subeArchivosCloudinary } from "../../api/cloudinary";
@@ -17,6 +18,7 @@ import { API_HOST } from "../../utils/constants";
 import { withRouter } from "../../utils/withRouter";
 import queryString from "query-string";
 import { listarPatrocinadores } from "../../api/patrocinadores";
+import { Spinner } from "react-bootstrap";
 
 function Especiales({ history }) {
   const [formData, setFormData] = useState(initialFormValue());
@@ -39,9 +41,40 @@ function Especiales({ history }) {
   const [imagenPortadaPeliculaMovil3, setImagenPortadaPeliculaMovil3] = useState(null);
   const [imagenPortadaPeliculaMovil4, setImagenPortadaPeliculaMovil4] = useState(null);
   const [imagenPortadaPeliculaMovil5, setImagenPortadaPeliculaMovil5] = useState(null);
-
+  
   const [listarCat, setListCategorias] = useState([]);
   const [listarCategoria, setListarCategoria] = useState([]);
+  const [file, setFile] = useState(null);
+  const [response, setResponse] = useState(null);
+  console.log("🚀 ~ Especiales ~ response:", response)
+  const [error, setError] = useState(null);
+
+  const handleFileChange2 = (event) => {
+    const selectedFile = event.target.files[0];
+    setFile(selectedFile);
+  };
+
+  const handleUploadVideos = async () => {
+    setLoading(true);
+    try {
+      if (!file) {
+        alert("Por favor, selecciona un archivo de video.");
+        return;
+      }
+
+      const dataTemp = {
+        titulo: formData.nombre,
+      };
+
+      const response = await HolaPeliculas(file);
+      const { data } = response;
+      // Puedes manejar la respuesta según tus necesidades
+      setResponse(data);
+      setLoading(false);
+    } catch (err) {
+      setError(err.response ? err.response.data : err.message);
+    }
+  };
 
   const obtenerCategorias = () => {
     try {
@@ -362,7 +395,7 @@ function Especiales({ history }) {
           masVisto: "",
           tipo: "especiales",
           recomendado: formData.recomendado,
-          urlVideo: formData.archPelicula,
+          urlTrailer: response.url,
           contador: "0",
           urlPortada: linkImagen1,
           seccion: "",
@@ -385,7 +418,7 @@ function Especiales({ history }) {
           masVisto: "",
           tipo: "especiales",
           recomendado: formData.recomendado,
-          urlVideo: formData.archPelicula,
+          urlTrailer: response.url,
           contador: "0",
           urlPortada: linkImagen2,
           seccion: "",
@@ -408,7 +441,7 @@ function Especiales({ history }) {
           masVisto: "",
           tipo: "especiales",
           recomendado: formData.recomendado,
-          urlVideo: formData.archPelicula,
+          urlTrailer: response.url,
           contador: "0",
           urlPortada: linkImagen3,
           seccion: "",
@@ -431,7 +464,7 @@ function Especiales({ history }) {
           masVisto: "",
           tipo: "especiales",
           recomendado: formData.recomendado,
-          urlVideo: formData.archPelicula,
+          urlTrailer: response.url,
           contador: "0",
           urlPortada: linkImagen4,
           seccion: "",
@@ -454,7 +487,7 @@ function Especiales({ history }) {
           masVisto: "",
           tipo: "especiales",
           recomendado: formData.recomendado,
-          urlVideo: formData.archPelicula,
+          urlTrailer: response.url,
           contador: "0",
           urlPortada: linkImagen5,
           seccion: "",
@@ -664,14 +697,61 @@ function Especiales({ history }) {
               </div>
               <br />
 
-              <Col xs={12} md={8}>
-                <Form.Control
-                  placeholder="URL Video"
-                  type="text"
-                  name="archPelicula"
-                  defaultValue={formData.archPelicula}
+              <div>
+                <input
+                  type="file"
+                  accept="video/*"
+                  onChange={handleFileChange2}
                 />
-              </Col>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault(); // Evita la recarga de la página
+                    handleUploadVideos(); // Llama a la función de carga
+                  }}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <>
+                      <Spinner
+                        animation="border"
+                        role="status"
+                        size="sm"
+                        style={{ marginRight: "10px" }}
+                      >
+                        <span className="sr-only">Uploading...</span>
+                      </Spinner>
+                      Uploading...
+                    </>
+                  ) : (
+                    "Upload Video"
+                  )}
+                </button>
+
+                {loading && (
+                  <div style={{ marginTop: "10px" }}>
+                    <Spinner animation="border" role="status">
+                      <span className="sr-only">Loading...</span>
+                    </Spinner>
+                    <p>Loading... Please wait</p>
+                  </div>
+                )}
+                {response && <div>Media ID: {response.mediaId}</div>}
+                {error && <div>Error: {error.message}</div>}
+              </div>
+
+              <div>
+                <hr />
+                <Col xs={12} md={12}>
+                  <Form.Control
+                    placeholder="URL Video"
+                    type="text"
+                    name="archPelicula"
+                    value={response?.url || ""}
+                    readOnly
+                  />
+                </Col>
+              </div>
+              <br />
 
               {/*<input type="file" name="video" accept=".mp4" onChange={handleFileChange} />
               {videoPath && <video src={videoPath} controls />}*/}

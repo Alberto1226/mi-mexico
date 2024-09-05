@@ -6,7 +6,9 @@ import Modal from "react-bootstrap/Modal";
 import { SwiperFooterCards } from "../swiperFooterCards/sfc";
 import ReactPlayer from "react-player";
 import { Link } from "react-router-dom";
+import { Stream } from "@cloudflare/stream-react";
 export function CardsUser(props) {
+console.log("🚀 ~ CardsUser ~ props:", props)
 
   //console.log(props);
   const [show, setShow] = useState(false);
@@ -79,7 +81,8 @@ export function CardsUser(props) {
           <div className="card__modal-contentPel">
             <div className="video-background">
               <div className="video-foreground">
-                <ReactPlayer
+                <Stream controls src={props.urlVideo}/>
+                {/* <ReactPlayer
                 id="video"
                 url={props.urlVideo}
                 controls
@@ -87,7 +90,7 @@ export function CardsUser(props) {
                 width="100%"
                 height="100%"
                 Autoplay
-                />
+                /> */}
                 
               </div>
             </div>
