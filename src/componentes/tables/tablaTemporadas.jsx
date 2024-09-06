@@ -11,12 +11,16 @@ import InsertarCapitulosSerie from "../contenidos/insertarCapitulosSeries";
 import Modal from "react-bootstrap/Modal";
 import { withRouter } from "../../utils/withRouter";
 import ActualizarTemporadas from "../contenidos/actualizarTemporadas";
+import ModificacionTemporadas from "../contenidos/ModificarTemporadas";
+import EliminacionTemporadas from "../contenidos/EliminarTemporadas";
 //listar categorias
 //listar categorias
 
-function TblTemporadas(props, data) {
+function TblTemporadas({ location, history, data }) {
+  console.log(data)
   const idSerie = data[0];
-  const { location, history } = props;
+  console.log(idSerie)
+  const temporadas = data;
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -63,7 +67,7 @@ function TblTemporadas(props, data) {
           const { data } = response;
   
           // Filter data to include only the item with id equal to idSerie
-          const filteredData = data.filter((item) => item.id === idSerie);
+          const filteredData = data.filter((item) => item._id === idSerie);
   
           if (!listarSer && filteredData.length > 0) {
             setListSeries(formatModelSeries(filteredData));
@@ -116,7 +120,7 @@ function TblTemporadas(props, data) {
       name: "capitulos",
       label: "CAPITULOS",
     },
-    /*{
+    {
       name: "Acciones",
       options: {
         filter: false,
@@ -138,10 +142,10 @@ function TblTemporadas(props, data) {
                   keyboard={false}
                 >
                   <Modal.Header closeButton>
-                    <Modal.Title>Modificar Serie</Modal.Title>
+                    <Modal.Title>Modificar temporada</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <ModificarSeries data={selectedRowData} history={history} setShow={setShow} />
+                    <ModificacionTemporadas data={selectedRowData} datos={temporadas} history={history} setShowModal={setShow} />
                   </Modal.Body>
                 </Modal>
               </button>
@@ -157,14 +161,14 @@ function TblTemporadas(props, data) {
                   keyboard={false}
                 >
                   <Modal.Header closeButton>
-                    <Modal.Title>Eliminar Serie</Modal.Title>
+                    <Modal.Title>Eliminar Temporada</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <EliminarSeries data={selectedRowData} history={history} setShow={setShow2} />
+                    <EliminacionTemporadas data={selectedRowData} datos={temporadas} history={history} setShowModal={setShow2} />
                   </Modal.Body>
                 </Modal>
               </button>
-              <button className="btndel">
+              {/*<button className="btndel">
                 <FontAwesomeIcon
                   icon={faPlus}
                   onClick={() => handleShow3(tableMeta.rowData)}
@@ -221,12 +225,12 @@ function TblTemporadas(props, data) {
                     <ActualizarTemporadas data={selectedRowData} setShow={setShow5} />
                   </Modal.Body>
                 </Modal>
-              </button>
+              </button>*/}
             </>
           );
         },
       },
-    },*/
+    },
   ];
 
   const options = {
