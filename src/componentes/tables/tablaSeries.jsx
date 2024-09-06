@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faTrash, faPlus, faEye } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faTrash, faPlus, faEye, faFile, faTable } from "@fortawesome/free-solid-svg-icons";
 import { listarSeries } from "../../api/series";
 import ModificarSeries from "../contenidos/modificarSeries";
 import EliminarSeries from "../contenidos/eliminarSeries";
@@ -10,6 +10,8 @@ import ModificarCapitulosTemporadas from "../contenidos/modificarCapitulosSeries
 import InsertarCapitulosSerie from "../contenidos/insertarCapitulosSeries";
 import Modal from "react-bootstrap/Modal";
 import { withRouter } from "../../utils/withRouter";
+import ActualizarTemporadas from "../contenidos/actualizarTemporadas";
+import TblTemporadas from "./tablaTemporadas";
 //listar categorias
 //listar categorias
 
@@ -44,6 +46,20 @@ function TblSeries(props) {
     setSelectedRowData(rowData);
   };
 
+  const [show5, setShow5] = useState(false);
+  const handleClose5 = () => setShow5(false);
+  const handleShow5 = (rowData) => {
+    setShow5(true);
+    setSelectedRowData(rowData);
+  };
+
+  const [show6, setShow6] = useState(false);
+  const handleClose6 = () => setShow6(false);
+  const handleShow6 = (rowData) => {
+    setShow6(true);
+    setSelectedRowData(rowData);
+  };
+
   const [listarSer, setListSeries] = useState([]);
   const [selectedRowData, setSelectedRowData] = useState(null);
 
@@ -61,8 +77,8 @@ function TblSeries(props) {
             setListSeries(datosSer);
           }
         })
-        .catch((e) => {});
-    } catch (e) {}
+        .catch((e) => { });
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -149,22 +165,7 @@ function TblSeries(props) {
       name: "datosTemporada",
       label: "DATOS DE TEMPORADAS",
       options: {
-        customBodyRender: (listarSer) => {
-          // Aquí puedes acceder a las propiedades del objeto y mostrarlas como desees
-          return (
-            <div>
-              {listarSer &&
-                listarSer.map((temporadas) => (
-                  <div key={temporadas.id}>
-                    <h6>Temporada: {temporadas.temporada}</h6>
-                    <h6>Nombre: {temporadas.nombre}</h6>
-                    <h6>Capitulos: {temporadas.capitulos}</h6>
-                    <h6>-------------------</h6>
-                  </div>
-                ))}
-            </div>
-          );
-        },
+        display: "excluded", // "excluded" significa oculto por defecto
       },
     },
     {
@@ -193,18 +194,18 @@ function TblSeries(props) {
       options: {
         customBodyRender: (value) => {
           const estado = value;
-    
+
           let estiloTexto = "";
           let estadoTexto = "";
-    
-          if (estado=="true") {
-            estiloTexto = "activo"; 
+
+          if (estado == "true") {
+            estiloTexto = "activo";
             estadoTexto = "Activo";
           } else {
-            estiloTexto = "inhabilitado"; 
+            estiloTexto = "inhabilitado";
             estadoTexto = "Inhabilitado";
           }
-    
+
           return (
             <div className={estiloTexto}>
               {estadoTexto}
@@ -261,7 +262,7 @@ function TblSeries(props) {
                     <Modal.Title>Eliminar Serie</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <EliminarSeries data={selectedRowData} history={history} setShow={setShow2}/>
+                    <EliminarSeries data={selectedRowData} history={history} setShow={setShow2} />
                   </Modal.Body>
                 </Modal>
               </button>
@@ -300,7 +301,45 @@ function TblSeries(props) {
                     <Modal.Title>Lista de los capitulos de la serie</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <TblCapitulosSeries data={selectedRowData}/>
+                    <TblCapitulosSeries data={selectedRowData} />
+                  </Modal.Body>
+                </Modal>
+              </button>
+              <button className="btnup">
+                <FontAwesomeIcon
+                  icon={faFile}
+                  onClick={() => handleShow5(tableMeta.rowData)} />
+                <Modal
+                  show={show5}
+                  size="xl"
+                  onHide={handleClose5}
+                  backdrop="static"
+                  keyboard={false}
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title>Agregar temporadas a las series</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <ActualizarTemporadas data={selectedRowData} setShow={setShow5} />
+                  </Modal.Body>
+                </Modal>
+              </button>
+              <button className="btnup">
+                <FontAwesomeIcon
+                  icon={faTable}
+                  onClick={() => handleShow6(tableMeta.rowData)} />
+                <Modal
+                  show={show6}
+                  size="xl"
+                  onHide={handleClose6}
+                  backdrop="static"
+                  keyboard={false}
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title>Lista de las temporadas de la serie</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <TblTemporadas data={selectedRowData} setShow={setShow6} />
                   </Modal.Body>
                 </Modal>
               </button>

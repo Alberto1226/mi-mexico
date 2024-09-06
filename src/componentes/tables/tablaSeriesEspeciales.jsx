@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faTrash, faPlus, faEye } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faTrash, faPlus, faEye, faFile, faTable } from "@fortawesome/free-solid-svg-icons";
 import { listarSeriesEspeciales } from "../../api/seriesEspeciales";
 import ModificarSeriesEspeciales from "../contenidos/modificarSeriesEspeciales";
 import EliminarSeriesEspeciales from "../contenidos/eliminarSeriesEspeciales";
@@ -9,6 +9,8 @@ import TblCapitulosSeries from "./tablaCapitulosSeries";
 import InsertarCapitulosSerie from "../contenidos/insertarCapitulosSeries";
 import Modal from "react-bootstrap/Modal";
 import { withRouter } from "../../utils/withRouter";
+import ActualizarTemporadas from "../contenidos/actualizarTemporadas";
+import TblTemporadas from "./tablaTemporadas";
 //listar categorias
 //listar categorias
 
@@ -40,6 +42,20 @@ function TblSeriesEspeciales(props) {
   const handleClose4 = () => setShow4(false);
   const handleShow4 = (rowData) => {
     setShow4(true);
+    setSelectedRowData(rowData);
+  };
+
+  const [show5, setShow5] = useState(false);
+  const handleClose5 = () => setShow5(false);
+  const handleShow5 = (rowData) => {
+    setShow5(true);
+    setSelectedRowData(rowData);
+  };
+
+  const [show6, setShow6] = useState(false);
+  const handleClose6 = () => setShow6(false);
+  const handleShow6 = (rowData) => {
+    setShow6(true);
     setSelectedRowData(rowData);
   };
 
@@ -148,22 +164,7 @@ function TblSeriesEspeciales(props) {
       name: "datosTemporada",
       label: "DATOS DE TEMPORADAS",
       options: {
-        customBodyRender: (listarSer) => {
-          // Aquí puedes acceder a las propiedades del objeto y mostrarlas como desees
-          return (
-            <div>
-              {listarSer &&
-                listarSer.map((temporadas) => (
-                  <div key={temporadas.id}>
-                    <h6>Temporada: {temporadas.temporada}</h6>
-                    <h6>Nombre: {temporadas.nombre}</h6>
-                    <h6>Capitulos: {temporadas.capitulos}</h6>
-                    <h6>-------------------</h6>
-                  </div>
-                ))}
-            </div>
-          );
-        },
+        display: "excluded", // "excluded" significa oculto por defecto
       },
     },
     {
@@ -332,6 +333,44 @@ function TblSeriesEspeciales(props) {
                   </Modal.Header>
                   <Modal.Body>
                     <TblCapitulosSeries data={selectedRowData} />
+                  </Modal.Body>
+                </Modal>
+              </button>
+              <button className="btnup">
+                <FontAwesomeIcon
+                  icon={faFile}
+                  onClick={() => handleShow5(tableMeta.rowData)} />
+                <Modal
+                  show={show5}
+                  size="xl"
+                  onHide={handleClose5}
+                  backdrop="static"
+                  keyboard={false}
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title>Lista de las temporadas de la serie</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <ActualizarTemporadas data={selectedRowData} setShow={setShow5} />
+                  </Modal.Body>
+                </Modal>
+              </button>
+              <button className="btnup">
+                <FontAwesomeIcon
+                  icon={faTable}
+                  onClick={() => handleShow6(tableMeta.rowData)} />
+                <Modal
+                  show={show6}
+                  size="xl"
+                  onHide={handleClose6}
+                  backdrop="static"
+                  keyboard={false}
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title>Lista de las temporadas de la serie</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <TblTemporadas data={selectedRowData} setShow={setShow6} />
                   </Modal.Body>
                 </Modal>
               </button>
