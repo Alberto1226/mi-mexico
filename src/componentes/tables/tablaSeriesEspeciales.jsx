@@ -9,8 +9,8 @@ import TblCapitulosSeries from "./tablaCapitulosSeries";
 import InsertarCapitulosSerie from "../contenidos/insertarCapitulosSeries";
 import Modal from "react-bootstrap/Modal";
 import { withRouter } from "../../utils/withRouter";
-import ActualizarTemporadas from "../contenidos/actualizarTemporadas";
-import TblTemporadas from "./tablaTemporadas";
+import ActualizarTemporadas from "../contenidos/actualizarTemporadasEspeciales";
+import TblTemporadas from "./tablaTemporadasEspeciales";
 //listar categorias
 //listar categorias
 

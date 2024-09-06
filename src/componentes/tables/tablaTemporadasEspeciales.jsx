@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash, faPlus, faEye, faFile } from "@fortawesome/free-solid-svg-icons";
-import { listarSeries } from "../../api/series";
+import { listarSeriesEspeciales } from "../../api/seriesEspeciales";
 import Modal from "react-bootstrap/Modal";
 import { withRouter } from "../../utils/withRouter";
 import ActualizarTemporadas from "../contenidos/actualizarTemporadas";
-import ModificacionTemporadas from "../contenidos/ModificarTemporadas";
-import EliminacionTemporadas from "../contenidos/EliminarTemporadas";
+import ModificacionTemporadas from "../contenidos/ModificarTemporadasEspeciales";
+import EliminacionTemporadas from "../contenidos/EliminarTemporadasEspeciales";
 //listar categorias
 //listar categorias
 
-function TblTemporadas({ location, history, data }) {
+function TblTemporadasEspeciales({ location, history, data }) {
   console.log(data)
   const idSerie = data[0];
   console.log(idSerie)
@@ -57,7 +57,7 @@ function TblTemporadas({ location, history, data }) {
 
   const obtenerSeries = () => {
     try {
-      listarSeries()
+      listarSeriesEspeciales()
         .then((response) => {
           const { data } = response;
   
@@ -274,4 +274,4 @@ function formatModelSeries(data) {
   return dataTemp;
 }
 
-export default withRouter(TblTemporadas);
+export default withRouter(TblTemporadasEspeciales);

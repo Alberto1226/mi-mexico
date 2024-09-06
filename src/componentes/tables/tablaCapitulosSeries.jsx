@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
-
+import EliminarCapitulos from "../contenidos/EliminarCapitulos";
+import ModificarCapitulosSerie from "../contenidos/modificarCapitulosSeries";
 import { listarCapitulosSeries } from "../../api/capitulosSeries";
-
-
+import Modal from "react-bootstrap/Modal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen, faTrash, faPlus, faEye, faFile, faTable } from "@fortawesome/free-solid-svg-icons";
+import { withRouter } from "../../utils/withRouter";
 //listar categorias
 //listar categorias
 
-export default function TblCapitulosSeries(props) {
-  const { location, data } = props;
+function TblCapitulosSeries(props) {
+  const { location, data, history } = props;
+  const series = data;
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -91,6 +95,10 @@ export default function TblCapitulosSeries(props) {
       label: "URLCAPITULO",
     },
     {
+      name: "urlPortadaMovil",
+      label: "URLPORTADA MOVIL",
+    },
+    {
       name: "urlPortada",
       label: "URLPORTADA",
     },
@@ -133,6 +141,60 @@ export default function TblCapitulosSeries(props) {
       name: "urlPortadaMovil",
       label: "URL PORTADA MOVIL",
     },
+    {
+      name: "Acciones",
+      options: {
+        filter: false,
+        sort: false,
+        empty: true,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return (
+            <>
+            <button className="btnup">
+                <FontAwesomeIcon
+                  icon={faPen}
+                  onClick={() => handleShow2(tableMeta.rowData)}
+                />
+                <Modal
+                  size="lg"
+                  show={show2}
+                  onHide={handleClose2}
+                  backdrop="static"
+                  keyboard={false}
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title>Modificar capitulo</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <ModificarCapitulosSerie data={selectedRowData} datos={series} history={history} setShow={setShow2} />
+                  </Modal.Body>
+                </Modal>
+              </button>
+              <button className="btndel">
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  onClick={() => handleShow(tableMeta.rowData)}
+                />
+                <Modal
+                  size="lg"
+                  show={show}
+                  onHide={handleClose}
+                  backdrop="static"
+                  keyboard={false}
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title>Eliminar capitulo</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <EliminarCapitulos data={selectedRowData} history={history} setShow={setShow} />
+                  </Modal.Body>
+                </Modal>
+              </button>
+            </>
+          );
+        },
+      },
+    },
   ];
 
   const options = {
@@ -171,3 +233,5 @@ function formatModelSeries(data) {
   });
   return dataTemp;
 }
+
+export default withRouter(TblCapitulosSeries);
