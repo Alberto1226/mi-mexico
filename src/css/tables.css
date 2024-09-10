@@ -23,3 +23,38 @@
     padding: 1rem;
     text-align: center !important;
   }
+
+  .tss-1vd39vz-MUIDataTableBodyCell-stackedCommon {
+    text-align: center !important;
+  }
+  
+  .tss-178gktx-MUIDataTableHeadCell-contentWrapper {
+    justify-content: center !important;
+    font-weight: bold !important; /* Negrita */;
+  }
+
+  .tss-178gktx-MUIDataTableHeadCell-contentWrapper > span {
+    font-weight: bold !important; /* Aplica negrita con prioridad */
+  }
+  
+  
+  .css-1ex1afd-MuiTableCell-root {
+    text-align: center !important;
+  }
+  
+  .css-1ygcj2i-MuiTableCell-root {
+    text-align: center !important;
+    text-transform: uppercase;
+  }
+  
+  .tss-1cdcmys-MUIDataTable-responsiveBase{
+    max-height: 60vh !important;
+  }
+  
+  .css-q34dxg{
+    text-align: center !important;
+  }
+  
+  .tss-1t6h0i4-MUIDataTableToolbar-titleRoot{
+    text-align: left;
+  }

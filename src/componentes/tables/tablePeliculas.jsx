@@ -10,6 +10,8 @@ import { withRouter } from "../../utils/withRouter";
 import BasicModal from "../Modal/BasicModal/BasicModal";
 import Peliculas from "../contenidos/peliculas"
 import "../../css/tables.css";
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 function TblPeliculas(props) {
   const { location, history } = props;
@@ -221,7 +223,7 @@ function TblPeliculas(props) {
       },
     },
     {
-      name: "Acciones",
+      name: "ACCIONES",
       options: {
         filter: false,
         sort: false,
@@ -275,8 +277,53 @@ function TblPeliculas(props) {
     },
   ];
 
+  const theme = useTheme();
+  const isSmOrDown = useMediaQuery(theme.breakpoints.down('sm'));
+
   const options = {
     filterType: "checkbox",
+    responsive: isSmOrDown && 'standard',
+    selectableRows: isSmOrDown ? 'none' : 'multiple',
+    textLabels: {
+      body: {
+        noMatch: "No se encontraron registros",
+        toolTip: "Ordenar",
+        columnHeaderTooltip: (column) => `ordenar por ${column.label}`,
+      },
+      pagination: {
+        next: "Siguiente",
+        previous: "Anterior",
+        rowsPerPage: "Registros por página:",
+        displayRows: "de",
+      },
+      toolbar: {
+        search: "Buscar",
+        downloadCsv: "Descargar CSV",
+        print: "Imprimir",
+        viewColumns: "Ver columnas",
+        filterTable: "Filtros",
+      },
+      filter: {
+        all: "Todos",
+        title: "FILTROS",
+        reset: "RESTAURAR",
+      },
+      viewColumns: {
+        title: "Mostrar columnas",
+        titleAria: "Show/Hide Table Columns",
+      },
+      selectedRows: {
+        text: "row(s) selected",
+        delete: "Delete",
+        deleteAria: "Delete Selected Rows",
+      },
+    },
+    setTableProps: () => ({
+      // Estilo global para encabezados de tabla
+      style: {
+        fontWeight: 'bold'
+      }
+    })
   };
 
   return (
