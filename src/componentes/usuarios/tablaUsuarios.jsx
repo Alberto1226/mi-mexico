@@ -24,25 +24,6 @@ export function TablaUsuarios() {
   return (
     <>
       {loading && <Load />}
-      <div class="bg-white">
-        <Button variant="primary" onClick={handleShow} className="btnadd">
-          <FontAwesomeIcon icon={faPlus} />
-        </Button>
-        <h1 class="text-center">Listado de Usuarios</h1>
-
-        <TblUsers />
-      </div>
-
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Insertar usuario</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
           <div className="contact-form">
             <Form>
               <br />
@@ -92,8 +73,6 @@ export function TablaUsuarios() {
               <input className="submit" value="Enviar" type="submit" />
             </Form>
           </div>
-        </Modal.Body>
-      </Modal>
     </>
   );
 }

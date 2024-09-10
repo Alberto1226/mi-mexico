@@ -1,34 +1,45 @@
 import React, { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faTrash, faBars, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { listarPeliculas } from "../../api/peliculasListar";
 import ModificarEspeciales from "../contenidos/ModificarEspeciales";
 import EliminarEspeciales from "../contenidos/EliminarEspeciales";
-import Modal from "react-bootstrap/Modal";
+import { Image, Dropdown, Button } from "react-bootstrap";
 import { withRouter } from "../../utils/withRouter";
-
+import BasicModal from "../Modal/BasicModal/BasicModal";
+import "../../css/tables.css";
+import Especiales from "../contenidos/especiales";
 //listar categorias
 //listar categorias
 
 function TblEspeciales(props) {
   const { location, history } = props;
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = (rowData) => {
-    setShow(true);
-    setSelectedRowData(rowData);
+
+  //Para el modal
+  const [showModal, setShowModal] = useState(false);
+  const [contentModal, setContentModal] = useState(null);
+  const [titulosModal, setTitulosModal] = useState(null);
+
+  const modificarEspeciales = (content) => {
+    setTitulosModal("Modificar especial");
+    setContentModal(content);
+    setShowModal(true);
   };
 
-  const [show2, setShow2] = useState(false);
-  const handleClose2 = () => setShow2(false);
-  const handleShow2 = (rowData) => {
-    setShow2(true);
-    setSelectedRowData(rowData);
+  const eliminarEspeciales = (content) => {
+    setTitulosModal("Eliminar especial");
+    setContentModal(content);
+    setShowModal(true);
+  };
+
+  const agregarEspeciales = (content) => {
+    setTitulosModal("Registrar especial");
+    setContentModal(content);
+    setShowModal(true);
   };
 
   const [listarPel, setListPeliculas] = useState([]);
-  const [selectedRowData, setSelectedRowData] = useState(null);
 
   const obtenerPeliculas = () => {
     try {
@@ -72,6 +83,9 @@ function TblEspeciales(props) {
     {
       name: "id",
       label: "ID",
+      options: {
+        display: "excluded", // "excluded" significa oculto por defecto
+      },
     },
     {
       name: "titulo",
@@ -149,6 +163,21 @@ function TblEspeciales(props) {
     {
       name: "urlPortada",
       label: "URL PORTADA",
+      options: {
+        customBodyRender: (value) => {
+          const imagen = value;
+
+          return imagen != "Sin Imagen" ? (
+            <Image
+              src={imagen}
+              alt={`Imagen de ${imagen}`}
+              style={{ maxWidth: "100px" }}
+            />
+          ) : (
+            <p>No hay imagen del articulo</p>
+          );
+        },
+      },
     },
 
     {
@@ -180,6 +209,21 @@ function TblEspeciales(props) {
     {
       name: "urlPortadaMovil",
       label: "URL PORTADA MOVIL",
+      options: {
+        customBodyRender: (value) => {
+          const imagen = value;
+
+          return imagen != "Sin Imagen" ? (
+            <Image
+              src={imagen}
+              alt={`Imagen de ${imagen}`}
+              style={{ maxWidth: "100px" }}
+            />
+          ) : (
+            <p>No hay imagen del especial</p>
+          );
+        },
+      },
     },
     {
       name: "Acciones",
@@ -190,46 +234,45 @@ function TblEspeciales(props) {
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <>
-              <button className="btnup">
-                <FontAwesomeIcon
-                  icon={faPen}
-                  onClick={() => handleShow(tableMeta.rowData)}
-                />
-                <Modal
-                  size="lg"
-                  show={show}
-                  onHide={handleClose}
-                  backdrop="static"
-                  keyboard={false}
-                >
-                  <Modal.Header closeButton>
-                    <Modal.Title>Modificar Especial</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <ModificarEspeciales data={selectedRowData} history={history} setShow={setShow} />
-                  </Modal.Body>
-                </Modal>
-              </button>
-
-              <button className="btndel">
-                <FontAwesomeIcon
-                  icon={faTrash}
-                  onClick={() => handleShow2(tableMeta.rowData)}
-                />
-                <Modal
-                  show={show2}
-                  onHide={handleClose2}
-                  backdrop="static"
-                  keyboard={false}
-                >
-                  <Modal.Header closeButton>
-                    <Modal.Title>Eliminar Especial</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <EliminarEspeciales data={selectedRowData} history={history} setShow={setShow2} />
-                  </Modal.Body>
-                </Modal>
-              </button>
+              <Dropdown>
+                <Dropdown.Toggle className="botonDropdown" id="dropdown-basic">
+                  <FontAwesomeIcon icon={faBars} />
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item
+                    onClick={() =>
+                      modificarEspeciales(
+                        <ModificarEspeciales
+                          history={history}
+                          setShow={setShowModal}
+                          data={tableMeta.rowData}
+                        />
+                      )
+                    }
+                  >
+                    <FontAwesomeIcon
+                      icon={faPen}
+                      style={{ color: "#ffc107" }}
+                    /> &nbsp; Modificar
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() =>
+                      eliminarEspeciales(
+                        <EliminarEspeciales
+                          history={history}
+                          setShow={setShowModal}
+                          data={tableMeta.rowData}
+                        />
+                      )
+                    }
+                  >
+                    <FontAwesomeIcon
+                      icon={faTrash}
+                      style={{ color: "#dc3545" }}
+                    /> &nbsp; Eliminar
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown >
             </>
           );
         },
@@ -245,12 +288,32 @@ function TblEspeciales(props) {
   };
   return (
     <>
-      <MUIDataTable
-        title={"Lista Peliculas"}
-        data={listarPel}
-        columns={columns}
-        options={options}
-      />
+      <h1 className="title">Especiales</h1>
+      <div>
+        <div className="divButton">
+          <Button
+            className="btnAddTables"
+            onClick={() =>
+              agregarEspeciales(
+                <Especiales history={history} setShow={setShowModal} />
+              )
+            }
+          >
+            <FontAwesomeIcon icon={faPlus} /> Agregar
+          </Button>
+        </div>
+      </div>
+      <div className="divTabla">
+        <MUIDataTable
+          title={"Lista de especiales registrados"}
+          data={listarPel}
+          columns={columns}
+          options={options}
+        />
+      </div>
+      <BasicModal show={showModal} setShow={setShowModal} title={titulosModal}>
+        {contentModal}
+      </BasicModal>
     </>
   );
 }
@@ -273,12 +336,12 @@ function formatModelPeliculas(data) {
       masVisto: data.masVisto,
       recomendado: data.recomendado,
       urlVideo: data.urlVideo,
-      urlPortada: data.urlPortada,
+      urlPortada: !data.urlPortada ? "Sin Imagen" : data.urlPortada,
       seccion: data.seccion,
       estado: data.estado,
       patrocinador: data.patrocinador,
       patrocinadorPortada: data.patrocinadorPortada,
-      urlPortadaMovil: data.urlPortadaMovil,
+      urlPortadaMovil: !data.urlPortadaMovil ? "Sin Imagen" : data.urlPortadaMovil,
     });
   });
   return dataTemp;

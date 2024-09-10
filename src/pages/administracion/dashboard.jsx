@@ -1,15 +1,14 @@
 import { Link } from "react-router-dom";
 import "../../css/dashboard.css";
-import Dropdown from "react-bootstrap/Dropdown";
 import { Nav, NavDropdown } from "react-bootstrap";
-import { TablaUsuarios } from "../../componentes/usuarios/tablaUsuarios";
-import Especiales from "../../componentes/contenidos/especiales";
-import Documentales from "../../componentes/contenidos/documentales";
-import Series from "../../componentes/contenidos/series";
-import SeriesEspeciales from "../../componentes/contenidos/seriesEspeciales";
-import Peliculas from "../../componentes/contenidos/peliculas";
-import Categorias from "../../componentes/categoriasVideos/categproas";
-import Patorcinadores from "../../componentes/patrocinadores/patrocinadores";
+import { TblUsers } from "../../componentes/tables/tableUsuarios";
+import TblEspeciales from "../../componentes/tables/tablaEspeciales";
+import TblDocumentales from "../../componentes/tables/tablaDocumentales";
+import TblSeries from "../../componentes/tables/tablaSeries";
+import TblSeriesEspeciales from "../../componentes/tables/tablaSeriesEspeciales";
+import TblPeliculas from "../../componentes/tables/tablePeliculas";
+import TblCategorias from "../../componentes/tables/tableCategorias";
+import TblPatrocinadores from "../../componentes/tables/tablaPatrocinadores";
 import React, { useState, useEffect } from "react";
 import { Load } from "../../componentes/load/load";
 import { ToastContainer } from "react-toastify";
@@ -279,42 +278,42 @@ export function Dashboard() {
 
                 {showComponent && (
                   <div>
-                    <TablaUsuarios />
+                    <TblUsers />
                   </div>
                 )}
                 {showComponent1 && (
                   <div>
-                    <Documentales />
+                    <TblDocumentales />
                   </div>
                 )}
                 {showComponent2 && (
                   <div>
-                    <Series />
+                    <TblSeries />
                   </div>
                 )}
                 {showComponent3 && (
                   <div>
-                    <Peliculas />
+                    <TblPeliculas />
                   </div>
                 )}
                 {showComponent4 && (
                   <div>
-                    <Categorias />
+                    <TblCategorias />
                   </div>
                 )}
                 {showComponent5 && (
                   <div>
-                    <Patorcinadores />
+                    <TblPatrocinadores />
                   </div>
                 )}
                 {showComponent6 && (
                   <div>
-                    <Especiales />
+                    <TblEspeciales />
                   </div>
                 )}
                 {showComponent7 && (
                   <div>
-                    <SeriesEspeciales />
+                    <TblSeriesEspeciales />
                   </div>
                 )}
                 {showComponent8 && (

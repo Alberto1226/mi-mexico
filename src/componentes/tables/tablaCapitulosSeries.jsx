@@ -3,10 +3,11 @@ import MUIDataTable from "mui-datatables";
 import EliminarCapitulos from "../contenidos/EliminarCapitulos";
 import ModificarCapitulosSerie from "../contenidos/modificarCapitulosSeries";
 import { listarCapitulosSeries } from "../../api/capitulosSeries";
-import Modal from "react-bootstrap/Modal";
+import { Dropdown, Image } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faTrash, faPlus, faEye, faFile, faTable } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faTrash, faBars } from "@fortawesome/free-solid-svg-icons";
 import { withRouter } from "../../utils/withRouter";
+import BasicModal from "../Modal/BasicModal/BasicModal";
 //listar categorias
 //listar categorias
 
@@ -14,29 +15,24 @@ function TblCapitulosSeries(props) {
   const { location, data, history } = props;
   const series = data;
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = (rowData) => {
-    setShow(true);
-    setSelectedRowData(rowData);
+  //Para el modal
+  const [showModal, setShowModal] = useState(false);
+  const [contentModal, setContentModal] = useState(null);
+  const [titulosModal, setTitulosModal] = useState(null);
+
+  const modificarCapitulosSeries = (content) => {
+    setTitulosModal("Modificar capitulos");
+    setContentModal(content);
+    setShowModal(true);
   };
 
-  const [show2, setShow2] = useState(false);
-  const handleClose2 = () => setShow2(false);
-  const handleShow2 = (rowData) => {
-    setShow2(true);
-    setSelectedRowData(rowData);
-  };
-
-  const [show3, setShow3] = useState(false);
-  const handleClose3 = () => setShow3(false);
-  const handleShow3 = (rowData) => {
-    setShow3(true);
-    setSelectedRowData(rowData);
+  const eliminarCapitulosSeries = (content) => {
+    setTitulosModal("Eliminar capitulos");
+    setContentModal(content);
+    setShowModal(true);
   };
 
   const [listarSer, setListSeries] = useState([]);
-  const [selectedRowData, setSelectedRowData] = useState(null);
 
   const obtenerSeries = () => {
     try {
@@ -81,6 +77,9 @@ function TblCapitulosSeries(props) {
     {
       name: "id",
       label: "ID",
+      options: {
+        display: "excluded", // "excluded" significa oculto por defecto
+      },
     },
     {
       name: "temporada",
@@ -97,10 +96,40 @@ function TblCapitulosSeries(props) {
     {
       name: "urlPortadaMovil",
       label: "URLPORTADA MOVIL",
+      options: {
+        customBodyRender: (value) => {
+          const imagen = value;
+
+          return imagen != "Sin Imagen" ? (
+            <Image
+              src={imagen}
+              alt={`Imagen de ${imagen}`}
+              style={{ maxWidth: "100px" }}
+            />
+          ) : (
+            <p>No hay imagen del captitulo</p>
+          );
+        },
+      },
     },
     {
       name: "urlPortada",
       label: "URLPORTADA",
+      options: {
+        customBodyRender: (value) => {
+          const imagen = value;
+
+          return imagen != "Sin Imagen" ? (
+            <Image
+              src={imagen}
+              alt={`Imagen de ${imagen}`}
+              style={{ maxWidth: "100px" }}
+            />
+          ) : (
+            <p>No hay imagen del capitulo</p>
+          );
+        },
+      },
     },
     {
       name: "duracion",
@@ -150,46 +179,46 @@ function TblCapitulosSeries(props) {
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <>
-            <button className="btnup">
-                <FontAwesomeIcon
-                  icon={faPen}
-                  onClick={() => handleShow2(tableMeta.rowData)}
-                />
-                <Modal
-                  size="lg"
-                  show={show2}
-                  onHide={handleClose2}
-                  backdrop="static"
-                  keyboard={false}
-                >
-                  <Modal.Header closeButton>
-                    <Modal.Title>Modificar capitulo</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <ModificarCapitulosSerie data={selectedRowData} datos={series} history={history} setShow={setShow2} />
-                  </Modal.Body>
-                </Modal>
-              </button>
-              <button className="btndel">
-                <FontAwesomeIcon
-                  icon={faTrash}
-                  onClick={() => handleShow(tableMeta.rowData)}
-                />
-                <Modal
-                  size="lg"
-                  show={show}
-                  onHide={handleClose}
-                  backdrop="static"
-                  keyboard={false}
-                >
-                  <Modal.Header closeButton>
-                    <Modal.Title>Eliminar capitulo</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <EliminarCapitulos data={selectedRowData} history={history} setShow={setShow} />
-                  </Modal.Body>
-                </Modal>
-              </button>
+              <Dropdown>
+                <Dropdown.Toggle className="botonDropdown" id="dropdown-basic">
+                  <FontAwesomeIcon icon={faBars} />
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item
+                    onClick={() =>
+                      modificarCapitulosSeries(
+                        <ModificarCapitulosSerie
+                          data={tableMeta.rowData}
+                          datos={series}
+                          history={history}
+                          setShow={setShowModal}
+                        />
+                      )
+                    }
+                  >
+                    <FontAwesomeIcon
+                      icon={faPen}
+                      style={{ color: "#ffc107" }}
+                    /> &nbsp; Modificar
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() =>
+                      eliminarCapitulosSeries(
+                        <EliminarCapitulos
+                          history={history}
+                          setShow={setShowModal}
+                          data={tableMeta.rowData}
+                        />
+                      )
+                    }
+                  >
+                    <FontAwesomeIcon
+                      icon={faTrash}
+                      style={{ color: "#dc3545" }}
+                    /> &nbsp; Eliminar
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown >
             </>
           );
         },
@@ -211,6 +240,9 @@ function TblCapitulosSeries(props) {
         columns={columns}
         options={options}
       />
+      <BasicModal show={showModal} setShow={setShowModal} title={titulosModal}>
+        {contentModal}
+      </BasicModal>
     </>
   );
 }
@@ -224,11 +256,11 @@ function formatModelSeries(data) {
       temporada: data.temporada,
       nombre: data.nombre,
       urlCapitulo: data.urlCapitulo,
-      urlPortada: data.urlPortada,
+      urlPortada: !data.urlPortada ? "Sin Imagen" : data.urlPortada,
       duracion: data.duracion,
       descripcion: data.descripcion,
       estado: data.estado,
-      urlPortadaMovil: data.urlPortadaMovil
+      urlPortadaMovil: !data.urlPortadaMovil ? "Sin Imagen" : data.urlPortadaMovil
     });
   });
   return dataTemp;

@@ -1,6 +1,6 @@
 // Constante para desarrollo
- export const API_HOST = "http://localhost:5050";
- export const API_HOST2 = "http://127.0.0.1:5000";
+export const API_HOST = "http://localhost:5050";
+export const API_HOST2 = "http://127.0.0.1:5000";
 export const API_VIDEOS = "https://api.cloudflare.com/client/v4/accounts/476c92bc94b52dc51a8b504fb0a48185/stream/copy"
 
 

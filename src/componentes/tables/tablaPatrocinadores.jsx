@@ -1,32 +1,45 @@
 import React, { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faTrash, faBars, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { listarPatrocinadores } from "../../api/patrocinadores";
-import Modal from "react-bootstrap/Modal";
+import { Image, Dropdown, Button } from "react-bootstrap";
 import ModificarPatorcinadores from "../patrocinadores/modificarPatrocinadores";
 import EliminarPatorcinadores from "../patrocinadores/eliminarPatrocinadores";
+import Patrocinadores from "../patrocinadores/patrocinadores";
 import { withRouter } from "../../utils/withRouter";
+import BasicModal from "../Modal/BasicModal/BasicModal";
+import "../../css/tables.css";
 //listar categorias
 //listar categorias
 
 function TblPatrocinadores(props) {
   const { location, history } = props;
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = (rowData) => {
-    setShow(true);
-    setSelectedRowData(rowData);
+
+  //Para el modal
+  const [showModal, setShowModal] = useState(false);
+  const [contentModal, setContentModal] = useState(null);
+  const [titulosModal, setTitulosModal] = useState(null);
+
+  const modificarPatrocinadores = (content) => {
+    setTitulosModal("Modificar patrocinador");
+    setContentModal(content);
+    setShowModal(true);
   };
 
-  const [show2, setShow2] = useState(false);
-  const handleClose2 = () => setShow2(false);
-  const handleShow2 = (rowData) => {
-    setShow2(true);
-    setSelectedRowData(rowData);
+  const eliminarPatrocinadores = (content) => {
+    setTitulosModal("Eliminar patrocinador");
+    setContentModal(content);
+    setShowModal(true);
   };
+
+  const agregarPatrocinador = (content) => {
+    setTitulosModal("Registrar patrocinador");
+    setContentModal(content);
+    setShowModal(true);
+  };
+
   const [listarPatro, setListPatro] = useState([]);
-  const [selectedRowData, setSelectedRowData] = useState(null);
 
   const obtenerPatrocinadores = () => {
     try {
@@ -70,6 +83,9 @@ function TblPatrocinadores(props) {
     {
       name: "id",
       label: "ID",
+      options: {
+        display: "excluded", // "excluded" significa oculto por defecto
+      },
     },
     {
       name: "nombre",
@@ -78,6 +94,21 @@ function TblPatrocinadores(props) {
     {
       name: "urlImagen",
       label: "PORTADA",
+      options: {
+        customBodyRender: (value) => {
+          const imagen = value;
+
+          return imagen != "Sin Imagen" ? (
+            <Image
+              src={imagen}
+              alt={`Imagen de ${imagen}`}
+              style={{ maxWidth: "100px" }}
+            />
+          ) : (
+            <p>No hay imagen del patrocinador</p>
+          );
+        },
+      },
     },
     {
       name: "urlWeb",
@@ -164,45 +195,45 @@ function TblPatrocinadores(props) {
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <>
-              <button className="btnup">
-                <FontAwesomeIcon
-                  icon={faPen}
-                  onClick={() => handleShow(tableMeta.rowData)}
-                />
-                <Modal
-                  show={show}
-                  onHide={handleClose}
-                  backdrop="static"
-                  keyboard={false}
-                >
-                  <Modal.Header closeButton>
-                    <Modal.Title>Modificar Pelicula</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <ModificarPatorcinadores data={selectedRowData} history={history} setShow={setShow} />
-                  </Modal.Body>
-                </Modal>
-              </button>
-
-              <button className="btndel">
-                <FontAwesomeIcon
-                  icon={faTrash}
-                  onClick={() => handleShow2(tableMeta.rowData)}
-                />
-                <Modal
-                  show={show2}
-                  onHide={handleClose2}
-                  backdrop="static"
-                  keyboard={false}
-                >
-                  <Modal.Header closeButton>
-                    <Modal.Title>Eliminar Pelicula</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <EliminarPatorcinadores data={selectedRowData} history={history} setShow={setShow2} />
-                  </Modal.Body>
-                </Modal>
-              </button>
+              <Dropdown>
+                <Dropdown.Toggle className="botonDropdown" id="dropdown-basic">
+                  <FontAwesomeIcon icon={faBars} />
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item
+                    onClick={() =>
+                      modificarPatrocinadores(
+                        <ModificarPatorcinadores
+                          history={history}
+                          setShow={setShowModal}
+                          data={tableMeta.rowData}
+                        />
+                      )
+                    }
+                  >
+                    <FontAwesomeIcon
+                      icon={faPen}
+                      style={{ color: "#ffc107" }}
+                    /> &nbsp; Modificar
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() =>
+                      eliminarPatrocinadores(
+                        <EliminarPatorcinadores
+                          history={history}
+                          setShow={setShowModal}
+                          data={tableMeta.rowData}
+                        />
+                      )
+                    }
+                  >
+                    <FontAwesomeIcon
+                      icon={faTrash}
+                      style={{ color: "#dc3545" }}
+                    /> &nbsp; Eliminar
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown >
             </>
           );
         },
@@ -215,12 +246,32 @@ function TblPatrocinadores(props) {
   };
   return (
     <>
-      <MUIDataTable
-        title={"Lista Patrocinadores"}
-        data={listarPatro}
-        columns={columns}
-        options={options}
-      />
+      <h1 className="title">Patrocinadores</h1>
+      <div>
+        <div className="divButton">
+          <Button
+            className="btnAddTables"
+            onClick={() =>
+              agregarPatrocinador(
+                <Patrocinadores history={history} setShow={setShowModal} />
+              )
+            }
+          >
+            <FontAwesomeIcon icon={faPlus} /> Agregar
+          </Button>
+        </div>
+      </div>
+      <div className="divTabla">
+        <MUIDataTable
+          title={"Lista de patrocinadores registrados"}
+          data={listarPatro}
+          columns={columns}
+          options={options}
+        />
+      </div>
+      <BasicModal show={showModal} setShow={setShowModal} title={titulosModal}>
+        {contentModal}
+      </BasicModal>
     </>
   );
 }
@@ -231,7 +282,7 @@ function formatModelPatrocinadores(data) {
     dataTemp.push({
       id: data._id,
       nombre: data.nombre,
-      urlImagen: data.urlImagen,
+      urlImagen: !data.urlImagen ? "Sin Imagen" : data.urlImagen,
       urlWeb: data.urlWeb,
       urlFacebook: data.urlFacebook,
       urlInstagram: data.urlInstagram,

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faTrash, faPlus, faEye, faFile } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faTrash, faBars } from "@fortawesome/free-solid-svg-icons";
 import { listarSeries } from "../../api/series";
-import Modal from "react-bootstrap/Modal";
+import BasicModal from "../Modal/BasicModal/BasicModal";
+import { Dropdown } from "react-bootstrap";
 import { withRouter } from "../../utils/withRouter";
-import ActualizarTemporadas from "../contenidos/actualizarTemporadas";
 import ModificacionTemporadas from "../contenidos/ModificarTemporadas";
 import EliminacionTemporadas from "../contenidos/EliminarTemporadas";
 //listar categorias
@@ -17,53 +17,34 @@ function TblTemporadas({ location, history, data }) {
   console.log(idSerie)
   const temporadas = data;
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = (rowData) => {
-    setShow(true);
-    setSelectedRowData(rowData);
+  //Para el modal
+  const [showModal, setShowModal] = useState(false);
+  const [contentModal, setContentModal] = useState(null);
+  const [titulosModal, setTitulosModal] = useState(null);
+
+  const modificarTemporadas = (content) => {
+    setTitulosModal("Modificar temporadas");
+    setContentModal(content);
+    setShowModal(true);
   };
 
-  const [show2, setShow2] = useState(false);
-  const handleClose2 = () => setShow2(false);
-  const handleShow2 = (rowData) => {
-    setShow2(true);
-    setSelectedRowData(rowData);
-  };
-
-  const [show3, setShow3] = useState(false);
-  const handleClose3 = () => setShow3(false);
-  const handleShow3 = (rowData) => {
-    setShow3(true);
-    setSelectedRowData(rowData);
-  };
-
-  const [show4, setShow4] = useState(false);
-  const handleClose4 = () => setShow4(false);
-  const handleShow4 = (rowData) => {
-    setShow4(true);
-    setSelectedRowData(rowData);
-  };
-
-  const [show5, setShow5] = useState(false);
-  const handleClose5 = () => setShow5(false);
-  const handleShow5 = (rowData) => {
-    setShow5(true);
-    setSelectedRowData(rowData);
+  const eliminarTemporadas = (content) => {
+    setTitulosModal("Eliminar temporadas");
+    setContentModal(content);
+    setShowModal(true);
   };
 
   const [listarSer, setListSeries] = useState([]);
-  const [selectedRowData, setSelectedRowData] = useState(null);
 
   const obtenerSeries = () => {
     try {
       listarSeries()
         .then((response) => {
           const { data } = response;
-  
+
           // Filter data to include only the item with id equal to idSerie
           const filteredData = data.filter((item) => item._id === idSerie);
-  
+
           if (!listarSer && filteredData.length > 0) {
             setListSeries(formatModelSeries(filteredData));
             console.log(filteredData); // Optional: Log the filtered data if needed
@@ -79,7 +60,7 @@ function TblTemporadas({ location, history, data }) {
       console.error("Unexpected error:", e);
     }
   };
-  
+
 
   useEffect(() => {
     obtenerSeries();
@@ -124,103 +105,47 @@ function TblTemporadas({ location, history, data }) {
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <>
-              <button className="btnup">
-                <FontAwesomeIcon
-                  icon={faPen}
-                  onClick={() => handleShow(tableMeta.rowData)}
-                />
-                <Modal
-                  size="lg"
-                  show={show}
-                  onHide={handleClose}
-                  backdrop="static"
-                  keyboard={false}
-                >
-                  <Modal.Header closeButton>
-                    <Modal.Title>Modificar temporada</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <ModificacionTemporadas data={selectedRowData} datos={temporadas} history={history} setShowModal={setShow} />
-                  </Modal.Body>
-                </Modal>
-              </button>
-              <button className="btndel">
-                <FontAwesomeIcon
-                  icon={faTrash}
-                  onClick={() => handleShow2(tableMeta.rowData)}
-                />
-                <Modal
-                  show={show2}
-                  onHide={handleClose2}
-                  backdrop="static"
-                  keyboard={false}
-                >
-                  <Modal.Header closeButton>
-                    <Modal.Title>Eliminar Temporada</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <EliminacionTemporadas data={selectedRowData} datos={temporadas} history={history} setShowModal={setShow2} />
-                  </Modal.Body>
-                </Modal>
-              </button>
-              {/*<button className="btndel">
-                <FontAwesomeIcon
-                  icon={faPlus}
-                  onClick={() => handleShow3(tableMeta.rowData)}
-                />
-                <Modal
-                  show={show3}
-                  size="xl"
-                  onHide={handleClose3}
-                  backdrop="static"
-                  keyboard={false}
-                >
-                  <Modal.Header closeButton>
-                    <Modal.Title>Actualizar Capitulos</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <InsertarCapitulosSerie data={selectedRowData} />
-                  </Modal.Body>
-                </Modal>
-              </button>
-              <button className="btnup">
-                <FontAwesomeIcon
-                  icon={faEye}
-                  onClick={() => handleShow4(tableMeta.rowData)} />
-                <Modal
-                  show={show4}
-                  size="xl"
-                  onHide={handleClose4}
-                  backdrop="static"
-                  keyboard={false}
-                >
-                  <Modal.Header closeButton>
-                    <Modal.Title>Lista de los capitulos de la serie</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <TblCapitulosSeries data={selectedRowData} />
-                  </Modal.Body>
-                </Modal>
-              </button>
-              <button className="btnup">
-                <FontAwesomeIcon
-                  icon={faFile}
-                  onClick={() => handleShow5(tableMeta.rowData)} />
-                <Modal
-                  show={show5}
-                  size="xl"
-                  onHide={handleClose5}
-                  backdrop="static"
-                  keyboard={false}
-                >
-                  <Modal.Header closeButton>
-                    <Modal.Title>Lista de las temporadas de la serie</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <ActualizarTemporadas data={selectedRowData} setShow={setShow5} />
-                  </Modal.Body>
-                </Modal>
-              </button>*/}
+              <Dropdown>
+                <Dropdown.Toggle className="botonDropdown" id="dropdown-basic">
+                  <FontAwesomeIcon icon={faBars} />
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item
+                    onClick={() =>
+                      modificarTemporadas(
+                        <ModificacionTemporadas
+                          data={tableMeta.rowData}
+                          datos={temporadas}
+                          history={history}
+                          setShowModal={setShowModal}
+                        />
+                      )
+                    }
+                  >
+                    <FontAwesomeIcon
+                      icon={faPen}
+                      style={{ color: "#ffc107" }}
+                    /> &nbsp; Modificar
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() =>
+                      eliminarTemporadas(
+                        <EliminacionTemporadas
+                          data={tableMeta.rowData}
+                          datos={temporadas}
+                          history={history}
+                          setShowModal={setShowModal}
+                        />
+                      )
+                    }
+                  >
+                    <FontAwesomeIcon
+                      icon={faTrash}
+                      style={{ color: "#dc3545" }}
+                    /> &nbsp; Eliminar
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown >
             </>
           );
         },
@@ -242,6 +167,9 @@ function TblTemporadas({ location, history, data }) {
         columns={columns}
         options={options}
       />
+      <BasicModal show={showModal} setShow={setShowModal} title={titulosModal}>
+        {contentModal}
+      </BasicModal>
     </>
   );
 }

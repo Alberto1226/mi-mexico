@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
-import Modal from "react-bootstrap/Modal";
+import { faPen, faTrash, faBars, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { Dropdown, Button } from "react-bootstrap";
 import { listarCategorias } from "../../api/categorias";
 import ModificarCategorias from "../categoriasVideos/ModificarCategoria";
 import EliminarCategorias from "../categoriasVideos/eliminarCategoria";
 import { withRouter } from "../../utils/withRouter";
-
+import BasicModal from "../Modal/BasicModal/BasicModal";
+import Categorias from "../categoriasVideos/categproas";
+import "../../css/tables.css";
 //listar categorias
 //listar categorias
 
 function TblCategorias(props) {
   const { location, history } = props;
   const [listarCat, setListCategorias] = useState([]);
-  const [selectedRowData, setSelectedRowData] = useState(null);
 
   const obtenerCategorias = () => {
     try {
@@ -29,8 +30,8 @@ function TblCategorias(props) {
             setListCategorias(datosCat);
           }
         })
-        .catch((e) => {});
-    } catch (e) {}
+        .catch((e) => { });
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -39,20 +40,29 @@ function TblCategorias(props) {
   // recargar
 
   //modal show modificar
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = (rowData) => {
-    setShow(true);
-    setSelectedRowData(rowData);
+  //Para el modal
+  const [showModal, setShowModal] = useState(false);
+  const [contentModal, setContentModal] = useState(null);
+  const [titulosModal, setTitulosModal] = useState(null);
+
+  const modificarCategoria = (content) => {
+    setTitulosModal("Modificar categoria");
+    setContentModal(content);
+    setShowModal(true);
   };
-  //fin modal show
-  //modal delete
-  const [show2, setShow2] = useState(false);
-  const handleClose2 = () => setShow2(false);
-  const handleShow2 = (rowData) => {
-    setShow2(true);
-    setSelectedRowData(rowData);
+
+  const eliminarCategoria = (content) => {
+    setTitulosModal("Eliminar Categoria");
+    setContentModal(content);
+    setShowModal(true);
   };
+
+  const agregarCategoria = (content) => {
+    setTitulosModal("Registrar categoria");
+    setContentModal(content);
+    setShowModal(true);
+  };
+
   //fin modal 
   // Configurando animacion de carga
   const [pending, setPending] = useState(true);
@@ -74,6 +84,9 @@ function TblCategorias(props) {
     {
       name: "id",
       label: "ID",
+      options: {
+        display: "excluded", // "excluded" significa oculto por defecto
+      },
     },
     {
       name: "nombre",
@@ -89,18 +102,18 @@ function TblCategorias(props) {
       options: {
         customBodyRender: (value) => {
           const estado = value;
-    
+
           let estiloTexto = "";
           let estadoTexto = "";
-    
-          if (estado=="true") {
-            estiloTexto = "activo"; 
+
+          if (estado == "true") {
+            estiloTexto = "activo";
             estadoTexto = "Activo";
           } else {
-            estiloTexto = "inhabilitado"; 
+            estiloTexto = "inhabilitado";
             estadoTexto = "Inhabilitado";
           }
-    
+
           return (
             <div className={estiloTexto}>
               {estadoTexto}
@@ -109,8 +122,8 @@ function TblCategorias(props) {
         },
       },
     },
-    
-    
+
+
     {
       name: "Acciones",
       options: {
@@ -120,45 +133,47 @@ function TblCategorias(props) {
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <>
-              <button className="btnup">
-              <FontAwesomeIcon
-                  icon={faPen}
-                  onClick={() => handleShow(tableMeta.rowData)}
-                />
-                <Modal
-                  size="lg"
-                  show={show}
-                  onHide={handleClose}
-                  backdrop="static"
-                  keyboard={false}
-                >
-                  <Modal.Header closeButton>
-                    <Modal.Title>Modificar Categoria</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <ModificarCategorias data={selectedRowData} history={history} setShow={setShow}/>
-                  </Modal.Body>
-                </Modal>
-              </button>
-              <button className="btndel">
-              <FontAwesomeIcon
-                  icon={faTrash}
-                  onClick={() => handleShow2(tableMeta.rowData)}
-                />
-                <Modal
-                  show={show2}
-                  onHide={handleClose2}
-                  backdrop="static"
-                  keyboard={false}
-                >
-                  <Modal.Header closeButton>
-                    <Modal.Title>Eliminar Pelicula</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <EliminarCategorias data={selectedRowData} history={history} setShow={setShow2}/>
-                  </Modal.Body>
-                </Modal>
-              </button>
+              <Dropdown>
+                <Dropdown.Toggle className="botonDropdown" id="dropdown-basic">
+                  <FontAwesomeIcon icon={faBars} />
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item
+                    onClick={() =>
+                      modificarCategoria(
+                        <ModificarCategorias
+                          history={history}
+                          setShow={setShowModal}
+                          data={tableMeta.rowData}
+                        />
+                      )
+                    }
+                  >
+                    <FontAwesomeIcon
+                      icon={faPen}
+
+                      style={{ color: "#ffc107" }}
+                    /> &nbsp; Modificar
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() =>
+                      eliminarCategoria(
+                        <EliminarCategorias
+                          history={history}
+                          setShow={setShowModal}
+                          data={tableMeta.rowData}
+                        />
+                      )
+                    }
+                  >
+                    <FontAwesomeIcon
+                      icon={faTrash}
+
+                      style={{ color: "#dc3545" }}
+                    /> &nbsp; Eliminar
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown >
             </>
           );
         },
@@ -171,12 +186,32 @@ function TblCategorias(props) {
   };
   return (
     <>
-      <MUIDataTable
-        title={"Lista Categorias"}
-        data={listarCat}
-        columns={columns}
-        options={options}
-      />
+      <h1 className="title">Categorias</h1>
+      <div>
+        <div className="divButton">
+          <Button
+            className="btnAddTables"
+            onClick={() =>
+              agregarCategoria(
+                <Categorias history={history} setShow={setShowModal} />
+              )
+            }
+          >
+            <FontAwesomeIcon icon={faPlus} /> Agregar
+          </Button>
+        </div>
+      </div>
+      <div className="divTabla">
+        <MUIDataTable
+          title={"Lista de categorias registrados"}
+          data={listarCat}
+          columns={columns}
+          options={options}
+        />
+      </div>
+      <BasicModal show={showModal} setShow={setShowModal} title={titulosModal}>
+        {contentModal}
+      </BasicModal>
     </>
   );
 }

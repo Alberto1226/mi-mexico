@@ -1,66 +1,73 @@
 import React, { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faTrash, faPlus, faEye, faFile, faTable } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faTrash, faPlus, faEye, faFile, faTable, faBars } from "@fortawesome/free-solid-svg-icons";
 import { listarSeriesEspeciales } from "../../api/seriesEspeciales";
 import ModificarSeriesEspeciales from "../contenidos/modificarSeriesEspeciales";
 import EliminarSeriesEspeciales from "../contenidos/eliminarSeriesEspeciales";
 import TblCapitulosSeries from "./tablaCapitulosSeries";
 import InsertarCapitulosSerie from "../contenidos/insertarCapitulosSeries";
-import Modal from "react-bootstrap/Modal";
+import { Image, Dropdown, Button } from "react-bootstrap";
 import { withRouter } from "../../utils/withRouter";
 import ActualizarTemporadas from "../contenidos/actualizarTemporadasEspeciales";
 import TblTemporadas from "./tablaTemporadasEspeciales";
+import BasicModal from "../Modal/BasicModal/BasicModal";
+import "../../css/tables.css";
+import SeriesEspeciales from "../contenidos/seriesEspeciales";
 //listar categorias
 //listar categorias
 
 function TblSeriesEspeciales(props) {
   const { location, history } = props;
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = (rowData) => {
-    setShow(true);
-    setSelectedRowData(rowData);
+  //Para el modal
+  const [showModal, setShowModal] = useState(false);
+  const [contentModal, setContentModal] = useState(null);
+  const [titulosModal, setTitulosModal] = useState(null);
+
+  const modificarSeries = (content) => {
+    setTitulosModal("Modificar series");
+    setContentModal(content);
+    setShowModal(true);
   };
 
-  const [show2, setShow2] = useState(false);
-  const handleClose2 = () => setShow2(false);
-  const handleShow2 = (rowData) => {
-    setShow2(true);
-    setSelectedRowData(rowData);
+  const eliminarSeries = (content) => {
+    setTitulosModal("Eliminar series");
+    setContentModal(content);
+    setShowModal(true);
   };
 
-  const [show3, setShow3] = useState(false);
-  const handleClose3 = () => setShow3(false);
-  const handleShow3 = (rowData) => {
-    setShow3(true);
-    setSelectedRowData(rowData);
+  const agregarCapitulo = (content) => {
+    setTitulosModal("Aregar capitulo");
+    setContentModal(content);
+    setShowModal(true);
   };
 
-  const [show4, setShow4] = useState(false);
-  const handleClose4 = () => setShow4(false);
-  const handleShow4 = (rowData) => {
-    setShow4(true);
-    setSelectedRowData(rowData);
+  const visualizarCapitulos = (content) => {
+    setTitulosModal("VisualizarCapitulos");
+    setContentModal(content);
+    setShowModal(true);
   };
 
-  const [show5, setShow5] = useState(false);
-  const handleClose5 = () => setShow5(false);
-  const handleShow5 = (rowData) => {
-    setShow5(true);
-    setSelectedRowData(rowData);
+  const agregarTemporada = (content) => {
+    setTitulosModal("Actualizar temporadas");
+    setContentModal(content);
+    setShowModal(true);
   };
 
-  const [show6, setShow6] = useState(false);
-  const handleClose6 = () => setShow6(false);
-  const handleShow6 = (rowData) => {
-    setShow6(true);
-    setSelectedRowData(rowData);
+  const visualizarTemporadas = (content) => {
+    setTitulosModal("Visualizar temporadas");
+    setContentModal(content);
+    setShowModal(true);
+  };
+
+  const agregarSerie = (content) => {
+    setTitulosModal("Registrar serie");
+    setContentModal(content);
+    setShowModal(true);
   };
 
   const [listarSer, setListSeries] = useState([]);
-  const [selectedRowData, setSelectedRowData] = useState(null);
 
   const obtenerSeries = () => {
     try {
@@ -105,6 +112,9 @@ function TblSeriesEspeciales(props) {
     {
       name: "id",
       label: "ID",
+      options: {
+        display: "excluded", // "excluded" significa oculto por defecto
+      },
     },
     {
       name: "titulo",
@@ -182,6 +192,21 @@ function TblSeriesEspeciales(props) {
     {
       name: "urlPortada",
       label: "URL PORTADA",
+      options: {
+        customBodyRender: (value) => {
+          const imagen = value;
+
+          return imagen != "Sin Imagen" ? (
+            <Image
+              src={imagen}
+              alt={`Imagen de ${imagen}`}
+              style={{ maxWidth: "100px" }}
+            />
+          ) : (
+            <p>No hay imagen de la serie especial</p>
+          );
+        },
+      },
     },
     {
       name: "seccion",
@@ -216,38 +241,173 @@ function TblSeriesEspeciales(props) {
     {
       name: "urlPortada2",
       label: "URL PORTADA 2",
+      options: {
+        customBodyRender: (value) => {
+          const imagen = value;
+
+          return imagen != "Sin Imagen" ? (
+            <Image
+              src={imagen}
+              alt={`Imagen de ${imagen}`}
+              style={{ maxWidth: "100px" }}
+            />
+          ) : (
+            <p>No hay imagen 2</p>
+          );
+        },
+      },
     },
     {
       name: "urlPortada3",
       label: "URL PORTADA 3",
+      options: {
+        customBodyRender: (value) => {
+          const imagen = value;
+
+          return imagen != "Sin Imagen" ? (
+            <Image
+              src={imagen}
+              alt={`Imagen de ${imagen}`}
+              style={{ maxWidth: "100px" }}
+            />
+          ) : (
+            <p>No hay imagen 3</p>
+          );
+        },
+      },
     },
     {
       name: "urlPortada4",
       label: "URL PORTADA 4",
+      options: {
+        customBodyRender: (value) => {
+          const imagen = value;
+
+          return imagen != "Sin Imagen" ? (
+            <Image
+              src={imagen}
+              alt={`Imagen de ${imagen}`}
+              style={{ maxWidth: "100px" }}
+            />
+          ) : (
+            <p>No hay imagen 4</p>
+          );
+        },
+      },
     },
     {
       name: "urlPortada5",
       label: "URL PORTADA 5",
+      options: {
+        customBodyRender: (value) => {
+          const imagen = value;
+
+          return imagen != "Sin Imagen" ? (
+            <Image
+              src={imagen}
+              alt={`Imagen de ${imagen}`}
+              style={{ maxWidth: "100px" }}
+            />
+          ) : (
+            <p>No hay imagen 5</p>
+          );
+        },
+      },
     },
     {
       name: "urlPortadaMovil",
       label: "URL PORTADA MOVIL",
+      options: {
+        customBodyRender: (value) => {
+          const imagen = value;
+
+          return imagen != "Sin Imagen" ? (
+            <Image
+              src={imagen}
+              alt={`Imagen de ${imagen}`}
+              style={{ maxWidth: "100px" }}
+            />
+          ) : (
+            <p>No hay imagen 1</p>
+          );
+        },
+      },
     },
     {
       name: "urlPortadaMovil2",
       label: "URL PORTADA MOVIL 2",
+      options: {
+        customBodyRender: (value) => {
+          const imagen = value;
+
+          return imagen != "Sin Imagen" ? (
+            <Image
+              src={imagen}
+              alt={`Imagen de ${imagen}`}
+              style={{ maxWidth: "100px" }}
+            />
+          ) : (
+            <p>No hay imagen 2</p>
+          );
+        },
+      },
     },
     {
       name: "urlPortadaMovil3",
       label: "URL PORTADA MOVIL 3",
+      options: {
+        customBodyRender: (value) => {
+          const imagen = value;
+
+          return imagen != "Sin Imagen" ? (
+            <Image
+              src={imagen}
+              alt={`Imagen de ${imagen}`}
+              style={{ maxWidth: "100px" }}
+            />
+          ) : (
+            <p>No hay imagen 3</p>
+          );
+        },
+      },
     },
     {
       name: "urlPortadaMovil4",
       label: "URL PORTADA MOVIL 4",
+      options: {
+        customBodyRender: (value) => {
+          const imagen = value;
+
+          return imagen != "Sin Imagen" ? (
+            <Image
+              src={imagen}
+              alt={`Imagen de ${imagen}`}
+              style={{ maxWidth: "100px" }}
+            />
+          ) : (
+            <p>No hay imagen 4</p>
+          );
+        },
+      },
     },
     {
       name: "urlPortadaMovil5",
       label: "URL PORTADA MOVIL 5",
+      options: {
+        customBodyRender: (value) => {
+          const imagen = value;
+
+          return imagen != "Sin Imagen" ? (
+            <Image
+              src={imagen}
+              alt={`Imagen de ${imagen}`}
+              style={{ maxWidth: "100px" }}
+            />
+          ) : (
+            <p>No hay imagen 5</p>
+          );
+        },
+      },
     },
     {
       name: "Acciones",
@@ -258,122 +418,109 @@ function TblSeriesEspeciales(props) {
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <>
-              <button className="btnup">
-                <FontAwesomeIcon
-                  icon={faPen}
-                  onClick={() => handleShow(tableMeta.rowData)}
-                />
-                <Modal
-                  size="lg"
-                  show={show}
-                  onHide={handleClose}
-                  backdrop="static"
-                  keyboard={false}
-                >
-                  <Modal.Header closeButton>
-                    <Modal.Title>Modificar Serie especial</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <ModificarSeriesEspeciales data={selectedRowData} history={history} setShow={setShow} />
-                  </Modal.Body>
-                </Modal>
-              </button>
-              <button className="btndel">
-                <FontAwesomeIcon
-                  icon={faTrash}
-                  onClick={() => handleShow2(tableMeta.rowData)}
-                />
-                <Modal
-                  show={show2}
-                  onHide={handleClose2}
-                  backdrop="static"
-                  keyboard={false}
-                >
-                  <Modal.Header closeButton>
-                    <Modal.Title>Eliminar Serie Especial</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <EliminarSeriesEspeciales data={selectedRowData} history={history} setShow={setShow2} />
-                  </Modal.Body>
-                </Modal>
-              </button>
-              <button className="btndel">
-                <FontAwesomeIcon
-                  icon={faPlus}
-                  onClick={() => handleShow3(tableMeta.rowData)}
-                />
-                <Modal
-                  show={show3}
-                  size="xl"
-                  onHide={handleClose3}
-                  backdrop="static"
-                  keyboard={false}
-                >
-                  <Modal.Header closeButton>
-                    <Modal.Title>Actualizar Capitulos</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <InsertarCapitulosSerie data={selectedRowData} />
-                  </Modal.Body>
-                </Modal>
-              </button>
-              <button className="btnup">
-                <FontAwesomeIcon
-                  icon={faEye}
-                  onClick={() => handleShow4(tableMeta.rowData)} />
-                <Modal
-                  show={show4}
-                  size="xl"
-                  onHide={handleClose4}
-                  backdrop="static"
-                  keyboard={false}
-                >
-                  <Modal.Header closeButton>
-                    <Modal.Title>Lista de los capitulos de la serie</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <TblCapitulosSeries data={selectedRowData} />
-                  </Modal.Body>
-                </Modal>
-              </button>
-              <button className="btnup">
-                <FontAwesomeIcon
-                  icon={faFile}
-                  onClick={() => handleShow5(tableMeta.rowData)} />
-                <Modal
-                  show={show5}
-                  size="xl"
-                  onHide={handleClose5}
-                  backdrop="static"
-                  keyboard={false}
-                >
-                  <Modal.Header closeButton>
-                    <Modal.Title>Lista de las temporadas de la serie</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <ActualizarTemporadas data={selectedRowData} setShow={setShow5} />
-                  </Modal.Body>
-                </Modal>
-              </button>
-              <button className="btnup">
-                <FontAwesomeIcon
-                  icon={faTable}
-                  onClick={() => handleShow6(tableMeta.rowData)} />
-                <Modal
-                  show={show6}
-                  size="xl"
-                  onHide={handleClose6}
-                  backdrop="static"
-                  keyboard={false}
-                >
-                  <Modal.Header closeButton>
-                    <Modal.Title>Lista de las temporadas de la serie</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <TblTemporadas data={selectedRowData} setShow={setShow6} />
-                  </Modal.Body>
-                </Modal>
-              </button>
+              <Dropdown>
+                <Dropdown.Toggle className="botonDropdown" id="dropdown-basic">
+                  <FontAwesomeIcon icon={faBars} />
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item
+                    onClick={() =>
+                      modificarSeries(
+                        <ModificarSeriesEspeciales
+                          history={history}
+                          setShow={setShowModal}
+                          data={tableMeta.rowData}
+                        />
+                      )
+                    }
+                  >
+                    <FontAwesomeIcon
+                      icon={faPen}
+                      style={{ color: "#ffc107" }}
+                    /> &nbsp; Modificar
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() =>
+                      eliminarSeries(
+                        <EliminarSeriesEspeciales
+                          history={history}
+                          setShow={setShowModal}
+                          data={tableMeta.rowData}
+                        />
+                      )
+                    }
+                  >
+                    <FontAwesomeIcon
+                      icon={faTrash}
+                      style={{ color: "#dc3545" }}
+                    /> &nbsp; Eliminar
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() =>
+                      agregarCapitulo(
+                        <InsertarCapitulosSerie
+                          history={history}
+                          setShow={setShowModal}
+                          data={tableMeta.rowData}
+                        />
+                      )
+                    }
+                  >
+                    <FontAwesomeIcon
+                      icon={faPlus}
+                      style={{ color: "#1919e6" }}
+                    /> &nbsp; Insertar capitulo
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() =>
+                      visualizarCapitulos(
+                        <TblCapitulosSeries
+                          history={history}
+                          setShow={setShowModal}
+                          data={tableMeta.rowData}
+                        />
+                      )
+                    }
+                  >
+                    <FontAwesomeIcon
+                      icon={faEye}
+                      style={{ color: "#FFA500" }}
+                    /> &nbsp; Capitulos
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() =>
+                      agregarTemporada(
+                        <ActualizarTemporadas
+                          history={history}
+                          setShow={setShowModal}
+                          data={tableMeta.rowData}
+                        />
+                      )
+                    }
+                  >
+                    <FontAwesomeIcon
+                      icon={faFile}
+                      style={{ color: "#ff0080" }}
+                    /> &nbsp; Actualizar temporadas
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() =>
+                      visualizarTemporadas(
+                        <TblTemporadas
+                          history={history}
+                          setShow={setShowModal}
+                          data={tableMeta.rowData}
+                        />
+                      )
+                    }
+                  >
+                    <FontAwesomeIcon
+                      icon={faTable}
+                      style={{ color: "#A020F0" }}
+                    /> &nbsp; Temporadas
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown >
             </>
           );
         },
@@ -389,12 +536,32 @@ function TblSeriesEspeciales(props) {
   };
   return (
     <>
-      <MUIDataTable
-        title={"Lista Series Especiales"}
-        data={listarSer}
-        columns={columns}
-        options={options}
-      />
+      <h1 className="title">Series especiales</h1>
+      <div>
+        <div className="divButton">
+          <Button
+            className="btnAddTables"
+            onClick={() =>
+              agregarSerie(
+                <SeriesEspeciales history={history} setShow={setShowModal} />
+              )
+            }
+          >
+            <FontAwesomeIcon icon={faPlus} /> Agregar
+          </Button>
+        </div>
+      </div>
+      <div className="divTabla">
+        <MUIDataTable
+          title={"Lista de series especiales registradas"}
+          data={listarSer}
+          columns={columns}
+          options={options}
+        />
+      </div>
+      <BasicModal show={showModal} setShow={setShowModal} title={titulosModal}>
+        {contentModal}
+      </BasicModal>
     </>
   );
 }
@@ -416,20 +583,20 @@ function formatModelSeries(data) {
       disponibilidad: data.disponibilidad,
       masVisto: data.masVisto,
       recomendado: data.recomendado,
-      urlPortada: data.urlPortada,
+      urlPortada: !data.urlPortada ? "Sin Imagen" : data.urlPortada,
       seccion: data.seccion,
       estado: data.estado,
-      urlPortada2: data.urlPortada2,
-      urlPortada3: data.urlPortada3,
-      urlPortada4: data.urlPortada4,
-      urlPortada5: data.urlPortada5,
+      urlPortada2: !data.urlPortada2 ? "Sin Imagen" : data.urlPortada2,
+      urlPortada3: !data.urlPortada3 ? "Sin Imagen" : data.urlPortada3,
+      urlPortada4: !data.urlPortada4 ? "Sin Imagen" : data.urlPortada4,
+      urlPortada5: !data.urlPortada5 ? "Sin Imagen" : data.urlPortada5,
       patrocinador: data.patrocinador,
       patrocinadorPortada: data.patrocinadorPortada,
-      urlPortadaMovil: data.urlPortadaMovil,
-      urlPortadaMovil2: data.urlPortadaMovil2,
-      urlPortadaMovil3: data.urlPortadaMovil3,
-      urlPortadaMovil4: data.urlPortadaMovil4,
-      urlPortadaMovil5: data.urlPortadaMovil5,
+      urlPortadaMovil: !data.urlPortadaMovil ? "Sin Imagen" : data.urlPortadaMovil,
+      urlPortadaMovil2: !data.urlPortadaMovil2 ? "Sin Imagen" : data.urlPortadaMovil2,
+      urlPortadaMovil3: !data.urlPortadaMovil3 ? "Sin Imagen" : data.urlPortadaMovil3,
+      urlPortadaMovil4: !data.urlPortadaMovil4 ? "Sin Imagen" : data.urlPortadaMovil4,
+      urlPortadaMovil5: !data.urlPortadaMovil5 ? "Sin Imagen" : data.urlPortadaMovil5,
     });
   });
   return dataTemp;

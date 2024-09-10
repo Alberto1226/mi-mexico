@@ -1,0 +1,25 @@
+.botonDropdown{
+    background-color: #0c1b30 !important;
+    border-color: #0c1b30 !important;
+  }
+
+  .title{
+    text-align: center;
+    font-size: 50px;
+  }
+
+  .divButton {
+    text-align: right;
+    padding-right: 1rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .btnAddTables{
+    background-color: #282c35 !important;
+    border-color: #282c35 !important;
+  }
+
+  .divTabla {
+    padding: 1rem;
+    text-align: center !important;
+  }

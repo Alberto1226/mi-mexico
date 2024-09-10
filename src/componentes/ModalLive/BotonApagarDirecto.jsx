@@ -1,26 +1,29 @@
 import React, { useEffect, useState } from "react";
 import MUIDataTable from "mui-datatables";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
-import Modal from "react-bootstrap/Modal";
-
+import { faPen, faTrash, faBars } from "@fortawesome/free-solid-svg-icons";
+import { Dropdown } from "react-bootstrap";
+import BasicModal from "../Modal/BasicModal/BasicModal";
 import { withRouter } from "../../utils/withRouter";
 import { listarDirectos } from "../../api/directos";
 import ModificarDirectos from "./ModificarDirectos";
-
 
 function BtnApagarDirecto(props) {
   const [listDir, setListDir] = useState([]);
   const [loading, setLoading] = useState(true);
   const { location, history } = props;
-  const [selectedRowData, setSelectedRowData] = useState(null);
-  //modal acciones
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = (rowData) => {
-    setShow(true);
-    setSelectedRowData(rowData);
+
+  //Para el modal
+  const [showModal, setShowModal] = useState(false);
+  const [contentModal, setContentModal] = useState(null);
+  const [titulosModal, setTitulosModal] = useState(null);
+
+  const modificarDirecto = (content) => {
+    setTitulosModal("Modificar directo");
+    setContentModal(content);
+    setShowModal(true);
   };
+
   //fin
   const obtenerDirectos = () => {
     try {
@@ -47,23 +50,20 @@ function BtnApagarDirecto(props) {
     obtenerDirectos();
   }, [location]); // Cambiado para que se ejecute solo una vez al montar el componente
 
-  const formatStatus = (status) => {
-    return status === "true" ? "activo" : "inactivo";
-  };
-
-
-
   const columns = [
     {
       name: "id",
       label: "ID",
+      options: {
+        display: "excluded", // "excluded" significa oculto por defecto
+      },
     },
     {
       name: "codigo",
       label: "IFRAME",
     },
-    
-   
+
+
     {
       name: "status",
       label: "STATUS",
@@ -90,7 +90,6 @@ function BtnApagarDirecto(props) {
         },
       },
     },
-   
     {
       name: "Acciones",
       options: {
@@ -100,27 +99,29 @@ function BtnApagarDirecto(props) {
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <>
-              <button className="btnup">
-                <FontAwesomeIcon
-                  icon={faPen}
-                  onClick={() => handleShow(tableMeta.rowData)}
-                />
-                <Modal
-                  show={show}
-                  onHide={handleClose}
-                  backdrop="static"
-                  keyboard={false}
-                >
-                  <Modal.Header closeButton>
-                    <Modal.Title>Modificar Live</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <ModificarDirectos data={selectedRowData} history={history} setShow={setShow}/>
-                  </Modal.Body>
-                </Modal>
-              </button>
-
-              
+              <Dropdown>
+                <Dropdown.Toggle className="botonDropdown" id="dropdown-basic">
+                  <FontAwesomeIcon icon={faBars} />
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item
+                    onClick={() =>
+                      modificarDirecto(
+                        <ModificarDirectos
+                          history={history}
+                          setShow={setShowModal}
+                          data={tableMeta.rowData}
+                        />
+                      )
+                    }
+                  >
+                    <FontAwesomeIcon
+                      icon={faPen}
+                      style={{ color: "#ffc107" }}
+                    /> &nbsp; Modificar
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown >
             </>
           );
         },
@@ -133,12 +134,17 @@ function BtnApagarDirecto(props) {
   };
 
   return (
-    <MUIDataTable
+    <>
+      <MUIDataTable
         title={"Lista Lives"}
         data={listDir}
         columns={columns}
         options={options}
       />
+      <BasicModal show={showModal} setShow={setShowModal} title={titulosModal}>
+        {contentModal}
+      </BasicModal>
+    </>
   );
 }
 

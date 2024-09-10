@@ -1,0 +1,31 @@
+.basic-modal .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .basic-modal .modal-header .fa-times-circle {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    cursor: pointer; /* Cambia el cursor a una manita cuando esté sobre el botón */
+    font-size: 1.5rem;
+    color: #333;
+    transition: color 0.3s; /* Añade una transición para un efecto más suave */
+    cursor: pointer;
+  }
+  
+  .basic-modal .modal-header .fa-times-circle:hover {
+    color: #ff0000; /* Cambia de color al pasar el mouse por encima (opcional) */
+  }
+  
+  .basic-modal .modal-header h2 {
+    flex-grow: 1;
+    margin: 0;
+    padding-right: 40px;
+    cursor: pointer;
+  }
+  

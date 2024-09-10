@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
-
+import { faPen, faTrash, faBars } from "@fortawesome/free-solid-svg-icons";
+import { Dropdown } from "react-bootstrap";
 import { listarUsuarios } from "../../api/usuarios";
-
+import "../../css/tables.css";
 //listar categorias
 //listar categorias
 
@@ -26,8 +25,8 @@ export function TblUsers(props) {
             setListUser(datosUser);
           }
         })
-        .catch((e) => {});
-    } catch (e) {}
+        .catch((e) => { });
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -55,6 +54,9 @@ export function TblUsers(props) {
     {
       name: "id",
       label: "ID",
+      options: {
+        display: "excluded", // "excluded" significa oculto por defecto
+      },
     },
     {
       name: "nombre",
@@ -70,18 +72,18 @@ export function TblUsers(props) {
       options: {
         customBodyRender: (value) => {
           const estado = value;
-    
+
           let estiloTexto = "";
           let estadoTexto = "";
-    
-          if (estado=="true") {
-            estiloTexto = "activo"; 
+
+          if (estado == "true") {
+            estiloTexto = "activo";
             estadoTexto = "Activo";
           } else {
-            estiloTexto = "inhabilitado"; 
+            estiloTexto = "inhabilitado";
             estadoTexto = "Inhabilitado";
           }
-    
+
           return (
             <div className={estiloTexto}>
               {estadoTexto}
@@ -99,12 +101,20 @@ export function TblUsers(props) {
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <>
-              <button className="btnup">
-                <FontAwesomeIcon icon={faPen} />
-              </button>
-              <button className="btndel">
-                <FontAwesomeIcon icon={faTrash} />
-              </button>
+              <Dropdown>
+                <Dropdown.Toggle className="botonDropdown" id="dropdown-basic">
+                  <FontAwesomeIcon icon={faBars} />
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item
+                  >
+                    <FontAwesomeIcon icon={faPen}  style={{ color: "#ffc107" }} /> &nbsp; Modificar
+                  </Dropdown.Item>
+                  <Dropdown.Item>
+                    <FontAwesomeIcon icon={faTrash} style={{ color: "#dc3545" }} /> &nbsp; Eliminar
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             </>
           );
         },
@@ -117,6 +127,7 @@ export function TblUsers(props) {
   };
   return (
     <>
+    <h1 className="title">Usuarios</h1>
       <MUIDataTable
         title={"Lista Usuarios"}
         data={listarUser}

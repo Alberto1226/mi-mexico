@@ -99,8 +99,8 @@ function Peliculas({ history }) {
             setListarCategoria(datosCat);
           }
         })
-        .catch((e) => {});
-    } catch (e) {}
+        .catch((e) => { });
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -122,8 +122,8 @@ function Peliculas({ history }) {
             setListarPatrocinadores(datosPat);
           }
         })
-        .catch((e) => {});
-    } catch (e) {}
+        .catch((e) => { });
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -133,7 +133,7 @@ function Peliculas({ history }) {
   const renglon = listarCat.length + 1;
 
   //load
-  
+
 
   useEffect(() => {
     // Simula una carga de datos
@@ -361,28 +361,8 @@ function Peliculas({ history }) {
   return (
     <>
       {loading && <Load />}
-      <div class="bg-white">
-        <Button variant="primary" onClick={handleShow} className="btnadd">
-          <FontAwesomeIcon icon={faPlus} />
-        </Button>
-        <h1 class="text-center">Listado de Peliculas</h1>
-        <TblPeliculas />
-      </div>
-
-      <Modal
-        size="lg"
-        aria-labelledby="example-modal-sizes-title-lg"
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header className="modalback" closeButton>
-          <Modal.Title>Insertar Pelicula</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="contact-form">
-            {/* <div>
+      <div className="contact-form">
+        {/* <div>
               <input
                 type="file"
                 accept="video/*"
@@ -393,276 +373,274 @@ function Peliculas({ history }) {
               {response && <div>Response: {JSON.stringify(response)}</div>}
               {error && <div>Error: {error.message}</div>}
             </div> */}
-            <Form  onSubmit={onSubmit} onChange={onChange}>
-              <div className="imagenPrincipal">
-                <h4 className="textoImagenPrincipal">Sube tu imagen</h4>
-                <div
-                  title="Seleccionar imagen de la categoría"
-                  className="imagenPortadaPelicula"
-                >
-                  <Dropzone setImagenFile={setImagenPortadaPelicula} />
-                </div>
+        <Form onSubmit={onSubmit} onChange={onChange}>
+          <div className="imagenPrincipal">
+            <h4 className="textoImagenPrincipal">Sube tu imagen</h4>
+            <div
+              title="Seleccionar imagen de la categoría"
+              className="imagenPortadaPelicula"
+            >
+              <Dropzone setImagenFile={setImagenPortadaPelicula} />
+            </div>
+          </div>
+          <br />
+
+          <div className="imagenPrincipal">
+            <h4 className="textoImagenPrincipal">
+              Sube tu imagen para movil
+            </h4>
+            <div
+              title="Seleccionar imagen de la categoría"
+              className="imagenPortadaPelicula"
+            >
+              <Dropzone setImagenFile={setImagenPortadaPeliculaMovil} />
+            </div>
+          </div>
+          <br />
+
+          <div>
+            <input
+              type="file"
+              accept="video/*"
+              onChange={handleFileChange2}
+            />
+            <button
+              onClick={(e) => {
+                e.preventDefault(); // Evita la recarga de la página
+                handleUploadVideos(); // Llama a la función de carga
+              }}
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <Spinner
+                    animation="border"
+                    role="status"
+                    size="sm"
+                    style={{ marginRight: "10px" }}
+                  >
+                    <span className="sr-only">Uploading...</span>
+                  </Spinner>
+                  Uploading...
+                </>
+              ) : (
+                "Upload Video"
+              )}
+            </button>
+
+            {loading && (
+              <div style={{ marginTop: "10px" }}>
+                <Spinner animation="border" role="status">
+                  <span className="sr-only">Loading...</span>
+                </Spinner>
+                <p>Loading... Please wait</p>
               </div>
-              <br />
+            )}
+            {response && <div>Media ID: {response.mediaId}</div>}
+            {error && <div>Error: {error.message}</div>}
+          </div>
 
-              <div className="imagenPrincipal">
-                <h4 className="textoImagenPrincipal">
-                  Sube tu imagen para movil
-                </h4>
-                <div
-                  title="Seleccionar imagen de la categoría"
-                  className="imagenPortadaPelicula"
-                >
-                  <Dropzone setImagenFile={setImagenPortadaPeliculaMovil} />
-                </div>
-              </div>
-              <br />
+          <div>
+            <hr />
+            <Col xs={12} md={12}>
+              <Form.Control
+                placeholder="URL Video"
+                type="text"
+                name="archPelicula"
+                value={response?.url || ""}
+                readOnly
+              />
+            </Col>
+          </div>
+          <br />
 
-              <div>
-                <input
-                  type="file"
-                  accept="video/*"
-                  onChange={handleFileChange2}
-                />
-                <button
-                  onClick={(e) => {
-                    e.preventDefault(); // Evita la recarga de la página
-                    handleUploadVideos(); // Llama a la función de carga
-                  }}
-                  disabled={loading}
-                >
-                  {loading ? (
-                    <>
-                      <Spinner
-                        animation="border"
-                        role="status"
-                        size="sm"
-                        style={{ marginRight: "10px" }}
-                      >
-                        <span className="sr-only">Uploading...</span>
-                      </Spinner>
-                      Uploading...
-                    </>
-                  ) : (
-                    "Upload Video"
-                  )}
-                </button>
-
-                {loading && (
-                  <div style={{ marginTop: "10px" }}>
-                    <Spinner animation="border" role="status">
-                      <span className="sr-only">Loading...</span>
-                    </Spinner>
-                    <p>Loading... Please wait</p>
-                  </div>
-                )}
-                {response && <div>Media ID: {response.mediaId}</div>}
-                {error && <div>Error: {error.message}</div>}
-              </div>
-
-              <div>
-                <hr />
-                <Col xs={12} md={12}>
-                  <Form.Control
-                    placeholder="URL Video"
-                    type="text"
-                    name="archPelicula"
-                    value={response?.url || ""}
-                    readOnly
-                  />
-                </Col>
-              </div>
-              <br />
-
-              {/*<input type="file" name="video" accept=".mp4" onChange={handleFileChange} />
+          {/*<input type="file" name="video" accept=".mp4" onChange={handleFileChange} />
               {videoPath && <video src={videoPath} controls />}
   <br />*/}
 
-              <Row>
-                <Col xs={12} md={8}>
-                  <Form.Control
-                    placeholder="Titulo"
-                    type="text"
-                    name="nombre"
-                    defaultValue={formData.nombre}
-                  />
-                </Col>
-                <Col xs={12} md={4}>
-                  <Form.Select
-                    aria-label="¿Recomendado?"
-                    name="recomendado"
-                    defaultValue={formData.recomendado}
-                  >
-                    <option>¿Recomendado?</option>
-                    <option value="1">SI</option>
-                    <option value="0">NO</option>
-                  </Form.Select>
-                </Col>
-              </Row>
-              <br />
+          <Row>
+            <Col xs={12} md={8}>
               <Form.Control
-                placeholder="Actores"
-                as="textarea"
-                name="actores"
-                defaultValue={formData.actores}
-              />
-              <br />
-              <Row>
-                <Col xs={12} md={8}>
-                  <Form.Control
-                    placeholder="Director"
-                    type="text"
-                    name="director"
-                    defaultValue={formData.director}
-                  />
-                </Col>
-                <Col xs={6} md={4}>
-                  <Form.Control
-                    placeholder="Duración"
-                    type="text"
-                    name="duracion"
-                    defaultValue={formData.duracion}
-                  />
-                </Col>
-              </Row>
-              <br />
-              <Form.Control
-                placeholder="Sinopsis"
-                as="textarea"
-                name="sinopsis"
-                defaultValue={formData.sinopsis}
-              />
-              <br />
-              <Form.Control
-                placeholder="Año"
+                placeholder="Titulo"
                 type="text"
-                name="anio"
-                defaultValue={formData.anio}
+                name="nombre"
+                defaultValue={formData.nombre}
               />
-              <hr />
-              <Badge bg="secondary" className="tituloFormularioDetalles">
-                <h4>A continuación, especifica las categorias</h4>
-              </Badge>
-              <br />
-              <hr />
+            </Col>
+            <Col xs={12} md={4}>
+              <Form.Select
+                aria-label="¿Recomendado?"
+                name="recomendado"
+                defaultValue={formData.recomendado}
+              >
+                <option>¿Recomendado?</option>
+                <option value="1">SI</option>
+                <option value="0">NO</option>
+              </Form.Select>
+            </Col>
+          </Row>
+          <br />
+          <Form.Control
+            placeholder="Actores"
+            as="textarea"
+            name="actores"
+            defaultValue={formData.actores}
+          />
+          <br />
+          <Row>
+            <Col xs={12} md={8}>
+              <Form.Control
+                placeholder="Director"
+                type="text"
+                name="director"
+                defaultValue={formData.director}
+              />
+            </Col>
+            <Col xs={6} md={4}>
+              <Form.Control
+                placeholder="Duración"
+                type="text"
+                name="duracion"
+                defaultValue={formData.duracion}
+              />
+            </Col>
+          </Row>
+          <br />
+          <Form.Control
+            placeholder="Sinopsis"
+            as="textarea"
+            name="sinopsis"
+            defaultValue={formData.sinopsis}
+          />
+          <br />
+          <Form.Control
+            placeholder="Año"
+            type="text"
+            name="anio"
+            defaultValue={formData.anio}
+          />
+          <hr />
+          <Badge bg="secondary" className="tituloFormularioDetalles">
+            <h4>A continuación, especifica las categorias</h4>
+          </Badge>
+          <br />
+          <hr />
 
-              <Row>
-                <Form.Group as={Col} controlId="formGridPorcentaje scrap">
-                  <Form.Label>ITEM</Form.Label>
-                  <Form.Control
-                    type="number"
-                    id="index"
-                    value={renglon}
-                    name="index"
-                    disabled
-                  />
-                </Form.Group>
+          <Row>
+            <Form.Group as={Col} controlId="formGridPorcentaje scrap">
+              <Form.Label>ITEM</Form.Label>
+              <Form.Control
+                type="number"
+                id="index"
+                value={renglon}
+                name="index"
+                disabled
+              />
+            </Form.Group>
 
-                <Form.Group as={Col} controlId="formGridCliente">
-                  <Form.Label>Categoria</Form.Label>
-                  <Form.Control
-                    id="categoria"
-                    as="select"
-                    name="categoria"
-                    defaultValue={formData.categoria}
+            <Form.Group as={Col} controlId="formGridCliente">
+              <Form.Label>Categoria</Form.Label>
+              <Form.Control
+                id="categoria"
+                as="select"
+                name="categoria"
+                defaultValue={formData.categoria}
+              >
+                <option>Elige una opción</option>
+                {map(listarCategoria, (cat, index) => (
+                  <option key={index} value={cat?.nombre}>
+                    {cat?.nombre}
+                  </option>
+                ))}
+              </Form.Control>
+            </Form.Group>
+
+            <Col sm="1">
+              <Form.Group as={Row} className="formGridCliente">
+                <Form.Label>&nbsp;</Form.Label>
+
+                <Col>
+                  <Button
+                    variant="success"
+                    title="Agregar el producto"
+                    className="editar"
+                    onClick={() => {
+                      addItems();
+                    }}
                   >
-                    <option>Elige una opción</option>
-                    {map(listarCategoria, (cat, index) => (
-                      <option key={index} value={cat?.nombre}>
-                        {cat?.nombre}
-                      </option>
-                    ))}
-                  </Form.Control>
-                </Form.Group>
+                    <FontAwesomeIcon
+                      icon={faCirclePlus}
+                      className="text-lg"
+                    />
+                  </Button>
+                </Col>
+                <Col>
+                  <Button
+                    variant="danger"
+                    title="Cancelar el producto"
+                    className="editar"
+                    onClick={() => {
+                      cancelarCargaProducto();
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faX} className="text-lg" />
+                  </Button>
+                </Col>
+              </Form.Group>
+            </Col>
+          </Row>
 
-                <Col sm="1">
-                  <Form.Group as={Row} className="formGridCliente">
-                    <Form.Label>&nbsp;</Form.Label>
+          <hr />
 
-                    <Col>
-                      <Button
-                        variant="success"
-                        title="Agregar el producto"
-                        className="editar"
+          {/* Listado de productos  */}
+          <div className="tablaProductos">
+            {/* ID, item, cantidad, um, descripcion, orden de compra, observaciones */}
+            {/* Inicia tabla informativa  */}
+            <Badge
+              bg="secondary"
+              className="tituloListadoProductosSeleccionados"
+            >
+              <h4>Listado de categorias seleccionadas</h4>
+            </Badge>
+            <br />
+            <hr />
+            <Table className="responsive-tableRegistroVentas">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tfoot></tfoot>
+              <tbody>
+                {map(listarCat, (producto, index) => (
+                  <tr key={index}>
+                    <td scope="row">{index + 1}</td>
+                    <td data-title="Descripcion">{producto.categoria}</td>
+                    <td data-title="Eliminar">
+                      <Badge
+                        bg="danger"
+                        title="Eliminar"
+                        className="eliminar"
                         onClick={() => {
-                          addItems();
-                        }}
-                      >
-                        <FontAwesomeIcon
-                          icon={faCirclePlus}
-                          className="text-lg"
-                        />
-                      </Button>
-                    </Col>
-                    <Col>
-                      <Button
-                        variant="danger"
-                        title="Cancelar el producto"
-                        className="editar"
-                        onClick={() => {
-                          cancelarCargaProducto();
+                          removeItem(producto);
                         }}
                       >
                         <FontAwesomeIcon icon={faX} className="text-lg" />
-                      </Button>
-                    </Col>
-                  </Form.Group>
-                </Col>
-              </Row>
-
-              <hr />
-
-              {/* Listado de productos  */}
-              <div className="tablaProductos">
-                {/* ID, item, cantidad, um, descripcion, orden de compra, observaciones */}
-                {/* Inicia tabla informativa  */}
-                <Badge
-                  bg="secondary"
-                  className="tituloListadoProductosSeleccionados"
-                >
-                  <h4>Listado de categorias seleccionadas</h4>
-                </Badge>
-                <br />
-                <hr />
-                <Table className="responsive-tableRegistroVentas">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Nombre</th>
-                      <th scope="col"></th>
-                    </tr>
-                  </thead>
-                  <tfoot></tfoot>
-                  <tbody>
-                    {map(listarCat, (producto, index) => (
-                      <tr key={index}>
-                        <td scope="row">{index + 1}</td>
-                        <td data-title="Descripcion">{producto.categoria}</td>
-                        <td data-title="Eliminar">
-                          <Badge
-                            bg="danger"
-                            title="Eliminar"
-                            className="eliminar"
-                            onClick={() => {
-                              removeItem(producto);
-                            }}
-                          >
-                            <FontAwesomeIcon icon={faX} className="text-lg" />
-                          </Badge>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </Table>
-                {/* Termina tabla informativa */}
-              </div>
-
-              <label></label>
-              <input className="submit" value="Enviar" type="submit" />
-            </Form>
+                      </Badge>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+            {/* Termina tabla informativa */}
           </div>
-        </Modal.Body>
-      </Modal>
+
+          <label></label>
+          <input className="submit" value="Enviar" type="submit" />
+        </Form>
+      </div>
     </>
   );
 }
